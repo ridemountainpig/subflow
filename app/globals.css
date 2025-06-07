@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Exile&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap");
 @import "tailwindcss";
 /*
   ---break---
@@ -121,6 +123,20 @@
     --radius-md: calc(var(--radius) - 2px);
     --radius-lg: var(--radius);
     --radius-xl: calc(var(--radius) + 4px);
+
+    --color-subflow-50: #faf0e6;
+    --color-subflow-100: #e5dcd3;
+    --color-subflow-200: #d0c8c0;
+    --color-subflow-300: #bbb4ae;
+    --color-subflow-400: #a6a09b;
+    --color-subflow-500: #918c88;
+    --color-subflow-600: #7b7775;
+    --color-subflow-700: #666362;
+    --color-subflow-800: #514f50;
+    --color-subflow-900: #27272a;
+
+    --font-exile: "Exile", sans-serif;
+    --font-poetsen: "Poetsen One", cursive;
 }
 /*
   ---break---
