@@ -148,4 +148,7 @@
     body {
         @apply bg-background text-foreground;
     }
+    .custom-scrollbar {
+        @apply [&::-webkit-scrollbar-thumb]:bg-subflow-600 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:rounded-full;
+    }
 }

@@ -14,3 +14,7 @@ export type Subscription = {
     createdAt: Date;
     updatedAt: Date;
 };
+
+export type SubscriptionWithPrice = Subscription & {
+    convertedPrice: number;
+};

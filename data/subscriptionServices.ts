@@ -743,4 +743,14 @@ export const subscriptionServices: SubscriptionServices[] = [
         name: "Perspective",
         icon: Svgl.PerspectiveDark,
     },
+    {
+        uuid: "b3ab066f-f4be-4342-94f1-e581f77d864c",
+        name: "Lovable",
+        icon: Svgl.Lovable,
+    },
+    {
+        uuid: "87cb6bc0-acfd-48b8-a30c-57489b13cc0b",
+        name: "Mocha",
+        icon: Svgl.MochaDark,
+    },
 ];
