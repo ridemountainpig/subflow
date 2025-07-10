@@ -68,6 +68,11 @@ export default function Subscription() {
                                     setUpdatedSubscription(!updatedSubscription)
                                 }
                             />
+                            <ChartDialog
+                                subscription={subscriptions}
+                                monthSpend={monthlySpend || 0}
+                                currency={currency}
+                            />
                         </div>
                         <div className="flex min-h-16 flex-col items-end">
                             <span className="text-subflow-50 font-poetsen text-base tracking-widest">
