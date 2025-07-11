@@ -32,19 +32,19 @@ export default function Header() {
                 <div className="col-span-1 flex h-fit items-center">
                     <Link href="/">
                         <img
-                            src="/subflow.svg"
+                            src="/subflow-dark.svg"
                             alt="subflow-logo"
                             className="h-19 w-19"
                         />
                     </Link>
                 </div>
-                <h1 className="font-exile text-subflow-50 col-span-1 text-center text-5xl tracking-[0.15em]">
+                <h1 className="font-exile text-subflow-50 col-span-1 text-center text-[44px] tracking-[0.15em]">
                     Subflow
                 </h1>
                 {isLoading ? (
                     <div />
                 ) : isLoggedIn ? (
-                    <div className="col-span-1 flex items-center justify-end">
+                    <div className="col-span-1 flex items-center justify-end gap-4">
                         <SignedIn>
                             <UserButton
                                 appearance={{
@@ -59,23 +59,21 @@ export default function Header() {
                         </SignedOut>
                     </div>
                 ) : isLoginPage ? (
-                    <Link
-                        href="/"
-                        className="col-span-1 flex items-center justify-end"
-                    >
-                        <button className="bg-subflow-50 text-subflow-900 font-poetsen cursor-pointer rounded-full px-7 py-2 text-lg tracking-wider">
-                            Back
-                        </button>
-                    </Link>
+                    <div className="col-span-1 flex items-center justify-end gap-4">
+                        <Link href="/">
+                            <button className="bg-subflow-50 text-subflow-900 font-poetsen cursor-pointer rounded-full px-7 py-2 text-lg tracking-wider">
+                                Back
+                            </button>
+                        </Link>
+                    </div>
                 ) : (
-                    <Link
-                        href="/login"
-                        className="col-span-1 flex items-center justify-end"
-                    >
-                        <button className="bg-subflow-50 text-subflow-900 font-poetsen cursor-pointer rounded-full px-7 py-2 text-lg tracking-wider">
-                            Login
-                        </button>
-                    </Link>
+                    <div className="col-span-1 flex items-center justify-end gap-4">
+                        <Link href="/login">
+                            <button className="bg-subflow-50 text-subflow-900 font-poetsen cursor-pointer rounded-full px-7 py-2 text-lg tracking-wider">
+                                Login
+                            </button>
+                        </Link>
+                    </div>
                 )}
             </div>
         </header>
