@@ -87,7 +87,9 @@ const SplitText: React.FC<SplitTextProps> = ({
                 once: true,
             },
             smoothChildTiming: true,
-            onStart: () => gsap.set(el, { opacity: 1 }),
+            onStart: () => {
+                gsap.set(el, { opacity: 1 });
+            },
             onComplete: () => {
                 animationCompletedRef.current = true;
                 gsap.set(targets, {
