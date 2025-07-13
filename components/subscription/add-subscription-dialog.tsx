@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 import { CirclePlus, LoaderCircle } from "lucide-react";
 import {
     Dialog,
@@ -36,7 +37,7 @@ export default function AddSubscriptionDialog({
     onSuccess,
 }: AddSubscriptionDialogProps) {
     const [open, setOpen] = useState(false);
-
+    const t = useTranslations("SubscriptionPage");
     const { currenciesList } = useCurrency();
 
     const [serviceName, setServiceName] = useState("");
@@ -99,7 +100,7 @@ export default function AddSubscriptionDialog({
 
         await addSubscription(subscription);
 
-        toast.success("Add Subscription Successfully");
+        toast.success(t("addSuccess"));
 
         setOpen(false);
         onSuccess?.();
@@ -113,19 +114,19 @@ export default function AddSubscriptionDialog({
                     className="text-subflow-50 cursor-pointer rounded-full"
                 />
             </DialogTrigger>
-            <DialogContent className="bg-subflow-900 border-subflow-100 font-poetsen rounded-2xl border-[3px]">
+            <DialogContent className="bg-subflow-900 border-subflow-100 rounded-2xl border-[3px]">
                 <DialogHeader>
                     <DialogTitle className="text-subflow-50 text-2xl tracking-widest">
-                        Add Subscription
+                        {t("addSubscriptionDialog.title")}
                     </DialogTitle>
                     <DialogDescription className="text-subflow-300 tracking-widest">
-                        Add a new subscription to your calendar.
+                        {t("addSubscriptionDialog.description")}
                     </DialogDescription>
                     <div className="text-subflow-50 pb-2 text-base tracking-widest">
-                        Service{" "}
+                        {t("service")}{" "}
                         {serviceNameError && (
                             <span className="text-red-400/90">
-                                Please select a service
+                                {t("serviceError")}
                             </span>
                         )}
                     </div>
@@ -136,17 +137,17 @@ export default function AddSubscriptionDialog({
                         setSelectedServiceUuid={setServiceUuid}
                     />
                     <div className="text-subflow-50 pb-2 text-base tracking-widest">
-                        Price{" "}
+                        {t("price")}{" "}
                         {servicePriceError && (
                             <span className="text-red-400/90">
-                                Please enter a price
+                                {t("priceError")}
                             </span>
                         )}
                     </div>
                     <div className="grid grid-cols-4 gap-x-2">
                         <Input
                             type="number"
-                            placeholder="Subscription Price"
+                            placeholder={t("pricePlaceholder")}
                             min={0}
                             className="text-subflow-800 bg-subflow-100 col-span-3 h-10 w-full rounded-md tracking-widest"
                             value={servicePrice || ""}
@@ -161,7 +162,7 @@ export default function AddSubscriptionDialog({
                             <SelectTrigger className="text-subflow-800 bg-subflow-100 col-span-1 h-10 w-full cursor-pointer tracking-widest">
                                 <SelectValue placeholder="Select Currency" />
                             </SelectTrigger>
-                            <SelectContent className="font-poetsen min-w-[--trigger-width] tracking-widest">
+                            <SelectContent className="min-w-[--trigger-width] tracking-widest">
                                 {Object.keys(currenciesList.currencies).map(
                                     (key) => (
                                         <SelectItem
@@ -177,14 +178,14 @@ export default function AddSubscriptionDialog({
                         </Select>
                     </div>
                     <div className="text-subflow-50 pb-2 text-base tracking-widest">
-                        Start Date
+                        {t("startDate")}
                     </div>
                     <DatePicker
                         startDate={startDate}
                         setStartDate={setStartDate}
                     />
                     <div className="text-subflow-50 pb-2 text-base tracking-widest">
-                        Payment Cycle
+                        {t("paymentCycle")}
                     </div>
                     <Select
                         value={paymentCycle}
@@ -193,11 +194,15 @@ export default function AddSubscriptionDialog({
                         }
                     >
                         <SelectTrigger className="text-subflow-800 bg-subflow-100 h-10 w-full cursor-pointer tracking-widest">
-                            <SelectValue placeholder="Monthly" />
+                            <SelectValue placeholder={t("monthly")} />
                         </SelectTrigger>
-                        <SelectContent className="font-poetsen tracking-wider">
-                            <SelectItem value="monthly">Monthly</SelectItem>
-                            <SelectItem value="yearly">Yearly</SelectItem>
+                        <SelectContent className="tracking-wider">
+                            <SelectItem value="monthly">
+                                {t("monthly")}
+                            </SelectItem>
+                            <SelectItem value="yearly">
+                                {t("yearly")}
+                            </SelectItem>
                         </SelectContent>
                     </Select>
                     <button
@@ -216,10 +221,10 @@ export default function AddSubscriptionDialog({
                                     size={20}
                                     strokeWidth={3}
                                 />
-                                <span>Adding Subscription</span>
+                                <span>{t("adding")}</span>
                             </div>
                         ) : (
-                            "Add Subscription"
+                            t("add")
                         )}
                     </button>
                 </DialogHeader>

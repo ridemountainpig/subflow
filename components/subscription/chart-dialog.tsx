@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, ComponentType, useMemo } from "react";
+import { useTranslations } from "next-intl";
 import {
     PieChart,
     Pie,
@@ -66,7 +67,7 @@ const ServiceIcon = ({
             {Icon ? (
                 <Icon className="h-7 w-7" />
             ) : (
-                <span className="text-subflow-50 font-poetsen text-2xl font-bold">
+                <span className="text-subflow-50 text-2xl font-bold">
                     {name.charAt(0).toUpperCase()}
                 </span>
             )}
@@ -106,34 +107,38 @@ const CustomLabel = (props: PieLabelRenderProps) => {
     );
 };
 
-const SubscriptionListItem = ({ item }: { item: SubscriptionItemProps }) => (
-    <div className="bg-subflow-800 hover:bg-subflow-700 flex items-center gap-4 rounded-xl p-4 transition-colors">
-        <ServiceIcon serviceId={item.serviceId} name={item.name} />
-        <div className="flex flex-1 flex-col gap-1.5">
-            <span className="text-subflow-50 text-lg">{item.name}</span>
-            <div className="flex items-center justify-between">
-                <span className="text-subflow-300">{item.percentage}%</span>
-                <span className="text-subflow-50">
-                    {item.value} {item.currency}
-                </span>
-            </div>
-            <hr className="border-subflow-600 border-1" />
-            <div className="flex items-center justify-between">
-                <div className="flex flex-col gap-1">
-                    <span className="text-subflow-300 text-sm">
-                        Total Spend
-                    </span>
-                    <span className="text-subflow-500 -mt-1 text-[11px] tracking-wider">
-                        Since {item.startDate.month} / {item.startDate.year}
+const SubscriptionListItem = ({ item }: { item: SubscriptionItemProps }) => {
+    const t = useTranslations("SubscriptionPage");
+    return (
+        <div className="bg-subflow-800 hover:bg-subflow-700 flex items-center gap-4 rounded-xl p-4 transition-colors">
+            <ServiceIcon serviceId={item.serviceId} name={item.name} />
+            <div className="flex flex-1 flex-col gap-1.5">
+                <span className="text-subflow-50 text-lg">{item.name}</span>
+                <div className="flex items-center justify-between">
+                    <span className="text-subflow-300">{item.percentage}%</span>
+                    <span className="text-subflow-50">
+                        {item.value} {item.currency}
                     </span>
                 </div>
-                <span className="text-subflow-50">
-                    {item.totalSpend} {item.currency}
-                </span>
+                <hr className="border-subflow-600 border-1" />
+                <div className="flex items-center justify-between">
+                    <div className="flex flex-col gap-1">
+                        <span className="text-subflow-300 text-sm">
+                            {t("totalSpend")}
+                        </span>
+                        <span className="text-subflow-500 -mt-1 text-[11px] tracking-wider">
+                            {t("since")} {item.startDate.month} /{" "}
+                            {item.startDate.year}
+                        </span>
+                    </div>
+                    <span className="text-subflow-50">
+                        {item.totalSpend} {item.currency}
+                    </span>
+                </div>
             </div>
         </div>
-    </div>
-);
+    );
+};
 
 export default function ChartDialog({
     subscription,
@@ -141,7 +146,7 @@ export default function ChartDialog({
     currency,
 }: ChartDialogProps) {
     const [isOpen, setIsOpen] = useState(false);
-
+    const t = useTranslations("SubscriptionPage");
     const data = useMemo(
         () =>
             subscription.map((item) => ({
@@ -178,7 +183,7 @@ export default function ChartDialog({
             </DialogTrigger>
             <DialogContent
                 showCloseButton={false}
-                className="bg-subflow-900 font-poetsen flex h-screen min-w-screen flex-col items-center justify-center border-none"
+                className="bg-subflow-900 flex h-screen min-w-screen flex-col items-center justify-center border-none"
             >
                 <DialogTitle></DialogTitle>
                 <div className="flex items-center">
@@ -212,16 +217,16 @@ export default function ChartDialog({
                                         y="46%"
                                         textAnchor="middle"
                                         dominantBaseline="middle"
-                                        className="fill-subflow-50 font-poetsen text-xl tracking-widest"
+                                        className="fill-subflow-50 text-xl tracking-widest"
                                     >
-                                        Monthly Spend
+                                        {t("monthlySpend")}
                                     </text>
                                     <text
                                         x="50%"
                                         y="54%"
                                         textAnchor="middle"
                                         dominantBaseline="middle"
-                                        className="fill-subflow-50 font-poetsen text-4xl tracking-widest"
+                                        className="fill-subflow-50 text-4xl tracking-widest"
                                     >
                                         {monthSpend}
                                         <tspan
@@ -238,7 +243,7 @@ export default function ChartDialog({
                     </div>
                     <div className="flex flex-col gap-4 select-none">
                         <span className="text-subflow-50 text-xl tracking-wider">
-                            Subscription List
+                            {t("subscriptionList")}
                         </span>
                         <div className="custom-scrollbar flex h-[600px] w-[300px] flex-col gap-3 overflow-y-auto pr-2">
                             {sortedData.map((item, index) => (
@@ -252,7 +257,7 @@ export default function ChartDialog({
                         onClick={() => setIsOpen(false)}
                         className="bg-subflow-800 text-subflow-50 hover:bg-subflow-700 cursor-pointer rounded-full px-4 py-2 tracking-widest select-none"
                     >
-                        Close
+                        {t("close")}
                     </button>
                 </div>
             </DialogContent>

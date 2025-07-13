@@ -25,11 +25,11 @@ export default function CardDescription({
                 <div className="bg-subflow-900 flex h-12 w-12 items-center justify-center rounded-xl p-2">
                     {icon}
                 </div>
-                <h3 className="text-subflow-50 font-poetsen text-3xl font-bold tracking-wider select-none">
+                <h3 className="text-subflow-50 text-3xl font-bold tracking-wider select-none">
                     {title}
                 </h3>
             </div>
-            <p className="text-subflow-300 font-poetsen text-lg font-bold tracking-widest select-none">
+            <p className="text-subflow-300 text-lg font-bold tracking-widest select-none">
                 {description}
             </p>
         </motion.div>

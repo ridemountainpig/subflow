@@ -1,18 +1,27 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+import createMiddleware from "next-intl/middleware";
+import { routing } from "./i18n/routing";
 
-const isPublicRoute = createRouteMatcher(["/login(.*)", "/"]);
+const isProtectedRoute = createRouteMatcher([
+    "/subscription",
+    "/en/subscription",
+    "/zh/subscription",
+]);
 
-export default clerkMiddleware(async (auth, request) => {
-    if (!isPublicRoute(request)) {
-        await auth.protect();
+const intlMiddleware = createMiddleware(routing);
+
+const combinedMiddleware = clerkMiddleware(async (auth, request) => {
+    if (!isProtectedRoute(request)) {
+        return intlMiddleware(request);
     }
+
+    await auth.protect();
+
+    return intlMiddleware(request);
 });
 
+export default combinedMiddleware;
+
 export const config = {
-    matcher: [
-        // Skip Next.js internals and all static files, unless found in search params
-        "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
-        // Always run for API routes
-        "/(api|trpc)(.*)",
-    ],
+    matcher: ["/((?!_next|_vercel|.*\\..*).*)", "/(api|trpc)(.*)"],
 };

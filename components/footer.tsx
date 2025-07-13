@@ -1,10 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 
+import { useTranslations } from "next-intl";
 import { Minus } from "lucide-react";
 import { GitHubLight, XLight, ZeaburLight } from "@ridemountainpig/svgl-react";
 import CreditCard from "@/components/homepage/credit-card";
 
 export default function Footer() {
+    const t = useTranslations("Footer");
     return (
         <footer className="bg-subflow-50 flex w-full flex-col items-center justify-center pb-6">
             <div className="bg-subflow-900 h-10 w-full rounded-b-full"></div>
@@ -13,27 +15,27 @@ export default function Footer() {
                     <div>
                         <div className="-ml-3 flex items-center gap-x-2">
                             <img
-                                src="subflow-light.svg"
+                                src="/subflow-light.svg"
                                 alt="Subflow"
                                 className="h-14 w-14"
                             />
-                            <span className="text-subflow-900 font-poetsen text-3xl font-bold tracking-widest">
+                            <span className="text-subflow-900 text-3xl font-bold tracking-widest">
                                 Subflow
                             </span>
                         </div>
-                        <span className="text-subflow-800 font-poetsen mt-2 text-sm font-bold tracking-widest">
-                            Flow Through Your Subscriptions with Clarity
+                        <span className="text-subflow-800 mt-2 text-sm font-bold tracking-widest">
+                            {t("subtitle")}
                         </span>
                     </div>
                     <CreditCard />
                 </div>
                 <div className="mt-10 flex w-full justify-between">
-                    <span className="text-subflow-900 font-poetsen text-sm font-bold tracking-widest">
+                    <span className="text-subflow-900 text-sm font-bold tracking-widest">
                         Copyright © {new Date().getFullYear()} Subflow. All
                         rights reserved.
                     </span>
                     <div className="flex items-center gap-x-2">
-                        <span className="text-subflow-900 font-poetsen text-sm font-bold tracking-widest">
+                        <span className="text-subflow-900 text-sm font-bold tracking-widest">
                             Created by{" "}
                             <a
                                 href="https://github.com/ridemountainpig"
@@ -61,7 +63,7 @@ export default function Footer() {
                             className="text-subflow-900 -ml-2 h-6 w-6 rotate-90"
                             strokeWidth={1.5}
                         />
-                        <span className="text-subflow-900 font-poetsen -ml-2 text-sm font-bold tracking-widest">
+                        <span className="text-subflow-900 -ml-2 text-sm font-bold tracking-widest">
                             Deployed on Zeabur
                         </span>
                         <a

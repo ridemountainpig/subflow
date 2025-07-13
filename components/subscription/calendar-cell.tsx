@@ -53,7 +53,7 @@ export default function CalendarCell({
                 {Icon ? (
                     <Icon className="h-4 w-4" />
                 ) : (
-                    <span className="text-subflow-50 font-poetsen text-lg font-bold">
+                    <span className="text-subflow-50 text-lg font-bold">
                         {subscription.name.charAt(0).toUpperCase()}
                     </span>
                 )}
@@ -69,16 +69,14 @@ export default function CalendarCell({
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.2, ease: "easeInOut" }}
             >
-                <span className="text-subflow-50 font-poetsen text-sm">
-                    +{count}
-                </span>
+                <span className="text-subflow-50 text-sm">+{count}</span>
             </motion.div>
         );
     };
 
     const cellContent = (
         <div key={day.date} className={cellStyles}>
-            <span className="font-poetsen pl-2">{day.date.split("-")[2]}</span>
+            <span className="pl-2">{day.date.split("-")[2]}</span>
             <div className="mt-1 flex w-full justify-center -space-x-1.5 px-1">
                 {subscription
                     ?.slice(0, 2)
@@ -94,7 +92,7 @@ export default function CalendarCell({
         return (
             <HoverCard openDelay={150} closeDelay={50}>
                 <HoverCardTrigger>{cellContent}</HoverCardTrigger>
-                <HoverCardContent className="bg-subflow-900 border-subflow-100 text-subflow-50 font-poetsen w-fit min-w-56 overflow-hidden rounded-2xl border-3 p-0">
+                <HoverCardContent className="bg-subflow-900 border-subflow-100 text-subflow-50 w-fit min-w-56 overflow-hidden rounded-2xl border-3 p-0">
                     <div className="custom-scrollbar max-h-66 overflow-y-auto p-3 select-none">
                         {subscription.map((sub, index) => (
                             <div key={index}>

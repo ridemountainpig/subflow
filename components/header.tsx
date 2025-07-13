@@ -1,9 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAuth } from "@clerk/nextjs";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import {
     SignedIn,
     UserButton,
@@ -11,11 +12,13 @@ import {
     RedirectToSignIn,
 } from "@clerk/nextjs";
 import { useState, useEffect } from "react";
+import LanguageSwitcher from "@/components/language-switcher";
 
 export default function Header() {
     const pathname = usePathname();
-    const isLoginPage = pathname === "/login";
+    const isLoginPage = /^\/(?:en|zh)\/login/.test(pathname);
     const { userId } = useAuth();
+    const t = useTranslations("Header");
     const [isLoading, setIsLoading] = useState(true);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -45,6 +48,7 @@ export default function Header() {
                     <div />
                 ) : isLoggedIn ? (
                     <div className="col-span-1 flex items-center justify-end gap-4">
+                        <LanguageSwitcher />
                         <SignedIn>
                             <UserButton
                                 appearance={{
@@ -60,17 +64,19 @@ export default function Header() {
                     </div>
                 ) : isLoginPage ? (
                     <div className="col-span-1 flex items-center justify-end gap-4">
+                        <LanguageSwitcher />
                         <Link href="/">
-                            <button className="bg-subflow-50 text-subflow-900 font-poetsen cursor-pointer rounded-full px-7 py-2 text-lg tracking-wider">
-                                Back
+                            <button className="bg-subflow-50 text-subflow-900 cursor-pointer rounded-full px-7 py-2 text-lg tracking-wider">
+                                {t("back")}
                             </button>
                         </Link>
                     </div>
                 ) : (
                     <div className="col-span-1 flex items-center justify-end gap-4">
+                        <LanguageSwitcher />
                         <Link href="/login">
-                            <button className="bg-subflow-50 text-subflow-900 font-poetsen cursor-pointer rounded-full px-7 py-2 text-lg tracking-wider">
-                                Login
+                            <button className="bg-subflow-50 text-subflow-900 cursor-pointer rounded-full px-7 py-2 text-lg tracking-wider">
+                                {t("login")}
                             </button>
                         </Link>
                     </div>

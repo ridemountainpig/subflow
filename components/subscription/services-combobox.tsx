@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useTranslations } from "next-intl";
 import { Check, MousePointerClick } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -28,6 +29,7 @@ export default function ServicesCombobox({
     selectedServiceUuid,
     setSelectedServiceUuid,
 }: ServicesComboboxProps) {
+    const t = useTranslations("SubscriptionPage");
     const [open, setOpen] = React.useState(false);
     const [searchValue, setSearchValue] = React.useState("");
 
@@ -76,7 +78,7 @@ export default function ServicesCombobox({
                         </div>
                     )
                 ) : (
-                    "Select Service"
+                    t("servicePlaceholder")
                 )}
                 <MousePointerClick />
             </Button>
@@ -86,8 +88,8 @@ export default function ServicesCombobox({
                 className="border-subflow-100 w-[95%] rounded-2xl border-[3px]"
             >
                 <CommandInput
-                    placeholder="Search Service"
-                    className="bg-subflow-900 text-subflow-100 font-poetsen h-9 tracking-widest"
+                    placeholder={t("searchService")}
+                    className="bg-subflow-900 text-subflow-100 h-9 tracking-widest"
                     onValueChange={(value) => {
                         setSearchValue(value);
                     }}
@@ -110,7 +112,7 @@ export default function ServicesCombobox({
                 <CommandList className="bg-subflow-900 text-subflow-100 custom-scrollbar py-2">
                     <CommandEmpty className="px-2 py-1">
                         <div
-                            className="text-subflow-900 bg-subflow-100 font-poetsen cursor-pointer rounded-sm focus:outline-none"
+                            className="text-subflow-900 bg-subflow-100 cursor-pointer rounded-sm focus:outline-none"
                             onClick={() => {
                                 setSelectedServiceName(searchValue);
                                 setSelectedServiceUuid("custom");
@@ -148,7 +150,7 @@ export default function ServicesCombobox({
                                     );
                                     setOpen(false);
                                 }}
-                                className="text-subflow-100 font-poetsen cursor-pointer tracking-widest"
+                                className="text-subflow-100 cursor-pointer tracking-widest"
                             >
                                 <div className="flex h-fit items-center gap-3">
                                     <div className="h-4 w-4">

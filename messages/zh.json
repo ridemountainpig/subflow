@@ -1,0 +1,101 @@
+{
+    "Header": {
+        "login": "登入",
+        "back": "返回"
+    },
+    "Footer": {
+        "subtitle": "輕鬆掌握與管理您的訂閱服務"
+    },
+    "HomePage": {
+        "title": "輕鬆管理你的所有訂閱",
+        "titleSplitOne": "輕鬆管理你的",
+        "titleSplitTwo": "所有訂閱",
+        "subtitle": "追蹤、整理、掌握每一筆訂閱開銷",
+        "free": "完全免費，無需付費",
+        "start": "馬上開始",
+        "manageSubscriptions": "前往管理訂閱",
+        "cardOne": {
+            "title": "統整你的所有訂閱",
+            "description": "訂閱一站管理，追蹤、編輯、整理一次搞定"
+        },
+        "cardTwo": {
+            "title": "掌握每筆訂閱支出",
+            "description": "即將扣款一目了然，行事曆同步清楚呈現"
+        },
+        "cardThree": {
+            "title": "圖表化呈現訂閱流",
+            "description": "花費比例一目了然，輕鬆掌握整體狀況"
+        },
+        "spotlightTitle": "為什麼選擇 Subflow",
+        "spotlightCardOne": {
+            "title": "永遠免費",
+            "description": "沒有收費方案，沒有功能限制，Subflow 完全免費使用"
+        },
+        "spotlightCardTwo": {
+            "title": "內建 SVGL 支援",
+            "descriptionOne": "內建整合 SVGL 圖示服務，快速選擇常用服務，圖示由",
+            "descriptionTwo": "提供"
+        },
+        "spotlightCardThree": {
+            "title": "隨時保持同步",
+            "description": "不論從哪裡登入，訂閱資料永遠是最新狀態"
+        },
+        "spotlightCardFour": {
+            "title": "支援多種貨幣",
+            "description": "支援多幣別管理，掌握海外訂閱也沒問題"
+        },
+        "bottomTitle": "不再錯過任何一筆訂閱",
+        "bottomSubtitle": "現在就開始使用 Subflow，讓您全面掌握每一筆訂閱支出"
+    },
+    "LoginPage": {
+        "title": "歡迎回到 Subflow",
+        "secure": "由 Clerk 提供安全驗證"
+    },
+    "SubscriptionPage": {
+        "monthlySpend": "每月花費",
+        "addSubscriptionDialog": {
+            "title": "新增訂閱",
+            "description": "新增新的訂閱項目"
+        },
+        "updateSubscriptionDialog": {
+            "title": "編輯訂閱",
+            "description": "編輯您的訂閱項目"
+        },
+        "deleteSubscriptionDialog": {
+            "title": "刪除訂閱",
+            "description": "確定要刪除這個訂閱項目嗎？",
+            "confirmTextOne": "您確定要刪除",
+            "confirmTextTwo": "這個訂閱項目嗎？"
+        },
+        "service": "服務",
+        "servicePlaceholder": "選擇服務",
+        "searchService": "搜尋服務",
+        "serviceError": "請選擇服務",
+        "price": "金額",
+        "pricePlaceholder": "訂閱金額",
+        "priceError": "請輸入訂閱金額",
+        "startDate": "開始日期",
+        "paymentCycle": "付款週期",
+        "monthly": "每月付款",
+        "yearly": "每年付款",
+        "add": "新增訂閱",
+        "adding": "新增訂閱中",
+        "update": "更新訂閱",
+        "updating": "更新訂閱中",
+        "delete": "刪除訂閱",
+        "deleting": "刪除訂閱中",
+        "cancel": "取消",
+        "addSuccess": "成功新增訂閱",
+        "updateSuccess": "成功更新訂閱",
+        "deleteSuccess": "成功刪除訂閱",
+        "subscriptionList": "訂閱清單",
+        "totalSpend": "總花費",
+        "since": "起始於",
+        "close": "關閉"
+    },
+    "NotFoundPage": {
+        "title": "找不到頁面",
+        "description": "您正在尋找的頁面不存在",
+        "back": "返回首頁"
+    }
+}

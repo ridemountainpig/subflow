@@ -1,0 +1,101 @@
+{
+    "Header": {
+        "login": "Login",
+        "back": "Back"
+    },
+    "Footer": {
+        "subtitle": "Flow Through Your Subscriptions with Clarity"
+    },
+    "HomePage": {
+        "title": "Flow Through Your Subscriptions with Clarity.",
+        "titleSplitOne": "Flow Through Your",
+        "titleSplitTwo": "Subscriptions with Clarity.",
+        "subtitle": "Track, organize, and simplify your subscription flow.",
+        "free": "No Pricing. Just Free.",
+        "start": "Get Started",
+        "manageSubscriptions": "Manage Subscriptions",
+        "cardOne": {
+            "title": "Manage All Your Subscriptions",
+            "description": "Track, edit, and organize your subscriptions in one place."
+        },
+        "cardTwo": {
+            "title": "Track Your Subscriptions",
+            "description": "See upcoming charges right on your calendar."
+        },
+        "cardThree": {
+            "title": "Visualize Your Subscription Flow",
+            "description": "Understand your spending at a glance."
+        },
+        "spotlightTitle": "What Makes Subflow Stand Out",
+        "spotlightCardOne": {
+            "title": "Free Forever",
+            "description": "No pricing tiers. No paywalls. Subflow is completely free to use."
+        },
+        "spotlightCardTwo": {
+            "title": "SVGL",
+            "descriptionOne": "Start quickly with built-in services powered by",
+            "descriptionTwo": "icons."
+        },
+        "spotlightCardThree": {
+            "title": "Always in Sync",
+            "description": "Your subscription data is always up to date wherever you log in."
+        },
+        "spotlightCardFour": {
+            "title": "Multi-Currency Support",
+            "description": "Track your subscriptions in any currency that matters to you."
+        },
+        "bottomTitle": "Never lose track of your subscriptions again.",
+        "bottomSubtitle": "Use Subflow for free, forever and stay fully in control."
+    },
+    "LoginPage": {
+        "title": "Welcome Back",
+        "secure": "Secure authentication powered by Clerk"
+    },
+    "SubscriptionPage": {
+        "monthlySpend": "Monthly Spend",
+        "addSubscriptionDialog": {
+            "title": "Add Subscription",
+            "description": "Add a new subscription to your list"
+        },
+        "updateSubscriptionDialog": {
+            "title": "Update Subscription",
+            "description": "Update your subscription"
+        },
+        "deleteSubscriptionDialog": {
+            "title": "Delete Subscription",
+            "description": "Are you sure you want to delete this subscription?",
+            "confirmTextOne": "Are you sure you want to delete",
+            "confirmTextTwo": "subscription?"
+        },
+        "service": "Service",
+        "servicePlaceholder": "Select Service",
+        "searchService": "Search Service",
+        "serviceError": "Please select a service",
+        "price": "Price",
+        "pricePlaceholder": "Subscription Price",
+        "priceError": "Please enter a price",
+        "startDate": "Start Date",
+        "paymentCycle": "Payment Cycle",
+        "monthly": "Monthly",
+        "yearly": "Yearly",
+        "add": "Add Subscription",
+        "adding": "Adding Subscription",
+        "update": "Update Subscription",
+        "updating": "Updating Subscription",
+        "delete": "Delete Subscription",
+        "deleting": "Deleting Subscription",
+        "cancel": "Cancel",
+        "addSuccess": "Add Subscription Successfully",
+        "updateSuccess": "Update Subscription Successfully",
+        "deleteSuccess": "Delete Subscription Successfully",
+        "subscriptionList": "Subscription List",
+        "totalSpend": "Total Spend",
+        "since": "Since",
+        "close": "Close"
+    },
+    "NotFoundPage": {
+        "title": "Page Not Found",
+        "description": "The page you are looking for does not exist.",
+        "back": "Back to Home"
+    }
+}

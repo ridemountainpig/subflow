@@ -114,7 +114,7 @@ export async function getCurrenciesList() {
             Accept: "application/json",
         },
         next: {
-            revalidate: 86400, // 24 hours
+            revalidate: 86400 * 7, // 7 days
         },
     });
     const data: CurrenciesListType = await response.json();

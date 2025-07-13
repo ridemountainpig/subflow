@@ -1,4 +1,5 @@
 import { ComponentType } from "react";
+import { useTranslations } from "next-intl";
 import { subscriptionServices } from "@/data/subscriptionServices";
 import { Subscription } from "@/types/subscription";
 import UpdateSubscriptionDialog from "@/components/subscription/update-subscription-dialog";
@@ -13,6 +14,7 @@ export default function SubscriptionListItem({
     subscription,
     onSuccess,
 }: SubscriptionListItemProps) {
+    const t = useTranslations("SubscriptionPage");
     const Icon = subscriptionServices.find(
         (service) => service.uuid === subscription.serviceId,
     )?.icon as ComponentType<{ className?: string }>;
@@ -40,8 +42,7 @@ export default function SubscriptionListItem({
             </div>
             <div className="text-subflow-400 flex items-center justify-between gap-x-2 tracking-widest">
                 <span className="text-[13px]">
-                    {subscription.paymentCycle.charAt(0).toUpperCase() +
-                        subscription.paymentCycle.slice(1)}
+                    {t(subscription.paymentCycle)}
                 </span>
                 <div className="flex items-center gap-x-0.5">
                     <UpdateSubscriptionDialog

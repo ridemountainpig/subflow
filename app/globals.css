@@ -1,6 +1,20 @@
 @import url("https://fonts.googleapis.com/css2?family=Exile&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap");
 @import "tailwindcss";
+
+/* English font */
+@font-face {
+    font-family: "Poetsen One Scoped";
+    src: url("/fonts/PoetsenOne.woff2") format("woff2");
+    unicode-range: U+0000-00FF;
+}
+
+/* Chinese font */
+@font-face {
+    font-family: "Gen Sen Rounded SC";
+    src: url("/fonts/GenSenRounded2TW-M.woff2") format("woff2");
+    unicode-range: U+4E00-9FFF, U+3000-303F;
+}
+
 /*
   ---break---
 */
@@ -30,6 +44,23 @@
     ::backdrop,
     ::file-selector-button {
         border-color: var(--color-gray-200, currentColor);
+    }
+
+    * {
+        @apply border-border outline-ring/50;
+    }
+
+    body,
+    .toast-font {
+        font-family: "Poetsen One Scoped", "Gen Sen Rounded SC", sans-serif;
+    }
+
+    body {
+        @apply bg-background text-foreground;
+    }
+
+    .custom-scrollbar {
+        @apply [&::-webkit-scrollbar-thumb]:bg-subflow-600 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:rounded-full;
     }
 }
 /*
@@ -136,19 +167,6 @@
     --color-subflow-900: #27272a;
 
     --font-exile: "Exile", sans-serif;
-    --font-poetsen: "Poetsen One", cursive;
-}
-/*
-  ---break---
-*/
-@layer base {
-    * {
-        @apply border-border outline-ring/50;
-    }
-    body {
-        @apply bg-background text-foreground;
-    }
-    .custom-scrollbar {
-        @apply [&::-webkit-scrollbar-thumb]:bg-subflow-600 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:rounded-full;
-    }
+    --font-poetsen: "Poetsen One Scoped", cursive;
+    --font-gensen: "Gen Sen Rounded SC", sans-serif;
 }

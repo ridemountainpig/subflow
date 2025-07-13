@@ -15,13 +15,13 @@ export default function CreditCard() {
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, ease: "easeOut" }}
-                className="from-subflow-900 to-subflow-700 font-poetsen relative h-fit w-[380px] rounded-2xl bg-gradient-to-br p-6 tracking-widest text-white shadow-xl select-none"
+                className="from-subflow-900 to-subflow-700 relative h-fit w-[380px] rounded-2xl bg-gradient-to-br p-6 tracking-widest text-white shadow-xl select-none"
             >
                 <div className="flex items-center justify-between">
                     <h2 className="text-xl font-bold">SUBFLOW CARD</h2>
                     <div className="h-10 w-10 rounded-full bg-white/10">
                         <img
-                            src="subflow-dark.svg"
+                            src="/subflow-dark.svg"
                             alt="Subflow"
                             className="h-10 w-10"
                         />
