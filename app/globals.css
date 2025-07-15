@@ -10,8 +10,8 @@
 
 /* Chinese font */
 @font-face {
-    font-family: "Gen Sen Rounded SC";
-    src: url("/fonts/GenSenRounded2TW-M.woff2") format("woff2");
+    font-family: "Huninn Regular Scoped";
+    src: url("/fonts/HuninnRegular.woff2") format("woff2");
     unicode-range: U+4E00-9FFF, U+3000-303F;
 }
 
@@ -52,7 +52,7 @@
 
     body,
     .toast-font {
-        font-family: "Poetsen One Scoped", "Gen Sen Rounded SC", sans-serif;
+        font-family: "Poetsen One Scoped", "Huninn Regular Scoped", sans-serif;
     }
 
     body {
@@ -168,5 +168,5 @@
 
     --font-exile: "Exile", sans-serif;
     --font-poetsen: "Poetsen One Scoped", cursive;
-    --font-gensen: "Gen Sen Rounded SC", sans-serif;
+    --font-huninn: "Huninn Regular Scoped", sans-serif;
 }
