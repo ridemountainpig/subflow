@@ -89,6 +89,7 @@
         "updateSuccess": "Update Subscription Successfully",
         "deleteSuccess": "Delete Subscription Successfully",
         "subscriptionList": "Subscription List",
+        "noSubscription": "No subscription yet",
         "totalSpend": "Total Spend",
         "since": "Since",
         "close": "Close"

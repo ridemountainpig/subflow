@@ -191,7 +191,17 @@ export default function ChartDialog({
                         <ResponsiveContainer width="100%" height="100%">
                             <PieChart>
                                 <Pie
-                                    data={data}
+                                    data={
+                                        data.length > 0
+                                            ? data
+                                            : [
+                                                  {
+                                                      name: "",
+                                                      value: 1,
+                                                      percentage: "100.0",
+                                                  },
+                                              ]
+                                    }
                                     cx="50%"
                                     cy="50%"
                                     innerRadius={190}
@@ -237,20 +247,36 @@ export default function ChartDialog({
                                             {currency}
                                         </tspan>
                                     </text>
+                                    {sortedData.length === 0 && (
+                                        <text
+                                            x="50%"
+                                            y="62%"
+                                            textAnchor="middle"
+                                            dominantBaseline="middle"
+                                            className="fill-subflow-50 text-xl tracking-widest"
+                                        >
+                                            {t("noSubscription")}
+                                        </text>
+                                    )}
                                 </Pie>
                             </PieChart>
                         </ResponsiveContainer>
                     </div>
-                    <div className="flex flex-col gap-4 select-none">
-                        <span className="text-subflow-50 text-xl tracking-wider">
-                            {t("subscriptionList")}
-                        </span>
-                        <div className="custom-scrollbar flex h-[600px] w-[300px] flex-col gap-3 overflow-y-auto pr-2">
-                            {sortedData.map((item, index) => (
-                                <SubscriptionListItem key={index} item={item} />
-                            ))}
+                    {sortedData.length > 0 && (
+                        <div className="flex flex-col gap-4 select-none">
+                            <span className="text-subflow-50 text-xl tracking-wider">
+                                {t("subscriptionList")}
+                            </span>
+                            <div className="custom-scrollbar flex h-[600px] w-[300px] flex-col gap-3 overflow-y-auto pr-2">
+                                {sortedData.map((item, index) => (
+                                    <SubscriptionListItem
+                                        key={index}
+                                        item={item}
+                                    />
+                                ))}
+                            </div>
                         </div>
-                    </div>
+                    )}
                 </div>
                 <div className="flex flex-col items-center justify-center">
                     <button

@@ -89,6 +89,7 @@
         "updateSuccess": "成功更新訂閱",
         "deleteSuccess": "成功刪除訂閱",
         "subscriptionList": "訂閱清單",
+        "noSubscription": "尚無訂閱項目",
         "totalSpend": "總花費",
         "since": "起始於",
         "close": "關閉"
