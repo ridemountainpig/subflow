@@ -59,7 +59,12 @@ export const useSubscription = (
 
     useEffect(() => {
         const processSubscriptions = async () => {
-            if (currencyListLoading || !rawSubscriptions.length) {
+            if (currencyListLoading) {
+                return;
+            }
+
+            if (!rawSubscriptions.length) {
+                setSubscriptions([]);
                 return;
             }
 
