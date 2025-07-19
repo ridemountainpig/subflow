@@ -11,6 +11,11 @@ const isProtectedRoute = createRouteMatcher([
 const intlMiddleware = createMiddleware(routing);
 
 const combinedMiddleware = clerkMiddleware(async (auth, request) => {
+    // Skip Clerk auth for webhooks
+    if (request.nextUrl.pathname.startsWith("/api/webhooks")) {
+        return;
+    }
+
     if (!isProtectedRoute(request)) {
         return intlMiddleware(request);
     }
