@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { zhTW, enUS } from "@clerk/localizations";
 import { NextIntlClientProvider, useLocale } from "next-intl";
@@ -37,7 +38,9 @@ export async function generateMetadata(): Promise<Metadata> {
             description,
             images: [
                 {
-                    url: isZh ? "/subflow-zh-og.png" : "/subflow-en-og.png",
+                    url: isZh
+                        ? "https://subflow.ing/subflow-zh-og.png"
+                        : "https://subflow.ing/subflow-en-og.png",
                     width: 1200,
                     height: 630,
                     alt: isZh ? "Subflow 開放圖像" : "Subflow OG Image",
@@ -49,7 +52,11 @@ export async function generateMetadata(): Promise<Metadata> {
             title,
             description,
             creator: "@ridemountainpig",
-            images: [isZh ? "/subflow-zh-og.png" : "/subflow-en-og.png"],
+            images: [
+                isZh
+                    ? "https://subflow.ing/subflow-zh-og.png"
+                    : "https://subflow.ing/subflow-en-og.png",
+            ],
         },
     };
 }
@@ -100,6 +107,7 @@ export default function RootLayout({
         >
             <html lang={locale}>
                 <body>
+                    <GoogleAnalytics gaId="G-GV0VX77XD7" />
                     <NextIntlClientProvider>
                         <CurrencyProvider>
                             <Header />
