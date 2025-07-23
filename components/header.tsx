@@ -30,55 +30,56 @@ export default function Header() {
     }, [userId]);
 
     return (
-        <header className="bg-subflow-900 w-full pt-10 select-none">
-            <div className="mx-auto grid w-[90%] grid-cols-3 items-center">
+        <header className="bg-subflow-900 w-full pt-4 select-none sm:pt-10">
+            <div className="mx-auto grid w-[98%] grid-cols-4 items-center sm:w-[95%] sm:grid-cols-3 md:w-[90%]">
                 <div className="col-span-1 flex h-fit items-center">
                     <Link href="/">
                         <img
                             src="/subflow-dark.svg"
                             alt="subflow-logo"
-                            className="h-19 w-19"
+                            className="h-12 w-12 sm:h-19 sm:w-19"
                         />
                     </Link>
                 </div>
-                <h1 className="font-exile text-subflow-50 col-span-1 text-center text-[44px] tracking-[0.15em]">
-                    Subflow
-                </h1>
+                <div className="col-span-2 flex items-center justify-center sm:col-span-1">
+                    <h1 className="font-exile text-subflow-50 w-fit text-[26px] tracking-[0.15em] sm:text-[32px] md:text-[44px]">
+                        Subflow
+                    </h1>
+                </div>
                 {isLoading ? (
                     <div />
-                ) : isLoggedIn ? (
-                    <div className="col-span-1 flex items-center justify-end gap-4">
-                        <LanguageSwitcher />
-                        <SignedIn>
-                            <UserButton
-                                appearance={{
-                                    elements: {
-                                        avatarBox: "min-w-10 min-h-10",
-                                    },
-                                }}
-                            />
-                        </SignedIn>
-                        <SignedOut>
-                            <RedirectToSignIn />
-                        </SignedOut>
-                    </div>
-                ) : isLoginPage ? (
-                    <div className="col-span-1 flex items-center justify-end gap-4">
-                        <LanguageSwitcher />
-                        <Link href="/">
-                            <button className="bg-subflow-50 text-subflow-900 cursor-pointer rounded-full px-7 py-2 text-lg tracking-wider">
-                                {t("back")}
-                            </button>
-                        </Link>
-                    </div>
                 ) : (
-                    <div className="col-span-1 flex items-center justify-end gap-4">
+                    <div className="col-span-1 flex items-center justify-end gap-2 pr-2 sm:gap-4 sm:pr-0">
                         <LanguageSwitcher />
-                        <Link href="/login">
-                            <button className="bg-subflow-50 text-subflow-900 cursor-pointer rounded-full px-7 py-2 text-lg tracking-wider">
-                                {t("login")}
-                            </button>
-                        </Link>
+                        {isLoggedIn ? (
+                            <>
+                                <SignedIn>
+                                    <UserButton
+                                        appearance={{
+                                            elements: {
+                                                avatarBox:
+                                                    "min-w-8 min-h-8 sm:min-w-10 sm:min-h-10",
+                                            },
+                                        }}
+                                    />
+                                </SignedIn>
+                                <SignedOut>
+                                    <RedirectToSignIn />
+                                </SignedOut>
+                            </>
+                        ) : isLoginPage ? (
+                            <Link href="/">
+                                <button className="bg-subflow-50 text-subflow-900 cursor-pointer rounded-full px-3 py-2 text-xs md:px-7 md:text-lg md:tracking-wider">
+                                    {t("back")}
+                                </button>
+                            </Link>
+                        ) : (
+                            <Link href="/login">
+                                <button className="bg-subflow-50 text-subflow-900 cursor-pointer rounded-full px-3 py-2 text-xs md:px-7 md:text-lg md:tracking-wider">
+                                    {t("login")}
+                                </button>
+                            </Link>
+                        )}
                     </div>
                 )}
             </div>

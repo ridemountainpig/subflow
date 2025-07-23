@@ -39,8 +39,9 @@ export const useSubscription = (
         return rawSubscriptions.filter((subscription: SubscriptionType) => {
             if (subscription.paymentCycle === "yearly") {
                 return (
-                    subscription.startDate.year <= year &&
-                    subscription.startDate.month === month
+                    subscription.startDate.year < year ||
+                    (subscription.startDate.year === year &&
+                        subscription.startDate.month <= month)
                 );
             }
             return (
@@ -122,13 +123,16 @@ export const useSubscription = (
         }
 
         return subscriptions.reduce(
-            (sum, subscription) => sum + subscription.convertedPrice,
+            (sum, subscription) =>
+                sum +
+                subscription.convertedPrice /
+                    (subscription.paymentCycle === "yearly" ? 12 : 1),
             0,
         );
     }, [currencyListLoading, subscriptions, subscriptionsToConvert]);
 
     useEffect(() => {
-        setMonthlySpend(totalSpend);
+        setMonthlySpend(totalSpend ? Math.round(totalSpend) : totalSpend);
     }, [totalSpend]);
 
     return {

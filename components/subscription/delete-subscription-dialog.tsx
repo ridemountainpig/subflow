@@ -47,8 +47,8 @@ export default function DeleteSubscriptionDialog({
                     <Trash2 size={16} strokeWidth={2} />
                 </div>
             </DialogTrigger>
-            <DialogContent className="bg-subflow-900 border-subflow-100 w-[30rem] rounded-2xl border-[3px] p-4 select-none">
-                <DialogHeader>
+            <DialogContent className="bg-subflow-900 border-subflow-100 w-[30rem] rounded-2xl border-[3px] p-3 select-none sm:p-4">
+                <DialogHeader className="text-left">
                     <DialogTitle className="text-subflow-50 text-lg tracking-widest">
                         {t("deleteSubscriptionDialog.title")}
                     </DialogTitle>

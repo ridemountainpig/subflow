@@ -35,7 +35,7 @@ export default function SubscriptionStackAnimation() {
     };
 
     return (
-        <div className="relative h-30 w-22 perspective-[800px]">
+        <div className="relative h-30 w-20 perspective-[800px] md:w-22">
             <AnimatePresence mode="popLayout">
                 {getVisibleServices().map((service, index) => {
                     const Icon = service.icon;
@@ -82,7 +82,7 @@ export default function SubscriptionStackAnimation() {
                             }}
                         >
                             {isTopCard ? (
-                                <div className="h-16 w-16 overflow-hidden rounded-lg">
+                                <div className="h-14 w-14 overflow-hidden rounded-lg md:h-16 md:w-16">
                                     {React.createElement(
                                         Icon as ComponentType<{
                                             className?: string;
@@ -93,7 +93,7 @@ export default function SubscriptionStackAnimation() {
                                     )}
                                 </div>
                             ) : (
-                                <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-gray-400 to-gray-500 opacity-50 shadow-inner" />
+                                <div className="h-14 w-14 rounded-2xl bg-gradient-to-br from-gray-400 to-gray-500 opacity-50 shadow-inner md:h-16 md:w-16" />
                             )}
                         </motion.div>
                     );

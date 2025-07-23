@@ -15,7 +15,7 @@ export default function CreditCard() {
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, ease: "easeOut" }}
-                className="from-subflow-900 to-subflow-700 relative h-fit w-[380px] rounded-2xl bg-gradient-to-br p-6 tracking-widest text-white shadow-xl select-none"
+                className="from-subflow-900 to-subflow-700 relative h-fit w-[350px] rounded-2xl bg-gradient-to-br p-6 tracking-widest text-white shadow-xl select-none sm:w-[360px] lg:w-[380px]"
             >
                 <div className="flex items-center justify-between">
                     <h2 className="text-xl font-bold">SUBFLOW CARD</h2>

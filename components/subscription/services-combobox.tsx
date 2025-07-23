@@ -39,7 +39,7 @@ export default function ServicesCombobox({
                 variant="outline"
                 role="combobox"
                 aria-expanded={open}
-                className="bg-subflow-100 text-subflow-800 hover:bg-subflow-100 hover:text-subflow-800 w-full cursor-pointer justify-between"
+                className="bg-subflow-100 text-subflow-800 hover:bg-subflow-100 hover:text-subflow-800 w-full cursor-pointer justify-between text-xs tracking-widest sm:text-base"
                 onClick={() => setOpen(true)}
             >
                 {selectedServiceName ? (
@@ -66,7 +66,7 @@ export default function ServicesCombobox({
                                         : null;
                                 })()}
                             </div>
-                            <span className="text-sm tracking-widest">
+                            <span className="text-xs tracking-widest sm:text-sm">
                                 {
                                     subscriptionServices.find(
                                         (service) =>
@@ -89,7 +89,7 @@ export default function ServicesCombobox({
             >
                 <CommandInput
                     placeholder={t("searchService")}
-                    className="bg-subflow-900 text-subflow-100 h-9 tracking-widest"
+                    className="bg-subflow-900 text-subflow-100 h-9 text-xs tracking-widest sm:text-base"
                     onValueChange={(value) => {
                         setSearchValue(value);
                     }}
@@ -150,7 +150,7 @@ export default function ServicesCombobox({
                                     );
                                     setOpen(false);
                                 }}
-                                className="text-subflow-100 cursor-pointer tracking-widest"
+                                className="text-subflow-100 cursor-pointer text-xs tracking-widest sm:text-base"
                             >
                                 <div className="flex h-fit items-center gap-3">
                                     <div className="h-4 w-4">

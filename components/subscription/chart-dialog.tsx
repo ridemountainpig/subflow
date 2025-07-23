@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, ComponentType, useMemo } from "react";
+import { useState, useEffect, ComponentType, useMemo, useRef } from "react";
 import { useTranslations } from "next-intl";
 import {
     PieChart,
@@ -15,9 +15,13 @@ import {
     DialogContent,
     DialogTrigger,
     DialogTitle,
+    DialogDescription,
 } from "@/components/ui/dialog";
+
+import { useIsMobile } from "@/app/hooks/useIsMobile";
 import { SubscriptionWithPrice } from "@/types/subscription";
 import { subscriptionServices } from "@/data/subscriptionServices";
+import FormattedNumber from "@/components/subscription/formatted-number";
 
 interface ChartDialogProps {
     subscription: SubscriptionWithPrice[];
@@ -31,6 +35,7 @@ interface SubscriptionItemProps {
     value: number;
     currency: string;
     percentage: string;
+    paymentCycle: string;
     startDate: {
         year: number;
         month: number;
@@ -65,7 +70,7 @@ const ServiceIcon = ({
     return (
         <div className="flex h-8 w-8 items-center justify-center">
             {Icon ? (
-                <Icon className="h-7 w-7" />
+                <Icon className="h-6 w-6 sm:h-7 sm:w-7" />
             ) : (
                 <span className="text-subflow-50 text-2xl font-bold">
                     {name.charAt(0).toUpperCase()}
@@ -109,6 +114,7 @@ const CustomLabel = (props: PieLabelRenderProps) => {
 
 const SubscriptionListItem = ({ item }: { item: SubscriptionItemProps }) => {
     const t = useTranslations("SubscriptionPage");
+
     return (
         <div className="bg-subflow-800 hover:bg-subflow-700 flex items-center gap-4 rounded-xl p-4 transition-colors">
             <ServiceIcon serviceId={item.serviceId} name={item.name} />
@@ -117,7 +123,7 @@ const SubscriptionListItem = ({ item }: { item: SubscriptionItemProps }) => {
                 <div className="flex items-center justify-between">
                     <span className="text-subflow-300">{item.percentage}%</span>
                     <span className="text-subflow-50">
-                        {item.value} {item.currency}
+                        <FormattedNumber value={item.value} /> {item.currency}
                     </span>
                 </div>
                 <hr className="border-subflow-600 border-1" />
@@ -132,7 +138,8 @@ const SubscriptionListItem = ({ item }: { item: SubscriptionItemProps }) => {
                         </span>
                     </div>
                     <span className="text-subflow-50">
-                        {item.totalSpend} {item.currency}
+                        <FormattedNumber value={item.totalSpend} />{" "}
+                        {item.currency}
                     </span>
                 </div>
             </div>
@@ -146,22 +153,48 @@ export default function ChartDialog({
     currency,
 }: ChartDialogProps) {
     const [isOpen, setIsOpen] = useState(false);
+    const [screenWidth, setScreenWidth] = useState(0);
+    const chartRef = useRef<HTMLDivElement>(null);
     const t = useTranslations("SubscriptionPage");
+    const isMobile = useIsMobile();
+
+    useEffect(() => {
+        const updateScreenWidth = () => {
+            setScreenWidth(window.innerWidth);
+        };
+
+        updateScreenWidth();
+
+        window.addEventListener("resize", updateScreenWidth);
+
+        return () => {
+            window.removeEventListener("resize", updateScreenWidth);
+        };
+    }, []);
+
     const data = useMemo(
         () =>
-            subscription.map((item) => ({
-                name: item.name,
-                serviceId: item.serviceId || "",
-                value: item.convertedPrice,
-                currency,
-                percentage: ((item.convertedPrice / monthSpend) * 100).toFixed(
-                    1,
-                ),
-                startDate: item.startDate,
-                totalSpend:
-                    item.convertedPrice *
-                    calculateMonthsFromStart(item.startDate),
-            })),
+            subscription.map((item) => {
+                const monthlyPrice = Math.round(
+                    item.convertedPrice /
+                        (item.paymentCycle === "yearly" ? 12 : 1),
+                );
+
+                const monthsFromStart = calculateMonthsFromStart(
+                    item.startDate,
+                );
+
+                return {
+                    name: item.name,
+                    serviceId: item.serviceId || "",
+                    value: monthlyPrice,
+                    currency,
+                    percentage: ((monthlyPrice / monthSpend) * 100).toFixed(1),
+                    paymentCycle: item.paymentCycle,
+                    startDate: item.startDate,
+                    totalSpend: monthlyPrice * monthsFromStart,
+                };
+            }),
         [subscription, monthSpend, currency],
     );
 
@@ -176,18 +209,31 @@ export default function ChartDialog({
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTrigger>
-                <ChartPie
-                    size={34}
-                    className="text-subflow-50 cursor-pointer rounded-full"
-                />
+                <ChartPie className="text-subflow-50 size-6 cursor-pointer rounded-full sm:size-[34px]" />
             </DialogTrigger>
             <DialogContent
-                showCloseButton={false}
-                className="bg-subflow-900 flex h-screen min-w-screen flex-col items-center justify-center border-none"
+                showCloseButton={isMobile ? true : false}
+                className={`bg-subflow-900 flex min-w-screen flex-col border-none ${isMobile ? "h-full overflow-y-auto" : "h-screen items-center justify-center"}`}
             >
                 <DialogTitle></DialogTitle>
-                <div className="flex items-center">
-                    <div className="pointer-events-none h-[600px] w-[600px] select-none">
+                <DialogDescription></DialogDescription>
+                <div
+                    className={`flex items-center ${isMobile && "flex-col"}`}
+                    ref={chartRef}
+                >
+                    <div
+                        className="pointer-events-none select-none"
+                        style={
+                            isMobile && screenWidth > 0
+                                ? {
+                                      height: `${screenWidth}px`,
+                                      width: `${screenWidth}px`,
+                                  }
+                                : !isMobile
+                                  ? { height: "600px", width: "600px" }
+                                  : {}
+                        }
+                    >
                         <ResponsiveContainer width="100%" height="100%">
                             <PieChart>
                                 <Pie
@@ -204,8 +250,12 @@ export default function ChartDialog({
                                     }
                                     cx="50%"
                                     cy="50%"
-                                    innerRadius={190}
-                                    outerRadius={220}
+                                    innerRadius={
+                                        isMobile ? screenWidth / 3 - 10 : 190
+                                    }
+                                    outerRadius={
+                                        isMobile ? screenWidth / 3 + 20 : 220
+                                    }
                                     paddingAngle={2.5}
                                     dataKey="value"
                                     cornerRadius={6}
@@ -263,11 +313,20 @@ export default function ChartDialog({
                         </ResponsiveContainer>
                     </div>
                     {sortedData.length > 0 && (
-                        <div className="flex flex-col gap-4 select-none">
+                        <div
+                            className={`flex flex-col gap-4 select-none ${isMobile ? "w-full" : ""}`}
+                        >
                             <span className="text-subflow-50 text-xl tracking-wider">
                                 {t("subscriptionList")}
                             </span>
-                            <div className="custom-scrollbar flex h-[600px] w-[300px] flex-col gap-3 overflow-y-auto pr-2">
+                            <span
+                                className={`text-subflow-300 -mt-2 text-xs tracking-wider ${isMobile ? "w-full" : "w-[300px]"}`}
+                            >
+                                {t("subscriptionListDescription")}
+                            </span>
+                            <div
+                                className={`custom-scrollbar flex flex-col gap-3 overflow-y-auto ${isMobile ? "h-full w-full" : "h-[600px] w-[300px] pr-2"}`}
+                            >
                                 {sortedData.map((item, index) => (
                                     <SubscriptionListItem
                                         key={index}

@@ -10,10 +10,10 @@ export default function Footer() {
     return (
         <footer className="bg-subflow-50 flex w-full flex-col items-center justify-center pb-6">
             <div className="bg-subflow-900 h-10 w-full rounded-b-full"></div>
-            <div className="mt-10 flex w-[85%] flex-col">
-                <div className="flex items-center justify-between">
+            <div className="mt-10 flex w-[95%] flex-col lg:w-[90%]">
+                <div className="flex flex-col items-center justify-between gap-y-6 md:flex-row">
                     <div>
-                        <div className="-ml-3 flex items-center gap-x-2">
+                        <div className="-ml-3 flex items-center justify-center gap-x-2 md:justify-start">
                             <img
                                 src="/subflow-light.svg"
                                 alt="Subflow"
@@ -23,56 +23,60 @@ export default function Footer() {
                                 Subflow
                             </span>
                         </div>
-                        <span className="text-subflow-800 mt-2 text-sm font-bold tracking-widest">
+                        <span className="text-subflow-800 mt-2 text-xs font-bold tracking-widest sm:text-sm">
                             {t("subtitle")}
                         </span>
                     </div>
                     <CreditCard />
                 </div>
-                <div className="mt-10 flex w-full justify-between">
-                    <span className="text-subflow-900 text-sm font-bold tracking-widest">
-                        Copyright © {new Date().getFullYear()} Subflow. All
-                        rights reserved.
-                    </span>
-                    <div className="flex items-center gap-x-2">
-                        <span className="text-subflow-900 text-sm font-bold tracking-widest">
-                            Created by{" "}
+                <div className="text-subflow-900 mt-10 flex w-full flex-col items-center gap-y-4 text-xs font-bold tracking-widest md:flex-row md:justify-between lg:text-sm">
+                    <div className="flex items-center">
+                        <span>
+                            Copyright © {new Date().getFullYear()} Subflow. All
+                            rights reserved.
+                        </span>
+                    </div>
+                    <div className="flex flex-col items-center gap-x-1 gap-y-4 sm:flex-row lg:gap-x-2">
+                        <div className="flex items-center gap-x-1 lg:gap-x-2">
+                            <span>
+                                Created by{" "}
+                                <a
+                                    href="https://github.com/ridemountainpig"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    Ridemountainpig
+                                </a>
+                            </span>
                             <a
-                                href="https://github.com/ridemountainpig"
+                                href="https://x.com/ridemountainpig"
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
-                                Ridemountainpig
+                                <XLight className="h-4 w-4" />
                             </a>
-                        </span>
-                        <a
-                            href="https://x.com/ridemountainpig"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <XLight className="h-4 w-4" />
-                        </a>
-                        <a
-                            href="https://github.com/ridemountainpig/subflow"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <GitHubLight className="h-4 w-4" />
-                        </a>
+                            <a
+                                href="https://github.com/ridemountainpig/subflow"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                <GitHubLight className="h-4 w-4" />
+                            </a>
+                        </div>
                         <Minus
-                            className="text-subflow-900 -ml-2 h-6 w-6 rotate-90"
+                            className="-ml-2 hidden h-6 w-6 rotate-90 sm:block"
                             strokeWidth={1.5}
                         />
-                        <span className="text-subflow-900 -ml-2 text-sm font-bold tracking-widest">
-                            Deployed on Zeabur
-                        </span>
-                        <a
-                            href="https://zeabur.com/referral?referralCode=ridemountainpig"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <ZeaburLight className="h-4 w-4" />
-                        </a>
+                        <div className="flex items-center gap-x-1 lg:gap-x-2">
+                            <span className="-ml-2">Deployed on Zeabur</span>
+                            <a
+                                href="https://zeabur.com/referral?referralCode=ridemountainpig"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                <ZeaburLight className="h-4 w-4" />
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

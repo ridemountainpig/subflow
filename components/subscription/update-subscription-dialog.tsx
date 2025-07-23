@@ -110,18 +110,18 @@ export default function UpdateSubscriptionDialog({
                     <Pencil size={16} strokeWidth={2} />
                 </div>
             </DialogTrigger>
-            <DialogContent className="bg-subflow-900 border-subflow-100 rounded-2xl border-[3px]">
-                <DialogHeader>
-                    <DialogTitle className="text-subflow-50 text-2xl tracking-widest">
+            <DialogContent className="bg-subflow-900 border-subflow-100 rounded-2xl border-[3px] p-3 sm:p-6">
+                <DialogHeader className="text-left">
+                    <DialogTitle className="text-subflow-50 text-base tracking-widest sm:text-xl md:text-2xl">
                         {t("updateSubscriptionDialog.title")}
                     </DialogTitle>
-                    <DialogDescription className="text-subflow-300 tracking-widest">
+                    <DialogDescription className="text-subflow-300 text-xs tracking-widest sm:text-sm md:text-base">
                         {t("updateSubscriptionDialog.description")}
                     </DialogDescription>
-                    <div className="text-subflow-50 pb-2 text-base tracking-widest">
+                    <div className="text-subflow-50 pb-2 text-sm tracking-widest sm:text-base">
                         {t("service")}{" "}
                         {serviceNameError && (
-                            <span className="text-red-400/90">
+                            <span className="text-sm text-red-400/90 sm:text-base">
                                 {t("serviceError")}
                             </span>
                         )}
@@ -132,20 +132,20 @@ export default function UpdateSubscriptionDialog({
                         selectedServiceUuid={serviceUuid || ""}
                         setSelectedServiceUuid={setServiceUuid}
                     />
-                    <div className="text-subflow-50 pb-2 text-base tracking-widest">
+                    <div className="text-subflow-50 pb-2 text-sm tracking-widest sm:text-base">
                         {t("price")}{" "}
                         {servicePriceError && (
-                            <span className="text-red-400/90">
+                            <span className="text-sm text-red-400/90 sm:text-base">
                                 {t("priceError")}
                             </span>
                         )}
                     </div>
-                    <div className="grid grid-cols-4 gap-x-2">
+                    <div className="grid grid-cols-4 gap-x-1 sm:gap-x-2">
                         <Input
                             type="number"
                             placeholder={t("pricePlaceholder")}
                             min={0}
-                            className="text-subflow-800 bg-subflow-100 col-span-3 h-10 w-full rounded-md tracking-widest"
+                            className="text-subflow-800 bg-subflow-100 col-span-3 h-10 w-full rounded-md text-xs tracking-widest sm:text-base"
                             value={servicePrice || ""}
                             onChange={(e) =>
                                 setServicePrice(Number(e.target.value))
@@ -155,7 +155,7 @@ export default function UpdateSubscriptionDialog({
                             value={serviceCurrency}
                             onValueChange={(value) => setServiceCurrency(value)}
                         >
-                            <SelectTrigger className="text-subflow-800 bg-subflow-100 col-span-1 h-10 w-full cursor-pointer tracking-widest">
+                            <SelectTrigger className="text-subflow-800 bg-subflow-100 col-span-1 h-10 w-full cursor-pointer text-xs tracking-widest sm:text-base">
                                 <SelectValue placeholder="Select Currency" />
                             </SelectTrigger>
                             <SelectContent className="min-w-[--trigger-width] tracking-widest">
@@ -164,7 +164,7 @@ export default function UpdateSubscriptionDialog({
                                         <SelectItem
                                             key={key}
                                             value={key}
-                                            className="cursor-pointer"
+                                            className="cursor-pointer text-xs sm:text-base"
                                         >
                                             {key}
                                         </SelectItem>
@@ -173,14 +173,14 @@ export default function UpdateSubscriptionDialog({
                             </SelectContent>
                         </Select>
                     </div>
-                    <div className="text-subflow-50 pb-2 text-base tracking-widest">
+                    <div className="text-subflow-50 pb-2 text-sm tracking-widest sm:text-base">
                         {t("startDate")}
                     </div>
                     <DatePicker
                         startDate={startDate}
                         setStartDate={setStartDate}
                     />
-                    <div className="text-subflow-50 pb-2 text-base tracking-widest">
+                    <div className="text-subflow-50 pb-2 text-sm tracking-widest sm:text-base">
                         {t("paymentCycle")}
                     </div>
                     <Select
@@ -189,20 +189,26 @@ export default function UpdateSubscriptionDialog({
                             setPaymentCycle(value as "monthly" | "yearly")
                         }
                     >
-                        <SelectTrigger className="text-subflow-800 bg-subflow-100 h-10 w-full cursor-pointer tracking-widest">
+                        <SelectTrigger className="text-subflow-800 bg-subflow-100 h-10 w-full cursor-pointer text-xs tracking-widest sm:text-base">
                             <SelectValue placeholder={t("monthly")} />
                         </SelectTrigger>
                         <SelectContent className="tracking-wider">
-                            <SelectItem value="monthly">
+                            <SelectItem
+                                value="monthly"
+                                className="text-xs sm:text-base"
+                            >
                                 {t("monthly")}
                             </SelectItem>
-                            <SelectItem value="yearly">
+                            <SelectItem
+                                value="yearly"
+                                className="text-xs sm:text-base"
+                            >
                                 {t("yearly")}
                             </SelectItem>
                         </SelectContent>
                     </Select>
                     <button
-                        className={`bg-subflow-600 text-subflow-50 mt-4 h-10 w-full rounded-md tracking-widest ${
+                        className={`bg-subflow-600 text-subflow-50 mt-4 h-10 w-full rounded-md text-xs tracking-widest sm:text-base ${
                             updatingSubscription
                                 ? "cursor-not-allowed"
                                 : "cursor-pointer"

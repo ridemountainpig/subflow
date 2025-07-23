@@ -17,6 +17,8 @@ import {
 import { useCalendar } from "@/app/hooks/useCalendar";
 import { useCurrency } from "@/app/contexts/CurrencyContext";
 import { useSubscription } from "@/app/hooks/useSubscription";
+
+import FormattedNumber from "@/components/subscription/formatted-number";
 import CalendarCell from "@/components/subscription/calendar-cell";
 import AddSubscriptionDialog from "@/components/subscription/add-subscription-dialog";
 import ChartDialog from "@/components/subscription/chart-dialog";
@@ -38,22 +40,20 @@ export default function Subscription() {
     const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
     return (
-        <div className="bg-subflow-900 flex h-fit min-h-[calc(100vh-7.25rem)] w-full flex-col items-center justify-center select-none">
+        <div className="bg-subflow-900 flex h-full min-h-[calc(100vh-4rem)] w-full flex-col items-center justify-center overflow-y-auto select-none sm:min-h-[calc(100vh-7.25rem)]">
             {calendar.length > 0 && (
                 <div className="w-fit">
-                    <div className="flex items-end justify-between pb-4">
-                        <div className="flex items-center gap-x-3">
+                    <div className="flex items-end justify-between pt-10 pb-2 sm:pb-4">
+                        <div className="flex items-center gap-x-1 sm:gap-x-3">
                             <CircleArrowLeft
-                                size={34}
-                                className="text-subflow-50 cursor-pointer rounded-full"
+                                className="text-subflow-50 size-6 cursor-pointer rounded-full sm:size-[34px]"
                                 onClick={handlePreviousMonth}
                             />
                             <CircleArrowRight
-                                size={34}
-                                className="text-subflow-50 cursor-pointer rounded-full"
+                                className="text-subflow-50 size-6 cursor-pointer rounded-full sm:size-[34px]"
                                 onClick={handleNextMonth}
                             />
-                            <span className="text-subflow-50 text-3xl tracking-widest">
+                            <span className="text-subflow-50 text-xl tracking-widest sm:text-3xl">
                                 {new Date(year, month - 1).toLocaleString(
                                     "en-US",
                                     {
@@ -61,7 +61,7 @@ export default function Subscription() {
                                     },
                                 )}
                             </span>
-                            <span className="text-subflow-400 text-3xl tracking-widest">
+                            <span className="text-subflow-400 text-xl tracking-widest sm:text-3xl">
                                 {year}
                             </span>
                             <AddSubscriptionDialog
@@ -76,11 +76,11 @@ export default function Subscription() {
                                 currency={currency}
                             />
                         </div>
-                        <div className="flex min-h-16 flex-col items-end">
-                            <span className="text-subflow-50 text-base tracking-widest">
+                        <div className="flex h-13 flex-col items-end sm:min-h-16">
+                            <span className="text-subflow-50 text-xs tracking-widest sm:text-base">
                                 {t("monthlySpend")}
                             </span>
-                            <div className="text-subflow-50 flex items-center gap-x-1 text-3xl tracking-widest">
+                            <div className="text-subflow-50 flex items-center gap-x-1 text-xl tracking-widest sm:text-3xl">
                                 {monthlySpend !== null ? (
                                     <motion.div
                                         initial={{ opacity: 0, y: 10 }}
@@ -91,7 +91,10 @@ export default function Subscription() {
                                         }}
                                         className="flex items-center gap-x-1"
                                     >
-                                        <span>{monthlySpend}</span>
+                                        <FormattedNumber
+                                            value={monthlySpend}
+                                            className="text-lg sm:text-3xl"
+                                        />
                                         <Select
                                             value={currency}
                                             open={isSelectOpen}
@@ -103,7 +106,7 @@ export default function Subscription() {
                                             }}
                                         >
                                             <SelectTrigger
-                                                className="cursor-pointer items-end gap-x-1 border-none p-0 pb-1 text-base tracking-widest focus-visible:ring-0"
+                                                className="cursor-pointer items-end gap-x-1 border-none p-0 pb-[10px] text-xs tracking-widest focus-visible:ring-0 sm:pb-1 sm:text-base"
                                                 iconStyle="text-subflow-50 stroke-3"
                                                 onKeyDown={(
                                                     e: React.KeyboardEvent,
@@ -135,21 +138,22 @@ export default function Subscription() {
                                     </motion.div>
                                 ) : (
                                     <LoaderCircle
-                                        size={30}
                                         strokeWidth={2.5}
-                                        className="mt-2 animate-spin"
+                                        className="mt-2 size-6 animate-spin sm:size-[30px]"
                                     />
                                 )}
                             </div>
                         </div>
                     </div>
-                    <div className="grid h-fit w-fit grid-cols-7 gap-x-3 gap-y-3 pb-10">
+                    <div className="grid h-fit w-fit grid-cols-7 gap-1 pb-10 sm:gap-2 md:gap-3">
                         {days.map((day) => (
                             <div
                                 key={day}
-                                className="bg-subflow-500 col-span-1 flex h-10 items-center justify-center rounded-full"
+                                className="bg-subflow-500 col-span-1 flex h-8 items-center justify-center rounded-2xl sm:h-10 sm:rounded-full"
                             >
-                                <span className="text-subflow-50">{day}</span>
+                                <span className="text-subflow-50 text-xs sm:text-base">
+                                    {day}
+                                </span>
                             </div>
                         ))}
                         {calendar.map((day) => {
