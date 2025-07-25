@@ -139,7 +139,7 @@ export default function Home() {
                 </div>
             </div>
             <div className="bg-subflow-900 flex w-full justify-center py-34 lg:py-44">
-                <div className="relative flex h-[50vh] w-2/3 flex-col items-center justify-center gap-y-8">
+                <div className="relative flex h-[50vh] min-h-fit w-2/3 flex-col items-center justify-center gap-y-8">
                     <SplitText
                         text={t("bottomTitle")}
                         delay={locale === "zh" ? 20 : 50}
