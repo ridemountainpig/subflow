@@ -100,5 +100,58 @@
         "title": "Page Not Found",
         "description": "The page you are looking for does not exist.",
         "back": "Back to Home"
+    },
+    "PrivacyPage": {
+        "title": "Privacy Policy",
+        "intro": "Welcome to the official website of Subflow Subscription Management Service (hereinafter referred to as 'this website'). To help you use all services and features of this website with confidence, we hereby explain our privacy policy to safeguard your rights. Please read the following carefully:",
+        "section1": {
+            "title": "1. Scope of the Privacy Policy",
+            "content1": "This privacy policy outlines how this website handles personally identifiable information collected during your use of the subscription management services.",
+            "content2": "This policy does not apply to websites linked from this site, nor to personnel not commissioned or managed by this website."
+        },
+        "section2": {
+            "title": "2. Collection, Processing, and Use of Personal Data",
+            "content1": "When you register as a member, use the Subflow subscription management service, or participate in related activities on this website, we may request necessary personal information based on the nature of the service and use it within the specified scope.",
+            "content2": "The data collected by this website may include but is not limited to: email address, payment information, subscription records, and account usage behavior. This data will only be used by Subflow under the following circumstances:",
+            "list1": "To provide services, customer support, or member features",
+            "list2": "To fulfill contractual obligations",
+            "list3": "To improve our products and services",
+            "list4": "To comply with legal obligations or requests from competent authorities",
+            "content3": "Unless prior consent is obtained or otherwise required by law, this website will not provide your personally identifiable data to third parties (whether domestic or foreign), nor will it use the data beyond the purposes for which it was collected."
+        },
+        "section3": {
+            "title": "3. Data Protection",
+            "content1": "This website is protected by firewalls, antivirus systems, and other security measures. Strict protection mechanisms are in place to secure your personal data, and only authorized personnel may access your data. All relevant personnel have signed confidentiality agreements, and any breach will be subject to legal action.",
+            "content2": "If it is necessary to outsource services due to business needs, we will require the contractors to comply with confidentiality obligations and perform the necessary supervision to ensure compliance."
+        },
+        "section4": {
+            "title": "4. External Website Links",
+            "content1": "This website may contain links to other websites. You may be directed to these websites via the provided links. However, this privacy policy does not apply to those linked websites, and you should refer to their respective privacy policies."
+        },
+        "section5": {
+            "title": "5. Policy on Sharing Personal Data with Third Parties",
+            "content1": "This website will never provide, exchange, rent, or sell your personal data to any individual, group, private enterprise, or government agency unless required by law or contractual obligations. Exceptions include but are not limited to:",
+            "list1": "With your consent.",
+            "list2": "As required by law.",
+            "list3": "For national security or public interest.",
+            "list4": "To prevent danger to your life, body, liberty, or property.",
+            "list5": "When your behavior on this website violates the terms of service or may harm the rights of the website or others, and disclosure is necessary for identification, contact, or legal action.",
+            "list6": "When it is beneficial to your rights and interests.",
+            "list7": "When contractors are engaged to collect, process, or use your personal data, we will supervise and manage the contractors to ensure their compliance."
+        },
+        "section6": {
+            "title": "6. Use of Cookies",
+            "content1": "To provide you with the best service, this website places and accesses cookies on your computer. If you prefer not to accept cookies, you can adjust your browser settings to a high privacy level to refuse them. However, this may cause certain website functions to operate improperly.",
+            "cookieSettings": "How to Disable Cookies?",
+            "cookieDescription": "Your browser allows you to change cookie settings. These settings are usually found in the 'Options' or 'Settings' menu of your browser. For more information, you may refer to the following links:",
+            "chromeLink": "Chrome™ Cookie Settings",
+            "firefoxLink": "Firefox® Cookie Settings",
+            "safariLink": "Safari® Cookie Settings",
+            "edgeLink": "Edge® Cookie Settings"
+        },
+        "section7": {
+            "title": "7. Amendments to the Privacy Policy",
+            "content1": "This website’s privacy policy may be updated at any time in response to needs. The updated terms will be published on the website."
+        }
     }
 }
