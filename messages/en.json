@@ -69,7 +69,7 @@
         },
         "service": "Service",
         "servicePlaceholder": "Select Service",
-        "searchService": "Search Service",
+        "searchService": "Search Service or Add New Service",
         "serviceError": "Please select a service",
         "price": "Price",
         "pricePlaceholder": "Subscription Price",
