@@ -45,7 +45,6 @@ export default function DatePicker({
                     mode="single"
                     selected={startDate}
                     onSelect={(date) => date && setStartDate(date)}
-                    initialFocus
                 />
             </PopoverContent>
         </Popover>

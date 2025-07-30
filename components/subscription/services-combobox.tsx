@@ -39,7 +39,7 @@ export default function ServicesCombobox({
                 variant="outline"
                 role="combobox"
                 aria-expanded={open}
-                className="bg-subflow-100 text-subflow-800 hover:bg-subflow-100 hover:text-subflow-800 w-full cursor-pointer justify-between text-xs tracking-widest sm:text-base"
+                className="bg-subflow-100 text-subflow-800 hover:bg-subflow-100 hover:text-subflow-800 h-10 w-full cursor-pointer justify-between text-xs tracking-widest sm:text-base"
                 onClick={() => setOpen(true)}
             >
                 {selectedServiceName ? (
