@@ -753,4 +753,9 @@ export const subscriptionServices: SubscriptionServices[] = [
         name: "Mocha",
         icon: Svgl.MochaDark,
     },
+    {
+        uuid: "cbad91f2-11b1-4c23-a806-ec31015191f5",
+        name: "Google Cloud",
+        icon: Svgl.GoogleCloud,
+    },
 ];
