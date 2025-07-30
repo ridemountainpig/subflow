@@ -67,6 +67,31 @@
             "confirmTextOne": "Are you sure you want to delete",
             "confirmTextTwo": "subscription?"
         },
+        "chartDialog": {
+            "title": "Subscription Analysis"
+        },
+        "descriptionDialog": {
+            "title": "How to Use",
+            "monthSwitch": {
+                "title": "1. Month Navigation",
+                "description": "Click the left and right arrows to switch between months"
+            },
+            "addSubscription": {
+                "title": "2. Add Subscription",
+                "description1": "Click",
+                "description2": "to add a new subscription. When selecting a service, you can search for existing services or add new ones"
+            },
+            "manageSubscription": {
+                "title": "3. Manage Subscriptions",
+                "desktop": "Move the mouse over the calendar with subscriptions to view, edit, or delete subscription items",
+                "mobile": "Click on subscription items to edit or delete them"
+            },
+            "analytics": {
+                "title": "4. Subscription Analytics",
+                "description1": "Click",
+                "description2": "to view subscription analytics"
+            }
+        },
         "service": "Service",
         "servicePlaceholder": "Select Service",
         "searchService": "Search Service or Add New Service",

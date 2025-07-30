@@ -105,7 +105,7 @@ export default function UpdateSubscriptionDialog({
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger>
+            <DialogTrigger title={t("updateSubscriptionDialog.title")}>
                 <div className="hover:bg-subflow-800 flex h-6 w-6 cursor-pointer items-center justify-center rounded-sm">
                     <Pencil size={16} strokeWidth={2} />
                 </div>

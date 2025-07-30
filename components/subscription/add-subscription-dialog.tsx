@@ -108,7 +108,7 @@ export default function AddSubscriptionDialog({
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger>
+            <DialogTrigger title={t("addSubscriptionDialog.title")}>
                 <CirclePlus className="text-subflow-50 size-6 cursor-pointer rounded-full sm:size-[34px]" />
             </DialogTrigger>
             <DialogContent className="bg-subflow-900 border-subflow-100 rounded-2xl border-[3px] p-3 sm:p-6">

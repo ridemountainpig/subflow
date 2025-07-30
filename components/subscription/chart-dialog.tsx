@@ -208,7 +208,7 @@ export default function ChartDialog({
 
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
-            <DialogTrigger>
+            <DialogTrigger title={t("chartDialog.title")}>
                 <ChartPie className="text-subflow-50 size-6 cursor-pointer rounded-full sm:size-[34px]" />
             </DialogTrigger>
             <DialogContent

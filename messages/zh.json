@@ -67,6 +67,31 @@
             "confirmTextOne": "您確定要刪除",
             "confirmTextTwo": "這個訂閱項目嗎？"
         },
+        "chartDialog": {
+            "title": "訂閱分析"
+        },
+        "descriptionDialog": {
+            "title": "使用說明",
+            "monthSwitch": {
+                "title": "1. 月份切換",
+                "description": "點擊左右箭頭可以切換月份"
+            },
+            "addSubscription": {
+                "title": "2. 新增訂閱",
+                "description1": "點擊",
+                "description2": "可以新增訂閱，選擇訂閱服務時，可以搜尋服務或新增服務"
+            },
+            "manageSubscription": {
+                "title": "3. 管理訂閱",
+                "desktop": "將滑鼠移到有訂閱的日曆上，即可查看訂閱項目，並編輯或刪除訂閱",
+                "mobile": "點擊訂閱項目，可以編輯或刪除訂閱"
+            },
+            "analytics": {
+                "title": "4. 訂閱分析",
+                "description1": "點擊",
+                "description2": "可以查看訂閱分析"
+            }
+        },
         "service": "服務",
         "servicePlaceholder": "選擇服務",
         "searchService": "搜尋服務或新增服務",

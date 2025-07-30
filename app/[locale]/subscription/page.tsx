@@ -22,6 +22,7 @@ import FormattedNumber from "@/components/subscription/formatted-number";
 import CalendarCell from "@/components/subscription/calendar-cell";
 import AddSubscriptionDialog from "@/components/subscription/add-subscription-dialog";
 import ChartDialog from "@/components/subscription/chart-dialog";
+import DescriptionDialog from "@/components/subscription/description-dialog";
 
 export default function Subscription() {
     const { userId } = useAuth();
@@ -41,6 +42,7 @@ export default function Subscription() {
 
     return (
         <div className="bg-subflow-900 flex h-full min-h-[calc(100vh-4rem)] w-full flex-col items-center justify-center overflow-y-auto select-none sm:min-h-[calc(100vh-7.25rem)]">
+            <DescriptionDialog />
             {calendar.length > 0 && (
                 <div className="w-fit">
                     <div className="flex items-end justify-between pt-10 pb-2 sm:pb-4">
