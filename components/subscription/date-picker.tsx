@@ -45,6 +45,8 @@ export default function DatePicker({
                     mode="single"
                     selected={startDate}
                     onSelect={(date) => date && setStartDate(date)}
+                    captionLayout="dropdown"
+                    defaultMonth={startDate}
                 />
             </PopoverContent>
         </Popover>

@@ -213,7 +213,7 @@ export default function ChartDialog({
             </DialogTrigger>
             <DialogContent
                 showCloseButton={isMobile ? true : false}
-                className={`bg-subflow-900 flex min-w-screen flex-col border-none ${isMobile ? "h-full overflow-y-auto" : "h-screen items-center justify-center"}`}
+                className={`bg-subflow-900 flex min-w-screen flex-col rounded-none border-none ${isMobile ? "h-full overflow-y-auto" : "h-screen items-center justify-center"}`}
             >
                 <DialogTitle></DialogTitle>
                 <DialogDescription></DialogDescription>
