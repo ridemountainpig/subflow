@@ -5,12 +5,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     return [
         {
-            url: "https://www.subflow.ing/en",
+            url: "https://subflow.ing/en",
             lastModified,
             priority: 1,
         },
         {
-            url: "https://www.subflow.ing/zh",
+            url: "https://subflow.ing/zh",
             lastModified,
             priority: 1,
         },
