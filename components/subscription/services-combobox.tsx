@@ -168,6 +168,34 @@ export default function ServicesCombobox({
                                 />
                             </CommandItem>
                         ))}
+                        {searchValue && (
+                            <CommandItem
+                                key="custom-search"
+                                value={searchValue}
+                                onSelect={() => {
+                                    setSelectedServiceName(searchValue);
+                                    setSelectedServiceUuid("custom");
+                                    setOpen(false);
+                                }}
+                                className="text-subflow-100 cursor-pointer text-xs tracking-widest sm:text-base"
+                            >
+                                <div className="flex h-fit items-center gap-3">
+                                    <div className="bg-subflow-900 text-subflow-100 flex h-5 w-5 items-center justify-center rounded-full text-xl">
+                                        {searchValue[0].toUpperCase()}
+                                    </div>
+                                    <span>{searchValue}</span>
+                                </div>
+                                <Check
+                                    className={cn(
+                                        "ml-auto",
+                                        selectedServiceUuid === "custom" &&
+                                            selectedServiceName === searchValue
+                                            ? "opacity-100"
+                                            : "opacity-0",
+                                    )}
+                                />
+                            </CommandItem>
+                        )}
                     </CommandGroup>
                 </CommandList>
             </CommandDialog>
