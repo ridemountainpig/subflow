@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Subflow
 
-## Getting Started
+![Subflow Banner](public/subflow-en-og.png)
 
-First, run the development server:
+## 📖 Overview
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+**Subflow** is a free, intuitive subscription management tool that helps you take control of your recurring expenses. Whether it’s Netflix, Spotify, SaaS tools, or any other recurring expenses — Subflow brings them all together into one clean, organized dashboard.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ✨ Key Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 📦 Centralized Subscription Management
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Track, edit, and categorize subscriptions in one place
+- Built-in [SVGL](https://svgl.app/) icon library for fast service recognition
+- Automatically convert yearly plans into monthly averages
 
-## Learn More
+### 📅 Calendar-Based Tracking
 
-To learn more about Next.js, take a look at the following resources:
+- Visualize upcoming charges on your calendar
+- Clearly display payment cycles for each subscription
+- Stay ahead of your billing schedule
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 📊 Visual Spending Analytics
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Analyze your subscription flow through interactive charts
+- Understand spending ratios and monthly totals at a glance
+- Support for multiple chart types and views
 
-## Deploy on Vercel
+### 🌐 Multi-language & Multi-currency
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Fully localized in English and Traditional Chinese
+- Track subscriptions in your preferred currency
+- Automatic currency conversion with real-time exchange rates
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 🔄 Real-time Cloud Sync
+
+- Data is always up-to-date across all devices
+- Secure and consistent access from any login location
+- Automatic cloud backup ensures peace of mind
+
+## 🤝 Contributing
+
+We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
+
+## 📝 License
+
+This project is licensed under the **GNU Affero General Public License v3.0 (AGPL-3.0)**.  
+See the [LICENSE](LICENSE) file for details.
