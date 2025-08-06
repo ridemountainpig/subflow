@@ -98,7 +98,7 @@
         "serviceError": "Please select a service",
         "price": "Price",
         "pricePlaceholder": "Subscription Price",
-        "priceError": "Please enter a price",
+        "priceError": "Please enter a correct price",
         "startDate": "Start Date",
         "paymentCycle": "Payment Cycle",
         "monthly": "Monthly",

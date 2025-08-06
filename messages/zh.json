@@ -98,7 +98,7 @@
         "serviceError": "請選擇服務",
         "price": "金額",
         "pricePlaceholder": "訂閱金額",
-        "priceError": "請輸入訂閱金額",
+        "priceError": "請輸入正確的訂閱金額",
         "startDate": "開始日期",
         "paymentCycle": "付款週期",
         "monthly": "每月付款",

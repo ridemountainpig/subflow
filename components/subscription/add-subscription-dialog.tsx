@@ -72,11 +72,11 @@ export default function AddSubscriptionDialog({
         if (serviceName === "") {
             setServiceNameError(true);
         }
-        if (servicePrice === 0) {
+        if (servicePrice === 0 || servicePrice < 0) {
             setServicePriceError(true);
         }
 
-        if (serviceName === "" || servicePrice === 0) {
+        if (serviceName === "" || servicePrice === 0 || servicePrice < 0) {
             return;
         }
 

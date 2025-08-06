@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import { useState, useEffect, useRef, createElement } from "react";
 import { useTranslations } from "next-intl";
 import { Check, MousePointerClick } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -30,8 +30,15 @@ export default function ServicesCombobox({
     setSelectedServiceUuid,
 }: ServicesComboboxProps) {
     const t = useTranslations("SubscriptionPage");
-    const [open, setOpen] = React.useState(false);
-    const [searchValue, setSearchValue] = React.useState("");
+    const [open, setOpen] = useState(false);
+    const [searchValue, setSearchValue] = useState("");
+    const commandListRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (commandListRef.current) {
+            commandListRef.current.scrollTop = 0;
+        }
+    }, [searchValue]);
 
     return (
         <>
@@ -62,7 +69,7 @@ export default function ServicesCombobox({
                                             selectedServiceName,
                                     );
                                     return service?.icon
-                                        ? React.createElement(service.icon)
+                                        ? createElement(service.icon)
                                         : null;
                                 })()}
                             </div>
@@ -109,13 +116,17 @@ export default function ServicesCombobox({
                         }
                     }}
                 />
-                <CommandList className="bg-subflow-900 text-subflow-100 custom-scrollbar py-2">
+                <CommandList
+                    ref={commandListRef}
+                    className="bg-subflow-900 text-subflow-100 custom-scrollbar py-2"
+                >
                     <CommandEmpty className="px-2 py-1">
                         <div
                             className="text-subflow-900 bg-subflow-100 cursor-pointer rounded-sm focus:outline-none"
                             onClick={() => {
                                 setSelectedServiceName(searchValue);
                                 setSelectedServiceUuid("custom");
+                                setSearchValue("");
                                 setOpen(false);
                             }}
                             tabIndex={0}
@@ -148,6 +159,7 @@ export default function ServicesCombobox({
                                             ? ""
                                             : service.uuid,
                                     );
+                                    setSearchValue("");
                                     setOpen(false);
                                 }}
                                 className="text-subflow-100 cursor-pointer text-xs tracking-widest sm:text-base"
@@ -175,6 +187,7 @@ export default function ServicesCombobox({
                                 onSelect={() => {
                                     setSelectedServiceName(searchValue);
                                     setSelectedServiceUuid("custom");
+                                    setSearchValue("");
                                     setOpen(false);
                                 }}
                                 className="text-subflow-100 cursor-pointer text-xs tracking-widest sm:text-base"
