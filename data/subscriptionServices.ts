@@ -758,4 +758,14 @@ export const subscriptionServices: SubscriptionServices[] = [
         name: "Google Cloud",
         icon: Svgl.GoogleCloud,
     },
+    {
+        uuid: "6f5f11e6-e84e-44c0-a722-c7d07a4231af",
+        name: "PlainSignal",
+        icon: Svgl.PlainSignal,
+    },
+    {
+        uuid: "e1b80572-0ff7-45e8-a901-41d2d0e78bb3",
+        name: "Heptabase",
+        icon: Svgl.Heptabase,
+    },
 ];
