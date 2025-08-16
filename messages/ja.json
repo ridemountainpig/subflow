@@ -1,0 +1,182 @@
+{
+    "Header": {
+        "login": "ログイン",
+        "back": "戻る"
+    },
+    "Footer": {
+        "subtitle": "サブスクを簡単に管理・把握"
+    },
+    "HomePage": {
+        "title": "サブスクを簡単に管理・把握",
+        "titleSplitOne": "簡単に管理できる",
+        "titleSplitTwo": "すべてのサブスク",
+        "subtitle": "支出を追跡・整理・把握",
+        "free": "完全無料",
+        "start": "今すぐ開始",
+        "manageSubscriptions": "サブスク管理へ",
+        "cardOne": {
+            "title": "すべてのサブスク管理",
+            "description": "一括管理で追跡・編集・整理が可能"
+        },
+        "cardTwo": {
+            "title": "支出を把握",
+            "description": "請求予定をカレンダーで確認"
+        },
+        "cardThree": {
+            "title": "グラフ表示",
+            "description": "支出割合を可視化して全体を把握"
+        },
+        "spotlightTitle": "Subflow を選ぶ理由",
+        "spotlightCardOne": {
+            "title": "永遠に無料",
+            "description": "有料プランなし、機能制限なしで利用可能"
+        },
+        "spotlightCardTwo": {
+            "title": "SVGL 内蔵",
+            "descriptionOne": "SVGL アイコン統合で素早く選択。アイコンは",
+            "descriptionTwo": "提供"
+        },
+        "spotlightCardThree": {
+            "title": "常に最新",
+            "description": "どこからでも最新状態を維持"
+        },
+        "spotlightCardFour": {
+            "title": "多通貨に対応",
+            "description": "海外サブスクの管理も可能"
+        },
+        "bottomTitle": "支払い漏れゼロへ",
+        "bottomSubtitle": "今すぐ Subflow を使って管理開始"
+    },
+    "LoginPage": {
+        "title": "Subflow へようこそ",
+        "secure": "Clerk による安全認証"
+    },
+    "SubscriptionPage": {
+        "monthlySpend": "月額支出",
+        "addSubscriptionDialog": {
+            "title": "サブスク追加",
+            "description": "新しいサブスクを追加"
+        },
+        "updateSubscriptionDialog": {
+            "title": "サブスク編集",
+            "description": "サブスクを編集"
+        },
+        "deleteSubscriptionDialog": {
+            "title": "サブスク削除",
+            "description": "このサブスクを削除しますか？",
+            "confirmTextOne": "削除：",
+            "confirmTextTwo": "このサブスク？"
+        },
+        "chartDialog": {
+            "title": "サブスク分析"
+        },
+        "descriptionDialog": {
+            "title": "使い方",
+            "monthSwitch": {
+                "title": "1. 月切替",
+                "description": "矢印で月を切り替え"
+            },
+            "addSubscription": {
+                "title": "2. サブスク追加",
+                "description1": "クリックで",
+                "description2": "サブスクを追加。検索や新規登録可"
+            },
+            "manageSubscription": {
+                "title": "3. サブスク管理",
+                "desktop": "カレンダー上で編集・削除",
+                "mobile": "タップで編集・削除"
+            },
+            "analytics": {
+                "title": "4. サブスク分析",
+                "description1": "クリックで",
+                "description2": "分析を表示"
+            }
+        },
+        "service": "サービス",
+        "servicePlaceholder": "サービス選択",
+        "searchService": "検索または追加",
+        "serviceError": "サービスを選択してください",
+        "price": "金額",
+        "pricePlaceholder": "金額入力",
+        "priceError": "正しい金額を入力してください",
+        "startDate": "開始日",
+        "paymentCycle": "支払い周期",
+        "monthly": "毎月払い",
+        "yearly": "年払い",
+        "yearlyDescription": "（月平均）",
+        "add": "追加",
+        "adding": "追加中",
+        "update": "更新",
+        "updating": "更新中",
+        "delete": "削除",
+        "deleting": "削除中",
+        "cancel": "キャンセル",
+        "addSuccess": "追加しました",
+        "updateSuccess": "更新しました",
+        "deleteSuccess": "削除しました",
+        "subscriptionList": "サブスク一覧",
+        "subscriptionListDescription": "年額は月平均に換算済み",
+        "noSubscription": "サブスクなし",
+        "totalSpend": "総支出",
+        "since": "開始日",
+        "close": "閉じる"
+    },
+    "NotFoundPage": {
+        "title": "ページが見つかりません",
+        "description": "お探しのページは存在しません",
+        "back": "ホームへ戻る"
+    },
+    "PrivacyPage": {
+        "title": "プライバシーポリシー",
+        "intro": "「Subflow サブスクリプション管理サービス公式サイト」（以下「本サイト」）をご利用いただき誠にありがとうございます。本サイトの各種サービス・機能を安心してご利用いただくため、本プライバシーポリシーを説明し、お客様の権利を保護します。以下の内容をご確認ください。",
+        "section1": {
+            "title": "1. プライバシーポリシーの適用範囲",
+            "content1": "本ポリシーには、本サイトがサブスクリプション管理サービス利用中に収集する個人識別情報の取り扱いが含まれます。",
+            "content2": "本ポリシーは、本サイト以外の関連リンク先や、本サイトが委託・管理していない人員には適用されません。"
+        },
+        "section2": {
+            "title": "2. 個人情報の収集・処理・利用方法",
+            "content1": "会員登録、Subflow サブスクリプション管理サービスの利用、または本サイト関連イベントへの参加時、必要な範囲で個人情報をご提供いただき、特定の目的の範囲内で処理・利用します。",
+            "content2": "収集する可能性のある情報には、メールアドレス、支払い情報、サブスクリプション履歴、アカウント利用行動などが含まれます。これらは以下の目的でのみ使用します：",
+            "list1": "サービス提供、カスタマーサポート、会員機能のため",
+            "list2": "契約義務の履行",
+            "list3": "製品・サービス内容の最適化",
+            "list4": "法令または監督機関の要求への遵守",
+            "content3": "事前同意または法令に基づく場合を除き、本サイトは個人を特定できる情報を第三者（国内外問わず）に提供せず、収集目的以外での利用もしません。"
+        },
+        "section3": {
+            "title": "3. データ保護",
+            "content1": "本サイトのサーバーにはファイアウォール、ウイルス対策などの情報セキュリティ設備を備え、厳格な保護措置を実施します。個人情報にアクセスできるのは権限を持つ者のみで、関係者は秘密保持契約を締結しています。違反者は法的処分を受けます。",
+            "content2": "業務上必要な場合、委託先にも秘密保持義務を課し、必要な確認を行います。"
+        },
+        "section4": {
+            "title": "4. 外部リンク",
+            "content1": "本サイトのページには外部サイトへのリンクがありますが、リンク先サイトのプライバシーポリシーは本ポリシーの適用外です。リンク先のポリシーをご確認ください。"
+        },
+        "section5": {
+            "title": "5. 第三者との個人情報共有方針",
+            "content1": "本サイトは、法的根拠または契約義務がある場合を除き、個人情報を第三者に提供・交換・貸与・販売しません。例外として以下の場合があります：",
+            "list1": "本人の同意がある場合",
+            "list2": "法令に明確な規定がある場合",
+            "list3": "国家安全や公共の利益のため",
+            "list4": "生命・身体・自由・財産の危険を回避するため",
+            "list5": "利用者が本サイトの規約に違反し、権益を損害する恐れがある場合、法的措置に必要な範囲で開示",
+            "list6": "利用者の利益になる場合",
+            "list7": "業務委託先が情報を取り扱う場合、監督管理を徹底"
+        },
+        "section6": {
+            "title": "6. Cookie の使用",
+            "content1": "最適なサービス提供のため、本サイトは Cookie を使用します。Cookie の受け入れを望まない場合、ブラウザの設定でプライバシーレベルを高く設定することで拒否可能ですが、一部機能が正常に動作しない可能性があります。",
+            "cookieSettings": "Cookie を無効にする方法",
+            "cookieDescription": "ブラウザ設定で Cookie の設定を変更できます。「オプション」または「設定」メニューから行えます。詳細は以下のリンクを参照してください。",
+            "chromeLink": "Chrome™ の Cookie 設定",
+            "firefoxLink": "Firefox® の Cookie 設定",
+            "safariLink": "Safari® の Cookie 設定",
+            "edgeLink": "Edge® の Cookie 設定"
+        },
+        "section7": {
+            "title": "7. プライバシーポリシーの改訂",
+            "content1": "本ポリシーは必要に応じて随時改訂され、改訂後は本サイトに掲載されます。"
+        }
+    }
+}

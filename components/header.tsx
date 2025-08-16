@@ -31,7 +31,7 @@ export default function Header() {
 
     return (
         <header className="bg-subflow-900 w-full pt-4 select-none sm:pt-10">
-            <div className="mx-auto grid w-[98%] grid-cols-4 items-center sm:w-[95%] sm:grid-cols-3 md:w-[90%]">
+            <div className="mx-auto grid w-full grid-cols-4 items-center sm:w-[95%] sm:grid-cols-3">
                 <div className="col-span-1 flex h-fit items-center">
                     <Link href="/">
                         <img
@@ -49,7 +49,7 @@ export default function Header() {
                 {isLoading ? (
                     <div />
                 ) : (
-                    <div className="col-span-1 flex items-center justify-end gap-2 pr-2 sm:gap-4 sm:pr-0">
+                    <div className="col-span-1 flex items-center justify-end gap-2 pr-1 sm:gap-4 sm:pr-0">
                         <LanguageSwitcher />
                         {isLoggedIn ? (
                             <>
@@ -69,13 +69,13 @@ export default function Header() {
                             </>
                         ) : isLoginPage ? (
                             <Link href="/">
-                                <button className="bg-subflow-50 text-subflow-900 cursor-pointer rounded-full px-3 py-2 text-xs md:px-7 md:text-lg md:tracking-wider">
+                                <button className="bg-subflow-50 text-subflow-900 cursor-pointer rounded-full px-1 py-2 text-xs font-semibold md:px-5 md:text-lg md:tracking-wider">
                                     {t("back")}
                                 </button>
                             </Link>
                         ) : (
                             <Link href="/login">
-                                <button className="bg-subflow-50 text-subflow-900 cursor-pointer rounded-full px-3 py-2 text-xs md:px-7 md:text-lg md:tracking-wider">
+                                <button className="bg-subflow-50 text-subflow-900 cursor-pointer rounded-full px-1 py-2 text-xs font-semibold md:px-5 md:text-lg md:tracking-wider">
                                     {t("login")}
                                 </button>
                             </Link>

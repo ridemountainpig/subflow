@@ -19,6 +19,21 @@ export default function LanguageSwitcher() {
         router.refresh();
     };
 
+    const languages = [
+        {
+            locale: "en",
+            label: "English",
+        },
+        {
+            locale: "zh",
+            label: "中文",
+        },
+        {
+            locale: "ja",
+            label: "日本語",
+        },
+    ];
+
     return (
         <DropdownMenu>
             <DropdownMenuTrigger className="cursor-pointer focus:outline-none">
@@ -33,18 +48,15 @@ export default function LanguageSwitcher() {
                 align="center"
                 sideOffset={14}
             >
-                <DropdownMenuItem
-                    className="cursor-pointer"
-                    onClick={() => handleLanguageChange("en")}
-                >
-                    English
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                    className="cursor-pointer"
-                    onClick={() => handleLanguageChange("zh")}
-                >
-                    中文
-                </DropdownMenuItem>
+                {languages.map((language) => (
+                    <DropdownMenuItem
+                        key={language.locale}
+                        className="cursor-pointer"
+                        onClick={() => handleLanguageChange(language.locale)}
+                    >
+                        {language.label}
+                    </DropdownMenuItem>
+                ))}
             </DropdownMenuContent>
         </DropdownMenu>
     );

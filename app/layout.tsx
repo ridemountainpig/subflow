@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { ClerkProvider } from "@clerk/nextjs";
-import { zhTW, enUS } from "@clerk/localizations";
+import { zhTW, enUS, jaJP } from "@clerk/localizations";
 import { NextIntlClientProvider, useLocale } from "next-intl";
 import { getLocale } from "next-intl/server";
 import "./globals.css";
@@ -12,19 +12,46 @@ import { CurrencyProvider } from "@/app/contexts/CurrencyContext";
 export async function generateMetadata(): Promise<Metadata> {
     const locale = await getLocale();
 
-    const isZh = locale === "zh";
+    let title: string;
+    let description: string;
+    let keywords: string;
+    let ogImageUrl: string;
+    let ogImageAlt: string;
 
-    const title = isZh ? "Subflow 訂閱管理" : "Subflow";
-    const description = isZh
-        ? "輕鬆管理訂閱支出。使用 Subflow 追蹤花費、整理定期付款，全面掌控您的訂閱生活。"
-        : "Easily flow through your subscriptions with Subflow. Track spending, organize recurring payments, and take control of your subscription management.";
+    switch (locale) {
+        case "zh":
+            title = "Subflow 訂閱管理";
+            description =
+                "輕鬆管理訂閱支出。使用 Subflow 追蹤花費、整理定期付款，全面掌控您的訂閱生活。";
+            keywords =
+                "訂閱管理, 訂閱管理工具, 訂閱管理軟體, 訂閱管理應用, 管理定期付款, 訂閱追蹤, 訂閱支出追蹤, 每月訂閱整理, 個人訂閱追蹤器, 訂閱可視化工具, 數位訂閱管理, 定期扣款管理";
+            ogImageUrl = "https://subflow.ing/subflow-zh-og.png";
+            ogImageAlt = "Subflow 開放圖像";
+            break;
+        case "ja":
+            title = "Subflow サブスク管理";
+            description =
+                "サブスクを簡単に管理・把握。Subflow で支出を追跡・整理し、サブスクリプション管理を完全にコントロールしましょう。";
+            keywords =
+                "サブスク管理, サブスクリプション管理, サブスク管理ツール, サブスク管理アプリ, 定期支払い管理, サブスク追跡, サブスク支出追跡, 月額サブスク整理, 個人サブスク追跡, サブスク可視化ツール, デジタルサブスク管理, 定期課金管理";
+            ogImageUrl = "https://subflow.ing/subflow-ja-og.png";
+            ogImageAlt = "Subflow OG画像";
+            break;
+        default:
+            title = "Subflow";
+            description =
+                "Easily flow through your subscriptions with Subflow. Track spending, organize recurring payments, and take control of your subscription management.";
+            keywords =
+                "Subscription Management, Subscription Management Tool, Subscription Management Software, Subscription Management App, Subscription Management Service, Subscription Management Platform, Subscription Management System, Subscription Management Solution, Track Subscription Spending, Manage Recurring Payments, Organize Monthly Subscriptions, Subscription Tracker for Individuals, Visualize Subscription Flow, Monitor Digital Subscriptions";
+            ogImageUrl = "https://subflow.ing/subflow-en-og.png";
+            ogImageAlt = "Subflow OG Image";
+            break;
+    }
 
     return {
         title,
         description,
-        keywords: isZh
-            ? "訂閱管理, 訂閱管理工具, 訂閱管理軟體, 訂閱管理應用, 管理定期付款, 訂閱追蹤, 訂閱支出追蹤, 每月訂閱整理, 個人訂閱追蹤器, 訂閱可視化工具, 數位訂閱管理, 定期扣款管理"
-            : "Subscription Management, Subscription Management Tool, Subscription Management Software, Subscription Management App, Subscription Management Service, Subscription Management Platform, Subscription Management System, Subscription Management Solution, Track Subscription Spending, Manage Recurring Payments, Organize Monthly Subscriptions, Subscription Tracker for Individuals, Visualize Subscription Flow, Monitor Digital Subscriptions",
+        keywords,
         authors: [
             {
                 name: "ridemountainpig",
@@ -38,12 +65,10 @@ export async function generateMetadata(): Promise<Metadata> {
             description,
             images: [
                 {
-                    url: isZh
-                        ? "https://subflow.ing/subflow-zh-og.png"
-                        : "https://subflow.ing/subflow-en-og.png",
+                    url: ogImageUrl,
                     width: 1200,
                     height: 630,
-                    alt: isZh ? "Subflow 開放圖像" : "Subflow OG Image",
+                    alt: ogImageAlt,
                 },
             ],
         },
@@ -52,11 +77,7 @@ export async function generateMetadata(): Promise<Metadata> {
             title,
             description,
             creator: "@ridemountainpig",
-            images: [
-                isZh
-                    ? "https://subflow.ing/subflow-zh-og.png"
-                    : "https://subflow.ing/subflow-en-og.png",
-            ],
+            images: [ogImageUrl],
         },
     };
 }
@@ -85,9 +106,22 @@ const customZhTW = {
     },
 };
 
+const customJaJP = {
+    ...jaJP,
+    signIn: {
+        ...jaJP.signIn,
+        start: {
+            ...jaJP.signIn?.start,
+            titleCombined: "Subflow にログインして続ける",
+            subtitleCombined: "Subflow でサブスクリプションを管理する",
+        },
+    },
+};
+
 const localizationMap = {
     en: customEnUS,
     zh: customZhTW,
+    ja: customJaJP,
 } as const;
 
 export default function RootLayout({
