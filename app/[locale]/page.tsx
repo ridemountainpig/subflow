@@ -14,6 +14,8 @@ import Footer from "@/components/footer";
 export default function Home() {
     const t = useTranslations("HomePage");
     const locale = useLocale();
+    const isZhOrJa = locale === "zh" || locale === "ja";
+
     return (
         <div className="bg-subflow-900 flex h-fit w-full flex-col items-center justify-center">
             <div className="relative flex h-[calc(100vh-120px)] min-h-[600px] flex-col items-center justify-center gap-y-10">
@@ -23,16 +25,16 @@ export default function Home() {
                     <SubscriptionStackAnimation />
                     <SplitText
                         text={t("titleSplitOne")}
-                        delay={locale === "zh" ? 150 : 200}
+                        delay={isZhOrJa ? 150 : 200}
                         duration={1}
-                        splitType={locale === "zh" ? "chars" : "words"}
+                        splitType={isZhOrJa ? "chars" : "words"}
                         className="text-subflow-50 text-center text-3xl leading-tight font-bold tracking-widest lg:text-5xl xl:text-[55px]"
                     />
                     <SplitText
                         text={t("titleSplitTwo")}
-                        delay={locale === "zh" ? 150 : 200}
+                        delay={isZhOrJa ? 150 : 200}
                         duration={1}
-                        splitType={locale === "zh" ? "chars" : "words"}
+                        splitType={isZhOrJa ? "chars" : "words"}
                         className="text-subflow-50 text-center text-3xl leading-tight font-bold tracking-widest lg:text-5xl xl:text-[55px]"
                     />
                 </div>
@@ -52,9 +54,9 @@ export default function Home() {
             <div className="bg-subflow-900 flex w-full flex-col items-center justify-center py-20 pt-20 lg:pt-44">
                 <SplitText
                     text={t("spotlightTitle")}
-                    delay={locale === "zh" ? 30 : 50}
+                    delay={isZhOrJa ? 30 : 50}
                     duration={1}
-                    splitType={locale === "zh" ? "chars" : "words"}
+                    splitType={isZhOrJa ? "chars" : "words"}
                     className="text-subflow-50 px-6 text-center text-3xl leading-tight font-bold tracking-widest lg:text-5xl"
                 />
                 <div className="mt-10 grid w-[95%] grid-cols-9 gap-4 2xl:w-[85%]">
@@ -142,16 +144,16 @@ export default function Home() {
                 <div className="relative flex h-[50vh] min-h-fit w-2/3 flex-col items-center justify-center gap-y-8">
                     <SplitText
                         text={t("bottomTitle")}
-                        delay={locale === "zh" ? 20 : 50}
+                        delay={isZhOrJa ? 20 : 50}
                         duration={1}
-                        splitType={locale === "zh" ? "chars" : "words"}
+                        splitType={isZhOrJa ? "chars" : "words"}
                         className="text-subflow-50 z-20 text-center text-2xl font-bold tracking-widest sm:text-3xl"
                     />
                     <SplitText
                         text={t("bottomSubtitle")}
-                        delay={locale === "zh" ? 20 : 50}
+                        delay={isZhOrJa ? 20 : 50}
                         duration={1}
-                        splitType={locale === "zh" ? "chars" : "words"}
+                        splitType={isZhOrJa ? "chars" : "words"}
                         className="text-subflow-700 z-20 text-center text-sm font-bold tracking-widest sm:text-base lg:text-lg"
                     />
                     <GetStartBtn />

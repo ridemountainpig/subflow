@@ -16,9 +16,12 @@ import LanguageSwitcher from "@/components/language-switcher";
 
 export default function Header() {
     const pathname = usePathname();
-    const isLoginPage = /^\/(?:en|zh)\/login/.test(pathname);
+    const isLoginPage = /^\/(?:en|zh|ja)\/login/.test(pathname);
     const { userId } = useAuth();
     const t = useTranslations("Header");
+    const buttonStyle =
+        "bg-subflow-50 text-subflow-900 cursor-pointer rounded-full px-3 py-2 text-[10.5px] font-semibold md:px-5 md:text-lg md:tracking-wider";
+
     const [isLoading, setIsLoading] = useState(true);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -37,7 +40,7 @@ export default function Header() {
                         <img
                             src="/subflow-dark.svg"
                             alt="subflow-logo"
-                            className="h-12 w-12 sm:h-19 sm:w-19"
+                            className="h-10 w-10 sm:h-19 sm:w-19"
                         />
                     </Link>
                 </div>
@@ -49,7 +52,7 @@ export default function Header() {
                 {isLoading ? (
                     <div />
                 ) : (
-                    <div className="col-span-1 flex items-center justify-end gap-2 pr-1 sm:gap-4 sm:pr-0">
+                    <div className="col-span-1 flex items-center justify-end gap-1 pr-1 sm:gap-4 sm:pr-0">
                         <LanguageSwitcher />
                         {isLoggedIn ? (
                             <>
@@ -69,13 +72,13 @@ export default function Header() {
                             </>
                         ) : isLoginPage ? (
                             <Link href="/">
-                                <button className="bg-subflow-50 text-subflow-900 cursor-pointer rounded-full px-1 py-2 text-xs font-semibold md:px-5 md:text-lg md:tracking-wider">
+                                <button className={buttonStyle}>
                                     {t("back")}
                                 </button>
                             </Link>
                         ) : (
                             <Link href="/login">
-                                <button className="bg-subflow-50 text-subflow-900 cursor-pointer rounded-full px-1 py-2 text-xs font-semibold md:px-5 md:text-lg md:tracking-wider">
+                                <button className={buttonStyle}>
                                     {t("login")}
                                 </button>
                             </Link>
