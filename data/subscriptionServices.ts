@@ -11,7 +11,7 @@ export const subscriptionServices: SubscriptionServices[] = [
     {
         uuid: "7467d36b-9698-4573-bd04-7ff4c1afeeb4",
         name: "Windsurf",
-        icon: Svgl.Windsurf,
+        icon: Svgl.WindsurfDark,
     },
     {
         uuid: "6170c679-505c-482a-8855-e5e9672f580b",
@@ -501,7 +501,7 @@ export const subscriptionServices: SubscriptionServices[] = [
     {
         uuid: "86566661-9ee1-442a-bd41-56ae59e6d0da",
         name: "Sanity",
-        icon: Svgl.Sanity,
+        icon: Svgl.SanityDark,
     },
     {
         uuid: "fae9e32a-eb3a-4ecb-bcf4-a36a65229088",
@@ -767,5 +767,20 @@ export const subscriptionServices: SubscriptionServices[] = [
         uuid: "e1b80572-0ff7-45e8-a901-41d2d0e78bb3",
         name: "Heptabase",
         icon: Svgl.Heptabase,
+    },
+    {
+        uuid: "84eefb7e-0a23-4042-8ed7-3981f37d9e42",
+        name: "N8n",
+        icon: Svgl.N8n,
+    },
+    {
+        uuid: "078aa410-2800-4896-ae20-ceab023886c7",
+        name: "PowerSync",
+        icon: Svgl.PowerSync,
+    },
+    {
+        uuid: "374d9837-e15b-411b-8320-fdc0bea1d3e1",
+        name: "Ahrefs",
+        icon: Svgl.Ahrefs,
     },
 ];

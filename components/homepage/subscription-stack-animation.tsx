@@ -1,26 +1,51 @@
 "use client";
 
 import React, { useEffect, useState, ComponentType } from "react";
-import { subscriptionServices } from "@/data/subscriptionServices";
+import {
+    subscriptionServices,
+    SubscriptionServices,
+} from "@/data/subscriptionServices";
 import { motion, AnimatePresence } from "framer-motion";
+
+// randomize the order of the services
+function shuffleArray<T>(array: T[]): T[] {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+}
 
 export default function SubscriptionStackAnimation() {
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [shuffledServices, setShuffledServices] = useState<
+        SubscriptionServices[]
+    >([]);
     const displayCount = 3;
 
     useEffect(() => {
+        setShuffledServices(shuffleArray(subscriptionServices));
+    }, []);
+
+    useEffect(() => {
         const interval = setInterval(() => {
-            setCurrentIndex((prev) => (prev + 1) % subscriptionServices.length);
+            setCurrentIndex((prev) => (prev + 1) % shuffledServices.length);
         }, 3000);
 
         return () => clearInterval(interval);
-    }, []);
+    }, [shuffledServices.length]);
 
     const getVisibleServices = () => {
+        if (shuffledServices.length === 0) return [];
+
         const services = [];
         for (let i = 0; i < displayCount; i++) {
-            const index = (currentIndex + i) % subscriptionServices.length;
-            services.push(subscriptionServices[index]);
+            const index = (currentIndex + i) % shuffledServices.length;
+            const service = shuffledServices[index];
+            if (service) {
+                services.push(service);
+            }
         }
         return services;
     };
