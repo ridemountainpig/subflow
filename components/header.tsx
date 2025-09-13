@@ -13,6 +13,7 @@ import {
 } from "@clerk/nextjs";
 import { useState, useEffect } from "react";
 import LanguageSwitcher from "@/components/language-switcher";
+import MoreMenu from "@/components/more-menu/more-menu";
 
 export default function Header() {
     const pathname = usePathname();
@@ -56,12 +57,13 @@ export default function Header() {
                         <LanguageSwitcher />
                         {isLoggedIn ? (
                             <>
+                                <MoreMenu />
                                 <SignedIn>
                                     <UserButton
                                         appearance={{
                                             elements: {
                                                 avatarBox:
-                                                    "min-w-8 min-h-8 sm:min-w-10 sm:min-h-10",
+                                                    "min-w-6 min-h-6 sm:min-w-10 sm:min-h-10",
                                             },
                                         }}
                                     />

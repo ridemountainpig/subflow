@@ -121,6 +121,19 @@
         "since": "開始日",
         "close": "閉じる"
     },
+    "MoreMenu": {
+        "emailNotifyDialog": {
+            "title": "メール通知",
+            "notify": "通知",
+            "notifyDescription": "サブスクリプションの支払い前に通知メールを受け取り、支払う内容を通知します。",
+            "emailPlaceholder": "通知用メールアドレスを入力してください",
+            "emailError": "正しいメールアドレスを入力してください",
+            "emailLanguage": "メール言語",
+            "saveSettings": "設定を保存",
+            "savingSettings": "設定を保存中",
+            "emailNotifySaved": "通知設定を正常に保存しました"
+        }
+    },
     "NotFoundPage": {
         "title": "ページが見つかりません",
         "description": "お探しのページは存在しません",

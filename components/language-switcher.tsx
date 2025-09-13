@@ -38,7 +38,7 @@ export default function LanguageSwitcher() {
         <DropdownMenu>
             <DropdownMenuTrigger className="cursor-pointer focus:outline-none">
                 <Languages
-                    className="text-subflow-50 h-5 w-5 sm:h-7 sm:w-7"
+                    className="text-subflow-50 h-5 w-5 sm:h-8 sm:w-8"
                     strokeWidth={2.5}
                 />
             </DropdownMenuTrigger>

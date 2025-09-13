@@ -121,6 +121,19 @@
         "since": "起始於",
         "close": "關閉"
     },
+    "MoreMenu": {
+        "emailNotifyDialog": {
+            "title": "電子郵件通知",
+            "notify": "通知",
+            "notifyDescription": "設定電子郵件通知，在訂閱付款前提醒您，並通知您即將要支付的項目。",
+            "emailPlaceholder": "請輸入通知電子郵件地址",
+            "emailError": "請輸入正確的電子郵件",
+            "emailLanguage": "電子郵件語言",
+            "saveSettings": "儲存設定",
+            "savingSettings": "儲存設定中",
+            "emailNotifySaved": "成功儲存通知設定"
+        }
+    },
     "NotFoundPage": {
         "title": "找不到頁面",
         "description": "您正在尋找的頁面不存在",

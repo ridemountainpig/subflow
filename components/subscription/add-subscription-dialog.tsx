@@ -71,9 +71,13 @@ export default function AddSubscriptionDialog({
     const handleAddSubscription = async () => {
         if (serviceName === "") {
             setServiceNameError(true);
+        } else {
+            setServiceNameError(false);
         }
         if (servicePrice === 0 || servicePrice < 0) {
             setServicePriceError(true);
+        } else {
+            setServicePriceError(false);
         }
 
         if (serviceName === "" || servicePrice === 0 || servicePrice < 0) {

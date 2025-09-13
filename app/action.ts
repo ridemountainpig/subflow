@@ -3,6 +3,7 @@
 import { auth } from "@clerk/nextjs/server";
 import { connectToDatabase } from "@/lib/mongodb";
 import { getSubscriptionModel } from "@/models/Subscription";
+import { getEmailModel } from "@/models/Email";
 import { Subscription } from "@/types/subscription";
 import {
     CurrenciesList as CurrenciesListType,
@@ -101,6 +102,74 @@ export async function deleteSubscription(subscriptionId: string) {
         console.error("Error deleting subscription:", error);
         throw new Error("Failed to delete subscription");
     }
+}
+
+export async function upsertEmail(
+    email: string,
+    language: "en" | "zh" | "ja",
+    notify: boolean,
+) {
+    const { userId } = await auth();
+    if (!userId) {
+        throw new Error("Unauthorized");
+    }
+
+    const db = await connectToDatabase();
+    const Email = getEmailModel(db);
+
+    // check if the email already exists
+    const existingEmail = await Email.findOne({ userId });
+
+    if (existingEmail) {
+        // if exists, update the record
+        await Email.updateOne(
+            { userId },
+            {
+                $set: {
+                    email: email,
+                    notify: notify,
+                    language: language,
+                    updatedAt: new Date(),
+                },
+            },
+        );
+
+        return {
+            message: "Email updated",
+            action: "updated",
+        };
+    } else {
+        // if not exists, add the record
+        const newEmail = new Email({
+            email: email,
+            notify: notify,
+            language: language,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+            userId: userId,
+        });
+
+        await newEmail.save();
+
+        return {
+            message: "Email added",
+            action: "added",
+        };
+    }
+}
+
+export async function getEmail() {
+    const { userId } = await auth();
+    if (!userId) {
+        throw new Error("Unauthorized");
+    }
+
+    const db = await connectToDatabase();
+    const Email = getEmailModel(db);
+
+    const emails = await Email.find({ userId });
+
+    return JSON.parse(JSON.stringify(emails));
 }
 
 export async function getCurrenciesList() {

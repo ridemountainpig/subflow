@@ -65,9 +65,13 @@ export default function UpdateSubscriptionDialog({
     const handleUpdateSubscription = async () => {
         if (serviceName === "") {
             setServiceNameError(true);
+        } else {
+            setServiceNameError(false);
         }
         if (servicePrice === 0 || servicePrice < 0) {
             setServicePriceError(true);
+        } else {
+            setServicePriceError(false);
         }
 
         if (serviceName === "" || servicePrice === 0 || servicePrice < 0) {

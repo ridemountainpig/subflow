@@ -41,7 +41,7 @@ export default function Subscription() {
     const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
     return (
-        <div className="bg-subflow-900 flex h-full min-h-[calc(100vh-4rem)] w-full flex-col items-center justify-center overflow-y-auto select-none sm:min-h-[calc(100vh-7.25rem)]">
+        <div className="bg-subflow-900 flex h-full min-h-[calc(100vh-3.5rem)] w-full flex-col items-center justify-center overflow-y-auto select-none sm:min-h-[calc(100vh-7.25rem)]">
             <DescriptionDialog />
             {calendar.length > 0 && (
                 <div className="w-fit">
