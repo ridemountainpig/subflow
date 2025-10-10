@@ -2,6 +2,7 @@ import { verifyWebhook } from "@clerk/nextjs/webhooks";
 import { NextRequest } from "next/server";
 import { connectToDatabase } from "@/lib/mongodb";
 import { getSubscriptionModel } from "@/models/Subscription";
+import { getEmailModel } from "@/models/Email";
 
 export async function POST(req: NextRequest) {
     try {
@@ -15,6 +16,8 @@ export async function POST(req: NextRequest) {
                 const db = await connectToDatabase();
                 const SubscriptionModel = getSubscriptionModel(db);
                 await SubscriptionModel.deleteMany({ userId: id });
+                const EmailModel = getEmailModel(db);
+                await EmailModel.deleteMany({ userId: id });
                 return new Response("Webhook received", { status: 200 });
             } catch (error) {
                 console.error("Error deleting subscription:", error);

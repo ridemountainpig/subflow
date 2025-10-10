@@ -17,6 +17,7 @@ import {
 import { useCalendar } from "@/app/hooks/useCalendar";
 import { useCurrency } from "@/app/contexts/CurrencyContext";
 import { useSubscription } from "@/app/hooks/useSubscription";
+import { useFirstLogin } from "@/app/hooks/useFirstLogin";
 
 import FormattedNumber from "@/components/subscription/formatted-number";
 import CalendarCell from "@/components/subscription/calendar-cell";
@@ -38,6 +39,7 @@ export default function Subscription() {
         updatedSubscription,
         setUpdatedSubscription,
     } = useSubscription(year, month, currency, currencyListLoading);
+    useFirstLogin();
     const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
     return (
