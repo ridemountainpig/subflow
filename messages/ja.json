@@ -90,6 +90,11 @@
                 "title": "4. サブスク分析",
                 "description1": "クリックで",
                 "description2": "分析を表示"
+            },
+            "moreMenu": {
+                "title": "5. 設定",
+                "description1": "クリックで",
+                "description2": "を表示: メール通知"
             }
         },
         "service": "サービス",

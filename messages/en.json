@@ -90,6 +90,11 @@
                 "title": "4. Subscription Analytics",
                 "description1": "Click",
                 "description2": "to view subscription analytics"
+            },
+            "moreMenu": {
+                "title": "5. More Settings",
+                "description1": "Click",
+                "description2": "to view more settings: email notification"
             }
         },
         "service": "Service",

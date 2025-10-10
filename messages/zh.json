@@ -90,6 +90,11 @@
                 "title": "4. 訂閱分析",
                 "description1": "點擊",
                 "description2": "可以查看訂閱分析"
+            },
+            "moreMenu": {
+                "title": "5. 更多設定",
+                "description1": "點擊",
+                "description2": "可以查看更多設定項目：電子郵件通知"
             }
         },
         "service": "服務",

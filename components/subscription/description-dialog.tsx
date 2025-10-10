@@ -7,6 +7,7 @@ import {
     CircleArrowRight,
     CirclePlus,
     ChartPie,
+    CircleEllipsis,
 } from "lucide-react";
 import {
     Dialog,
@@ -116,6 +117,27 @@ export default function DescriptionDialog() {
                                 <span className="align-middle">
                                     {t(
                                         "descriptionDialog.analytics.description2",
+                                    )}
+                                </span>
+                            </div>
+                        </div>
+                        <div className="flex flex-col space-y-0.5">
+                            <span className="text-subflow-50 pb-2 text-base tracking-widest sm:text-lg">
+                                {t("descriptionDialog.moreMenu.title")}
+                            </span>
+                            <div className="text-subflow-500">
+                                <span className="align-middle">
+                                    {t(
+                                        "descriptionDialog.moreMenu.description1",
+                                    )}
+                                </span>
+                                <CircleEllipsis
+                                    className="text-subflow-50 mx-1 inline h-4 w-4 align-middle"
+                                    strokeWidth={2.5}
+                                />
+                                <span className="align-middle">
+                                    {t(
+                                        "descriptionDialog.moreMenu.description2",
                                     )}
                                 </span>
                             </div>
