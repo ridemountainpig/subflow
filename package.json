@@ -37,7 +37,7 @@
         "react-day-picker": "9.8.1",
         "react-dom": "^19.0.0",
         "react-parallax-tilt": "^1.7.299",
-        "recharts": "^3.0.0",
+        "recharts": "^3.3.0",
         "sonner": "^2.0.5",
         "tailwind-merge": "^3.0.1",
         "tailwindcss-animate": "^1.0.7",
