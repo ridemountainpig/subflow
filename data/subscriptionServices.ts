@@ -783,4 +783,34 @@ export const subscriptionServices: SubscriptionServices[] = [
         name: "Ahrefs",
         icon: Svgl.Ahrefs,
     },
+    {
+        uuid: "11dc847b-893c-492e-8f42-57f27ed63215",
+        name: "Kilo Code",
+        icon: Svgl.KiloCodeDark,
+    },
+    {
+        uuid: "10eee54e-70d6-4261-a08d-461e96791501",
+        name: "LottieFiles",
+        icon: Svgl.LottieFiles,
+    },
+    {
+        uuid: "43824ccb-82d4-497d-a173-de4b5891729b",
+        name: "Microsoft OneNote",
+        icon: Svgl.OneNote,
+    },
+    {
+        uuid: "14e6455e-0e89-49da-84b2-a72db7de34c2",
+        name: "Qdrant",
+        icon: Svgl.QdrantDark,
+    },
+    {
+        uuid: "1b66a47f-87e9-4651-a8fc-4ace203244ca",
+        name: "TravelPerk",
+        icon: Svgl.TravelPerkDark,
+    },
+    {
+        uuid: "d28a8bfd-fb42-464a-a93a-7533f8636228",
+        name: "Zulip",
+        icon: Svgl.Zulip,
+    },
 ];
