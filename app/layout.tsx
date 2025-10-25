@@ -58,6 +58,20 @@ export async function generateMetadata(): Promise<Metadata> {
                 url: "https://www.github.com/ridemountainpig",
             },
         ],
+        icons: {
+            apple: [
+                {
+                    url: "/manifest-images/subflow-icon-192x192.png",
+                    sizes: "192x192",
+                    type: "image/png",
+                },
+            ],
+        },
+        appleWebApp: {
+            capable: true,
+            statusBarStyle: "default",
+            title: "Subflow",
+        },
         openGraph: {
             type: "website",
             url: "https://subflow.ing/",
