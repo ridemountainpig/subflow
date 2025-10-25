@@ -1,6 +1,6 @@
 # Subflow
 
-![Subflow Banner](public/subflow-en-og.png)
+![Subflow Banner](public/og-images/subflow-en-og.png)
 
 ## 📖 Overview
 
