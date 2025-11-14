@@ -17,7 +17,7 @@ export const PreferencesSchema = new Schema<IPreferences>(
     },
 );
 
-PreferencesSchema.index({ userId: 1 });
+PreferencesSchema.index({ userId: 1 }, { unique: true });
 
 export const getPreferencesModel = (db: Connection) => {
     return (
