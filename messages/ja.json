@@ -137,6 +137,14 @@
             "saveSettings": "設定を保存",
             "savingSettings": "設定を保存中",
             "emailNotifySaved": "通知設定を正常に保存しました"
+        },
+        "preferencesDialog": {
+            "title": "プリファレンス",
+            "notAmortizeYearlySubscriptions": "年間サブスクリプション費用を按分しない",
+            "notAmortizeYearlySubscriptionsDescription": "Subflow はデフォルトで年間サブスクリプション費用を月額に按分します。このオプションを有効にすると、年間サブスクリプションはその月のみカレンダーとサブスクリプション分析に表示されます。",
+            "saveSettings": "設定を保存",
+            "savingSettings": "設定を保存中",
+            "preferencesSaved": "プリファレンスを保存しました"
         }
     },
     "NotFoundPage": {

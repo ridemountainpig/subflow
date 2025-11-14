@@ -5,6 +5,7 @@ import {
 } from "@/types/subscription";
 import { getSubscription } from "@/app/action";
 import { convertCurrency } from "@/utils/currency";
+import { usePreferences } from "@/app/contexts/PreferencesContext";
 
 export const useSubscription = (
     year: number,
@@ -12,6 +13,8 @@ export const useSubscription = (
     currency: string,
     currencyListLoading: boolean,
 ) => {
+    const { notAmortizeYearlySubscriptions, preferencesLoading } =
+        usePreferences();
     const [subscriptions, setSubscriptions] = useState<SubscriptionWithPrice[]>(
         [],
     );
@@ -38,11 +41,19 @@ export const useSubscription = (
     const dateFilteredSubscriptions = useMemo(() => {
         return rawSubscriptions.filter((subscription: SubscriptionType) => {
             if (subscription.paymentCycle === "yearly") {
-                return (
-                    subscription.startDate.year < year ||
-                    (subscription.startDate.year === year &&
-                        subscription.startDate.month <= month)
-                );
+                if (notAmortizeYearlySubscriptions) {
+                    const yearsSinceStart = year - subscription.startDate.year;
+                    const isCurrentMonth =
+                        month === subscription.startDate.month;
+
+                    return yearsSinceStart >= 0 && isCurrentMonth;
+                } else {
+                    return (
+                        subscription.startDate.year < year ||
+                        (subscription.startDate.year === year &&
+                            subscription.startDate.month <= month)
+                    );
+                }
             }
             return (
                 (subscription.startDate.year === year &&
@@ -50,7 +61,7 @@ export const useSubscription = (
                 subscription.startDate.year < year
             );
         });
-    }, [rawSubscriptions, year, month]);
+    }, [rawSubscriptions, year, month, notAmortizeYearlySubscriptions]);
 
     const subscriptionsToConvert = useMemo(() => {
         return dateFilteredSubscriptions.filter(
@@ -113,6 +124,7 @@ export const useSubscription = (
     const totalSpend = useMemo(() => {
         if (
             currencyListLoading ||
+            preferencesLoading ||
             (subscriptionsToConvert.length > 0 && subscriptions.length === 0)
         ) {
             return null;
@@ -122,14 +134,23 @@ export const useSubscription = (
             return 0;
         }
 
-        return subscriptions.reduce(
-            (sum, subscription) =>
-                sum +
-                subscription.convertedPrice /
-                    (subscription.paymentCycle === "yearly" ? 12 : 1),
-            0,
-        );
-    }, [currencyListLoading, subscriptions, subscriptionsToConvert]);
+        return subscriptions.reduce((sum, subscription) => {
+            let price = subscription.convertedPrice;
+            if (
+                subscription.paymentCycle === "yearly" &&
+                !notAmortizeYearlySubscriptions
+            ) {
+                price = price / 12;
+            }
+            return sum + price;
+        }, 0);
+    }, [
+        currencyListLoading,
+        preferencesLoading,
+        subscriptions,
+        subscriptionsToConvert,
+        notAmortizeYearlySubscriptions,
+    ]);
 
     useEffect(() => {
         setMonthlySpend(totalSpend ? Math.round(totalSpend) : totalSpend);

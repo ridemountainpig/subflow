@@ -8,6 +8,7 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import Header from "@/components/header";
 import { CurrencyProvider } from "@/app/contexts/CurrencyContext";
+import { PreferencesProvider } from "@/app/contexts/PreferencesContext";
 
 export async function generateMetadata(): Promise<Metadata> {
     const locale = await getLocale();
@@ -158,8 +159,10 @@ export default function RootLayout({
                     <GoogleAnalytics gaId="G-GV0VX77XD7" />
                     <NextIntlClientProvider>
                         <CurrencyProvider>
-                            <Header />
-                            {children}
+                            <PreferencesProvider>
+                                <Header />
+                                {children}
+                            </PreferencesProvider>
                         </CurrencyProvider>
                         <Toaster
                             toastOptions={{

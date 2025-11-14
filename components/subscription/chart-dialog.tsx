@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/dialog";
 
 import { useIsMobile } from "@/app/hooks/useIsMobile";
+import { usePreferences } from "@/app/contexts/PreferencesContext";
 import { SubscriptionWithPrice } from "@/types/subscription";
 import { subscriptionServices } from "@/data/subscriptionServices";
 import FormattedNumber from "@/components/subscription/formatted-number";
@@ -157,6 +158,7 @@ export default function ChartDialog({
     const chartRef = useRef<HTMLDivElement>(null);
     const t = useTranslations("SubscriptionPage");
     const isMobile = useIsMobile();
+    const { notAmortizeYearlySubscriptions } = usePreferences();
 
     useEffect(() => {
         const updateScreenWidth = () => {
@@ -175,11 +177,16 @@ export default function ChartDialog({
     const data = useMemo(
         () =>
             subscription.map((item) => {
-                const monthlyPrice = Math.round(
-                    item.convertedPrice /
-                        (item.paymentCycle === "yearly" ? 12 : 1),
-                );
+                let displayPrice = item.convertedPrice;
 
+                if (
+                    item.paymentCycle === "yearly" &&
+                    !notAmortizeYearlySubscriptions
+                ) {
+                    displayPrice = displayPrice / 12;
+                }
+
+                const monthlyPrice = Math.round(displayPrice);
                 const monthsFromStart = calculateMonthsFromStart(
                     item.startDate,
                 );
@@ -195,7 +202,7 @@ export default function ChartDialog({
                     totalSpend: monthlyPrice * monthsFromStart,
                 };
             }),
-        [subscription, monthSpend, currency],
+        [subscription, monthSpend, currency, notAmortizeYearlySubscriptions],
     );
 
     const sortedData = useMemo(
@@ -319,11 +326,13 @@ export default function ChartDialog({
                             <span className="text-subflow-50 text-xl tracking-wider">
                                 {t("subscriptionList")}
                             </span>
-                            <span
-                                className={`text-subflow-300 -mt-2 text-xs tracking-wider ${isMobile ? "w-full" : "w-[300px]"}`}
-                            >
-                                {t("subscriptionListDescription")}
-                            </span>
+                            {!notAmortizeYearlySubscriptions && (
+                                <span
+                                    className={`text-subflow-300 -mt-2 text-xs tracking-wider ${isMobile ? "w-full" : "w-[300px]"}`}
+                                >
+                                    {t("subscriptionListDescription")}
+                                </span>
+                            )}
                             <div
                                 className={`custom-scrollbar flex flex-col gap-3 overflow-y-auto ${isMobile ? "h-full w-full" : "h-[600px] w-[300px] pr-2"}`}
                             >

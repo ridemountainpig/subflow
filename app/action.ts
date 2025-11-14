@@ -4,17 +4,23 @@ import { auth } from "@clerk/nextjs/server";
 import { connectToDatabase } from "@/lib/mongodb";
 import { getSubscriptionModel } from "@/models/Subscription";
 import { getEmailModel } from "@/models/Email";
+import { getPreferencesModel } from "@/models/Preferences";
 import { Subscription } from "@/types/subscription";
 import {
     CurrenciesList as CurrenciesListType,
     CurrenciesLive as CurrenciesLiveType,
 } from "@/types/currency";
 
-export async function addSubscription(subscriptionData: Subscription) {
+async function requireAuth(): Promise<string> {
     const { userId } = await auth();
     if (!userId) {
         throw new Error("Unauthorized");
     }
+    return userId;
+}
+
+export async function addSubscription(subscriptionData: Subscription) {
+    const userId = await requireAuth();
 
     const db = await connectToDatabase();
     const Subscription = getSubscriptionModel(db);
@@ -32,10 +38,7 @@ export async function addSubscription(subscriptionData: Subscription) {
 }
 
 export async function getSubscription() {
-    const { userId } = await auth();
-    if (!userId) {
-        throw new Error("Unauthorized");
-    }
+    const userId = await requireAuth();
 
     const db = await connectToDatabase();
     const Subscription = getSubscriptionModel(db);
@@ -49,10 +52,7 @@ export async function updateSubscription(
     subscriptionId: string,
     subscriptionData: Subscription,
 ) {
-    const { userId } = await auth();
-    if (!userId) {
-        throw new Error("Unauthorized");
-    }
+    const userId = await requireAuth();
 
     const db = await connectToDatabase();
     const Subscription = getSubscriptionModel(db);
@@ -81,10 +81,7 @@ export async function updateSubscription(
 }
 
 export async function deleteSubscription(subscriptionId: string) {
-    const { userId } = await auth();
-    if (!userId) {
-        throw new Error("Unauthorized");
-    }
+    const userId = await requireAuth();
 
     const db = await connectToDatabase();
     const Subscription = getSubscriptionModel(db);
@@ -109,10 +106,7 @@ export async function upsertEmail(
     language: "en" | "zh" | "ja",
     notify: boolean,
 ) {
-    const { userId } = await auth();
-    if (!userId) {
-        throw new Error("Unauthorized");
-    }
+    const userId = await requireAuth();
 
     const db = await connectToDatabase();
     const Email = getEmailModel(db);
@@ -153,16 +147,12 @@ export async function upsertEmail(
 
         return {
             message: "Email added",
-            action: "added",
         };
     }
 }
 
 export async function getEmail() {
-    const { userId } = await auth();
-    if (!userId) {
-        throw new Error("Unauthorized");
-    }
+    const userId = await requireAuth();
 
     const db = await connectToDatabase();
     const Email = getEmailModel(db);
@@ -170,6 +160,46 @@ export async function getEmail() {
     const emails = await Email.find({ userId });
 
     return JSON.parse(JSON.stringify(emails));
+}
+
+export async function upsertPreferences(
+    notAmortizeYearlySubscriptions: boolean,
+) {
+    const userId = await requireAuth();
+
+    const db = await connectToDatabase();
+    const Preferences = getPreferencesModel(db);
+
+    const existingPreferences = await Preferences.findOne({ userId });
+
+    if (existingPreferences) {
+        await Preferences.updateOne(
+            { userId },
+            { $set: { notAmortizeYearlySubscriptions, updatedAt: new Date() } },
+        );
+    } else {
+        await Preferences.create({
+            notAmortizeYearlySubscriptions,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+            userId,
+        });
+    }
+
+    return {
+        message: "Preferences updated",
+    };
+}
+
+export async function getPreferences() {
+    const userId = await requireAuth();
+
+    const db = await connectToDatabase();
+    const Preferences = getPreferencesModel(db);
+
+    const preferences = await Preferences.find({ userId });
+
+    return JSON.parse(JSON.stringify(preferences));
 }
 
 export async function getCurrenciesList() {

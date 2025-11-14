@@ -137,6 +137,14 @@
             "saveSettings": "儲存設定",
             "savingSettings": "儲存設定中",
             "emailNotifySaved": "成功儲存通知設定"
+        },
+        "preferencesDialog": {
+            "title": "偏好設定",
+            "notAmortizeYearlySubscriptions": "不攤提年訂閱費用",
+            "notAmortizeYearlySubscriptionsDescription": "Subflow 預設會將年訂閱費用攤提為月費用。如果不想攤提，可以開啟此選項。開啟後，年訂閱服務將僅在當月顯示於日曆和訂閱分析中。",
+            "saveSettings": "儲存設定",
+            "savingSettings": "儲存設定中",
+            "preferencesSaved": "成功儲存偏好設定"
         }
     },
     "NotFoundPage": {
