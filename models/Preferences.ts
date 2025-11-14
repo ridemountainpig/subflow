@@ -7,12 +7,17 @@ interface IPreferences extends Document {
     updatedAt: Date;
 }
 
-export const PreferencesSchema = new Schema<IPreferences>({
-    userId: { type: String, required: true },
-    notAmortizeYearlySubscriptions: { type: Boolean, required: true },
-    createdAt: { type: Date, required: true },
-    updatedAt: { type: Date, required: true },
-});
+export const PreferencesSchema = new Schema<IPreferences>(
+    {
+        userId: { type: String, required: true },
+        notAmortizeYearlySubscriptions: { type: Boolean, required: true },
+    },
+    {
+        timestamps: true,
+    },
+);
+
+PreferencesSchema.index({ userId: 1 });
 
 export const getPreferencesModel = (db: Connection) => {
     return (

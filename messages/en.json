@@ -140,7 +140,7 @@
         },
         "preferencesDialog": {
             "title": "Preferences",
-            "notAmortizeYearlySubscriptions": "Not Amortize Yearly Subscriptions",
+            "notAmortizeYearlySubscriptions": "Do Not Amortize Yearly Subscriptions",
             "notAmortizeYearlySubscriptionsDescription": "Subflow defaults to amortizing yearly subscription fees to monthly fees. If you don't want to amortize, you can enable this option. After enabling, yearly subscriptions will only be displayed in the calendar and subscription analysis for the current month.",
             "saveSettings": "Save Settings",
             "savingSettings": "Saving Settings",

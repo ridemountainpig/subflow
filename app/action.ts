@@ -165,6 +165,12 @@ export async function getEmail() {
 export async function upsertPreferences(
     notAmortizeYearlySubscriptions: boolean,
 ) {
+    if (typeof notAmortizeYearlySubscriptions !== "boolean") {
+        throw new Error(
+            "Invalid parameter: notAmortizeYearlySubscriptions must be a boolean.",
+        );
+    }
+
     const userId = await requireAuth();
 
     const db = await connectToDatabase();
@@ -175,13 +181,11 @@ export async function upsertPreferences(
     if (existingPreferences) {
         await Preferences.updateOne(
             { userId },
-            { $set: { notAmortizeYearlySubscriptions, updatedAt: new Date() } },
+            { $set: { notAmortizeYearlySubscriptions } },
         );
     } else {
         await Preferences.create({
             notAmortizeYearlySubscriptions,
-            createdAt: new Date(),
-            updatedAt: new Date(),
             userId,
         });
     }

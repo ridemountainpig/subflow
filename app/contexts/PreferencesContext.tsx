@@ -5,6 +5,7 @@ import React, {
     useContext,
     useState,
     useEffect,
+    useCallback,
     ReactNode,
 } from "react";
 import { getPreferences } from "@/app/action";
@@ -28,7 +29,7 @@ export function PreferencesProvider({ children }: PreferencesProviderProps) {
         useState(false);
     const [preferencesLoading, setPreferencesLoading] = useState(true);
 
-    const fetchPreferences = async () => {
+    const fetchPreferences = useCallback(async () => {
         try {
             setPreferencesLoading(true);
             const preferences = await getPreferences();
@@ -45,11 +46,11 @@ export function PreferencesProvider({ children }: PreferencesProviderProps) {
         } finally {
             setPreferencesLoading(false);
         }
-    };
+    }, []);
 
     useEffect(() => {
         fetchPreferences();
-    }, []);
+    }, [fetchPreferences]);
 
     const value: PreferencesContextType = {
         notAmortizeYearlySubscriptions,
