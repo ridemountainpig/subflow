@@ -5,6 +5,7 @@ import { Subscription } from "@/types/subscription";
 import FormattedNumber from "@/components/subscription/formatted-number";
 import UpdateSubscriptionDialog from "@/components/subscription/update-subscription-dialog";
 import DeleteSubscriptionDialog from "@/components/subscription/delete-subscription-dialog";
+import { usePreferences } from "@/app/contexts/PreferencesContext";
 
 interface SubscriptionListItemProps {
     subscription: Subscription;
@@ -16,6 +17,7 @@ export default function SubscriptionListItem({
     onSuccess,
 }: SubscriptionListItemProps) {
     const t = useTranslations("SubscriptionPage");
+    const { notAmortizeYearlySubscriptions } = usePreferences();
     const Icon = subscriptionServices.find(
         (service) => service.uuid === subscription.serviceId,
     )?.icon as ComponentType<{ className?: string }>;
@@ -39,10 +41,10 @@ export default function SubscriptionListItem({
                 <div className="flex items-center gap-x-2 tracking-widest">
                     <FormattedNumber
                         value={Math.round(
-                            subscription.price /
-                                (subscription.paymentCycle === "yearly"
-                                    ? 12
-                                    : 1),
+                            subscription.paymentCycle === "yearly" &&
+                                !notAmortizeYearlySubscriptions
+                                ? subscription.price / 12
+                                : subscription.price,
                         )}
                         className="text-base"
                     />
@@ -53,6 +55,7 @@ export default function SubscriptionListItem({
                 <span className="text-[13px]">
                     {t(subscription.paymentCycle)}
                     {subscription.paymentCycle === "yearly" &&
+                        !notAmortizeYearlySubscriptions &&
                         t("yearlyDescription")}
                 </span>
                 <div className="flex items-center gap-x-0.5">
