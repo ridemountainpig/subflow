@@ -13,7 +13,7 @@
         "@clerk/localizations": "^3.24.2",
         "@clerk/nextjs": "^6.24.0",
         "@next/third-parties": "^15.4.1",
-        "@radix-ui/react-dialog": "^1.1.14",
+        "@radix-ui/react-dialog": "^1.1.15",
         "@radix-ui/react-dropdown-menu": "^2.1.15",
         "@radix-ui/react-hover-card": "^1.1.14",
         "@radix-ui/react-label": "^2.1.2",
