@@ -3,8 +3,6 @@ import { Connection, Schema, Document } from "mongoose";
 interface IPreferences extends Document {
     userId: string;
     notAmortizeYearlySubscriptions: boolean;
-    createdAt: Date;
-    updatedAt: Date;
 }
 
 export const PreferencesSchema = new Schema<IPreferences>(

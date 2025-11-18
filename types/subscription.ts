@@ -11,8 +11,8 @@ export type Subscription = {
     };
     paymentCycle: "monthly" | "yearly";
     serviceId?: string;
-    createdAt: Date;
-    updatedAt: Date;
+    createdAt?: Date;
+    updatedAt?: Date;
 };
 
 export type SubscriptionWithPrice = Subscription & {

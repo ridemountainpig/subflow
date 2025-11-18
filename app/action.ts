@@ -123,7 +123,6 @@ export async function upsertEmail(
                     email: email,
                     notify: notify,
                     language: language,
-                    updatedAt: new Date(),
                 },
             },
         );
@@ -138,8 +137,6 @@ export async function upsertEmail(
             email: email,
             notify: notify,
             language: language,
-            createdAt: new Date(),
-            updatedAt: new Date(),
             userId: userId,
         });
 

@@ -92,8 +92,6 @@ export default function UpdateSubscriptionDialog({
             paymentCycle: paymentCycle,
             serviceId: serviceUuid,
             userId: subscription.userId,
-            createdAt: subscription.createdAt,
-            updatedAt: new Date(),
         };
 
         await updateSubscription(

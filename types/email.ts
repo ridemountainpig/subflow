@@ -4,6 +4,6 @@ export type Email = {
     email: string;
     language: "en" | "zh" | "ja";
     notify: boolean;
-    createdAt: Date;
-    updatedAt: Date;
+    createdAt?: Date;
+    updatedAt?: Date;
 };
