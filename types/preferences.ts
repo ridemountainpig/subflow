@@ -2,6 +2,6 @@ export type Preferences = {
     _id?: string;
     userId: string;
     notAmortizeYearlySubscriptions: boolean;
-    createdAt: Date;
-    updatedAt: Date;
+    createdAt?: Date;
+    updatedAt?: Date;
 };

@@ -98,8 +98,6 @@ export default function AddSubscriptionDialog({
             paymentCycle: paymentCycle,
             serviceId: serviceUuid,
             userId: userId,
-            createdAt: new Date(),
-            updatedAt: new Date(),
         };
 
         await addSubscription(subscription);
