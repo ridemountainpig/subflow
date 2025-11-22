@@ -8,6 +8,7 @@ import React, {
     useCallback,
     ReactNode,
 } from "react";
+import { useAuth } from "@clerk/nextjs";
 import { getPreferences } from "@/app/action";
 
 interface PreferencesContextType {
@@ -25,11 +26,18 @@ interface PreferencesProviderProps {
 }
 
 export function PreferencesProvider({ children }: PreferencesProviderProps) {
+    const { userId } = useAuth();
     const [notAmortizeYearlySubscriptions, setNotAmortizeYearlySubscriptions] =
         useState(false);
     const [preferencesLoading, setPreferencesLoading] = useState(true);
 
     const fetchPreferences = useCallback(async () => {
+        if (!userId) {
+            setPreferencesLoading(false);
+            setNotAmortizeYearlySubscriptions(false);
+            return;
+        }
+
         try {
             setPreferencesLoading(true);
             const preferences = await getPreferences();
@@ -46,7 +54,7 @@ export function PreferencesProvider({ children }: PreferencesProviderProps) {
         } finally {
             setPreferencesLoading(false);
         }
-    }, []);
+    }, [userId]);
 
     useEffect(() => {
         fetchPreferences();
