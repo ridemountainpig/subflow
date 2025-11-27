@@ -126,7 +126,7 @@ export const subscriptionServices: SubscriptionServices[] = [
     {
         uuid: "ab686a46-81f1-4854-b5ba-93769968f5d5",
         name: "MongoDB",
-        icon: Svgl.MongoDB,
+        icon: Svgl.MongoDBDark,
     },
     {
         uuid: "b1783a81-b9d8-48cc-970c-f7307e2c3ba3",
@@ -796,7 +796,7 @@ export const subscriptionServices: SubscriptionServices[] = [
     {
         uuid: "43824ccb-82d4-497d-a173-de4b5891729b",
         name: "Microsoft OneNote",
-        icon: Svgl.OneNote,
+        icon: Svgl.MicrosoftOneNote,
     },
     {
         uuid: "14e6455e-0e89-49da-84b2-a72db7de34c2",
@@ -812,5 +812,20 @@ export const subscriptionServices: SubscriptionServices[] = [
         uuid: "d28a8bfd-fb42-464a-a93a-7533f8636228",
         name: "Zulip",
         icon: Svgl.Zulip,
+    },
+    {
+        uuid: "0c88c191-1501-41da-a75f-9427c77ad749",
+        name: "Dribbble",
+        icon: Svgl.Dribbble,
+    },
+    {
+        uuid: "df9d28d6-76ba-4731-901f-1ad5ba805e7b",
+        name: "App Store",
+        icon: Svgl.AppStore,
+    },
+    {
+        uuid: "5ec4a9ac-3282-4937-bc9b-7e2d8265b832",
+        name: "Google Play",
+        icon: Svgl.GooglePlay,
     },
 ];

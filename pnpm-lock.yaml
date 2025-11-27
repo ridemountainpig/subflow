@@ -42,8 +42,8 @@ importers:
         specifier: ^1.2.6
         version: 1.2.6(@types/react-dom@19.0.3(@types/react@19.0.8))(@types/react@19.0.8)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@ridemountainpig/svgl-react':
-        specifier: ^1.0.13
-        version: 1.0.13(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        specifier: ^1.0.14
+        version: 1.0.14(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -923,8 +923,8 @@ packages:
       react-redux:
         optional: true
 
-  '@ridemountainpig/svgl-react@1.0.13':
-    resolution: {integrity: sha512-hikQhTVmnKdnvj6iQ/8OYSV9mCFXeaQE9Qq03/1bQXH94/yh4MV/3hos5T0+DURhA5965nXnmNRlpncAQ/W9qA==}
+  '@ridemountainpig/svgl-react@1.0.14':
+    resolution: {integrity: sha512-nCFhnM5cR8dgAUZYqs4mdPTF/zgKPYsIW627xbd1eAvVefmmt0a6odj0DhPxlt50J5rrc5SmrcUV+n+01bAcTw==}
     peerDependencies:
       react: ^16.8 || ^17.0 || ^18.0 || ^19.0
       react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0
@@ -3560,7 +3560,7 @@ snapshots:
       react: 19.0.0
       react-redux: 9.2.0(@types/react@19.0.8)(react@19.0.0)(redux@5.0.1)
 
-  '@ridemountainpig/svgl-react@1.0.13(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
+  '@ridemountainpig/svgl-react@1.0.14(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
     dependencies:
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
