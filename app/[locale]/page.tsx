@@ -139,7 +139,7 @@ export default function Home() {
                         />
                     </SpotlightCard>
                     <SpotlightCard
-                        className="custom-spotlight-card col-span-12 w-full rounded-xl"
+                        className="custom-spotlight-card col-span-9 w-full rounded-xl"
                         spotlightColor="rgba(250, 240, 230, 0.2)"
                     >
                         <SpotlightCardContent
