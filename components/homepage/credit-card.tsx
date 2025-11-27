@@ -3,12 +3,42 @@
 
 import { motion } from "framer-motion";
 import Tilt from "react-parallax-tilt";
-
-const Dot = () => {
-    return <div className="h-1.5 w-1.5 rounded-full bg-white" />;
-};
+import { useState, useEffect, useMemo } from "react";
+import { getSubscriptionCount } from "@/app/action";
 
 export default function CreditCard() {
+    const [count, setCount] = useState(0);
+
+    useEffect(() => {
+        const fetchCount = async () => {
+            const subscriptionCount = await getSubscriptionCount();
+            setCount(subscriptionCount);
+        };
+
+        fetchCount();
+    }, []);
+
+    const groups = useMemo(() => {
+        const countString = count.toString();
+        const totalDots = 16 - countString.length;
+
+        const elements = Array.from({ length: 16 }, (_, i) => {
+            if (i < totalDots) {
+                return <Dot key={`dot-${i}`} />;
+            }
+            const digitIndex = i - totalDots;
+            return (
+                <span key={`digit-${digitIndex}`} className="text-lg">
+                    {countString[digitIndex]}
+                </span>
+            );
+        });
+
+        return Array.from({ length: 4 }, (_, i) =>
+            elements.slice(i * 4, (i + 1) * 4),
+        );
+    }, [count]);
+
     return (
         <Tilt tiltMaxAngleX={8} tiltMaxAngleY={8} scale={1.05}>
             <motion.div
@@ -18,7 +48,7 @@ export default function CreditCard() {
                 className="from-subflow-900 to-subflow-700 relative h-fit w-[350px] rounded-2xl bg-gradient-to-br p-6 tracking-widest text-white shadow-xl select-none sm:w-[360px] lg:w-[380px]"
             >
                 <div className="flex items-center justify-between">
-                    <h2 className="text-xl font-bold">SUBFLOW CARD</h2>
+                    <h2 className="text-xl font-bold">SUBSCRIPTIONS TRACKED</h2>
                     <div className="h-10 w-10 rounded-full bg-white/10">
                         <img
                             src="/subflow-dark.svg"
@@ -30,25 +60,14 @@ export default function CreditCard() {
 
                 <div className="mt-4 flex h-fit items-center">
                     <div className="flex space-x-4">
-                        <div className="flex items-center space-x-2">
-                            <Dot />
-                            <Dot />
-                            <Dot />
-                            <Dot />
-                        </div>
-                        <div className="flex items-center space-x-2">
-                            <Dot />
-                            <Dot />
-                            <Dot />
-                            <Dot />
-                        </div>
-                        <div className="flex items-center space-x-2">
-                            <Dot />
-                            <Dot />
-                            <Dot />
-                            <Dot />
-                        </div>
-                        <span className="text-base">0802</span>
+                        {groups.map((group, groupIndex) => (
+                            <div
+                                key={`group-${groupIndex}`}
+                                className="flex items-center space-x-2"
+                            >
+                                {group}
+                            </div>
+                        ))}
                     </div>
                 </div>
 
@@ -63,4 +82,8 @@ export default function CreditCard() {
             </motion.div>
         </Tilt>
     );
+}
+
+function Dot() {
+    return <div className="h-[6.5px] w-[6.5px] rounded-full bg-white" />;
 }

@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { useTranslations, useLocale } from "next-intl";
-import { Coins, CalendarSync, DollarSign } from "lucide-react";
+import { Coins, CalendarSync, DollarSign, MailCheck } from "lucide-react";
 import GetStartBtn from "@/components/homepage/get-start-btn";
 import GoSubscriptionBtn from "@/components/homepage/go-subscription-btn";
 import SubscriptionStackAnimation from "@/components/homepage/subscription-stack-animation";
@@ -136,6 +136,22 @@ export default function Home() {
                             }
                             title={t("spotlightCardFour.title")}
                             description={t("spotlightCardFour.description")}
+                        />
+                    </SpotlightCard>
+                    <SpotlightCard
+                        className="custom-spotlight-card col-span-12 w-full rounded-xl"
+                        spotlightColor="rgba(250, 240, 230, 0.2)"
+                    >
+                        <SpotlightCardContent
+                            icon={
+                                <MailCheck
+                                    size={28}
+                                    strokeWidth={2.5}
+                                    className="text-subflow-50"
+                                />
+                            }
+                            title={t("spotlightCardFive.title")}
+                            description={t("spotlightCardFive.description")}
                         />
                     </SpotlightCard>
                 </div>

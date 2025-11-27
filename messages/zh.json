@@ -44,6 +44,10 @@
             "title": "支援多種貨幣",
             "description": "支援多幣別管理，掌握海外訂閱也沒問題"
         },
+        "spotlightCardFive": {
+            "title": "電子郵件通知",
+            "description": "電子郵件通知功能，在訂閱付款前提醒您，並通知您即將要支付的項目"
+        },
         "bottomTitle": "不再錯過任何一筆訂閱",
         "bottomSubtitle": "現在就開始使用 Subflow，讓您全面掌握每一筆訂閱支出"
     },

@@ -24,6 +24,7 @@ import CalendarCell from "@/components/subscription/calendar-cell";
 import AddSubscriptionDialog from "@/components/subscription/add-subscription-dialog";
 import ChartDialog from "@/components/subscription/chart-dialog";
 import DescriptionDialog from "@/components/subscription/description-dialog";
+import NewFeatureNotify from "@/components/new-feature-notify";
 
 export default function Subscription() {
     const { userId } = useAuth();
@@ -43,7 +44,8 @@ export default function Subscription() {
     const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
     return (
-        <div className="bg-subflow-900 flex h-full min-h-[calc(100vh-3.5rem)] w-full flex-col items-center justify-center overflow-y-auto select-none sm:min-h-[calc(100vh-7.25rem)]">
+        <div className="bg-subflow-900 relative flex h-full min-h-[calc(100vh-3.5rem)] w-full flex-col items-center justify-center overflow-y-auto select-none sm:min-h-[calc(100vh-7.25rem)]">
+            <NewFeatureNotify />
             <DescriptionDialog />
             {calendar.length > 0 && (
                 <div className="w-fit">
