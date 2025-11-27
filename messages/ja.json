@@ -44,6 +44,10 @@
             "title": "多通貨に対応",
             "description": "海外サブスクの管理も可能"
         },
+        "spotlightCardFive": {
+            "title": "メール通知",
+            "description": "メール通知機能で、サブスクリプションの支払い前に通知し、支払う内容を通知します"
+        },
         "bottomTitle": "支払い漏れゼロへ",
         "bottomSubtitle": "今すぐ Subflow を使って管理開始"
     },

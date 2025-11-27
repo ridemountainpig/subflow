@@ -48,6 +48,20 @@ export async function getSubscription() {
     return JSON.parse(JSON.stringify(subscriptions));
 }
 
+export async function getSubscriptionCount() {
+    try {
+        const db = await connectToDatabase();
+        const Subscription = getSubscriptionModel(db);
+
+        const count = await Subscription.countDocuments({});
+
+        return count;
+    } catch (error) {
+        console.error("Error getting subscription count:", error);
+        return 0;
+    }
+}
+
 export async function updateSubscription(
     subscriptionId: string,
     subscriptionData: Subscription,
