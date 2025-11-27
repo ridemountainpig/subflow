@@ -17,9 +17,7 @@ export default function NewFeatureNotify() {
     const newFeatureNotifyContent =
         NEW_FEATURE_NOTIFY_CONTENT[
             locale as keyof typeof NEW_FEATURE_NOTIFY_CONTENT
-        ] ??
-        NEW_FEATURE_NOTIFY_CONTENT.en ??
-        "";
+        ] ?? NEW_FEATURE_NOTIFY_CONTENT.en;
 
     useEffect(() => {
         const timer = setTimeout(() => {

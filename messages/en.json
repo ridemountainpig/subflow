@@ -46,7 +46,7 @@
         },
         "spotlightCardFive": {
             "title": "Email Notification",
-            "description": "Email notification feature, remind you before your subscription payment and notify you of what you’ll pay for"
+            "description": "Email notification feature that reminds you before your subscription payment and notifies you of what you’ll pay for"
         },
         "bottomTitle": "Never lose track of your subscriptions again.",
         "bottomSubtitle": "Use Subflow for free, forever and stay fully in control."
