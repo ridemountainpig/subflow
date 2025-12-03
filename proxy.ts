@@ -11,7 +11,7 @@ const isProtectedRoute = createRouteMatcher([
 
 const intlMiddleware = createMiddleware(routing);
 
-const combinedMiddleware = clerkMiddleware(async (auth, request) => {
+const proxy = clerkMiddleware(async (auth, request) => {
     // Skip Clerk auth for webhooks
     if (request.nextUrl.pathname.startsWith("/api/webhooks")) {
         return;
@@ -26,7 +26,7 @@ const combinedMiddleware = clerkMiddleware(async (auth, request) => {
     return intlMiddleware(request);
 });
 
-export default combinedMiddleware;
+export default proxy;
 
 export const config = {
     matcher: ["/((?!_next|_vercel|.*\\..*).*)", "/(api|trpc)(.*)"],
