@@ -127,7 +127,7 @@ const SubscriptionListItem = ({ item }: { item: SubscriptionItemProps }) => {
                         <FormattedNumber value={item.value} /> {item.currency}
                     </span>
                 </div>
-                <hr className="border-subflow-600 border-1" />
+                <hr className="border-subflow-600 border" />
                 <div className="flex items-center justify-between">
                     <div className="flex flex-col gap-1">
                         <span className="text-subflow-300 text-sm">

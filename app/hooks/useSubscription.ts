@@ -18,7 +18,6 @@ export const useSubscription = (
     const [subscriptions, setSubscriptions] = useState<SubscriptionWithPrice[]>(
         [],
     );
-    const [monthlySpend, setMonthlySpend] = useState<number | null>(null);
     const [updatedSubscription, setUpdatedSubscription] = useState(false);
     const [rawSubscriptions, setRawSubscriptions] = useState<
         SubscriptionType[]
@@ -152,8 +151,8 @@ export const useSubscription = (
         notAmortizeYearlySubscriptions,
     ]);
 
-    useEffect(() => {
-        setMonthlySpend(totalSpend ? Math.round(totalSpend) : totalSpend);
+    const monthlySpend = useMemo(() => {
+        return totalSpend ? Math.round(totalSpend) : totalSpend;
     }, [totalSpend]);
 
     return {

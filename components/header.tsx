@@ -11,7 +11,7 @@ import {
     SignedOut,
     RedirectToSignIn,
 } from "@clerk/nextjs";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import LanguageSwitcher from "@/components/language-switcher";
 import MoreMenu from "@/components/more-menu/more-menu";
 
@@ -24,14 +24,13 @@ export default function Header() {
         "bg-subflow-50 text-subflow-900 cursor-pointer rounded-full px-3 py-2 text-[10.5px] font-semibold md:px-5 md:text-lg md:tracking-wider";
 
     const [isLoading, setIsLoading] = useState(true);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const isLoggedIn = useMemo(() => !!userId, [userId]);
 
     useEffect(() => {
-        setIsLoggedIn(!!userId);
         setTimeout(() => {
             setIsLoading(false);
         }, 500);
-    }, [userId]);
+    }, []);
 
     return (
         <header className="bg-subflow-900 w-full pt-4 select-none sm:pt-10">

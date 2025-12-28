@@ -59,13 +59,6 @@ export default function EmailNotifyDialog({
         fetchEmail();
     }, [open, currentLocale]);
 
-    useEffect(() => {
-        if (open) {
-            setEmailError(false);
-            setSavingEmail(false);
-        }
-    }, [open]);
-
     const handleSaveEmail = async () => {
         if (notify && (email === "" || !isValidEmail(email))) {
             setEmailError(true);
@@ -93,7 +86,10 @@ export default function EmailNotifyDialog({
             open={open}
             onOpenChange={(open) => {
                 setOpen(open);
-                if (!open) {
+                if (open) {
+                    setEmailError(false);
+                    setSavingEmail(false);
+                } else {
                     setDropdownMenuOpen(false);
                 }
             }}
@@ -110,7 +106,7 @@ export default function EmailNotifyDialog({
                     <span>{t("title")}</span>
                 </DropdownMenuItem>
             </DialogTrigger>
-            <DialogContent className="bg-subflow-900 border-subflow-100 w-[30rem] rounded-2xl border-[3px] p-3 select-none sm:p-4">
+            <DialogContent className="bg-subflow-900 border-subflow-100 w-120 rounded-2xl border-[3px] p-3 select-none sm:p-4">
                 <DialogHeader className="text-left">
                     <DialogTitle className="text-subflow-50 text-lg tracking-widest">
                         {t("title")}

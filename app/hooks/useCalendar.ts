@@ -1,15 +1,12 @@
-import { useState, useEffect } from "react";
-import { Calendar } from "@/types/calendar";
+import { useState, useMemo } from "react";
 import { getCalendarData } from "@/utils/calendar";
 
 export const useCalendar = () => {
     const [year, setYear] = useState(new Date().getFullYear());
     const [month, setMonth] = useState(new Date().getMonth() + 1);
-    const [calendar, setCalendar] = useState<Calendar[]>([]);
 
-    useEffect(() => {
-        const calendarData = getCalendarData(year, month);
-        setCalendar(calendarData);
+    const calendar = useMemo(() => {
+        return getCalendarData(year, month);
     }, [year, month]);
 
     const handlePreviousMonth = () => {

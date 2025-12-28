@@ -39,10 +39,8 @@ const SELECTED_ICONS = [
 ];
 
 export default function FloatingIcons() {
-    const [services, setServices] = useState<ServiceWithPosition[]>([]);
-
-    useEffect(() => {
-        const selectedServices = SELECTED_ICONS.map((icon, index) => {
+    const [services] = useState<ServiceWithPosition[]>(() => {
+        return SELECTED_ICONS.map((icon, index) => {
             const service = subscriptionServices.find(
                 (s) => s.name === icon.name,
             );
@@ -59,9 +57,7 @@ export default function FloatingIcons() {
         }).filter(
             (service): service is ServiceWithPosition => service !== null,
         );
-
-        setServices(selectedServices);
-    }, []);
+    });
 
     if (services.length === 0) {
         return null;
