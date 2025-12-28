@@ -1,5 +1,10 @@
 import { Connection, Schema, Document } from "mongoose";
 
+interface ICoSubscriber {
+    email: string;
+    confirm: boolean;
+}
+
 interface ISubscription extends Document {
     userId: string;
     name: string;
@@ -12,7 +17,7 @@ interface ISubscription extends Document {
     };
     paymentCycle: string;
     serviceId?: string;
-    coSubscribers?: string[]; // Array of email addresses
+    coSubscribers?: ICoSubscriber[];
 }
 
 export const SubscriptionSchema = new Schema<ISubscription>(
@@ -28,7 +33,16 @@ export const SubscriptionSchema = new Schema<ISubscription>(
         },
         paymentCycle: { type: String, required: true },
         serviceId: { type: String, required: false },
-        coSubscribers: { type: [String], required: false, default: [] },
+        coSubscribers: {
+            type: [
+                {
+                    email: { type: String, required: true },
+                    confirm: { type: Boolean, required: true, default: false },
+                },
+            ],
+            required: false,
+            default: [],
+        },
     },
     {
         timestamps: true,

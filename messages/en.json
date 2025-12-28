@@ -139,10 +139,11 @@
             "emailRequired": "Please enter an email address",
             "invalidEmail": "Please enter a valid email address",
             "emailAlreadyAdded": "This email is already in the list",
-            "emailNotRegistered": "This email is not registered. Please register first.",
+            "cannotAddOwnEmail": "Cannot add your own email address",
+            "emailNotRegistered": "This email is not registered in Subflow. Please register first.",
             "checkError": "Error checking email. Please try again.",
-            "emailAdded": "Email added successfully",
-            "emailRemoved": "Email removed successfully",
+            "coSubscriberAdded": "Co-subscriber added successfully",
+            "coSubscriberRemoved": "Co-subscriber removed successfully",
             "listTitle": "Co-Subscribers",
             "backToBasic": "Back to Basic Info"
         }

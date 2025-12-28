@@ -117,6 +117,48 @@ export async function deleteSubscription(subscriptionId: string) {
     }
 }
 
+export async function checkEmailRegistered(email: string): Promise<boolean> {
+    try {
+        const client = await clerkClient();
+        // Search for users by email address
+        const users = await client.users.getUserList({
+            emailAddress: [email.toLowerCase().trim()],
+            limit: 1,
+        });
+
+        return users.data.length > 0;
+    } catch (error) {
+        console.error("Error checking email registration:", error);
+        return false;
+    }
+}
+
+export async function getUserInfoByEmail(email: string) {
+    try {
+        const client = await clerkClient();
+        const users = await client.users.getUserList({
+            emailAddress: [email.toLowerCase().trim()],
+            limit: 1,
+        });
+
+        if (users.data.length === 0) {
+            return null;
+        }
+
+        const user = users.data[0];
+        return {
+            id: user.id,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            imageUrl: user.imageUrl,
+            emailAddress: email.toLowerCase().trim(),
+        };
+    } catch (error) {
+        console.error("Error getting user info:", error);
+        return null;
+    }
+}
+
 export async function upsertEmail(
     email: string,
     language: "en" | "zh" | "ja",
@@ -255,20 +297,4 @@ export async function getCurrenciesLive() {
     const data: CurrenciesLiveType = await response.json();
 
     return data;
-}
-
-export async function checkEmailRegistered(email: string): Promise<boolean> {
-    try {
-        const client = await clerkClient();
-        // Search for users by email address
-        const users = await client.users.getUserList({
-            emailAddress: [email.toLowerCase().trim()],
-            limit: 1,
-        });
-
-        return users.data.length > 0;
-    } catch (error) {
-        console.error("Error checking email registration:", error);
-        return false;
-    }
 }
