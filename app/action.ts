@@ -1,6 +1,6 @@
 "use server";
 
-import { auth } from "@clerk/nextjs/server";
+import { auth, clerkClient } from "@clerk/nextjs/server";
 import { connectToDatabase } from "@/lib/mongodb";
 import { getSubscriptionModel } from "@/models/Subscription";
 import { getEmailModel } from "@/models/Email";
@@ -28,6 +28,7 @@ export async function addSubscription(subscriptionData: Subscription) {
     const subscription = new Subscription({
         ...subscriptionData,
         userId: userId,
+        coSubscribers: subscriptionData.coSubscribers || [],
     });
 
     await subscription.save();
@@ -81,6 +82,7 @@ export async function updateSubscription(
                 $set: {
                     ...subscriptionData,
                     userId: userId,
+                    coSubscribers: subscriptionData.coSubscribers || [],
                 },
             },
         );
@@ -253,4 +255,20 @@ export async function getCurrenciesLive() {
     const data: CurrenciesLiveType = await response.json();
 
     return data;
+}
+
+export async function checkEmailRegistered(email: string): Promise<boolean> {
+    try {
+        const client = await clerkClient();
+        // Search for users by email address
+        const users = await client.users.getUserList({
+            emailAddress: [email.toLowerCase().trim()],
+            limit: 1,
+        });
+
+        return users.data.length > 0;
+    } catch (error) {
+        console.error("Error checking email registration:", error);
+        return false;
+    }
 }

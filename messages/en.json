@@ -128,7 +128,24 @@
         "noSubscription": "No subscription yet",
         "totalSpend": "Total Spend",
         "since": "Since",
-        "close": "Close"
+        "close": "Close",
+        "coSubscribers": {
+            "title": "Co-Subscribers",
+            "description": "Add users who share this subscription with you",
+            "manage": "Manage Co-Subscribers",
+            "emailPlaceholder": "Enter email address",
+            "add": "Add",
+            "remove": "Remove",
+            "emailRequired": "Please enter an email address",
+            "invalidEmail": "Please enter a valid email address",
+            "emailAlreadyAdded": "This email is already in the list",
+            "emailNotRegistered": "This email is not registered. Please register first.",
+            "checkError": "Error checking email. Please try again.",
+            "emailAdded": "Email added successfully",
+            "emailRemoved": "Email removed successfully",
+            "listTitle": "Co-Subscribers",
+            "backToBasic": "Back to Basic Info"
+        }
     },
     "MoreMenu": {
         "emailNotifyDialog": {

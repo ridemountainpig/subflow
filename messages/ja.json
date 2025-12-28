@@ -128,7 +128,24 @@
         "noSubscription": "サブスクなし",
         "totalSpend": "総支出",
         "since": "開始日",
-        "close": "閉じる"
+        "close": "閉じる",
+        "coSubscribers": {
+            "title": "共同購読者",
+            "description": "このサブスクを共有するユーザーを追加",
+            "manage": "共同購読者を管理",
+            "emailPlaceholder": "メールアドレスを入力",
+            "add": "追加",
+            "remove": "削除",
+            "emailRequired": "メールアドレスを入力してください",
+            "invalidEmail": "有効なメールアドレスを入力してください",
+            "emailAlreadyAdded": "このメールアドレスは既にリストにあります",
+            "emailNotRegistered": "このメールアドレスは登録されていません。先に登録してください。",
+            "checkError": "メールアドレスの確認中にエラーが発生しました。もう一度お試しください。",
+            "emailAdded": "メールアドレスを追加しました",
+            "emailRemoved": "メールアドレスを削除しました",
+            "listTitle": "共同購読者",
+            "backToBasic": "基本情報に戻る"
+        }
     },
     "MoreMenu": {
         "emailNotifyDialog": {

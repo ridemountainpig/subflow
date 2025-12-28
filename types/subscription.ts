@@ -11,6 +11,7 @@ export type Subscription = {
     };
     paymentCycle: "monthly" | "yearly";
     serviceId?: string;
+    coSubscribers?: string[]; // Array of email addresses
     createdAt?: Date;
     updatedAt?: Date;
 };

@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
-import { Pencil, LoaderCircle } from "lucide-react";
+import { Pencil, LoaderCircle, Users, ArrowLeft } from "lucide-react";
 import {
     Dialog,
     DialogContent,
@@ -26,6 +26,7 @@ import { updateSubscription } from "@/app/action";
 import { Subscription } from "@/types/subscription";
 import ServicesCombobox from "@/components/subscription/services-combobox";
 import DatePicker from "@/components/subscription/date-picker";
+import CoSubscribersManager from "@/components/subscription/co-subscribers-manager";
 
 interface UpdateSubscriptionDialogProps {
     subscription: Subscription;
@@ -56,11 +57,38 @@ export default function UpdateSubscriptionDialog({
     const [paymentCycle, setPaymentCycle] = useState<"monthly" | "yearly">(
         subscription.paymentCycle,
     );
+    const [coSubscribers, setCoSubscribers] = useState<string[]>(
+        subscription.coSubscribers || [],
+    );
+    const [viewMode, setViewMode] = useState<"basic" | "coSubscribers">(
+        "basic",
+    );
 
     const [serviceNameError, setServiceNameError] = useState(false);
     const [servicePriceError, setServicePriceError] = useState(false);
 
     const [updatingSubscription, setUpdatingSubscription] = useState(false);
+
+    useEffect(() => {
+        if (open) {
+            setServiceName(subscription.name);
+            setServiceUuid(subscription.serviceId);
+            setServicePrice(subscription.price);
+            setServiceCurrency(subscription.currency);
+            setStartDate(
+                new Date(
+                    subscription.startDate.year,
+                    subscription.startDate.month - 1,
+                    subscription.startDate.date,
+                ),
+            );
+            setPaymentCycle(subscription.paymentCycle);
+            setCoSubscribers(subscription.coSubscribers || []);
+            setViewMode("basic");
+            setServiceNameError(false);
+            setServicePriceError(false);
+        }
+    }, [open, subscription]);
 
     const handleUpdateSubscription = async () => {
         if (serviceName === "") {
@@ -92,6 +120,7 @@ export default function UpdateSubscriptionDialog({
             paymentCycle: paymentCycle,
             serviceId: serviceUuid,
             userId: subscription.userId,
+            coSubscribers: coSubscribers,
         };
 
         await updateSubscription(
@@ -114,12 +143,38 @@ export default function UpdateSubscriptionDialog({
             </DialogTrigger>
             <DialogContent className="bg-subflow-900 border-subflow-100 rounded-2xl border-[3px] p-3 sm:p-6">
                 <DialogHeader className="text-left">
-                    <DialogTitle className="text-subflow-50 text-base tracking-widest sm:text-xl md:text-2xl">
-                        {t("updateSubscriptionDialog.title")}
-                    </DialogTitle>
-                    <DialogDescription className="text-subflow-300 text-xs tracking-widest sm:text-sm md:text-base">
-                        {t("updateSubscriptionDialog.description")}
-                    </DialogDescription>
+                    <div className="flex items-center justify-between">
+                        <div>
+                            <DialogTitle className="text-subflow-50 text-base tracking-widest sm:text-xl md:text-2xl">
+                                {viewMode === "basic"
+                                    ? t("updateSubscriptionDialog.title")
+                                    : t("coSubscribers.title")}
+                            </DialogTitle>
+                            <DialogDescription className="text-subflow-300 text-xs tracking-widest sm:text-sm md:text-base">
+                                {viewMode === "basic"
+                                    ? t("updateSubscriptionDialog.description")
+                                    : t("coSubscribers.description")}
+                            </DialogDescription>
+                        </div>
+                        {viewMode === "coSubscribers" && (
+                            <button
+                                onClick={() => setViewMode("basic")}
+                                className="text-subflow-300 hover:text-subflow-50 cursor-pointer transition-colors"
+                                title={t("coSubscribers.backToBasic")}
+                            >
+                                <ArrowLeft size={20} />
+                            </button>
+                        )}
+                    </div>
+                    {viewMode === "basic" && (
+                        <button
+                            onClick={() => setViewMode("coSubscribers")}
+                            className="bg-subflow-700 text-subflow-50 mt-2 flex items-center gap-2 rounded-md px-3 py-2 text-xs tracking-widest transition-colors hover:bg-subflow-600 sm:text-sm"
+                        >
+                            <Users size={14} />
+                            {t("coSubscribers.manage")}
+                        </button>
+                    )}
                     <div className="text-subflow-50 pb-2 text-sm tracking-widest sm:text-base">
                         {t("service")}{" "}
                         {serviceNameError && (
@@ -209,7 +264,14 @@ export default function UpdateSubscriptionDialog({
                             </SelectItem>
                         </SelectContent>
                     </Select>
-                    <button
+                    {viewMode === "coSubscribers" && (
+                        <CoSubscribersManager
+                            coSubscribers={coSubscribers}
+                            onChange={setCoSubscribers}
+                        />
+                    )}
+                    {viewMode === "basic" && (
+                        <button
                         className={`bg-subflow-600 text-subflow-50 mt-4 h-10 w-full rounded-md text-xs tracking-widest sm:text-base ${
                             updatingSubscription
                                 ? "cursor-not-allowed"
@@ -231,6 +293,7 @@ export default function UpdateSubscriptionDialog({
                             t("update")
                         )}
                     </button>
+                    )}
                 </DialogHeader>
             </DialogContent>
         </Dialog>

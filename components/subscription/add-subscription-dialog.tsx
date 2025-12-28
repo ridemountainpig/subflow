@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
-import { CirclePlus, LoaderCircle } from "lucide-react";
+import { CirclePlus, LoaderCircle, Users, ArrowLeft } from "lucide-react";
 import {
     Dialog,
     DialogContent,
@@ -26,6 +26,7 @@ import { addSubscription } from "@/app/action";
 import { Subscription } from "@/types/subscription";
 import ServicesCombobox from "@/components/subscription/services-combobox";
 import DatePicker from "@/components/subscription/date-picker";
+import CoSubscribersManager from "@/components/subscription/co-subscribers-manager";
 
 interface AddSubscriptionDialogProps {
     userId: string;
@@ -48,6 +49,10 @@ export default function AddSubscriptionDialog({
     const [paymentCycle, setPaymentCycle] = useState<"monthly" | "yearly">(
         "monthly",
     );
+    const [coSubscribers, setCoSubscribers] = useState<string[]>([]);
+    const [viewMode, setViewMode] = useState<"basic" | "coSubscribers">(
+        "basic",
+    );
 
     const [serviceNameError, setServiceNameError] = useState(false);
     const [servicePriceError, setServicePriceError] = useState(false);
@@ -62,6 +67,8 @@ export default function AddSubscriptionDialog({
             setServiceCurrency("USD");
             setStartDate(new Date());
             setPaymentCycle("monthly");
+            setCoSubscribers([]);
+            setViewMode("basic");
             setServiceNameError(false);
             setServicePriceError(false);
             setAddingSubscription(false);
@@ -98,6 +105,7 @@ export default function AddSubscriptionDialog({
             paymentCycle: paymentCycle,
             serviceId: serviceUuid,
             userId: userId,
+            coSubscribers: coSubscribers,
         };
 
         await addSubscription(subscription);
@@ -115,12 +123,38 @@ export default function AddSubscriptionDialog({
             </DialogTrigger>
             <DialogContent className="bg-subflow-900 border-subflow-100 rounded-2xl border-[3px] p-3 sm:p-6">
                 <DialogHeader className="text-left">
-                    <DialogTitle className="text-subflow-50 text-base tracking-widest sm:text-xl md:text-2xl">
-                        {t("addSubscriptionDialog.title")}
-                    </DialogTitle>
-                    <DialogDescription className="text-subflow-300 text-xs tracking-widest sm:text-sm md:text-base">
-                        {t("addSubscriptionDialog.description")}
-                    </DialogDescription>
+                    <div className="flex items-center justify-between">
+                        <div>
+                            <DialogTitle className="text-subflow-50 text-base tracking-widest sm:text-xl md:text-2xl">
+                                {viewMode === "basic"
+                                    ? t("addSubscriptionDialog.title")
+                                    : t("coSubscribers.title")}
+                            </DialogTitle>
+                            <DialogDescription className="text-subflow-300 text-xs tracking-widest sm:text-sm md:text-base">
+                                {viewMode === "basic"
+                                    ? t("addSubscriptionDialog.description")
+                                    : t("coSubscribers.description")}
+                            </DialogDescription>
+                        </div>
+                        {viewMode === "coSubscribers" && (
+                            <button
+                                onClick={() => setViewMode("basic")}
+                                className="text-subflow-300 hover:text-subflow-50 cursor-pointer transition-colors"
+                                title={t("coSubscribers.backToBasic")}
+                            >
+                                <ArrowLeft size={20} />
+                            </button>
+                        )}
+                    </div>
+                    {viewMode === "basic" && (
+                        <button
+                            onClick={() => setViewMode("coSubscribers")}
+                            className="bg-subflow-700 text-subflow-50 mt-2 flex items-center gap-2 rounded-md px-3 py-2 text-xs tracking-widest transition-colors hover:bg-subflow-600 sm:text-sm"
+                        >
+                            <Users size={14} />
+                            {t("coSubscribers.manage")}
+                        </button>
+                    )}
                     <div className="text-subflow-50 pb-2 text-sm tracking-widest sm:text-base">
                         {t("service")}{" "}
                         {serviceNameError && (
@@ -210,7 +244,14 @@ export default function AddSubscriptionDialog({
                             </SelectItem>
                         </SelectContent>
                     </Select>
-                    <button
+                    {viewMode === "coSubscribers" && (
+                        <CoSubscribersManager
+                            coSubscribers={coSubscribers}
+                            onChange={setCoSubscribers}
+                        />
+                    )}
+                    {viewMode === "basic" && (
+                        <button
                         className={`bg-subflow-600 text-subflow-50 mt-4 h-10 w-full rounded-md text-xs tracking-widest sm:text-base ${
                             addingSubscription
                                 ? "cursor-not-allowed"
@@ -232,6 +273,7 @@ export default function AddSubscriptionDialog({
                             t("add")
                         )}
                     </button>
+                    )}
                 </DialogHeader>
             </DialogContent>
         </Dialog>

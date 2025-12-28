@@ -12,6 +12,7 @@ interface ISubscription extends Document {
     };
     paymentCycle: string;
     serviceId?: string;
+    coSubscribers?: string[]; // Array of email addresses
 }
 
 export const SubscriptionSchema = new Schema<ISubscription>(
@@ -27,6 +28,7 @@ export const SubscriptionSchema = new Schema<ISubscription>(
         },
         paymentCycle: { type: String, required: true },
         serviceId: { type: String, required: false },
+        coSubscribers: { type: [String], required: false, default: [] },
     },
     {
         timestamps: true,
