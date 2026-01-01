@@ -145,7 +145,16 @@
             "coSubscriberAdded": "Co-subscriber added successfully",
             "coSubscriberRemoved": "Co-subscriber removed successfully",
             "listTitle": "Co-Subscribers",
-            "backToBasic": "Back to Basic Info"
+            "backToBasic": "Back to Basic Info",
+            "inviteTitle": "Pending Invitations",
+            "confirmInvite": "Confirm",
+            "rejectInvite": "Reject",
+            "confirmSuccess": "Invite confirmed successfully",
+            "rejectSuccess": "Invite rejected successfully",
+            "confirmError": "Failed to confirm invite",
+            "rejectError": "Failed to reject invite",
+            "fetchError": "Failed to fetch invites",
+            "invitedYou": "Invited you to share this subscription"
         }
     },
     "MoreMenu": {

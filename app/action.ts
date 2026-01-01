@@ -117,6 +117,90 @@ export async function deleteSubscription(subscriptionId: string) {
     }
 }
 
+export async function getSubscriptionsByCoSubscriberEmail(userEmail: string) {
+    const db = await connectToDatabase();
+    const Subscription = getSubscriptionModel(db);
+
+    try {
+        const subscriptions = await Subscription.find({
+            coSubscribers: {
+                $elemMatch: {
+                    email: userEmail.toLowerCase().trim(),
+                    confirm: false,
+                },
+            },
+        });
+
+        return JSON.parse(JSON.stringify(subscriptions));
+    } catch (error) {
+        console.error(
+            "Error getting subscriptions by co-subscriber email:",
+            error,
+        );
+        throw new Error("Failed to get subscriptions by co-subscriber email");
+    }
+}
+
+export async function confirmCoSubscriberInvite(
+    subscriptionId: string,
+    userEmail: string,
+) {
+    const db = await connectToDatabase();
+    const Subscription = getSubscriptionModel(db);
+
+    try {
+        await Subscription.updateOne(
+            {
+                _id: new Object(subscriptionId),
+                "coSubscribers.email": userEmail.toLowerCase().trim(),
+            },
+            {
+                $set: {
+                    "coSubscribers.$.confirm": true,
+                },
+            },
+        );
+
+        return {
+            message: "Co-subscriber invite confirmed successfully",
+        };
+    } catch (error) {
+        console.error("Error confirming co-subscriber invite:", error);
+        throw new Error("Failed to confirm co-subscriber invite");
+    }
+}
+
+export async function rejectCoSubscriberInvite(
+    subscriptionId: string,
+    userEmail: string,
+) {
+    const db = await connectToDatabase();
+    const Subscription = getSubscriptionModel(db);
+
+    try {
+        await Subscription.updateOne(
+            {
+                _id: new Object(subscriptionId),
+            },
+            {
+                $pull: {
+                    coSubscribers: {
+                        email: userEmail.toLowerCase().trim(),
+                    },
+                },
+            },
+        );
+
+        return {
+            message: "Co-subscriber invite rejected successfully",
+        };
+    } catch (error) {
+        console.error("Error rejecting co-subscriber invite:", error);
+        throw new Error("Failed to reject co-subscriber invite");
+    }
+}
+
+// User related functions
 export async function checkEmailRegistered(email: string): Promise<boolean> {
     try {
         const client = await clerkClient();
@@ -159,6 +243,27 @@ export async function getUserInfoByEmail(email: string) {
     }
 }
 
+export async function getUserInfoById(userId: string) {
+    try {
+        const client = await clerkClient();
+        const user = await client.users.getUser(userId);
+
+        return {
+            id: user.id,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            imageUrl: user.imageUrl,
+            emailAddress:
+                user.emailAddresses[0]?.emailAddress?.toLowerCase().trim() ||
+                "",
+        };
+    } catch (error) {
+        console.error("Error getting user info by id:", error);
+        return null;
+    }
+}
+
+// Email related functions
 export async function upsertEmail(
     email: string,
     language: "en" | "zh" | "ja",
@@ -217,6 +322,7 @@ export async function getEmail() {
     return JSON.parse(JSON.stringify(emails));
 }
 
+// Preferences related functions
 export async function upsertPreferences(
     notAmortizeYearlySubscriptions: boolean,
 ) {

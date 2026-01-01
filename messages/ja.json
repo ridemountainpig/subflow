@@ -145,7 +145,16 @@
             "coSubscriberAdded": "共有購読者を追加しました",
             "coSubscriberRemoved": "共有購読者を削除しました",
             "listTitle": "共有購読者",
-            "backToBasic": "基本情報に戻る"
+            "backToBasic": "基本情報に戻る",
+            "inviteTitle": "保留中の招待",
+            "confirmInvite": "確認",
+            "rejectInvite": "拒否",
+            "confirmSuccess": "招待を確認しました",
+            "rejectSuccess": "招待を拒否しました",
+            "confirmError": "招待の確認に失敗しました",
+            "rejectError": "招待の拒否に失敗しました",
+            "fetchError": "招待の取得に失敗しました",
+            "invitedYou": "このサブスクリプションを共有するよう招待しました"
         }
     },
     "MoreMenu": {

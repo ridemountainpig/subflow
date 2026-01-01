@@ -145,7 +145,16 @@
             "coSubscriberAdded": "成功新增共享訂閱者",
             "coSubscriberRemoved": "成功移除共享訂閱者",
             "listTitle": "共享訂閱者",
-            "backToBasic": "返回基本資訊"
+            "backToBasic": "返回基本資訊",
+            "inviteTitle": "共享訂閱邀請",
+            "confirmInvite": "確認",
+            "rejectInvite": "拒絕",
+            "confirmSuccess": "成功確認邀請",
+            "rejectSuccess": "成功拒絕邀請",
+            "confirmError": "確認邀請失敗",
+            "rejectError": "拒絕邀請失敗",
+            "fetchError": "獲取邀請失敗",
+            "invitedYou": "邀請您共享此訂閱"
         }
     },
     "MoreMenu": {
