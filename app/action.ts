@@ -95,7 +95,7 @@ export async function updateSubscription(
     try {
         await Subscription.updateOne(
             {
-                _id: new Object(subscriptionId),
+                _id: subscriptionId,
                 userId: userId,
             },
             {
@@ -124,7 +124,7 @@ export async function deleteSubscription(subscriptionId: string) {
 
     try {
         await Subscription.deleteOne({
-            _id: new Object(subscriptionId),
+            _id: subscriptionId,
             userId: userId,
         });
 
@@ -195,7 +195,7 @@ export async function confirmCoSubscriberInvite(
     try {
         await Subscription.updateOne(
             {
-                _id: new Object(subscriptionId),
+                _id: subscriptionId,
                 "coSubscribers.email": userEmail.toLowerCase().trim(),
             },
             {
@@ -236,7 +236,7 @@ export async function rejectCoSubscriberInvite(
     try {
         await Subscription.updateOne(
             {
-                _id: new Object(subscriptionId),
+                _id: subscriptionId,
             },
             {
                 $pull: {
@@ -276,6 +276,8 @@ export async function checkEmailRegistered(email: string): Promise<boolean> {
 }
 
 export async function getUserInfoByEmail(email: string) {
+    await requireAuth();
+
     try {
         const client = await clerkClient();
         const users = await client.users.getUserList({
@@ -302,6 +304,8 @@ export async function getUserInfoByEmail(email: string) {
 }
 
 export async function getUserInfoById(userId: string) {
+    await requireAuth();
+
     try {
         const client = await clerkClient();
         const user = await client.users.getUser(userId);
