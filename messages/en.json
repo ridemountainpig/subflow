@@ -129,6 +129,15 @@
         "totalSpend": "Total Spend",
         "since": "Since",
         "close": "Close",
+        "sharedSubscription": "Co Subscription",
+        "leaveCoSubscriptionDialog": {
+            "title": "Leave Subscription",
+            "confirmTextOne": "Are you sure you want to leave",
+            "confirmTextTwo": "subscription?"
+        },
+        "leave": "Leave",
+        "leaving": "Leaving",
+        "leaveSuccess": "Left subscription successfully",
         "coSubscribers": {
             "title": "Co-Subscribers",
             "description": "Add users who share this subscription with you",

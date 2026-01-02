@@ -1,7 +1,7 @@
 "use client";
 
 import { subscriptionServices } from "@/data/subscriptionServices";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { ComponentType } from "react";
 

@@ -129,6 +129,15 @@
         "totalSpend": "總花費",
         "since": "起始於",
         "close": "關閉",
+        "sharedSubscription": "共享訂閱",
+        "leaveCoSubscriptionDialog": {
+            "title": "退出共享訂閱",
+            "confirmTextOne": "確定要退出共享訂閱",
+            "confirmTextTwo": "嗎？"
+        },
+        "leave": "退出",
+        "leaving": "退出中",
+        "leaveSuccess": "成功退出共享訂閱",
         "coSubscribers": {
             "title": "共享訂閱者",
             "description": "新增與您共享此訂閱的用戶",

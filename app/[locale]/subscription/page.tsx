@@ -83,6 +83,7 @@ export default function Subscription() {
                                 currency={currency}
                             />
                             <CoSubscriberInvite
+                                updatedSubscription={updatedSubscription}
                                 setUpdatedSubscription={setUpdatedSubscription}
                             />
                         </div>

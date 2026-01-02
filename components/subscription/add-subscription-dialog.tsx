@@ -248,6 +248,11 @@ export default function AddSubscriptionDialog({
                             >
                                 <Users size={16} strokeWidth={2.5} />
                                 {t("coSubscribers.manage")}
+                                {coSubscribers.length > 0 && (
+                                    <span className="text-xs sm:text-sm">
+                                        ({coSubscribers.length})
+                                    </span>
+                                )}
                             </button>
                             <button
                                 className={`bg-subflow-600 text-subflow-50 mt-2 h-10 w-full rounded-md text-xs tracking-widest sm:text-base ${

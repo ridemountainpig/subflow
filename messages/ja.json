@@ -129,6 +129,15 @@
         "totalSpend": "総支出",
         "since": "開始日",
         "close": "閉じる",
+        "sharedSubscription": "共有サブスク",
+        "leaveCoSubscriptionDialog": {
+            "title": "共有サブスクを退出",
+            "confirmTextOne": "共有サブスクから退出しますか：",
+            "confirmTextTwo": ""
+        },
+        "leave": "退出",
+        "leaving": "退出中",
+        "leaveSuccess": "共有サブスクから退出しました",
         "coSubscribers": {
             "title": "共有購読者",
             "description": "このサブスクを共有するユーザーを追加",

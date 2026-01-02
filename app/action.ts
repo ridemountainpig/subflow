@@ -44,9 +44,29 @@ export async function getSubscription() {
     const db = await connectToDatabase();
     const Subscription = getSubscriptionModel(db);
 
-    const subscriptions = await Subscription.find({ userId });
+    const userInfo = await getUserInfoById(userId);
+    const userEmail = userInfo?.emailAddress || "";
 
-    return JSON.parse(JSON.stringify(subscriptions));
+    const subscriptions = await Subscription.find({
+        $or: [
+            { userId },
+            {
+                coSubscribers: {
+                    $elemMatch: {
+                        email: userEmail,
+                        confirm: true,
+                    },
+                },
+            },
+        ],
+    });
+
+    const subscriptionsWithIdentifier = subscriptions.map((sub) => ({
+        ...sub.toObject(),
+        isCoSubscription: sub.userId !== userId,
+    }));
+
+    return JSON.parse(JSON.stringify(subscriptionsWithIdentifier));
 }
 
 export async function getSubscriptionCount() {

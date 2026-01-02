@@ -34,6 +34,7 @@ import FormattedNumber from "@/components/subscription/formatted-number";
 import { usePreferences } from "@/app/contexts/PreferencesContext";
 
 interface CoSubscriberInviteProps {
+    updatedSubscription: boolean;
     setUpdatedSubscription: (updated: boolean) => void;
 }
 
@@ -43,6 +44,7 @@ interface InviteItem {
 }
 
 export default function CoSubscriberInvite({
+    updatedSubscription,
     setUpdatedSubscription,
 }: CoSubscriberInviteProps) {
     const { user } = useUser();
@@ -101,10 +103,10 @@ export default function CoSubscriberInvite({
         if (!currentUserEmail) return;
 
         setConfirmingId(subscriptionId);
+        setUpdatedSubscription(!updatedSubscription);
         try {
             await confirmCoSubscriberInvite(subscriptionId, currentUserEmail);
             toast.success(t("coSubscribers.confirmSuccess"));
-            setUpdatedSubscription(true);
             await refreshInvites();
             if (isMobile) {
                 setDrawerOpen(false);
@@ -124,7 +126,6 @@ export default function CoSubscriberInvite({
         try {
             await rejectCoSubscriberInvite(subscriptionId, currentUserEmail);
             toast.success(t("coSubscribers.rejectSuccess"));
-            setUpdatedSubscription(true);
             await refreshInvites();
             if (isMobile) {
                 setDrawerOpen(false);
