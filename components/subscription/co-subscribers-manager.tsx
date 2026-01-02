@@ -101,7 +101,7 @@ export default function CoSubscribersManager({
         const fetchUserInfos = async () => {
             const emailsToFetch = coSubscribers
                 .map((sub) => sub.email)
-                .filter((email) => !userInfoMap[email]);
+                .filter((email) => !(email in userInfoMap));
 
             if (emailsToFetch.length === 0) {
                 return;
