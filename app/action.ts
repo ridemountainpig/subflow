@@ -138,6 +138,18 @@ export async function deleteSubscription(subscriptionId: string) {
 }
 
 export async function getSubscriptionsByCoSubscriberEmail(userEmail: string) {
+    const userId = await requireAuth();
+
+    const userInfo = await getUserInfoById(userId);
+    if (
+        !userInfo ||
+        userInfo.emailAddress.toLowerCase() !== userEmail.toLowerCase().trim()
+    ) {
+        throw new Error(
+            "Unauthorized: Email does not match authenticated user",
+        );
+    }
+
     const db = await connectToDatabase();
     const Subscription = getSubscriptionModel(db);
 
@@ -165,6 +177,18 @@ export async function confirmCoSubscriberInvite(
     subscriptionId: string,
     userEmail: string,
 ) {
+    const userId = await requireAuth();
+
+    const userInfo = await getUserInfoById(userId);
+    if (
+        !userInfo ||
+        userInfo.emailAddress.toLowerCase() !== userEmail.toLowerCase().trim()
+    ) {
+        throw new Error(
+            "Unauthorized: Email does not match authenticated user",
+        );
+    }
+
     const db = await connectToDatabase();
     const Subscription = getSubscriptionModel(db);
 
@@ -194,6 +218,18 @@ export async function rejectCoSubscriberInvite(
     subscriptionId: string,
     userEmail: string,
 ) {
+    const userId = await requireAuth();
+
+    const userInfo = await getUserInfoById(userId);
+    if (
+        !userInfo ||
+        userInfo.emailAddress.toLowerCase() !== userEmail.toLowerCase().trim()
+    ) {
+        throw new Error(
+            "Unauthorized: Email does not match authenticated user",
+        );
+    }
+
     const db = await connectToDatabase();
     const Subscription = getSubscriptionModel(db);
 
@@ -222,6 +258,8 @@ export async function rejectCoSubscriberInvite(
 
 // User related functions
 export async function checkEmailRegistered(email: string): Promise<boolean> {
+    await requireAuth();
+
     try {
         const client = await clerkClient();
         // Search for users by email address

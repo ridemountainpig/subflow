@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import {
     CircleArrowLeft,
@@ -19,17 +19,17 @@ import {
 
 export default function DescriptionDialog() {
     const t = useTranslations("SubscriptionPage");
-    const [open, setOpen] = useState(() => {
-        if (typeof window === "undefined") return false;
+    const [open, setOpen] = useState(false);
+
+    useEffect(() => {
         const getDescriptionDialogShow = localStorage.getItem(
             "descriptionDialogShow",
         );
         if (!getDescriptionDialogShow) {
             localStorage.setItem("descriptionDialogShow", "true");
-            return true;
+            queueMicrotask(() => setOpen(true));
         }
-        return false;
-    });
+    }, []);
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
