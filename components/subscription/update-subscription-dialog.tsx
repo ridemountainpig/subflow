@@ -87,6 +87,7 @@ export default function UpdateSubscriptionDialog({
         setViewMode("basic");
         setServiceNameError(false);
         setServicePriceError(false);
+        setUpdatingSubscription(false);
     };
 
     const handleUpdateSubscription = async () => {
