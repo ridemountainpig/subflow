@@ -31,7 +31,6 @@ import {
     getUserInfoById,
 } from "@/app/action";
 import FormattedNumber from "@/components/subscription/formatted-number";
-import { usePreferences } from "@/app/contexts/PreferencesContext";
 
 interface CoSubscriberInviteProps {
     updatedSubscription: boolean;
@@ -55,7 +54,6 @@ export default function CoSubscriberInvite({
     const [loading, setLoading] = useState(true);
     const [confirmingId, setConfirmingId] = useState<string | null>(null);
     const [rejectingId, setRejectingId] = useState<string | null>(null);
-    const { notAmortizeYearlySubscriptions } = usePreferences();
 
     const currentUserEmail = user?.primaryEmailAddress?.emailAddress
         ?.toLowerCase()
@@ -149,16 +147,17 @@ export default function CoSubscriberInvite({
               userInfo.emailAddress
             : subscription.userId;
 
-        const price =
-            subscription.paymentCycle === "yearly" &&
-            !notAmortizeYearlySubscriptions
-                ? subscription.price / 12
-                : subscription.price;
+        // Get the co-subscriber's assigned amount and currency
+        const coSubscriber = subscription.coSubscribers?.find(
+            (sub) => sub.email === currentUserEmail,
+        );
+        const displayAmount = coSubscriber?.amount ?? subscription.price;
+        const displayCurrency = coSubscriber?.currency ?? subscription.currency;
 
         return (
             <div
                 key={subscription._id || index}
-                className="flex flex-col gap-y-3"
+                className="flex flex-col gap-y-2"
             >
                 <div className="text-subflow-400 flex items-center gap-1.5 tracking-widest">
                     <span className="text-[13px]">
@@ -179,15 +178,12 @@ export default function CoSubscriberInvite({
                                 subscription.name.slice(1)}
                         </span>
                     </div>
-                    <div className="flex items-center gap-x-2 tracking-widest">
-                        <FormattedNumber
-                            value={Math.round(price)}
-                            className="text-base"
-                        />
-                        <span className="text-[11px]">
-                            {subscription.currency}
-                        </span>
-                    </div>
+                </div>
+                <div className="flex items-center gap-x-2 text-[13px] tracking-widest">
+                    <FormattedNumber value={displayAmount} />
+                    <span>
+                        {displayCurrency} / {t(subscription.paymentCycle)}
+                    </span>
                 </div>
                 <div className="flex items-center gap-2">
                     <button

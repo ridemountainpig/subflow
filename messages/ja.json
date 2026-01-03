@@ -168,7 +168,10 @@
             "confirmError": "招待の確認に失敗しました",
             "rejectError": "招待の拒否に失敗しました",
             "fetchError": "招待の取得に失敗しました",
-            "invitedYou": "このサブスクリプションを共有するよう招待しました"
+            "invitedYou": "このサブスクリプションを共有するよう招待しました",
+            "amount": "金額",
+            "amountPlaceholder": "金額を入力",
+            "amountError": "正しい金額を入力してください"
         }
     },
     "MoreMenu": {

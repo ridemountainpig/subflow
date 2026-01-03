@@ -107,6 +107,8 @@ export default function AddSubscriptionDialog({
             coSubscribers: coSubscribers.map((sub) => ({
                 email: sub.email,
                 confirm: false,
+                amount: sub.amount,
+                currency: sub.currency,
             })),
         };
 
@@ -282,6 +284,7 @@ export default function AddSubscriptionDialog({
                             <CoSubscribersManager
                                 coSubscribers={coSubscribers}
                                 onChange={setCoSubscribers}
+                                subscriptionCurrency={serviceCurrency}
                             />
                             <button
                                 onClick={() => setViewMode("basic")}

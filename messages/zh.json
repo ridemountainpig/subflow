@@ -168,7 +168,10 @@
             "confirmError": "確認邀請失敗",
             "rejectError": "拒絕邀請失敗",
             "fetchError": "獲取邀請失敗",
-            "invitedYou": "邀請您共享此訂閱"
+            "invitedYou": "邀請您共享此訂閱",
+            "amount": "金額",
+            "amountPlaceholder": "輸入金額",
+            "amountError": "請輸入正確金額"
         }
     },
     "MoreMenu": {

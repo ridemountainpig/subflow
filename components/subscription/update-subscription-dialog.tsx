@@ -115,17 +115,15 @@ export default function UpdateSubscriptionDialog({
             existingCoSubscribers.map((sub) => [sub.email, sub]),
         );
 
-        // Merge: keep existing confirm status for emails that still exist,
-        // remove emails that were deleted, and add new ones with confirm: false
-        const mergedCoSubscribers: CoSubscriber[] = coSubscribers.map((sub) => {
-            // If email exists in original subscription, preserve its confirm status
-            const existing = existingEmailMap.get(sub.email);
-            if (existing) {
-                return existing; // Keep original confirm status
-            }
-            // New email, set confirm to false
-            return { email: sub.email, confirm: false };
-        });
+        // Merge: preserve confirm status for existing emails, set false for new ones
+        const mergedCoSubscribers: CoSubscriber[] = coSubscribers.map(
+            (sub) => ({
+                email: sub.email,
+                confirm: existingEmailMap.get(sub.email)?.confirm ?? false,
+                amount: sub.amount,
+                currency: sub.currency,
+            }),
+        );
 
         const updatedSubscription: Subscription = {
             name: serviceName,
@@ -319,6 +317,7 @@ export default function UpdateSubscriptionDialog({
                             <CoSubscribersManager
                                 coSubscribers={coSubscribers}
                                 onChange={setCoSubscribers}
+                                subscriptionCurrency={serviceCurrency}
                             />
                             <button
                                 onClick={() => setViewMode("basic")}
