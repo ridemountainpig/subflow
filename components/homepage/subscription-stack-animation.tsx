@@ -21,14 +21,21 @@ export default function SubscriptionStackAnimation() {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [shuffledServices, setShuffledServices] = useState<
         SubscriptionServices[]
-    >([]);
+    >(() => {
+        return subscriptionServices;
+    });
     const displayCount = 3;
 
     useEffect(() => {
-        setShuffledServices(shuffleArray(subscriptionServices));
+        const timer = setTimeout(() => {
+            setShuffledServices(shuffleArray(subscriptionServices));
+        }, 0);
+        return () => clearTimeout(timer);
     }, []);
 
     useEffect(() => {
+        if (shuffledServices.length === 0) return;
+
         const interval = setInterval(() => {
             setCurrentIndex((prev) => (prev + 1) % shuffledServices.length);
         }, 3000);
@@ -60,7 +67,7 @@ export default function SubscriptionStackAnimation() {
     };
 
     return (
-        <div className="relative h-30 w-20 perspective-[800px] md:w-22">
+        <div className="relative h-30 w-20 perspective-midrange md:w-22">
             <AnimatePresence mode="popLayout">
                 {getVisibleServices().map((service, index) => {
                     const Icon = service.icon;
@@ -118,7 +125,7 @@ export default function SubscriptionStackAnimation() {
                                     )}
                                 </div>
                             ) : (
-                                <div className="h-14 w-14 rounded-2xl bg-gradient-to-br from-gray-400 to-gray-500 opacity-50 shadow-inner md:h-16 md:w-16" />
+                                <div className="h-14 w-14 rounded-2xl bg-linear-to-br from-gray-400 to-gray-500 opacity-50 shadow-inner md:h-16 md:w-16" />
                             )}
                         </motion.div>
                     );

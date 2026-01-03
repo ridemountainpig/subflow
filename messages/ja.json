@@ -48,6 +48,10 @@
             "title": "メール通知",
             "description": "メール通知機能で、サブスクリプションの支払い前に通知し、支払う内容を通知します"
         },
+        "spotlightCardSix": {
+            "title": "共有サブスク",
+            "description": "共有サブスクリプションを管理できます"
+        },
         "bottomTitle": "支払い漏れゼロへ",
         "bottomSubtitle": "今すぐ Subflow を使って管理開始"
     },
@@ -128,7 +132,44 @@
         "noSubscription": "サブスクなし",
         "totalSpend": "総支出",
         "since": "開始日",
-        "close": "閉じる"
+        "close": "閉じる",
+        "sharedSubscription": "共有サブスク",
+        "leaveCoSubscriptionDialog": {
+            "title": "共有サブスクを退出",
+            "confirmTextOne": "共有サブスクから退出しますか：",
+            "confirmTextTwo": ""
+        },
+        "leave": "退出",
+        "leaving": "退出中",
+        "leaveSuccess": "共有サブスクから退出しました",
+        "leaveFailed": "共有サブスクからの退出に失敗しました",
+        "coSubscribers": {
+            "title": "共有購読者",
+            "description": "このサブスクを共有するユーザーを追加",
+            "manage": "共有購読者を管理",
+            "emailPlaceholder": "メールアドレスを入力",
+            "add": "追加",
+            "remove": "削除",
+            "emailRequired": "メールアドレスを入力してください",
+            "invalidEmail": "有効なメールアドレスを入力してください",
+            "emailAlreadyAdded": "このメールアドレスは既にリストにあります",
+            "cannotAddOwnEmail": "自分のメールアドレスは追加できません",
+            "emailNotRegistered": "このメールアドレスは Subflow で登録されていないため、追加できません。",
+            "checkError": "メールアドレスの確認中にエラーが発生しました。もう一度お試しください。",
+            "coSubscriberAdded": "共有購読者を追加しました",
+            "coSubscriberRemoved": "共有購読者を削除しました",
+            "listTitle": "共有購読者",
+            "backToBasic": "基本情報に戻る",
+            "inviteTitle": "保留中の招待",
+            "confirmInvite": "確認",
+            "rejectInvite": "拒否",
+            "confirmSuccess": "招待を確認しました",
+            "rejectSuccess": "招待を拒否しました",
+            "confirmError": "招待の確認に失敗しました",
+            "rejectError": "招待の拒否に失敗しました",
+            "fetchError": "招待の取得に失敗しました",
+            "invitedYou": "このサブスクリプションを共有するよう招待しました"
+        }
     },
     "MoreMenu": {
         "emailNotifyDialog": {

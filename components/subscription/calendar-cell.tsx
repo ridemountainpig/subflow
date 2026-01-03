@@ -135,7 +135,7 @@ export default function CalendarCell({
                                     }}
                                 />
                                 {index !== subscription.length - 1 && (
-                                    <div className="border-subflow-800 my-2 border-t-[2px]" />
+                                    <div className="border-subflow-800 my-2 border-t-2" />
                                 )}
                             </div>
                         ))}
@@ -158,7 +158,7 @@ export default function CalendarCell({
                                     }
                                 />
                                 {index !== subscription.length - 1 && (
-                                    <div className="border-subflow-800 my-2 border-t-[2px]" />
+                                    <div className="border-subflow-800 my-2 border-t-2" />
                                 )}
                             </div>
                         ))}

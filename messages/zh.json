@@ -48,6 +48,10 @@
             "title": "電子郵件通知",
             "description": "電子郵件通知功能，在訂閱付款前提醒您，並通知您即將要支付的項目"
         },
+        "spotlightCardSix": {
+            "title": "共享訂閱",
+            "description": "與家人、朋友共享訂閱，一起管理訂閱支出"
+        },
         "bottomTitle": "不再錯過任何一筆訂閱",
         "bottomSubtitle": "現在就開始使用 Subflow，讓您全面掌握每一筆訂閱支出"
     },
@@ -128,7 +132,44 @@
         "noSubscription": "尚無訂閱項目",
         "totalSpend": "總花費",
         "since": "起始於",
-        "close": "關閉"
+        "close": "關閉",
+        "sharedSubscription": "共享訂閱",
+        "leaveCoSubscriptionDialog": {
+            "title": "退出共享訂閱",
+            "confirmTextOne": "確定要退出共享訂閱",
+            "confirmTextTwo": "嗎？"
+        },
+        "leave": "退出",
+        "leaving": "退出中",
+        "leaveSuccess": "成功退出共享訂閱",
+        "leaveFailed": "退出共享訂閱失敗",
+        "coSubscribers": {
+            "title": "共享訂閱者",
+            "description": "新增與您共享此訂閱的用戶",
+            "manage": "管理共享訂閱者",
+            "emailPlaceholder": "輸入電子郵件地址",
+            "add": "新增",
+            "remove": "移除",
+            "emailRequired": "請輸入電子郵件地址",
+            "invalidEmail": "請輸入有效的電子郵件地址",
+            "emailAlreadyAdded": "此電子郵件已在列表中",
+            "cannotAddOwnEmail": "無法新增您自己的電子郵件地址",
+            "emailNotRegistered": "此電子郵件尚未註冊 Subflow，請先註冊。",
+            "checkError": "檢查電子郵件時發生錯誤，請重試。",
+            "coSubscriberAdded": "成功新增共享訂閱者",
+            "coSubscriberRemoved": "成功移除共享訂閱者",
+            "listTitle": "共享訂閱者",
+            "backToBasic": "返回基本資訊",
+            "inviteTitle": "共享訂閱邀請",
+            "confirmInvite": "確認",
+            "rejectInvite": "拒絕",
+            "confirmSuccess": "成功確認邀請",
+            "rejectSuccess": "成功拒絕邀請",
+            "confirmError": "確認邀請失敗",
+            "rejectError": "拒絕邀請失敗",
+            "fetchError": "獲取邀請失敗",
+            "invitedYou": "邀請您共享此訂閱"
+        }
     },
     "MoreMenu": {
         "emailNotifyDialog": {

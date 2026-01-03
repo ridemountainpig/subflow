@@ -23,6 +23,7 @@ import FormattedNumber from "@/components/subscription/formatted-number";
 import CalendarCell from "@/components/subscription/calendar-cell";
 import AddSubscriptionDialog from "@/components/subscription/add-subscription-dialog";
 import ChartDialog from "@/components/subscription/chart-dialog";
+import CoSubscriberInvite from "@/components/subscription/co-subscriber-invite";
 import DescriptionDialog from "@/components/subscription/description-dialog";
 import NewFeatureNotify from "@/components/new-feature-notify";
 
@@ -80,6 +81,10 @@ export default function Subscription() {
                                 subscription={subscriptions}
                                 monthSpend={monthlySpend || 0}
                                 currency={currency}
+                            />
+                            <CoSubscriberInvite
+                                updatedSubscription={updatedSubscription}
+                                setUpdatedSubscription={setUpdatedSubscription}
                             />
                         </div>
                         <div className="flex h-13 flex-col items-end sm:min-h-16">

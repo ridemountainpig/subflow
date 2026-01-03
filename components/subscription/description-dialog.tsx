@@ -26,8 +26,8 @@ export default function DescriptionDialog() {
             "descriptionDialogShow",
         );
         if (!getDescriptionDialogShow) {
-            setOpen(true);
             localStorage.setItem("descriptionDialogShow", "true");
+            queueMicrotask(() => setOpen(true));
         }
     }, []);
 

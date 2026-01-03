@@ -1,6 +1,6 @@
 "use server";
 
-import { auth } from "@clerk/nextjs/server";
+import { auth, clerkClient } from "@clerk/nextjs/server";
 import { connectToDatabase } from "@/lib/mongodb";
 import { getSubscriptionModel } from "@/models/Subscription";
 import { getEmailModel } from "@/models/Email";
@@ -28,6 +28,7 @@ export async function addSubscription(subscriptionData: Subscription) {
     const subscription = new Subscription({
         ...subscriptionData,
         userId: userId,
+        coSubscribers: subscriptionData.coSubscribers || [],
     });
 
     await subscription.save();
@@ -43,9 +44,29 @@ export async function getSubscription() {
     const db = await connectToDatabase();
     const Subscription = getSubscriptionModel(db);
 
-    const subscriptions = await Subscription.find({ userId });
+    const userInfo = await getUserInfoById(userId);
+    const userEmail = userInfo?.emailAddress || "";
 
-    return JSON.parse(JSON.stringify(subscriptions));
+    const subscriptions = await Subscription.find({
+        $or: [
+            { userId },
+            {
+                coSubscribers: {
+                    $elemMatch: {
+                        email: userEmail,
+                        confirm: true,
+                    },
+                },
+            },
+        ],
+    });
+
+    const subscriptionsWithIdentifier = subscriptions.map((sub) => ({
+        ...sub.toObject(),
+        isCoSubscription: sub.userId !== userId,
+    }));
+
+    return JSON.parse(JSON.stringify(subscriptionsWithIdentifier));
 }
 
 export async function getSubscriptionCount() {
@@ -74,13 +95,14 @@ export async function updateSubscription(
     try {
         await Subscription.updateOne(
             {
-                _id: new Object(subscriptionId),
+                _id: subscriptionId,
                 userId: userId,
             },
             {
                 $set: {
                     ...subscriptionData,
                     userId: userId,
+                    coSubscribers: subscriptionData.coSubscribers || [],
                 },
             },
         );
@@ -102,7 +124,7 @@ export async function deleteSubscription(subscriptionId: string) {
 
     try {
         await Subscription.deleteOne({
-            _id: new Object(subscriptionId),
+            _id: subscriptionId,
             userId: userId,
         });
 
@@ -115,6 +137,195 @@ export async function deleteSubscription(subscriptionId: string) {
     }
 }
 
+export async function getSubscriptionsByCoSubscriberEmail(userEmail: string) {
+    const userId = await requireAuth();
+
+    const userInfo = await getUserInfoById(userId);
+    if (
+        !userInfo ||
+        userInfo.emailAddress.toLowerCase() !== userEmail.toLowerCase().trim()
+    ) {
+        throw new Error(
+            "Unauthorized: Email does not match authenticated user",
+        );
+    }
+
+    const db = await connectToDatabase();
+    const Subscription = getSubscriptionModel(db);
+
+    try {
+        const subscriptions = await Subscription.find({
+            coSubscribers: {
+                $elemMatch: {
+                    email: userEmail.toLowerCase().trim(),
+                    confirm: false,
+                },
+            },
+        });
+
+        return JSON.parse(JSON.stringify(subscriptions));
+    } catch (error) {
+        console.error(
+            "Error getting subscriptions by co-subscriber email:",
+            error,
+        );
+        throw new Error("Failed to get subscriptions by co-subscriber email");
+    }
+}
+
+export async function confirmCoSubscriberInvite(
+    subscriptionId: string,
+    userEmail: string,
+) {
+    const userId = await requireAuth();
+
+    const userInfo = await getUserInfoById(userId);
+    if (
+        !userInfo ||
+        userInfo.emailAddress.toLowerCase() !== userEmail.toLowerCase().trim()
+    ) {
+        throw new Error(
+            "Unauthorized: Email does not match authenticated user",
+        );
+    }
+
+    const db = await connectToDatabase();
+    const Subscription = getSubscriptionModel(db);
+
+    try {
+        await Subscription.updateOne(
+            {
+                _id: subscriptionId,
+                "coSubscribers.email": userEmail.toLowerCase().trim(),
+            },
+            {
+                $set: {
+                    "coSubscribers.$.confirm": true,
+                },
+            },
+        );
+
+        return {
+            message: "Co-subscriber invite confirmed successfully",
+        };
+    } catch (error) {
+        console.error("Error confirming co-subscriber invite:", error);
+        throw new Error("Failed to confirm co-subscriber invite");
+    }
+}
+
+export async function rejectCoSubscriberInvite(
+    subscriptionId: string,
+    userEmail: string,
+) {
+    const userId = await requireAuth();
+
+    const userInfo = await getUserInfoById(userId);
+    if (
+        !userInfo ||
+        userInfo.emailAddress.toLowerCase() !== userEmail.toLowerCase().trim()
+    ) {
+        throw new Error(
+            "Unauthorized: Email does not match authenticated user",
+        );
+    }
+
+    const db = await connectToDatabase();
+    const Subscription = getSubscriptionModel(db);
+
+    try {
+        await Subscription.updateOne(
+            {
+                _id: subscriptionId,
+            },
+            {
+                $pull: {
+                    coSubscribers: {
+                        email: userEmail.toLowerCase().trim(),
+                    },
+                },
+            },
+        );
+
+        return {
+            message: "Co-subscriber invite rejected successfully",
+        };
+    } catch (error) {
+        console.error("Error rejecting co-subscriber invite:", error);
+        throw new Error("Failed to reject co-subscriber invite");
+    }
+}
+
+// User related functions
+export async function checkEmailRegistered(email: string): Promise<boolean> {
+    await requireAuth();
+
+    try {
+        const client = await clerkClient();
+        // Search for users by email address
+        const users = await client.users.getUserList({
+            emailAddress: [email.toLowerCase().trim()],
+            limit: 1,
+        });
+
+        return users.data.length > 0;
+    } catch (error) {
+        console.error("Error checking email registration:", error);
+        return false;
+    }
+}
+
+export async function getUserInfoByEmail(email: string) {
+    await requireAuth();
+
+    try {
+        const client = await clerkClient();
+        const users = await client.users.getUserList({
+            emailAddress: [email.toLowerCase().trim()],
+            limit: 1,
+        });
+
+        if (users.data.length === 0) {
+            return null;
+        }
+
+        const user = users.data[0];
+        return {
+            id: user.id,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            imageUrl: user.imageUrl,
+            emailAddress: email.toLowerCase().trim(),
+        };
+    } catch (error) {
+        console.error("Error getting user info:", error);
+        return null;
+    }
+}
+
+export async function getUserInfoById(userId: string) {
+    await requireAuth();
+
+    try {
+        const client = await clerkClient();
+        const user = await client.users.getUser(userId);
+
+        return {
+            id: user.id,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            imageUrl: user.imageUrl,
+            emailAddress:
+                user.emailAddresses[0]?.emailAddress?.toLowerCase().trim() ||
+                "",
+        };
+    } catch (error) {
+        console.error("Error getting user info by id:", error);
+        return null;
+    }
+}
+
+// Email related functions
 export async function upsertEmail(
     email: string,
     language: "en" | "zh" | "ja",
@@ -173,6 +384,7 @@ export async function getEmail() {
     return JSON.parse(JSON.stringify(emails));
 }
 
+// Preferences related functions
 export async function upsertPreferences(
     notAmortizeYearlySubscriptions: boolean,
 ) {
