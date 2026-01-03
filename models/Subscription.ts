@@ -3,6 +3,8 @@ import { Connection, Schema, Document } from "mongoose";
 interface ICoSubscriber {
     email: string;
     confirm: boolean;
+    amount: number;
+    currency: string;
 }
 
 interface ISubscription extends Document {
@@ -38,6 +40,8 @@ export const SubscriptionSchema = new Schema<ISubscription>(
                 {
                     email: { type: String, required: true },
                     confirm: { type: Boolean, required: true, default: false },
+                    amount: { type: Number, required: false },
+                    currency: { type: String, required: false },
                 },
             ],
             required: false,

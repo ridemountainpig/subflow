@@ -12,6 +12,7 @@ export const useSubscription = (
     month: number,
     currency: string,
     currencyListLoading: boolean,
+    userEmail?: string,
 ) => {
     const { notAmortizeYearlySubscriptions, preferencesLoading } =
         usePreferences();
@@ -134,7 +135,19 @@ export const useSubscription = (
         }
 
         return subscriptions.reduce((sum, subscription) => {
+            // For co-subscriptions, use the user's assigned amount
             let price = subscription.convertedPrice;
+            if (subscription.isCoSubscription && userEmail) {
+                const coSubscriber = subscription.coSubscribers?.find(
+                    (sub) => sub.email === userEmail,
+                );
+                if (coSubscriber) {
+                    const ratio =
+                        subscription.convertedPrice / subscription.price;
+                    price = coSubscriber.amount * ratio;
+                }
+            }
+
             if (
                 subscription.paymentCycle === "yearly" &&
                 !notAmortizeYearlySubscriptions
@@ -149,6 +162,7 @@ export const useSubscription = (
         subscriptions,
         subscriptionsToConvert,
         notAmortizeYearlySubscriptions,
+        userEmail,
     ]);
 
     const monthlySpend = useMemo(() => {

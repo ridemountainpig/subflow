@@ -168,7 +168,10 @@
             "confirmError": "Failed to confirm invite",
             "rejectError": "Failed to reject invite",
             "fetchError": "Failed to fetch invites",
-            "invitedYou": "Invited you to share this subscription"
+            "invitedYou": "Invited you to share this subscription",
+            "amount": "Amount",
+            "amountPlaceholder": "Enter amount",
+            "amountError": "Please enter correct amount"
         }
     },
     "MoreMenu": {

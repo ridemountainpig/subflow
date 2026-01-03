@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { useAuth } from "@clerk/nextjs";
+import { useAuth, useUser } from "@clerk/nextjs";
 import { useTranslations } from "next-intl";
 import { CircleArrowLeft, CircleArrowRight, LoaderCircle } from "lucide-react";
 
@@ -29,18 +29,24 @@ import NewFeatureNotify from "@/components/new-feature-notify";
 
 export default function Subscription() {
     const { userId } = useAuth();
+    const { user } = useUser();
     const t = useTranslations("SubscriptionPage");
     const { year, month, calendar, handlePreviousMonth, handleNextMonth } =
         useCalendar();
     const { currenciesList, currency, setCurrency, currencyListLoading } =
         useCurrency();
     const [isSelectOpen, setIsSelectOpen] = useState(false);
+
+    const userEmail = user?.primaryEmailAddress?.emailAddress
+        ?.toLowerCase()
+        .trim();
+
     const {
         subscriptions,
         monthlySpend,
         updatedSubscription,
         setUpdatedSubscription,
-    } = useSubscription(year, month, currency, currencyListLoading);
+    } = useSubscription(year, month, currency, currencyListLoading, userEmail);
     useFirstLogin();
     const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 

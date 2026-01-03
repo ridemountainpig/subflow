@@ -1,5 +1,6 @@
 import { ComponentType } from "react";
 import { useTranslations } from "next-intl";
+import { useUser } from "@clerk/nextjs";
 import { Users } from "lucide-react";
 import { subscriptionServices } from "@/data/subscriptionServices";
 import { Subscription } from "@/types/subscription";
@@ -19,10 +20,27 @@ export default function SubscriptionListItem({
     onSuccess,
 }: SubscriptionListItemProps) {
     const t = useTranslations("SubscriptionPage");
+    const { user } = useUser();
     const { notAmortizeYearlySubscriptions } = usePreferences();
     const Icon = subscriptionServices.find(
         (service) => service.uuid === subscription.serviceId,
     )?.icon as ComponentType<{ className?: string }>;
+
+    // Get user's email for co-subscription lookup
+    const currentUserEmail = user?.primaryEmailAddress?.emailAddress
+        ?.toLowerCase()
+        .trim();
+
+    // For co-subscriptions, get the user's assigned amount and currency
+    const coSubscriber =
+        subscription.isCoSubscription && currentUserEmail
+            ? subscription.coSubscribers?.find(
+                  (sub) => sub.email === currentUserEmail,
+              )
+            : null;
+
+    const displayPrice = coSubscriber?.amount ?? subscription.price;
+    const displayCurrency = coSubscriber?.currency ?? subscription.currency;
 
     return (
         <div className="flex flex-col gap-y-2 px-0.5 lg:gap-y-1">
@@ -45,12 +63,12 @@ export default function SubscriptionListItem({
                         value={Math.round(
                             subscription.paymentCycle === "yearly" &&
                                 !notAmortizeYearlySubscriptions
-                                ? subscription.price / 12
-                                : subscription.price,
+                                ? displayPrice / 12
+                                : displayPrice,
                         )}
                         className="text-base"
                     />
-                    <span className="text-[11px]">{subscription.currency}</span>
+                    <span className="text-[11px]">{displayCurrency}</span>
                 </div>
             </div>
             <div className="text-subflow-400 flex items-center justify-between gap-x-2 tracking-widest">
