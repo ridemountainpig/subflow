@@ -38,11 +38,16 @@ export default function LeaveCoSubscriptionDialog({
     const handleLeaveSubscription = async () => {
         if (subscription._id && userEmail) {
             setLeavingSubscription(true);
-            await rejectCoSubscriberInvite(subscription._id, userEmail);
-            toast.success(t("leaveSuccess"));
-            setLeavingSubscription(false);
-            setOpen(false);
-            onSuccess?.();
+            try {
+                await rejectCoSubscriberInvite(subscription._id, userEmail);
+                toast.success(t("leaveSuccess"));
+                setOpen(false);
+                onSuccess?.();
+            } catch (error) {
+                toast.error(t("leaveFailed"));
+            } finally {
+                setLeavingSubscription(false);
+            }
         }
     };
 

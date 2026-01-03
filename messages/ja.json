@@ -142,6 +142,7 @@
         "leave": "退出",
         "leaving": "退出中",
         "leaveSuccess": "共有サブスクから退出しました",
+        "leaveFailed": "共有サブスクからの退出に失敗しました",
         "coSubscribers": {
             "title": "共有購読者",
             "description": "このサブスクを共有するユーザーを追加",
