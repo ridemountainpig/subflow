@@ -173,6 +173,7 @@ export const useSubscription = (
         subscriptionsToConvert,
         notAmortizeYearlySubscriptions,
         userEmail,
+        currency,
     ]);
 
     const monthlySpend = useMemo(() => {
