@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { CirclePlus, LoaderCircle, Users, ArrowLeft } from "lucide-react";
 import {
