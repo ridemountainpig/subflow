@@ -1,6 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 import { useTranslations, useLocale } from "next-intl";
-import { Coins, CalendarSync, DollarSign, MailCheck } from "lucide-react";
+import {
+    Coins,
+    CalendarSync,
+    DollarSign,
+    MailCheck,
+    Users,
+} from "lucide-react";
 import GetStartBtn from "@/components/homepage/get-start-btn";
 import GoSubscriptionBtn from "@/components/homepage/go-subscription-btn";
 import SubscriptionStackAnimation from "@/components/homepage/subscription-stack-animation";
@@ -139,7 +145,7 @@ export default function Home() {
                         />
                     </SpotlightCard>
                     <SpotlightCard
-                        className="custom-spotlight-card col-span-9 w-full rounded-xl"
+                        className="custom-spotlight-card col-span-5 w-full rounded-xl"
                         spotlightColor="rgba(250, 240, 230, 0.2)"
                     >
                         <SpotlightCardContent
@@ -152,6 +158,22 @@ export default function Home() {
                             }
                             title={t("spotlightCardFive.title")}
                             description={t("spotlightCardFive.description")}
+                        />
+                    </SpotlightCard>
+                    <SpotlightCard
+                        className="custom-spotlight-card col-span-4 w-full rounded-xl"
+                        spotlightColor="rgba(250, 240, 230, 0.2)"
+                    >
+                        <SpotlightCardContent
+                            icon={
+                                <Users
+                                    size={28}
+                                    strokeWidth={2.5}
+                                    className="text-subflow-50"
+                                />
+                            }
+                            title={t("spotlightCardSix.title")}
+                            description={t("spotlightCardSix.description")}
                         />
                     </SpotlightCard>
                 </div>

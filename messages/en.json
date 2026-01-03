@@ -48,6 +48,10 @@
             "title": "Email Notification",
             "description": "Email notification feature that reminds you before your subscription payment and notifies you of what you’ll pay for"
         },
+        "spotlightCardSix": {
+            "title": "Co-Subscriptions",
+            "description": "Co‑subscriptions let you share your subscriptions with family and friends so you can manage expenses together"
+        },
         "bottomTitle": "Never lose track of your subscriptions again.",
         "bottomSubtitle": "Use Subflow for free, forever and stay fully in control."
     },

@@ -48,6 +48,10 @@
             "title": "電子郵件通知",
             "description": "電子郵件通知功能，在訂閱付款前提醒您，並通知您即將要支付的項目"
         },
+        "spotlightCardSix": {
+            "title": "共享訂閱",
+            "description": "與家人、朋友共享訂閱，一起管理訂閱支出"
+        },
         "bottomTitle": "不再錯過任何一筆訂閱",
         "bottomSubtitle": "現在就開始使用 Subflow，讓您全面掌握每一筆訂閱支出"
     },
