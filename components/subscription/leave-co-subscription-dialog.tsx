@@ -43,7 +43,7 @@ export default function LeaveCoSubscriptionDialog({
                 toast.success(t("leaveSuccess"));
                 setOpen(false);
                 onSuccess?.();
-            } catch (error) {
+            } catch {
                 toast.error(t("leaveFailed"));
             } finally {
                 setLeavingSubscription(false);
