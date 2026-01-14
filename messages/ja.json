@@ -171,7 +171,9 @@
             "invitedYou": "このサブスクリプションを共有するよう招待しました",
             "amount": "金額",
             "amountPlaceholder": "金額を入力",
-            "amountError": "正しい金額を入力してください"
+            "amountError": "正しい金額を入力してください",
+            "statusConfirmed": "承認済み",
+            "statusPending": "保留中"
         }
     },
     "MoreMenu": {

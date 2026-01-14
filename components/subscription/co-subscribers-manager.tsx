@@ -1,10 +1,9 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { useUser } from "@clerk/nextjs";
-import { X, LoaderCircle, Mail } from "lucide-react";
+import { X, LoaderCircle } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
@@ -16,8 +15,9 @@ import {
 } from "@/components/ui/select";
 import { toast } from "sonner";
 import { useCurrency } from "@/app/contexts/CurrencyContext";
-import { checkEmailRegistered, getUserInfoByEmail } from "@/app/action";
-import { CoSubscribersManagerProps, UserInfo } from "@/types/co-subscribers";
+import { checkEmailRegistered } from "@/app/action";
+import { CoSubscribersManagerProps } from "@/types/co-subscribers";
+import CoSubscriberList from "@/components/subscription/co-subscriber-list";
 
 export default function CoSubscribersManager({
     coSubscribers,
@@ -33,9 +33,6 @@ export default function CoSubscribersManager({
     const [isValidating, setIsValidating] = useState(false);
     const [emailError, setEmailError] = useState("");
     const [amountError, setAmountError] = useState("");
-    const [userInfoMap, setUserInfoMap] = useState<
-        Record<string, UserInfo | null>
-    >({});
 
     const validateEmail = (email: string): boolean => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -121,34 +118,6 @@ export default function CoSubscribersManager({
             handleAddEmail();
         }
     };
-
-    // Fetch user info for each co-subscriber email
-    useEffect(() => {
-        const fetchUserInfos = async () => {
-            const emailsToFetch = coSubscribers
-                .map((sub) => sub.email)
-                .filter((email) => !(email in userInfoMap));
-
-            if (emailsToFetch.length === 0) {
-                return;
-            }
-
-            const newUserInfoMap: Record<string, UserInfo | null> = {};
-
-            await Promise.all(
-                emailsToFetch.map(async (email) => {
-                    const userInfo = await getUserInfoByEmail(email);
-                    newUserInfoMap[email] = userInfo;
-                }),
-            );
-
-            setUserInfoMap((prev) => ({ ...prev, ...newUserInfoMap }));
-        };
-
-        if (coSubscribers.length > 0) {
-            fetchUserInfos();
-        }
-    }, [coSubscribers, userInfoMap]);
 
     return (
         <div className="space-y-3">
@@ -239,63 +208,20 @@ export default function CoSubscribersManager({
                     <div className="text-subflow-300 text-xs tracking-widest sm:text-sm">
                         {t("coSubscribers.listTitle")} ({coSubscribers.length})
                     </div>
-                    <div className="custom-scrollbar max-h-60 space-y-2 overflow-y-auto">
-                        {coSubscribers.map((subscriber) => {
-                            const userInfo = userInfoMap[subscriber.email];
-                            const displayName = userInfo
-                                ? `${userInfo.firstName || ""} ${userInfo.lastName || ""}`.trim() ||
-                                  subscriber.email
-                                : subscriber.email;
-
-                            return (
-                                <div
-                                    key={subscriber.email}
-                                    className="bg-subflow-800 text-subflow-50 flex flex-col gap-2 rounded-md px-3 py-2 text-xs sm:text-sm"
-                                >
-                                    <div className="flex items-center justify-between">
-                                        <div className="flex items-center gap-2">
-                                            {userInfo?.imageUrl ? (
-                                                <img
-                                                    src={userInfo.imageUrl}
-                                                    alt={displayName}
-                                                    className="h-5 w-5 rounded-full object-cover"
-                                                />
-                                            ) : (
-                                                <Mail size={14} />
-                                            )}
-                                            <div className="flex flex-col">
-                                                <span className="tracking-widest">
-                                                    {displayName}
-                                                </span>
-                                                {userInfo &&
-                                                    displayName !==
-                                                        subscriber.email && (
-                                                        <span className="text-subflow-400 text-[10px] tracking-wider">
-                                                            {subscriber.email}
-                                                        </span>
-                                                    )}
-                                                <span>
-                                                    {subscriber.amount}{" "}
-                                                    {subscriber.currency}
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <button
-                                            onClick={() =>
-                                                handleRemoveEmail(
-                                                    subscriber.email,
-                                                )
-                                            }
-                                            className="text-subflow-300 hover:text-subflow-50 cursor-pointer transition-colors"
-                                            title={t("coSubscribers.remove")}
-                                        >
-                                            <X size={16} />
-                                        </button>
-                                    </div>
-                                </div>
-                            );
-                        })}
-                    </div>
+                    <CoSubscriberList
+                        coSubscribers={coSubscribers}
+                        renderAction={(subscriber) => (
+                            <button
+                                onClick={() =>
+                                    handleRemoveEmail(subscriber.email)
+                                }
+                                className="text-subflow-300 hover:text-subflow-50 cursor-pointer transition-colors"
+                                title={t("coSubscribers.remove")}
+                            >
+                                <X size={16} />
+                            </button>
+                        )}
+                    />
                 </div>
             )}
         </div>
