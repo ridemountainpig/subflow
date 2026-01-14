@@ -171,7 +171,9 @@
             "invitedYou": "Invited you to share this subscription",
             "amount": "Amount",
             "amountPlaceholder": "Enter amount",
-            "amountError": "Please enter correct amount"
+            "amountError": "Please enter correct amount",
+            "statusConfirmed": "Accepted",
+            "statusPending": "Pending"
         }
     },
     "MoreMenu": {

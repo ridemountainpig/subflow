@@ -1,10 +1,10 @@
 import { ComponentType } from "react";
 import { useTranslations } from "next-intl";
 import { useUser } from "@clerk/nextjs";
-import { Users } from "lucide-react";
 import { subscriptionServices } from "@/data/subscriptionServices";
 import { Subscription } from "@/types/subscription";
 import FormattedNumber from "@/components/subscription/formatted-number";
+import CoSubscribersDialog from "@/components/subscription/co-subscribers-dialog";
 import UpdateSubscriptionDialog from "@/components/subscription/update-subscription-dialog";
 import DeleteSubscriptionDialog from "@/components/subscription/delete-subscription-dialog";
 import LeaveCoSubscriptionDialog from "@/components/subscription/leave-co-subscription-dialog";
@@ -89,12 +89,7 @@ export default function SubscriptionListItem({
                 ) : (
                     <div className="flex items-center gap-x-0.5">
                         {(subscription.coSubscribers?.length ?? 0) > 0 && (
-                            <div
-                                className="flex h-6 w-6 items-center justify-center"
-                                title={t("sharedSubscription")}
-                            >
-                                <Users size={16} strokeWidth={2.5} />
-                            </div>
+                            <CoSubscribersDialog subscription={subscription} />
                         )}
                         <UpdateSubscriptionDialog
                             subscription={subscription}

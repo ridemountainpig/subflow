@@ -171,7 +171,9 @@
             "invitedYou": "邀請您共享此訂閱",
             "amount": "金額",
             "amountPlaceholder": "輸入金額",
-            "amountError": "請輸入正確金額"
+            "amountError": "請輸入正確金額",
+            "statusConfirmed": "已接受",
+            "statusPending": "待接受"
         }
     },
     "MoreMenu": {
