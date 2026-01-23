@@ -828,4 +828,29 @@ export const subscriptionServices: SubscriptionServices[] = [
         name: "Google Play",
         icon: Svgl.GooglePlay,
     },
+    {
+        uuid: "d7eaba8f-07c7-4869-9394-29d1f57e8c35",
+        name: "Bklit",
+        icon: Svgl.BklitDark,
+    },
+    {
+        uuid: "a7b78219-eb6d-4f92-98c6-29771ffbb88b",
+        name: "Dodo Payments",
+        icon: Svgl.DodoPayments,
+    },
+    {
+        uuid: "e3fd5821-0052-4f78-9d28-38d253d7e5b0",
+        name: "Formance",
+        icon: Svgl.FormanceDark,
+    },
+    {
+        uuid: "0b5ba347-544f-4a23-9584-a72fe3af8671",
+        name: "Proton Mail",
+        icon: Svgl.ProtonMail,
+    },
+    {
+        uuid: "08d8a515-778f-4a05-8934-bd7c2e7c0c67",
+        name: "Google Antigravity",
+        icon: Svgl.GoogleAntigravity,
+    },
 ];
