@@ -16,7 +16,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import { analyzeContent } from "@/app/actions/smart-add";
+import { analyzeContentWithGateway } from "@/app/actions/smart-add";
 import { useCurrency } from "@/app/contexts/CurrencyContext";
 
 export default function SmartAddPage() {
@@ -48,7 +48,7 @@ export default function SmartAddPage() {
                 formData.append("text", text);
             }
 
-            const result = await analyzeContent(formData);
+            const result = await analyzeContentWithGateway(formData);
 
             if (result) {
                 if (result.error === "not_subscription") {

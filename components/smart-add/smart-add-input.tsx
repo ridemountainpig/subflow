@@ -203,13 +203,17 @@ export default function SmartAddInput({
                             </p>
                         </div>
 
-                        <textarea
-                            value={textInput}
-                            onChange={(e) => setTextInput(e.target.value)}
-                            placeholder="e.g., Netflix Premium subscription - $15.99/month, billed on the 1st of each month..."
-                            disabled={isAnalyzing}
-                            className={`bg-subflow-900/50 text-subflow-100 placeholder-subflow-600 border-subflow-700 focus:border-subflow-500 min-h-[180px] w-full flex-1 resize-none rounded-xl border-2 p-4 tracking-wider transition-colors focus:outline-none ${isAnalyzing ? "cursor-not-allowed opacity-50" : ""}`}
-                        />
+                        <div
+                            className={`border-subflow-700 focus-within:border-subflow-500 overflow-hidden rounded-xl border-2 transition-colors ${isAnalyzing ? "cursor-not-allowed opacity-50" : ""}`}
+                        >
+                            <textarea
+                                value={textInput}
+                                onChange={(e) => setTextInput(e.target.value)}
+                                placeholder="e.g., Netflix Premium subscription - $15.99/month, billed on the 1st of each month..."
+                                disabled={isAnalyzing}
+                                className="bg-subflow-900/50 text-subflow-100 placeholder-subflow-600 custom-scrollbar min-h-[180px] w-full resize-none p-3 tracking-wider focus:outline-none"
+                            />
+                        </div>
 
                         <div className="mt-6 flex justify-center">
                             <AnalyzeButton
