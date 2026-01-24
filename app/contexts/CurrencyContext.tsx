@@ -7,7 +7,7 @@ import React, {
     useEffect,
     ReactNode,
 } from "react";
-import { getCurrenciesList } from "@/app/action";
+import { getCurrenciesList } from "@/app/actions/action";
 import { CurrenciesList } from "@/types/currency";
 
 interface CurrencyContextType {

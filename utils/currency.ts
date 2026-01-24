@@ -1,4 +1,4 @@
-import { getCurrenciesLive } from "@/app/action";
+import { getCurrenciesLive } from "@/app/actions/action";
 
 export async function convertCurrency(
     amount: number,

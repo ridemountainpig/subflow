@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/dialog";
 import { toast } from "sonner";
 
-import { rejectCoSubscriberInvite } from "@/app/action";
+import { rejectCoSubscriberInvite } from "@/app/actions/action";
 import { Subscription } from "@/types/subscription";
 
 interface LeaveCoSubscriptionDialogProps {

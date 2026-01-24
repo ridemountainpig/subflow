@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/select";
 import { toast } from "sonner";
 import { useCurrency } from "@/app/contexts/CurrencyContext";
-import { checkEmailRegistered } from "@/app/action";
+import { checkEmailRegistered } from "@/app/actions/action";
 import { CoSubscribersManagerProps } from "@/types/co-subscribers";
 import CoSubscriberList from "@/components/subscription/co-subscriber-list";
 

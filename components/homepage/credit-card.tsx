@@ -4,7 +4,7 @@
 import { motion } from "framer-motion";
 import Tilt from "react-parallax-tilt";
 import { useState, useEffect, useMemo } from "react";
-import { getSubscriptionCount } from "@/app/action";
+import { getSubscriptionCount } from "@/app/actions/action";
 
 export default function CreditCard() {
     const [count, setCount] = useState(0);

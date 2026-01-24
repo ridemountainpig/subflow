@@ -29,7 +29,7 @@ import {
     confirmCoSubscriberInvite,
     rejectCoSubscriberInvite,
     getUserInfoById,
-} from "@/app/action";
+} from "@/app/actions/action";
 import FormattedNumber from "@/components/subscription/formatted-number";
 
 interface CoSubscriberInviteProps {

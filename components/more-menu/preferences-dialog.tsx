@@ -15,7 +15,7 @@ import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { Switch } from "@/components/ui/switch";
 import { toast } from "sonner";
 
-import { upsertPreferences } from "@/app/action";
+import { upsertPreferences } from "@/app/actions/action";
 import { usePreferences } from "@/app/contexts/PreferencesContext";
 
 export interface PreferencesDialogProps {

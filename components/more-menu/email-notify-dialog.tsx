@@ -23,7 +23,7 @@ import { Switch } from "@/components/ui/switch";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 
-import { getEmail, upsertEmail } from "@/app/action";
+import { getEmail, upsertEmail } from "@/app/actions/action";
 
 export interface EmailNotifyDialogProps {
     setDropdownMenuOpen: (open: boolean) => void;
