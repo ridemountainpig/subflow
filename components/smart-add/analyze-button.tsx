@@ -1,15 +1,17 @@
-"use client";
-
 interface AnalyzeButtonProps {
     onClick: (e: React.MouseEvent) => void;
     isAnalyzing: boolean;
     disabled?: boolean;
+    text: string;
+    analyzingText: string;
 }
 
 export default function AnalyzeButton({
     onClick,
     isAnalyzing,
     disabled,
+    text,
+    analyzingText,
 }: AnalyzeButtonProps) {
     return (
         <button
@@ -22,9 +24,9 @@ export default function AnalyzeButton({
             }`}
         >
             {isAnalyzing ? (
-                <span className="tracking-wider">Analyzing</span>
+                <span className="tracking-wider">{analyzingText}</span>
             ) : (
-                <span className="tracking-wider">Analyze</span>
+                <span className="tracking-wider">{text}</span>
             )}
         </button>
     );

@@ -1,7 +1,8 @@
 "use server";
 
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { generateText, gateway } from "ai";
+import { gateway, generateText, Output } from "ai";
+import { z } from "zod";
 import { subscriptionServices } from "@/data/subscriptionServices";
 import { getCurrenciesList } from "@/app/actions/action";
 
@@ -209,8 +210,27 @@ export async function analyzeContentWithGateway(formData: FormData) {
     content.push({ type: "text", text: prompt });
 
     try {
-        const result = await generateText({
+        const { output: result } = await generateText({
             model: gateway(AI_GATEWAY_MODEL),
+            output: Output.object({
+                schema: z.object({
+                    error: z
+                        .string()
+                        .optional()
+                        .describe("Reason if not a subscription"),
+                    name: z.string().optional().describe("Service Name"),
+                    price: z.number().optional().describe("Price"),
+                    currency: z.string().optional().describe("Currency code"),
+                    date: z
+                        .string()
+                        .optional()
+                        .describe("Start Date (YYYY-MM-DD)"),
+                    paymentCycle: z
+                        .enum(["monthly", "yearly"])
+                        .optional()
+                        .describe("Payment Cycle"),
+                }),
+            }),
             messages: [
                 {
                     role: "user",
@@ -219,13 +239,39 @@ export async function analyzeContentWithGateway(formData: FormData) {
             ],
         });
 
-        const generatedText = result.text;
-
-        if (!generatedText) {
-            throw new Error("No data returned from AI Gateway");
+        if (result.error) {
+            return { error: result.error };
         }
 
-        return parseAndProcessResult(generatedText, currencyCodes);
+        const refinedUuid = result.name
+            ? (subscriptionServices.find(
+                  (s) =>
+                      s.name.toLowerCase().replace(/\s+/g, "") ===
+                      result.name?.toLowerCase().replace(/\s+/g, ""),
+              )?.uuid ?? null)
+            : null;
+
+        const validCurrency =
+            result.currency && currencyCodes.includes(result.currency)
+                ? result.currency
+                : "USD";
+
+        const validPaymentCycle =
+            result.paymentCycle === "monthly" ||
+            result.paymentCycle === "yearly"
+                ? result.paymentCycle
+                : "monthly";
+
+        return {
+            name: result.name,
+            price: result.price
+                ? Math.round(result.price * 100) / 100
+                : result.price,
+            currency: validCurrency,
+            date: result.date,
+            paymentCycle: validPaymentCycle,
+            matchedServiceUuid: refinedUuid,
+        };
     } catch (error) {
         console.error("Analyze Content With Gateway Error:", error);
         throw error;

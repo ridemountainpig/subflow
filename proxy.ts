@@ -7,6 +7,10 @@ const isProtectedRoute = createRouteMatcher([
     "/en/subscription",
     "/zh/subscription",
     "/ja/subscription",
+    "/smart-add",
+    "/en/smart-add",
+    "/zh/smart-add",
+    "/ja/smart-add",
 ]);
 
 const intlMiddleware = createMiddleware(routing);

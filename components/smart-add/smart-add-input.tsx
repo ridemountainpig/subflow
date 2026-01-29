@@ -1,8 +1,10 @@
 "use client";
 
+import { toast } from "sonner";
 import { useState, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import { Upload, X, FileText, Type, Image as ImageIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
 import AnalyzeButton from "@/components/smart-add/analyze-button";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -17,16 +19,24 @@ export default function SmartAddInput({
     onAnalyze,
     isAnalyzing,
 }: SmartAddInputProps) {
+    const t = useTranslations("SmartAddPage");
     const [file, setFile] = useState<File | null>(null);
     const [inputMode, setInputMode] = useState<InputMode>("upload");
     const [textInput, setTextInput] = useState("");
 
-    const onDrop = useCallback((acceptedFiles: File[]) => {
-        const selectedFile = acceptedFiles[0];
-        if (selectedFile) {
-            setFile(selectedFile);
-        }
-    }, []);
+    const onDrop = useCallback(
+        (acceptedFiles: File[]) => {
+            const selectedFile = acceptedFiles[0];
+            if (selectedFile) {
+                if (selectedFile.size > 10 * 1024 * 1024) {
+                    toast.error(t("fileSizeLimitExceeded"));
+                    return;
+                }
+                setFile(selectedFile);
+            }
+        },
+        [t],
+    );
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
         onDrop,
@@ -79,7 +89,7 @@ export default function SmartAddInput({
                     }`}
                 >
                     <Upload size={16} strokeWidth={2.5} />
-                    Upload
+                    {t("uploadTab")}
                 </button>
                 <button
                     onClick={() => switchToMode("text")}
@@ -91,7 +101,7 @@ export default function SmartAddInput({
                     }`}
                 >
                     <Type size={16} strokeWidth={2.5} />
-                    Text
+                    {t("textTab")}
                 </button>
             </div>
 
@@ -125,11 +135,11 @@ export default function SmartAddInput({
                                         <div className="space-y-2">
                                             <p className="text-subflow-200 text-xl font-medium">
                                                 {isDragActive
-                                                    ? "Drop it here!"
-                                                    : "Upload Receipt or Screenshot"}
+                                                    ? t("dropHere")
+                                                    : t("uploadPrompt")}
                                             </p>
                                             <p className="text-subflow-500 text-sm">
-                                                Drag & drop or click to select
+                                                {t("dragDropHint")}
                                             </p>
                                         </div>
                                         <div className="text-subflow-600 flex gap-2 pt-4 font-mono text-xs">
@@ -179,6 +189,9 @@ export default function SmartAddInput({
                                             <AnalyzeButton
                                                 onClick={handleAnalyze}
                                                 isAnalyzing={isAnalyzing}
+                                                disabled={!file}
+                                                text={t("analyze")}
+                                                analyzingText={t("analyzing")}
                                             />
                                         </div>
                                     </motion.div>
@@ -193,13 +206,12 @@ export default function SmartAddInput({
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: -20 }}
                         transition={{ duration: 0.2 }}
-                        className="border-subflow-700 bg-subflow-800/20 relative flex w-full flex-col rounded-3xl border-3 border-dashed p-6"
+                        className="border-subflow-700 bg-subflow-800/20 relative flex w-full flex-col rounded-3xl border-3 border-dashed p-4 sm:p-6"
                     >
                         <div className="text-subflow-400 mb-4 flex items-center gap-2">
                             <Type size={20} strokeWidth={2.5} />
                             <p className="text-sm tracking-wider">
-                                Paste subscription details, email receipt, or
-                                description
+                                {t("textInputHint")}
                             </p>
                         </div>
 
@@ -209,7 +221,7 @@ export default function SmartAddInput({
                             <textarea
                                 value={textInput}
                                 onChange={(e) => setTextInput(e.target.value)}
-                                placeholder="e.g., Netflix Premium subscription - $15.99/month, billed on the 1st of each month..."
+                                placeholder={t("textInputPlaceholder")}
                                 disabled={isAnalyzing}
                                 className="bg-subflow-900/50 text-subflow-100 placeholder-subflow-600 custom-scrollbar min-h-[180px] w-full resize-none p-3 tracking-wider focus:outline-none"
                             />
@@ -220,6 +232,8 @@ export default function SmartAddInput({
                                 onClick={handleAnalyze}
                                 isAnalyzing={isAnalyzing}
                                 disabled={!canAnalyze}
+                                text={t("analyze")}
+                                analyzingText={t("analyzing")}
                             />
                         </div>
                     </motion.div>

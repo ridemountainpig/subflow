@@ -1,40 +1,37 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 
 import SmartAddInput from "@/components/smart-add/smart-add-input";
-import ServicesCombobox from "@/components/subscription/services-combobox";
-import DatePicker from "@/components/subscription/date-picker";
-import { Input } from "@/components/ui/input";
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select";
 import { analyzeContentWithGateway } from "@/app/actions/smart-add";
-import { useCurrency } from "@/app/contexts/CurrencyContext";
+import { addSubscription } from "@/app/actions/action";
+import { Subscription } from "@/types/subscription";
+import AddSubscriptionForm, {
+    AddSubscriptionFormData,
+} from "@/components/subscription/add-subscription-form";
+
+interface AnalyzedData {
+    error?: string;
+    name?: string;
+    price?: number;
+    currency?: string;
+    date?: string;
+    paymentCycle?: "monthly" | "yearly";
+    matchedServiceUuid?: string | null;
+}
 
 export default function SmartAddPage() {
-    const t = useTranslations("SubscriptionPage");
-    const { currenciesList } = useCurrency();
+    const t = useTranslations("SmartAddPage");
+    const tSub = useTranslations("SubscriptionPage");
+    const router = useRouter();
 
     const [isAnalyzing, setIsAnalyzing] = useState(false);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const [analyzedData, setAnalyzedData] = useState<any>(null);
-
-    const [serviceName, setServiceName] = useState("");
-    const [serviceUuid, setServiceUuid] = useState("");
-    const [servicePrice, setServicePrice] = useState(0);
-    const [serviceCurrency, setServiceCurrency] = useState("USD");
-    const [startDate, setStartDate] = useState(new Date());
-    const [paymentCycle, setPaymentCycle] = useState<"monthly" | "yearly">(
-        "monthly",
-    );
+    const [analyzedData, setAnalyzedData] = useState<AnalyzedData | null>(null);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleAnalyze = async (file: File | null, text: string | null) => {
         setIsAnalyzing(true);
@@ -52,47 +49,89 @@ export default function SmartAddPage() {
 
             if (result) {
                 if (result.error === "not_subscription") {
-                    toast.error(
-                        "The uploaded content does not look like a subscription receipt or pricing details.",
-                    );
+                    toast.error(t("notSubscriptionError"));
                     setAnalyzedData(null);
                     return;
                 }
 
                 setAnalyzedData(result);
-                setServiceName(result.name || "");
-                setServiceUuid(result.matchedServiceUuid || "custom");
-                setServicePrice(result.price || 0);
-                setServiceCurrency(result.currency || "USD");
-                setPaymentCycle(
-                    result.paymentCycle === "yearly" ? "yearly" : "monthly",
-                );
-
-                if (result.date) {
-                    const parsedDate = new Date(result.date);
-                    if (!isNaN(parsedDate.getTime())) {
-                        setStartDate(parsedDate);
-                    }
-                }
-
-                toast.success("Analysis complete!");
+                toast.success(t("analysisComplete"));
             }
         } catch (error) {
             console.error("Analysis failed", error);
-            toast.error("Failed to analyze the file. Please try again.");
+            toast.error(t("analysisFailed"));
         } finally {
             setIsAnalyzing(false);
         }
     };
 
+    const handleReanalyze = () => {
+        setAnalyzedData(null);
+    };
+
+    const handleSubmit = async (data: AddSubscriptionFormData) => {
+        setIsSubmitting(true);
+
+        try {
+            const subscription: Subscription = {
+                name: data.serviceName,
+                price: data.servicePrice,
+                currency: data.serviceCurrency,
+                startDate: {
+                    year: data.startDate.getFullYear(),
+                    month: data.startDate.getMonth() + 1,
+                    date: data.startDate.getDate(),
+                },
+                paymentCycle: data.paymentCycle,
+                serviceId: data.serviceUuid,
+                userId: "",
+                coSubscribers: [],
+            };
+
+            await addSubscription(subscription);
+
+            toast.success(tSub("addSuccess"));
+
+            router.push("/subscription");
+        } catch (error) {
+            console.error("Failed to add subscription", error);
+            toast.error(tSub("addFailed") || "Failed to add subscription");
+            setIsSubmitting(false);
+        }
+    };
+
+    const initialFormValues = useMemo(() => {
+        if (!analyzedData) return undefined;
+
+        let parsedStartDate = new Date();
+        if (analyzedData.date) {
+            const parsed = new Date(analyzedData.date);
+            if (!isNaN(parsed.getTime())) {
+                parsedStartDate = parsed;
+            }
+        }
+
+        return {
+            serviceName: analyzedData.name || "",
+            serviceUuid: analyzedData.matchedServiceUuid || "custom",
+            servicePrice: analyzedData.price || 0,
+            serviceCurrency: analyzedData.currency || "USD",
+            startDate: parsedStartDate,
+            paymentCycle:
+                analyzedData.paymentCycle === "yearly"
+                    ? ("yearly" as const)
+                    : ("monthly" as const),
+        };
+    }, [analyzedData]);
+
     return (
         <div className="bg-subflow-900 relative flex h-full min-h-[calc(100vh-3.5rem)] w-full flex-col items-center justify-center gap-8 overflow-y-auto p-4 select-none sm:min-h-[calc(100vh-7.25rem)]">
-            <div className="space-y-2 text-center">
-                <h1 className="text-subflow-50 text-3xl font-bold tracking-widest">
-                    Smart Add Subscription
+            <div className="space-y-4 pt-6 text-center sm:space-y-2 sm:pt-0">
+                <h1 className="text-subflow-50 text-2xl font-bold tracking-widest sm:text-3xl">
+                    {t("title")}
                 </h1>
                 <p className="text-subflow-300 text-sm tracking-wider">
-                    Upload a receipt or paste subscription details to auto-fill
+                    {t("subtitle")}
                 </p>
             </div>
 
@@ -109,109 +148,33 @@ export default function SmartAddPage() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 20 }}
-                        className="bg-subflow-900 border-subflow-100 w-[512px] rounded-2xl border-[3px] p-4 shadow-2xl sm:p-6"
+                        className="bg-subflow-900 border-subflow-100 w-[90vw] rounded-2xl border-[3px] p-4 shadow-2xl sm:w-[512px] sm:p-6"
                     >
                         <h2 className="text-subflow-50 text-base tracking-widest sm:text-xl md:text-2xl">
-                            Analysis Result
+                            {t("analysisResult")}
                         </h2>
                         <p className="text-subflow-300 mb-6 text-xs tracking-widest sm:text-sm md:text-base">
-                            Subscription details extracted from the provided
-                            information
+                            {t("analysisResultDescription")}
                         </p>
 
-                        <div className="space-y-4">
-                            <div>
-                                <div className="text-subflow-50 pb-2 text-sm tracking-widest sm:text-base">
-                                    Service
-                                </div>
-                                <ServicesCombobox
-                                    selectedServiceName={serviceName}
-                                    setSelectedServiceName={setServiceName}
-                                    selectedServiceUuid={serviceUuid}
-                                    setSelectedServiceUuid={setServiceUuid}
-                                />
-                            </div>
-
-                            <div>
-                                <div className="text-subflow-50 pb-2 text-sm tracking-widest sm:text-base">
-                                    Price
-                                </div>
-                                <div className="grid grid-cols-4 gap-x-2">
-                                    <Input
-                                        type="number"
-                                        min={0}
-                                        className="text-subflow-800 bg-subflow-100 col-span-3 h-10 w-full rounded-md text-sm tracking-widest"
-                                        value={servicePrice}
-                                        onChange={(e) =>
-                                            setServicePrice(
-                                                Number(e.target.value),
-                                            )
-                                        }
-                                    />
-                                    <Select
-                                        value={serviceCurrency}
-                                        onValueChange={setServiceCurrency}
-                                    >
-                                        <SelectTrigger className="text-subflow-800 bg-subflow-100 col-span-1 h-10 w-full cursor-pointer px-2 text-xs tracking-widest">
-                                            <SelectValue placeholder="USD" />
-                                        </SelectTrigger>
-                                        <SelectContent className="min-w-[--trigger-width] tracking-widest">
-                                            {Object.keys(
-                                                currenciesList.currencies,
-                                            ).map((key) => (
-                                                <SelectItem
-                                                    key={key}
-                                                    value={key}
-                                                >
-                                                    {key}
-                                                </SelectItem>
-                                            ))}
-                                        </SelectContent>
-                                    </Select>
-                                </div>
-                            </div>
-
-                            <div>
-                                <div className="text-subflow-50 pb-2 text-sm tracking-widest sm:text-base">
-                                    Start Date
-                                </div>
-                                <DatePicker
-                                    startDate={startDate}
-                                    setStartDate={setStartDate}
-                                />
-                            </div>
-
-                            <div>
-                                <div className="text-subflow-50 pb-2 text-sm tracking-widest sm:text-base">
-                                    Payment Cycle
-                                </div>
-                                <Select
-                                    value={paymentCycle}
-                                    onValueChange={(
-                                        val: "monthly" | "yearly",
-                                    ) => setPaymentCycle(val)}
-                                >
-                                    <SelectTrigger className="text-subflow-800 bg-subflow-100 h-10 w-full cursor-pointer text-xs tracking-widest sm:text-base">
-                                        <SelectValue
-                                            placeholder={t("monthly")}
-                                        />
-                                    </SelectTrigger>
-                                    <SelectContent className="tracking-wider">
-                                        <SelectItem value="monthly">
-                                            Monthly
-                                        </SelectItem>
-                                        <SelectItem value="yearly">
-                                            Yearly
-                                        </SelectItem>
-                                    </SelectContent>
-                                </Select>
-                            </div>
+                        <div className="space-y-2">
+                            <AddSubscriptionForm
+                                key={
+                                    analyzedData
+                                        ? JSON.stringify(analyzedData)
+                                        : "empty"
+                                }
+                                initialValues={initialFormValues}
+                                onSubmit={handleSubmit}
+                                showCoSubscribers={false}
+                                isSubmitting={isSubmitting}
+                            />
 
                             <button
-                                onClick={() => setAnalyzedData(null)}
-                                className="bg-subflow-600 text-subflow-50 mt-6 flex h-10 w-full cursor-pointer items-center justify-center gap-2 rounded-md px-3 text-xs tracking-widest sm:text-base"
+                                onClick={handleReanalyze}
+                                className="bg-subflow-600 text-subflow-50 mt-2 flex h-10 w-full cursor-pointer items-center justify-center gap-2 rounded-md px-3 text-xs tracking-widest sm:text-base"
                             >
-                                Re-analyze
+                                {t("reanalyze")}
                             </button>
                         </div>
                     </motion.div>
