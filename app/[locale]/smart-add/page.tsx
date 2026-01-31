@@ -48,8 +48,12 @@ export default function SmartAddPage() {
             const result = await analyzeContentWithGateway(formData);
 
             if (result) {
-                if (result.error === "not_subscription") {
-                    toast.error(t("notSubscriptionError"));
+                if (result.error) {
+                    if (result.error === "not_subscription") {
+                        toast.error(t("notSubscriptionError"));
+                    } else {
+                        toast.error(t("analysisFailed"));
+                    }
                     setAnalyzedData(null);
                     return;
                 }
@@ -105,9 +109,23 @@ export default function SmartAddPage() {
 
         let parsedStartDate = new Date();
         if (analyzedData.date) {
-            const parsed = new Date(analyzedData.date);
-            if (!isNaN(parsed.getTime())) {
-                parsedStartDate = parsed;
+            // Parse date in local timezone to avoid off-by-one day errors
+            // "YYYY-MM-DD" format should be interpreted as local date, not UTC
+            const dateMatch = analyzedData.date.match(
+                /^(\d{4})-(\d{2})-(\d{2})/,
+            );
+            if (dateMatch) {
+                const [, year, month, day] = dateMatch;
+                parsedStartDate = new Date(
+                    parseInt(year),
+                    parseInt(month) - 1,
+                    parseInt(day),
+                );
+            } else {
+                const parsed = new Date(analyzedData.date);
+                if (!isNaN(parsed.getTime())) {
+                    parsedStartDate = parsed;
+                }
             }
         }
 
