@@ -1,7 +1,7 @@
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { CirclePlus, Sparkles } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import {
     Dialog,
     DialogContent,

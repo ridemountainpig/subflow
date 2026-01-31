@@ -104,7 +104,7 @@ export default function AddSubscriptionForm({
             setServiceNameError(false);
         }
 
-        if (servicePrice < 0) {
+        if (servicePrice === 0 || servicePrice < 0) {
             setServicePriceError(true);
             hasError = true;
         } else {

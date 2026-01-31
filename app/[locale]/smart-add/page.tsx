@@ -4,7 +4,7 @@ import { useState, useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { motion } from "framer-motion";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 
 import SmartAddInput from "@/components/smart-add/smart-add-input";
 import { analyzeContentWithGateway } from "@/app/actions/smart-add";
