@@ -4,7 +4,8 @@
         "back": "戻る"
     },
     "Footer": {
-        "subtitle": "サブスクを簡単に管理・把握"
+        "subtitle": "サブスクを簡単に管理・把握",
+        "freeForeverAndSupport": "Subflow は無料でご利用いただけます。コーヒーで応援していただけると嬉しいです。"
     },
     "HomePage": {
         "title": "サブスクを簡単に管理・把握",
@@ -63,7 +64,9 @@
         "monthlySpend": "月額支出",
         "addSubscriptionDialog": {
             "title": "サブスク追加",
-            "description": "新しいサブスクを追加"
+            "description": "新しいサブスクを追加",
+            "manualAdd": "手動でサブスク追加",
+            "smartAdd": "スマートサブスク追加"
         },
         "updateSubscriptionDialog": {
             "title": "サブスク編集",
@@ -125,6 +128,7 @@
         "deleting": "削除中",
         "cancel": "キャンセル",
         "addSuccess": "追加しました",
+        "addFailed": "追加に失敗しました",
         "updateSuccess": "更新しました",
         "deleteSuccess": "削除しました",
         "subscriptionList": "サブスク一覧",
@@ -175,6 +179,26 @@
             "statusConfirmed": "承認済み",
             "statusPending": "保留中"
         }
+    },
+    "SmartAddPage": {
+        "title": "スマート追加サブスク",
+        "subtitle": "領収書をアップロードまたはサブスク情報を貼り付けて自動入力",
+        "uploadTab": "アップロード",
+        "textTab": "テキスト",
+        "dropHere": "ここにドロップ！",
+        "uploadPrompt": "領収書またはスクリーンショットをアップロード",
+        "dragDropHint": "ドラッグ＆ドロップまたはクリックで選択",
+        "textInputHint": "サブスク情報、メール領収書、または説明を貼り付け",
+        "textInputPlaceholder": "例：Netflix Premium サブスク - 月額 $15.99、毎月1日に請求...",
+        "analyze": "サブスク分析",
+        "analyzing": "サブスク分析中",
+        "analysisResult": "サブスク分析結果",
+        "analysisResultDescription": "提供された情報から抽出したサブスク詳細",
+        "reanalyze": "再サブスク分析",
+        "notSubscriptionError": "アップロードされた内容はサブスクリプションの領収書または価格情報ではないようです。",
+        "analysisComplete": "サブスク分析完了！",
+        "analysisFailed": "サブスク分析に失敗しました。もう一度お試しください。",
+        "fileSizeLimitExceeded": "ファイルサイズが10MBの制限を超えています。"
     },
     "MoreMenu": {
         "emailNotifyDialog": {

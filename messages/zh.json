@@ -4,7 +4,8 @@
         "back": "返回"
     },
     "Footer": {
-        "subtitle": "輕鬆掌握與管理您的訂閱服務"
+        "subtitle": "輕鬆掌握與管理您的訂閱服務",
+        "freeForeverAndSupport": "Subflow 免費使用，歡迎請我們喝杯咖啡支持我們。"
     },
     "HomePage": {
         "title": "輕鬆管理你的所有訂閱",
@@ -63,7 +64,9 @@
         "monthlySpend": "每月花費",
         "addSubscriptionDialog": {
             "title": "新增訂閱",
-            "description": "新增新的訂閱項目"
+            "description": "新增新的訂閱項目",
+            "manualAdd": "手動新增訂閱",
+            "smartAdd": "智能新增訂閱"
         },
         "updateSubscriptionDialog": {
             "title": "編輯訂閱",
@@ -125,6 +128,7 @@
         "deleting": "刪除訂閱中",
         "cancel": "取消",
         "addSuccess": "成功新增訂閱",
+        "addFailed": "新增訂閱失敗",
         "updateSuccess": "成功更新訂閱",
         "deleteSuccess": "成功刪除訂閱",
         "subscriptionList": "訂閱清單",
@@ -175,6 +179,26 @@
             "statusConfirmed": "已接受",
             "statusPending": "待接受"
         }
+    },
+    "SmartAddPage": {
+        "title": "智能新增訂閱",
+        "subtitle": "上傳收據或貼上訂閱資訊，自動填入訂閱內容",
+        "uploadTab": "上傳",
+        "textTab": "文字",
+        "dropHere": "放開以上傳！",
+        "uploadPrompt": "上傳收據或螢幕截圖",
+        "dragDropHint": "拖放檔案或點擊選擇",
+        "textInputHint": "貼上訂閱資訊、電子郵件收據或描述",
+        "textInputPlaceholder": "例如：Netflix Premium 訂閱 - 每月 $15.99，每月 1 日扣款...",
+        "analyze": "分析訂閱",
+        "analyzing": "分析訂閱中",
+        "analysisResult": "分析訂閱結果",
+        "analysisResultDescription": "從提供的資訊中擷取的訂閱詳情",
+        "reanalyze": "重新分析訂閱",
+        "notSubscriptionError": "上傳的內容看起來不像是訂閱收據或價格資訊。",
+        "analysisComplete": "分析訂閱完成！",
+        "analysisFailed": "分析訂閱失敗，請重試。",
+        "fileSizeLimitExceeded": "檔案大小超過 10MB 限制。"
     },
     "MoreMenu": {
         "emailNotifyDialog": {

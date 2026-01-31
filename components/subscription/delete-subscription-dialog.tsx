@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/dialog";
 import { toast } from "sonner";
 
-import { deleteSubscription } from "@/app/action";
+import { deleteSubscription } from "@/app/actions/action";
 import { Subscription } from "@/types/subscription";
 
 interface DeleteSubscriptionDialogProps {

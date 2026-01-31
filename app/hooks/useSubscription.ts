@@ -3,7 +3,7 @@ import {
     Subscription as SubscriptionType,
     SubscriptionWithPrice,
 } from "@/types/subscription";
-import { getSubscription } from "@/app/action";
+import { getSubscription } from "@/app/actions/action";
 import { convertCurrency } from "@/utils/currency";
 import { usePreferences } from "@/app/contexts/PreferencesContext";
 

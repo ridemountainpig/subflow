@@ -23,9 +23,21 @@ export default function Footer() {
                                 Subflow
                             </span>
                         </div>
-                        <span className="text-subflow-800 mt-2 text-xs font-bold tracking-widest sm:text-sm">
-                            {t("subtitle")}
-                        </span>
+                        <div className="text-subflow-800 mt-2 flex flex-col items-center gap-y-3 text-center text-xs font-bold tracking-widest sm:text-sm md:items-start">
+                            <span>{t("subtitle")}</span>
+                            <span>{t("freeForeverAndSupport")}</span>
+                            <a
+                                href="https://www.buymeacoffee.com/yencheng"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                <img
+                                    src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png"
+                                    alt="Buy Me A Coffee"
+                                    className="w-40 md:w-50"
+                                />
+                            </a>
+                        </div>
                     </div>
                     <CreditCard />
                 </div>

@@ -6,6 +6,18 @@
 
 **Subflow** is a free, intuitive subscription management tool that helps you take control of your recurring expenses. Whether it’s Netflix, Spotify, SaaS tools, or any other recurring expenses — Subflow brings them all together into one clean, organized dashboard.
 
+If you enjoy this service, consider supporting us:
+
+<!-- markdownlint-disable MD033 -->
+<a href="https://www.buymeacoffee.com/yencheng" target="_blank">
+  <img
+    src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png"
+    alt="Buy Me A Coffee"
+    width="200"
+  />
+</a>
+<!-- markdownlint-enable MD033 -->
+
 ## ✨ Key Features
 
 ### 📦 Centralized Subscription Management
@@ -37,6 +49,24 @@
 - Data is always up-to-date across all devices
 - Secure and consistent access from any login location
 - Automatic cloud backup ensures peace of mind
+
+### 📧 Email Notifications
+
+- Receive timely reminders before subscription renewals
+- Stay informed about upcoming charges via email
+- Never miss a payment or renewal date again
+
+### 👥 Co-Subscriber Management
+
+- Share subscriptions with family, friends, or teammates
+- Track who's splitting costs on shared services
+- Manage group subscriptions effortlessly
+
+### 🤖 Smart Add Subscription
+
+- Quickly add subscriptions with intelligent auto-detection
+- Paste in subscription details, email receipt, or description to automatically extract subscription details
+- Streamlined input with smart suggestions and autofill
 
 ## 🤝 Contributing
 

@@ -9,7 +9,7 @@ import {
     ReactNode,
 } from "react";
 import { useAuth } from "@clerk/nextjs";
-import { getPreferences } from "@/app/action";
+import { getPreferences } from "@/app/actions/action";
 
 interface PreferencesContextType {
     notAmortizeYearlySubscriptions: boolean;

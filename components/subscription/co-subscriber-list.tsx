@@ -4,7 +4,7 @@
 import { useState, useEffect, ReactNode } from "react";
 import { useTranslations } from "next-intl";
 import { Mail, Check, Clock } from "lucide-react";
-import { getUserInfoByEmail } from "@/app/action";
+import { getUserInfoByEmail } from "@/app/actions/action";
 import { CoSubscriber, UserInfo } from "@/types/co-subscribers";
 
 interface CoSubscriberListItemProps {

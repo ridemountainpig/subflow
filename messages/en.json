@@ -4,7 +4,8 @@
         "back": "Back"
     },
     "Footer": {
-        "subtitle": "Flow Through Your Subscriptions with Clarity"
+        "subtitle": "Flow Through Your Subscriptions with Clarity",
+        "freeForeverAndSupport": "Subflow is free to use. Consider supporting us with a coffee."
     },
     "HomePage": {
         "title": "Flow Through Your Subscriptions with Clarity.",
@@ -63,7 +64,9 @@
         "monthlySpend": "Monthly Spend",
         "addSubscriptionDialog": {
             "title": "Add Subscription",
-            "description": "Add a new subscription to your list"
+            "description": "Add a new subscription to your list",
+            "manualAdd": "Manual Add Subscription",
+            "smartAdd": "Smart Add Subscription"
         },
         "updateSubscriptionDialog": {
             "title": "Update Subscription",
@@ -125,6 +128,7 @@
         "deleting": "Deleting Subscription",
         "cancel": "Cancel",
         "addSuccess": "Add Subscription Successfully",
+        "addFailed": "Failed to Add Subscription",
         "updateSuccess": "Update Subscription Successfully",
         "deleteSuccess": "Delete Subscription Successfully",
         "subscriptionList": "Subscription List",
@@ -175,6 +179,26 @@
             "statusConfirmed": "Accepted",
             "statusPending": "Pending"
         }
+    },
+    "SmartAddPage": {
+        "title": "Smart Add Subscription",
+        "subtitle": "Upload a receipt or paste subscription details to auto-fill",
+        "uploadTab": "Upload",
+        "textTab": "Text",
+        "dropHere": "Drop it here!",
+        "uploadPrompt": "Upload Receipt or Screenshot",
+        "dragDropHint": "Drag & drop or click to select",
+        "textInputHint": "Paste subscription details, email receipt, or description",
+        "textInputPlaceholder": "e.g., Netflix Premium subscription - $15.99/month, billed on the 1st of each month...",
+        "analyze": "Analyze Subscription",
+        "analyzing": "Analyzing Subscription",
+        "analysisResult": "Analysis Subscription Result",
+        "analysisResultDescription": "Subscription details extracted from the provided information",
+        "reanalyze": "Re-analyze Subscription",
+        "notSubscriptionError": "The uploaded content does not look like a subscription receipt or pricing details.",
+        "analysisComplete": "Analysis Subscription complete!",
+        "analysisFailed": "Failed to analyze the subscription. Please try again.",
+        "fileSizeLimitExceeded": "File size exceeds 10MB limit."
     },
     "MoreMenu": {
         "emailNotifyDialog": {

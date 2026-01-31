@@ -1,15 +1,25 @@
 "use client";
 
+import { useSyncExternalStore } from "react";
 import { useAuth } from "@clerk/nextjs";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { motion } from "framer-motion";
 import { ArrowRightIcon } from "lucide-react";
 
+const emptySubscribe = () => () => {};
+
 export default function GoSubscriptionBtn() {
+    const isClient = useSyncExternalStore(
+        emptySubscribe,
+        () => true,
+        () => false,
+    );
     const { userId } = useAuth();
     const t = useTranslations("HomePage");
     const isLoggedIn = !!userId;
+
+    if (!isClient) return null;
 
     return (
         isLoggedIn && (

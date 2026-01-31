@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
 import { useLocale } from "next-intl";
-import { upsertEmail } from "@/app/action";
+import { upsertEmail } from "@/app/actions/action";
 
 export function useFirstLogin() {
     const { user } = useUser();

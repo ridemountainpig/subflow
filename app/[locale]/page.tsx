@@ -145,7 +145,7 @@ export default function Home() {
                         />
                     </SpotlightCard>
                     <SpotlightCard
-                        className="custom-spotlight-card col-span-5 w-full rounded-xl"
+                        className="custom-spotlight-card col-span-9 w-full rounded-xl lg:col-span-5"
                         spotlightColor="rgba(250, 240, 230, 0.2)"
                     >
                         <SpotlightCardContent
@@ -161,7 +161,7 @@ export default function Home() {
                         />
                     </SpotlightCard>
                     <SpotlightCard
-                        className="custom-spotlight-card col-span-4 w-full rounded-xl"
+                        className="custom-spotlight-card col-span-9 w-full rounded-xl lg:col-span-4"
                         spotlightColor="rgba(250, 240, 230, 0.2)"
                     >
                         <SpotlightCardContent

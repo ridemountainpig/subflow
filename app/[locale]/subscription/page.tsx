@@ -21,7 +21,7 @@ import { useFirstLogin } from "@/app/hooks/useFirstLogin";
 
 import FormattedNumber from "@/components/subscription/formatted-number";
 import CalendarCell from "@/components/subscription/calendar-cell";
-import AddSubscriptionDialog from "@/components/subscription/add-subscription-dialog";
+import AddSubscriptionMenuDialog from "@/components/subscription/add-subscription-menu-dialog";
 import ChartDialog from "@/components/subscription/chart-dialog";
 import CoSubscriberInvite from "@/components/subscription/co-subscriber-invite";
 import DescriptionDialog from "@/components/subscription/description-dialog";
@@ -77,7 +77,7 @@ export default function Subscription() {
                             <span className="text-subflow-400 text-xl tracking-widest sm:text-3xl">
                                 {year}
                             </span>
-                            <AddSubscriptionDialog
+                            <AddSubscriptionMenuDialog
                                 userId={userId || ""}
                                 onSuccess={() =>
                                     setUpdatedSubscription(!updatedSubscription)

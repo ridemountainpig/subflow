@@ -22,7 +22,7 @@ import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 
 import { useCurrency } from "@/app/contexts/CurrencyContext";
-import { updateSubscription } from "@/app/action";
+import { updateSubscription } from "@/app/actions/action";
 import { Subscription } from "@/types/subscription";
 import { CoSubscriber } from "@/types/co-subscribers";
 import ServicesCombobox from "@/components/subscription/services-combobox";
