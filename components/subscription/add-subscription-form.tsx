@@ -63,8 +63,10 @@ export default function AddSubscriptionForm({
     const [serviceUuid, setServiceUuid] = useState(
         initialValues?.serviceUuid || "",
     );
-    const [servicePrice, setServicePrice] = useState(
-        initialValues?.servicePrice || 0,
+    const [servicePrice, setServicePrice] = useState<number | string>(
+        initialValues?.servicePrice && initialValues.servicePrice > 0
+            ? initialValues.servicePrice
+            : "",
     );
     const [serviceCurrency, setServiceCurrency] = useState(
         initialValues?.serviceCurrency || "USD",
@@ -104,7 +106,11 @@ export default function AddSubscriptionForm({
             setServiceNameError(false);
         }
 
-        if (servicePrice === 0 || servicePrice < 0) {
+        if (
+            servicePrice === "" ||
+            (typeof servicePrice === "string" && isNaN(Number(servicePrice))) ||
+            Number(servicePrice) <= 0
+        ) {
             setServicePriceError(true);
             hasError = true;
         } else {
@@ -118,7 +124,7 @@ export default function AddSubscriptionForm({
         await onSubmit({
             serviceName,
             serviceUuid,
-            servicePrice,
+            servicePrice: Number(servicePrice),
             serviceCurrency,
             startDate,
             paymentCycle,
@@ -176,7 +182,10 @@ export default function AddSubscriptionForm({
                     min={0}
                     className="text-subflow-800 bg-subflow-100 col-span-3 h-10 w-full rounded-md text-xs tracking-widest sm:text-base"
                     value={servicePrice}
-                    onChange={(e) => setServicePrice(Number(e.target.value))}
+                    onChange={(e) => {
+                        const value = e.target.value;
+                        setServicePrice(value === "" ? "" : Number(value));
+                    }}
                 />
                 <Select
                     value={serviceCurrency}

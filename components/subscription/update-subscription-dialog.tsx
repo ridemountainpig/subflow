@@ -44,7 +44,9 @@ export default function UpdateSubscriptionDialog({
 
     const [serviceName, setServiceName] = useState(subscription.name);
     const [serviceUuid, setServiceUuid] = useState(subscription.serviceId);
-    const [servicePrice, setServicePrice] = useState(subscription.price);
+    const [servicePrice, setServicePrice] = useState<number | string>(
+        subscription.price,
+    );
     const [serviceCurrency, setServiceCurrency] = useState(
         subscription.currency,
     );
@@ -96,13 +98,22 @@ export default function UpdateSubscriptionDialog({
         } else {
             setServiceNameError(false);
         }
-        if (servicePrice === 0 || servicePrice < 0) {
+        if (
+            servicePrice === "" ||
+            (typeof servicePrice === "string" && isNaN(Number(servicePrice))) ||
+            Number(servicePrice) <= 0
+        ) {
             setServicePriceError(true);
         } else {
             setServicePriceError(false);
         }
 
-        if (serviceName === "" || servicePrice === 0 || servicePrice < 0) {
+        if (
+            serviceName === "" ||
+            servicePrice === "" ||
+            (typeof servicePrice === "string" && isNaN(Number(servicePrice))) ||
+            Number(servicePrice) <= 0
+        ) {
             return;
         }
 
@@ -127,7 +138,7 @@ export default function UpdateSubscriptionDialog({
 
         const updatedSubscription: Subscription = {
             name: serviceName,
-            price: servicePrice,
+            price: Number(servicePrice),
             currency: serviceCurrency,
             startDate: {
                 year: startDate.getFullYear(),
@@ -212,10 +223,13 @@ export default function UpdateSubscriptionDialog({
                                     placeholder={t("pricePlaceholder")}
                                     min={0}
                                     className="text-subflow-800 bg-subflow-100 col-span-3 h-10 w-full rounded-md text-xs tracking-widest sm:text-base"
-                                    value={servicePrice || ""}
-                                    onChange={(e) =>
-                                        setServicePrice(Number(e.target.value))
-                                    }
+                                    value={servicePrice}
+                                    onChange={(e) => {
+                                        const value = e.target.value;
+                                        setServicePrice(
+                                            value === "" ? "" : Number(value),
+                                        );
+                                    }}
                                 />
                                 <Select
                                     value={serviceCurrency}
