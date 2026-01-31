@@ -70,6 +70,7 @@ function parseAndProcessResult(generatedText: string, currencyCodes: string[]) {
     }
 
     let refinedUuid = null;
+    let canonicalName = parsedData.name;
     if (parsedData.name) {
         const normalizedName = parsedData.name
             .toLowerCase()
@@ -82,6 +83,7 @@ function parseAndProcessResult(generatedText: string, currencyCodes: string[]) {
         });
         if (match) {
             refinedUuid = match.uuid;
+            canonicalName = match.name;
         }
     }
 
@@ -96,7 +98,7 @@ function parseAndProcessResult(generatedText: string, currencyCodes: string[]) {
             : "monthly";
 
     return {
-        name: parsedData.name,
+        name: canonicalName,
         price: parsedData.price,
         currency: validCurrency,
         date: parsedData.date,
@@ -119,6 +121,11 @@ function extractFormData(formData: FormData) {
 async function getFileBase64(file: File) {
     const bytes = await file.arrayBuffer();
     return Buffer.from(bytes).toString("base64");
+}
+
+async function getFileBuffer(file: File) {
+    const bytes = await file.arrayBuffer();
+    return Buffer.from(bytes);
 }
 
 async function getPromptAndCurrencies() {
@@ -216,9 +223,10 @@ export async function analyzeContentWithGateway(formData: FormData) {
                 image: `data:${file.type};base64,${base64Data}`,
             });
         } else {
+            const buffer = await getFileBuffer(file);
             content.push({
                 type: "file",
-                data: `data:${file.type};base64,${base64Data}`,
+                data: buffer,
                 mediaType: file.type,
             });
         }

@@ -128,6 +128,7 @@
         "deleting": "削除中",
         "cancel": "キャンセル",
         "addSuccess": "追加しました",
+        "addFailed": "追加に失敗しました",
         "updateSuccess": "更新しました",
         "deleteSuccess": "削除しました",
         "subscriptionList": "サブスク一覧",

@@ -128,6 +128,7 @@
         "deleting": "Deleting Subscription",
         "cancel": "Cancel",
         "addSuccess": "Add Subscription Successfully",
+        "addFailed": "Failed to Add Subscription",
         "updateSuccess": "Update Subscription Successfully",
         "deleteSuccess": "Delete Subscription Successfully",
         "subscriptionList": "Subscription List",

@@ -128,6 +128,7 @@
         "deleting": "刪除訂閱中",
         "cancel": "取消",
         "addSuccess": "成功新增訂閱",
+        "addFailed": "新增訂閱失敗",
         "updateSuccess": "成功更新訂閱",
         "deleteSuccess": "成功刪除訂閱",
         "subscriptionList": "訂閱清單",
