@@ -3,7 +3,7 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { generateText, gateway } from "ai";
 import { subscriptionServices } from "@/data/subscriptionServices";
-import { getCurrenciesList } from "@/app/actions/action";
+import { getCurrenciesList, requireAuth } from "@/app/actions/action";
 
 const AI_API_KEY = process.env.AI_API_KEY;
 const API_ENDPOINT = process.env.AI_API_ENDPOINT;
@@ -129,6 +129,8 @@ async function getPromptAndCurrencies() {
 }
 
 export async function analyzeContent(formData: FormData) {
+    await requireAuth();
+
     if (!AI_API_KEY) {
         throw new Error("AI_API_KEY is not set");
     }
@@ -190,6 +192,8 @@ export async function analyzeContent(formData: FormData) {
 }
 
 export async function analyzeContentWithGateway(formData: FormData) {
+    await requireAuth();
+
     if (!AI_GATEWAY_MODEL) {
         throw new Error("AI_GATEWAY_MODEL is not set");
     }
@@ -206,10 +210,18 @@ export async function analyzeContentWithGateway(formData: FormData) {
 
     if (file) {
         const base64Data = await getFileBase64(file);
-        content.push({
-            type: "image",
-            image: `data:${file.type};base64,${base64Data}`,
-        });
+        if (file.type.startsWith("image/")) {
+            content.push({
+                type: "image",
+                image: `data:${file.type};base64,${base64Data}`,
+            });
+        } else {
+            content.push({
+                type: "file",
+                data: `data:${file.type};base64,${base64Data}`,
+                mediaType: file.type,
+            });
+        }
     }
 
     content.push({ type: "text", text: prompt });

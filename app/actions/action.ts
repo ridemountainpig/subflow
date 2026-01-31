@@ -11,7 +11,7 @@ import {
     CurrenciesLive as CurrenciesLiveType,
 } from "@/types/currency";
 
-async function requireAuth(): Promise<string> {
+export async function requireAuth(): Promise<string> {
     const { userId } = await auth();
     if (!userId) {
         throw new Error("Unauthorized");
