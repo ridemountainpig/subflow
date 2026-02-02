@@ -21,8 +21,8 @@ function buildPrompt(currencyCodes: string[]) {
     1. Service Name (e.g., Netflix, Spotify, AWS)
     2. Price (numeric value)
     3. Currency (must be one of the supported currency codes listed below, default to USD if unrecognized)
-    4. Start Date (YYYY-MM-DD format, approximate if not explicit)
-    5. Payment Cycle (monthly or yearly)
+    4. Start Date (YYYY-MM-DD format). If a billing period is shown (e.g., "Jan 6 – Feb 6"), use the start of that period.
+    5. Payment Cycle (monthly or yearly). Determine this by analyzing the billing period (e.g., "Jan 6 – Feb 6" implies monthly, "Oct 13, 2025 – Oct 13, 2026" implies yearly).
 
     Supported currency codes:
     ${currencyCodes.join(", ")}
