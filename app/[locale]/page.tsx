@@ -93,6 +93,7 @@ export default function Home() {
                                         autoPlay
                                         loop
                                         muted
+                                        playsInline
                                         className="h-full w-full object-contain"
                                         src={
                                             locale === "zh"
