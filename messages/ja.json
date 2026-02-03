@@ -54,7 +54,11 @@
             "description": "共有サブスクリプションを管理できます"
         },
         "bottomTitle": "支払い漏れゼロへ",
-        "bottomSubtitle": "今すぐ Subflow を使って管理開始"
+        "bottomSubtitle": "今すぐ Subflow を使って管理開始",
+        "spotlightCardSmartAdd": {
+            "title": "スマート追加サブスク",
+            "description": "アップロードまたは貼り付けたサブスクリプションの内容をスマートに分析し、詳細を自動的に入力します。"
+        }
     },
     "LoginPage": {
         "title": "Subflow へようこそ",

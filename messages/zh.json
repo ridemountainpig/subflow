@@ -54,7 +54,11 @@
             "description": "與家人、朋友共享訂閱，一起管理訂閱支出"
         },
         "bottomTitle": "不再錯過任何一筆訂閱",
-        "bottomSubtitle": "現在就開始使用 Subflow，讓您全面掌握每一筆訂閱支出"
+        "bottomSubtitle": "現在就開始使用 Subflow，讓您全面掌握每一筆訂閱支出",
+        "spotlightCardSmartAdd": {
+            "title": "智能新增訂閱",
+            "description": "智能分析您上傳或貼上的訂閱內容，並為您自動填入訂閱詳細資訊。"
+        }
     },
     "LoginPage": {
         "title": "歡迎回到 Subflow",
