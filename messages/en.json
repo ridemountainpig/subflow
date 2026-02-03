@@ -54,7 +54,11 @@
             "description": "Co‑subscriptions let you share your subscriptions with family and friends so you can manage expenses together"
         },
         "bottomTitle": "Never lose track of your subscriptions again.",
-        "bottomSubtitle": "Use Subflow for free, forever and stay fully in control."
+        "bottomSubtitle": "Use Subflow for free, forever and stay fully in control.",
+        "spotlightCardSmartAdd": {
+            "title": "Smart Add Subscription",
+            "description": "Smartly analyze the subscription content you upload or paste, and automatically fill in the subscription details for you."
+        }
     },
     "LoginPage": {
         "title": "Welcome Back",

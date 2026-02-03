@@ -6,6 +6,7 @@ import {
     DollarSign,
     MailCheck,
     Users,
+    Sparkles,
 } from "lucide-react";
 import GetStartBtn from "@/components/homepage/get-start-btn";
 import GoSubscriptionBtn from "@/components/homepage/go-subscription-btn";
@@ -66,6 +67,47 @@ export default function Home() {
                     className="text-subflow-50 px-6 text-center text-3xl leading-tight font-bold tracking-widest lg:text-5xl"
                 />
                 <div className="mt-10 grid w-[95%] grid-cols-9 gap-4 2xl:w-[85%]">
+                    <SpotlightCard
+                        className="custom-spotlight-card col-span-9 w-full rounded-xl"
+                        spotlightColor="rgba(250, 240, 230, 0.2)"
+                    >
+                        <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:gap-16">
+                            <div className="flex-1">
+                                <SpotlightCardContent
+                                    icon={
+                                        <Sparkles
+                                            size={28}
+                                            strokeWidth={2.5}
+                                            className="text-subflow-50"
+                                        />
+                                    }
+                                    title={t("spotlightCardSmartAdd.title")}
+                                    description={t(
+                                        "spotlightCardSmartAdd.description",
+                                    )}
+                                />
+                            </div>
+                            <div className="flex-1">
+                                <div className="aspect-video w-full overflow-hidden rounded-xl bg-[#2A2B30] shadow-xl">
+                                    <video
+                                        autoPlay
+                                        loop
+                                        muted
+                                        playsInline
+                                        className="h-full w-full object-contain"
+                                        src={
+                                            locale === "zh"
+                                                ? "/videos/smart-add-demo-zh.mp4"
+                                                : "/videos/smart-add-demo.mp4"
+                                        }
+                                    >
+                                        Your browser does not support the video
+                                        tag.
+                                    </video>
+                                </div>
+                            </div>
+                        </div>
+                    </SpotlightCard>
                     <SpotlightCard
                         className="custom-spotlight-card col-span-9 w-full rounded-xl lg:col-span-5"
                         spotlightColor="rgba(250, 240, 230, 0.1)"
