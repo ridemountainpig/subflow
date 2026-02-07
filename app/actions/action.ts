@@ -312,8 +312,10 @@ export async function getUserInfoById(userId: string) {
             lastName: user.lastName,
             imageUrl: user.imageUrl,
             emailAddress:
-                user.emailAddresses[0]?.emailAddress?.toLowerCase().trim() ||
-                "",
+                user.emailAddresses
+                    .find((email) => email.id === user.primaryEmailAddressId)
+                    ?.emailAddress?.toLowerCase()
+                    .trim() || "",
         };
     } catch (error) {
         console.error("Error getting user info by id:", error);

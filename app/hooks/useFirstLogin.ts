@@ -28,7 +28,6 @@ export function useFirstLogin() {
 
                         if (result.message === "Email added") {
                             await sendWelcomeEmail(
-                                user.primaryEmailAddress.emailAddress,
                                 currentLocale as "en" | "zh" | "ja",
                             );
                         }

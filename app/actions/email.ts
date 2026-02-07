@@ -2,16 +2,20 @@
 
 import { type Language } from "@/lib/email/content";
 import { generateEmail } from "@/lib/email/template";
-import { requireAuth } from "@/app/actions/action";
+import { getUserInfoById, requireAuth } from "@/app/actions/action";
 
 const EMAIL_ENDPOINT = "https://api.zeabur.com/api/v1/zsend/emails";
 const EMAIL_REQUEST_TIMEOUT_MS = 10_000;
 
-export async function sendWelcomeEmail(
-    email: string,
-    language: Language,
-): Promise<void> {
-    await requireAuth();
+export async function sendWelcomeEmail(language: Language): Promise<void> {
+    const userId = await requireAuth();
+    const userInfo = await getUserInfoById(userId);
+
+    if (!userInfo || !userInfo.emailAddress) {
+        throw new Error("User email not found");
+    }
+
+    const email = userInfo.emailAddress;
 
     const apiKey = process.env.EMAIL_API_KEY;
     const fromAddress = process.env.EMAIL_FROM_ADDRESS;
@@ -24,7 +28,7 @@ export async function sendWelcomeEmail(
 
     const controller = new AbortController();
     const timeout = setTimeout(
-        () => controller.abort("Email request timeout"),
+        () => controller.abort(),
         EMAIL_REQUEST_TIMEOUT_MS,
     );
 
