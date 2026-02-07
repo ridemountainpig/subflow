@@ -3,7 +3,8 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { generateText, gateway } from "ai";
 import { subscriptionServices } from "@/data/subscriptionServices";
-import { getCurrenciesList, requireAuth } from "@/app/actions/action";
+import { requireAuth } from "@/app/actions/action";
+import { getCurrenciesList } from "@/app/actions/currency";
 
 const AI_API_KEY = process.env.AI_API_KEY;
 const API_ENDPOINT = process.env.AI_API_ENDPOINT;

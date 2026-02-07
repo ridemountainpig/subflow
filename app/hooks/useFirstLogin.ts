@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
 import { useLocale } from "next-intl";
 import { upsertEmail } from "@/app/actions/action";
+import { sendWelcomeEmail } from "@/app/actions/email";
 
 export function useFirstLogin() {
     const { user } = useUser();
@@ -19,11 +20,17 @@ export function useFirstLogin() {
 
                 if (isNewUser) {
                     if (user?.primaryEmailAddress?.emailAddress) {
-                        await upsertEmail(
+                        const result = await upsertEmail(
                             user.primaryEmailAddress.emailAddress,
                             currentLocale as "en" | "zh" | "ja",
                             true,
                         );
+
+                        if (result.message === "Email added") {
+                            await sendWelcomeEmail(
+                                currentLocale as "en" | "zh" | "ja",
+                            );
+                        }
                     }
                 }
             } catch (error) {
