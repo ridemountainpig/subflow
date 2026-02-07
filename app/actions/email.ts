@@ -2,6 +2,7 @@
 
 import { type Language } from "@/lib/email/content";
 import { generateEmail } from "@/lib/email/template";
+import { requireAuth } from "@/app/actions/action";
 
 const EMAIL_ENDPOINT = "https://api.zeabur.com/api/v1/zsend/emails";
 const EMAIL_REQUEST_TIMEOUT_MS = 10_000;
@@ -10,6 +11,8 @@ export async function sendWelcomeEmail(
     email: string,
     language: Language,
 ): Promise<void> {
+    await requireAuth();
+
     const apiKey = process.env.EMAIL_API_KEY;
     const fromAddress = process.env.EMAIL_FROM_ADDRESS;
 

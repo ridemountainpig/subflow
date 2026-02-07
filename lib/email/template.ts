@@ -123,7 +123,7 @@ function renderBasicUsage(
     basicSection: EmailContent["sections"]["basic"],
     language: Language,
 ) {
-    const separator = language === "zh" ? "： " : ": ";
+    const separator = language === "zh" || language === "ja" ? "： " : ": ";
     const itemsHtml = basicSection.items
         .map(
             (item) => `

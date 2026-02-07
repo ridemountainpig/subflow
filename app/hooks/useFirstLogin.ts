@@ -20,15 +20,18 @@ export function useFirstLogin() {
 
                 if (isNewUser) {
                     if (user?.primaryEmailAddress?.emailAddress) {
-                        await upsertEmail(
+                        const result = await upsertEmail(
                             user.primaryEmailAddress.emailAddress,
                             currentLocale as "en" | "zh" | "ja",
                             true,
                         );
-                        await sendWelcomeEmail(
-                            user.primaryEmailAddress.emailAddress,
-                            currentLocale as "en" | "zh" | "ja",
-                        );
+
+                        if (result.message === "Email added") {
+                            await sendWelcomeEmail(
+                                user.primaryEmailAddress.emailAddress,
+                                currentLocale as "en" | "zh" | "ja",
+                            );
+                        }
                     }
                 }
             } catch (error) {
