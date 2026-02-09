@@ -1,8 +1,9 @@
 "use server";
 
-import { type Language } from "@/lib/email/content";
-import { generateEmail } from "@/lib/email/template";
+import { getContent, type Language } from "@/lib/email/content";
+import { EmailTemplate } from "@/components/email/template";
 import { getUserInfoById, requireAuth } from "@/app/actions/action";
+import { render } from "@react-email/render";
 
 const EMAIL_ENDPOINT = "https://api.zeabur.com/api/v1/zsend/emails";
 const EMAIL_REQUEST_TIMEOUT_MS = 10_000;
@@ -24,7 +25,12 @@ export async function sendWelcomeEmail(language: Language): Promise<void> {
         throw new Error("Zeabur Email API Key or From Address not configured");
     }
 
-    const { subject, html, text } = generateEmail(language);
+    const content = getContent(language);
+    const subject = content.subject;
+    const html = await render(<EmailTemplate language={language} />);
+    const text = await render(<EmailTemplate language={language} />, {
+        plainText: true,
+    });
 
     const controller = new AbortController();
     const timeout = setTimeout(

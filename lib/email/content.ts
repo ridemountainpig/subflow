@@ -363,7 +363,7 @@ export function getContent(language: Language): EmailContent {
     }
 }
 
-export function getIcon(name: string, size = 18): string {
+export function getIconUrl(name: string): string {
     const iconMap: Record<string, string> = {
         sparkles: "sparkles",
         mail: "mail",
@@ -376,7 +376,10 @@ export function getIcon(name: string, size = 18): string {
     };
 
     const lucideName = iconMap[name] || name;
-    const pngUrl = `https://wsrv.nl/?url=https%3A%2F%2Funpkg.com%2Flucide-static%40latest%2Ficons%2F${lucideName}.svg&w=64&output=png`;
+    return `https://wsrv.nl/?url=https%3A%2F%2Funpkg.com%2Flucide-static%40latest%2Ficons%2F${lucideName}.svg&w=64&output=png`;
+}
 
-    return `<img src="${pngUrl}" width="${size}" height="${size}" alt="${name}" style="display:inline-block;vertical-align:middle;width:${size}px;height:${size}px;" />`;
+export function getIcon(name: string, size = 18): string {
+    const pngUrl = getIconUrl(name);
+    return `<img src="${pngUrl}" width="${size}" height="${size}" alt="${name}" style="display:inline-block;vertical-align:-4px;width:${size}px;height:${size}px;" />`;
 }
