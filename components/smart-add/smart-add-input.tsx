@@ -42,7 +42,11 @@ export default function SmartAddInput({
         onDrop,
         maxFiles: 1,
         accept: {
-            "image/*": [],
+            "image/jpeg": [],
+            "image/png": [],
+            "image/webp": [],
+            "image/heic": [],
+            "image/heif": [],
             "application/pdf": [],
             "text/plain": [],
         },
