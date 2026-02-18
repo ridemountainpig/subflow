@@ -4,9 +4,11 @@
 import { motion } from "framer-motion";
 import Tilt from "react-parallax-tilt";
 import { useState, useEffect, useMemo } from "react";
+import { useTranslations } from "next-intl";
 import { getSubscriptionCount } from "@/app/actions/action";
 
 export default function CreditCard() {
+    const t = useTranslations("Footer");
     const [count, setCount] = useState(0);
 
     useEffect(() => {
@@ -48,7 +50,9 @@ export default function CreditCard() {
                 className="from-subflow-900 to-subflow-700 relative h-fit w-[350px] rounded-2xl bg-linear-to-br p-6 tracking-widest text-white shadow-xl select-none sm:w-[360px] lg:w-[380px]"
             >
                 <div className="flex items-center justify-between">
-                    <h2 className="text-xl font-bold">SUBSCRIPTIONS TRACKED</h2>
+                    <h2 className="text-xl font-bold">
+                        {t("subscriptionsTracked")}
+                    </h2>
                     <div className="h-10 w-10 rounded-full bg-white/10">
                         <img
                             src="/subflow-dark.svg"
@@ -74,7 +78,7 @@ export default function CreditCard() {
                 <div className="mt-6 flex items-end justify-between">
                     <div>
                         <p className="text-subflow-400 text-sm">
-                            Manage Subscriptions with
+                            {t("manageSubscriptionsWith")}
                         </p>
                         <p className="text-lg font-medium">Subflow</p>
                     </div>

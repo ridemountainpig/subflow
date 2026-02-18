@@ -5,7 +5,12 @@
     },
     "Footer": {
         "subtitle": "Flow Through Your Subscriptions with Clarity",
-        "freeForeverAndSupport": "Subflow is free to use. Consider supporting us with a coffee."
+        "freeForeverAndSupport": "Subflow is free to use. Consider supporting us with a coffee.",
+        "allRightsReserved": "All rights reserved.",
+        "createdBy": "Created by",
+        "deployedOn": "Deployed on",
+        "subscriptionsTracked": "SUBSCRIPTIONS TRACKED",
+        "manageSubscriptionsWith": "Manage Subscriptions with"
     },
     "HomePage": {
         "title": "Flow Through Your Subscriptions with Clarity.",
