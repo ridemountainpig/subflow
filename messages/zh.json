@@ -5,7 +5,12 @@
     },
     "Footer": {
         "subtitle": "輕鬆掌握與管理您的訂閱服務",
-        "freeForeverAndSupport": "Subflow 免費使用，歡迎請我們喝杯咖啡支持我們。"
+        "freeForeverAndSupport": "Subflow 免費使用，歡迎請我們喝杯咖啡支持我們。",
+        "allRightsReserved": "版權所有。",
+        "createdBy": "創建者",
+        "deployedOn": "部署於",
+        "subscriptionsTracked": "已追蹤訂閱數",
+        "manageSubscriptionsWith": "使用 Subflow 管理訂閱"
     },
     "HomePage": {
         "title": "輕鬆管理你的所有訂閱",

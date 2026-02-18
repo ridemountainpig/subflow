@@ -1,0 +1,291 @@
+{
+    "Header": {
+        "login": "Iniciar sesión",
+        "back": "Volver"
+    },
+    "Footer": {
+        "subtitle": "Fluye a través de tus suscripciones con claridad",
+        "freeForeverAndSupport": "Subflow es gratuito. Considera apoyarnos con un café.",
+        "allRightsReserved": "Todos los derechos reservados.",
+        "createdBy": "Creado por",
+        "deployedOn": "Desplegado en",
+        "subscriptionsTracked": "SUSCRIPCIONES RASTREADAS",
+        "manageSubscriptionsWith": "Gestiona suscripciones con"
+    },
+    "HomePage": {
+        "title": "Fluye a través de tus suscripciones con claridad.",
+        "titleSplitOne": "Fluye a través de tus",
+        "titleSplitTwo": "suscripciones con claridad.",
+        "subtitle": "Rastrea, organiza y simplifica tu flujo de suscripciones.",
+        "free": "Sin precio. Totalmente gratis.",
+        "start": "Comenzar",
+        "manageSubscriptions": "Gestionar suscripciones",
+        "cardOne": {
+            "title": "Gestiona todas tus suscripciones",
+            "description": "Rastrea, edita y organiza tus suscripciones en un solo lugar."
+        },
+        "cardTwo": {
+            "title": "Rastrea tus suscripciones",
+            "description": "Ve los próximos cargos directamente en tu calendario."
+        },
+        "cardThree": {
+            "title": "Visualiza tu flujo de suscripciones",
+            "description": "Comprende tus gastos de un vistazo."
+        },
+        "spotlightTitle": "Lo que hace destacar a Subflow",
+        "spotlightCardOne": {
+            "title": "Gratis para siempre",
+            "description": "Sin niveles de precios. Sin barreras de pago. Subflow es completamente gratuito."
+        },
+        "spotlightCardTwo": {
+            "title": "SVGL",
+            "descriptionOne": "Comienza rápidamente con servicios integrados potenciados por",
+            "descriptionTwo": "iconos."
+        },
+        "spotlightCardThree": {
+            "title": "Siempre sincronizado",
+            "description": "Tus datos de suscripción siempre están actualizados dondequiera que inicies sesión."
+        },
+        "spotlightCardFour": {
+            "title": "Soporte multi-moneda",
+            "description": "Rastrea tus suscripciones en cualquier moneda que sea importante para ti."
+        },
+        "spotlightCardFive": {
+            "title": "Notificación por email",
+            "description": "Función de notificación por email que te recuerda antes del pago de tu suscripción y te notifica qué pagarás"
+        },
+        "spotlightCardSix": {
+            "title": "Co-suscripciones",
+            "description": "Las co-suscripciones te permiten compartir tus suscripciones con familiares y amigos para que puedas gestionar gastos juntos"
+        },
+        "bottomTitle": "Nunca pierdas el control de tus suscripciones.",
+        "bottomSubtitle": "Usa Subflow gratis, para siempre, y mantén el control total.",
+        "spotlightCardSmartAdd": {
+            "title": "Añadir suscripción inteligente",
+            "description": "Analiza inteligentemente el contenido de la suscripción que subes o pegas, y rellena automáticamente los detalles de la suscripción por ti."
+        }
+    },
+    "LoginPage": {
+        "title": "Bienvenido de nuevo",
+        "secure": "Autenticación segura potenciada por Clerk"
+    },
+    "SubscriptionPage": {
+        "monthlySpend": "Gasto mensual",
+        "addSubscriptionDialog": {
+            "title": "Añadir suscripción",
+            "description": "Añade una nueva suscripción a tu lista",
+            "manualAdd": "Añadir suscripción manualmente",
+            "smartAdd": "Añadir suscripción inteligente"
+        },
+        "updateSubscriptionDialog": {
+            "title": "Actualizar suscripción",
+            "description": "Actualiza tu suscripción"
+        },
+        "deleteSubscriptionDialog": {
+            "title": "Eliminar suscripción",
+            "description": "¿Estás seguro de que quieres eliminar esta suscripción?",
+            "confirmTextOne": "¿Estás seguro de que quieres eliminar",
+            "confirmTextTwo": "suscripción?"
+        },
+        "chartDialog": {
+            "title": "Análisis de suscripciones"
+        },
+        "descriptionDialog": {
+            "title": "Cómo usar",
+            "monthSwitch": {
+                "title": "1. Navegación por meses",
+                "description": "Haz clic en las flechas izquierda y derecha para cambiar entre meses"
+            },
+            "addSubscription": {
+                "title": "2. Añadir suscripción",
+                "description1": "Haz clic en",
+                "description2": "para añadir una nueva suscripción. Al seleccionar un servicio, puedes buscar servicios existentes o añadir nuevos"
+            },
+            "manageSubscription": {
+                "title": "3. Gestionar suscripciones",
+                "desktop": "Pasa el ratón sobre el calendario con suscripciones para ver, editar o eliminar elementos de suscripción",
+                "mobile": "Haz clic en los elementos de suscripción para editarlos o eliminarlos"
+            },
+            "analytics": {
+                "title": "4. Análisis de suscripciones",
+                "description1": "Haz clic en",
+                "description2": "para ver el análisis de suscripciones"
+            },
+            "moreMenu": {
+                "title": "5. Más ajustes",
+                "description1": "Haz clic en",
+                "description2": "para ver más ajustes: notificación por email"
+            }
+        },
+        "service": "Servicio",
+        "servicePlaceholder": "Seleccionar servicio",
+        "searchService": "Buscar servicio o añadir nuevo servicio",
+        "serviceError": "Por favor selecciona un servicio",
+        "price": "Precio",
+        "pricePlaceholder": "Precio de la suscripción",
+        "priceError": "Por favor introduce un precio correcto",
+        "startDate": "Fecha de inicio",
+        "paymentCycle": "Ciclo de pago",
+        "monthly": "Mensual",
+        "yearly": "Anual",
+        "yearlyDescription": "-prom.",
+        "add": "Añadir suscripción",
+        "adding": "Añadiendo suscripción",
+        "update": "Actualizar suscripción",
+        "updating": "Actualizando suscripción",
+        "delete": "Eliminar suscripción",
+        "deleting": "Eliminando suscripción",
+        "cancel": "Cancelar",
+        "addSuccess": "Suscripción añadida correctamente",
+        "addFailed": "Error al añadir suscripción",
+        "updateSuccess": "Suscripción actualizada correctamente",
+        "deleteSuccess": "Suscripción eliminada correctamente",
+        "subscriptionList": "Lista de suscripciones",
+        "subscriptionListDescription": "Las suscripciones anuales se han convertido a precio mensual promedio",
+        "noSubscription": "Aún no hay suscripciones",
+        "totalSpend": "Gasto total",
+        "since": "Desde",
+        "close": "Cerrar",
+        "sharedSubscription": "Co-suscripción",
+        "leaveCoSubscriptionDialog": {
+            "title": "Abandonar suscripción",
+            "confirmTextOne": "¿Estás seguro de que quieres abandonar",
+            "confirmTextTwo": "suscripción?"
+        },
+        "leave": "Abandonar",
+        "leaving": "Abandonando",
+        "leaveSuccess": "Suscripción abandonada correctamente",
+        "leaveFailed": "Error al abandonar suscripción",
+        "coSubscribers": {
+            "title": "Co-suscriptores",
+            "description": "Añade usuarios que comparten esta suscripción contigo",
+            "manage": "Gestionar co-suscriptores",
+            "emailPlaceholder": "Introduce dirección de email",
+            "add": "Añadir",
+            "remove": "Eliminar",
+            "emailRequired": "Por favor introduce una dirección de email",
+            "invalidEmail": "Por favor introduce una dirección de email válida",
+            "emailAlreadyAdded": "Este email ya está en la lista",
+            "cannotAddOwnEmail": "No puedes añadir tu propia dirección de email",
+            "emailNotRegistered": "Este email no está registrado en Subflow. Por favor regístrate primero.",
+            "checkError": "Error al verificar email. Por favor inténtalo de nuevo.",
+            "coSubscriberAdded": "Co-suscriptor añadido correctamente",
+            "coSubscriberRemoved": "Co-suscriptor eliminado correctamente",
+            "listTitle": "Co-suscriptores",
+            "backToBasic": "Volver a información básica",
+            "inviteTitle": "Invitaciones pendientes",
+            "confirmInvite": "Confirmar",
+            "rejectInvite": "Rechazar",
+            "confirmSuccess": "Invitación confirmada correctamente",
+            "rejectSuccess": "Invitación rechazada correctamente",
+            "confirmError": "Error al confirmar invitación",
+            "rejectError": "Error al rechazar invitación",
+            "fetchError": "Error al obtener invitaciones",
+            "invitedYou": "Te ha invitado a compartir esta suscripción",
+            "amount": "Cantidad",
+            "amountPlaceholder": "Introduce cantidad",
+            "amountError": "Por favor introduce una cantidad correcta",
+            "statusConfirmed": "Aceptada",
+            "statusPending": "Pendiente"
+        }
+    },
+    "SmartAddPage": {
+        "title": "Añadir suscripción inteligente",
+        "subtitle": "Sube un recibo o pega los detalles de la suscripción para autocompletar",
+        "uploadTab": "Subir",
+        "textTab": "Texto",
+        "dropHere": "¡Suéltalo aquí!",
+        "uploadPrompt": "Subir recibo o captura de pantalla",
+        "dragDropHint": "Arrastra y suelta o haz clic para seleccionar",
+        "textInputHint": "Pega los detalles de la suscripción, recibo por email o descripción",
+        "textInputPlaceholder": "ej., Suscripción Netflix Premium - $15.99/mes, facturado el día 1 de cada mes...",
+        "analyze": "Analizar suscripción",
+        "analyzing": "Analizando suscripción",
+        "analysisResult": "Resultado del análisis de suscripción",
+        "analysisResultDescription": "Detalles de la suscripción extraídos de la información proporcionada",
+        "reanalyze": "Reanalizar suscripción",
+        "notSubscriptionError": "El contenido subido no parece ser un recibo de suscripción o detalles de precios.",
+        "analysisComplete": "¡Análisis de suscripción completado!",
+        "analysisFailed": "Error al analizar la suscripción. Por favor inténtalo de nuevo.",
+        "fileSizeLimitExceeded": "El tamaño del archivo excede el límite de 10MB."
+    },
+    "MoreMenu": {
+        "emailNotifyDialog": {
+            "title": "Notificación por email",
+            "notify": "Notificar",
+            "notifyDescription": "Configura notificaciones por email para recordarte antes del pago de tu suscripción y notificarte qué pagarás.",
+            "emailPlaceholder": "Por favor introduce una dirección de email para notificaciones",
+            "emailError": "Por favor introduce una dirección de email válida",
+            "emailLanguage": "Idioma del email",
+            "saveSettings": "Guardar ajustes",
+            "savingSettings": "Guardando ajustes",
+            "emailNotifySaved": "Ajustes de notificación guardados correctamente"
+        },
+        "preferencesDialog": {
+            "title": "Preferencias",
+            "notAmortizeYearlySubscriptions": "No amortizar suscripciones anuales",
+            "notAmortizeYearlySubscriptionsDescription": "Subflow por defecto amortiza las tarifas de suscripción anuales a tarifas mensuales. Si no quieres amortizar, puedes habilitar esta opción. Después de habilitar, las suscripciones anuales solo se mostrarán en el calendario y análisis de suscripciones para el mes actual.",
+            "saveSettings": "Guardar ajustes",
+            "savingSettings": "Guardando ajustes",
+            "preferencesSaved": "Preferencias guardadas correctamente"
+        }
+    },
+    "NotFoundPage": {
+        "title": "Página no encontrada",
+        "description": "La página que estás buscando no existe.",
+        "back": "Volver al inicio"
+    },
+    "PrivacyPage": {
+        "title": "Política de privacidad",
+        "intro": "Bienvenido al sitio web oficial del Servicio de Gestión de Suscripciones Subflow (en adelante, 'este sitio web'). Para ayudarte a usar todos los servicios y funciones de este sitio web con confianza, explicamos nuestra política de privacidad para proteger tus derechos. Por favor lee lo siguiente detenidamente:",
+        "section1": {
+            "title": "1. Alcance de la política de privacidad",
+            "content1": "Esta política de privacidad describe cómo este sitio web maneja la información de identificación personal recopilada durante tu uso de los servicios de gestión de suscripciones.",
+            "content2": "Esta política no se aplica a sitios web enlazados desde este sitio, ni al personal no comisionado o gestionado por este sitio web."
+        },
+        "section2": {
+            "title": "2. Recopilación, procesamiento y uso de datos personales",
+            "content1": "Cuando te registras como miembro, usas el servicio de gestión de suscripciones Subflow, o participas en actividades relacionadas en este sitio web, podemos solicitar la información personal necesaria según la naturaleza del servicio y usarla dentro del alcance especificado.",
+            "content2": "Los datos recopilados por este sitio web pueden incluir pero no están limitados a: dirección de email, información de pago, registros de suscripción y comportamiento de uso de la cuenta. Estos datos solo serán usados por Subflow bajo las siguientes circunstancias:",
+            "list1": "Para proporcionar servicios, soporte al cliente o funciones de miembro",
+            "list2": "Para cumplir obligaciones contractuales",
+            "list3": "Para mejorar nuestros productos y servicios",
+            "list4": "Para cumplir con obligaciones legales o solicitudes de autoridades competentes",
+            "content3": "A menos que se obtenga consentimiento previo o sea requerido por ley, este sitio web no proporcionará tus datos de identificación personal a terceros (ya sean nacionales o extranjeros), ni usará los datos más allá de los fines para los que fueron recopilados."
+        },
+        "section3": {
+            "title": "3. Protección de datos",
+            "content1": "Este sitio web está protegido por firewalls, sistemas antivirus y otras medidas de seguridad. Hay mecanismos estrictos de protección para asegurar tus datos personales, y solo el personal autorizado puede acceder a tus datos. Todo el personal relevante ha firmado acuerdos de confidencialidad, y cualquier incumplimiento estará sujeto a acciones legales.",
+            "content2": "Si es necesario externalizar servicios debido a necesidades comerciales, requeriremos a los contratistas que cumplan con obligaciones de confidencialidad y realicemos la supervisión necesaria para asegurar el cumplimiento."
+        },
+        "section4": {
+            "title": "4. Enlaces a sitios web externos",
+            "content1": "Este sitio web puede contener enlaces a otros sitios web. Puedes ser dirigido a estos sitios web a través de los enlaces proporcionados. Sin embargo, esta política de privacidad no se aplica a esos sitios web enlazados, y debes consultar sus respectivas políticas de privacidad."
+        },
+        "section5": {
+            "title": "5. Política sobre compartir datos personales con terceros",
+            "content1": "Este sitio web nunca proporcionará, intercambiará, alquilará o venderá tus datos personales a ningún individuo, grupo, empresa privada o agencia gubernamental a menos que sea requerido por ley u obligaciones contractuales. Las excepciones incluyen pero no están limitadas a:",
+            "list1": "Con tu consentimiento.",
+            "list2": "Según lo requerido por ley.",
+            "list3": "Por seguridad nacional o interés público.",
+            "list4": "Para prevenir peligro para tu vida, cuerpo, libertad o propiedad.",
+            "list5": "Cuando tu comportamiento en este sitio web viole los términos de servicio o pueda dañar los derechos del sitio web u otros, y la divulgación sea necesaria para identificación, contacto o acción legal.",
+            "list6": "Cuando sea beneficioso para tus derechos e intereses.",
+            "list7": "Cuando se contraten terceros para recopilar, procesar o usar tus datos personales, supervisaremos y gestionaremos a los contratistas para asegurar su cumplimiento."
+        },
+        "section6": {
+            "title": "6. Uso de cookies",
+            "content1": "Para proporcionarte el mejor servicio, este sitio web coloca y accede a cookies en tu ordenador. Si prefieres no aceptar cookies, puedes ajustar la configuración de tu navegador a un nivel alto de privacidad para rechazarlas. Sin embargo, esto puede causar que ciertas funciones del sitio web operen incorrectamente.",
+            "cookieSettings": "¿Cómo deshabilitar cookies?",
+            "cookieDescription": "Tu navegador te permite cambiar la configuración de cookies. Estas configuraciones generalmente se encuentran en el menú 'Opciones' o 'Configuración' de tu navegador. Para más información, puedes consultar los siguientes enlaces:",
+            "chromeLink": "Configuración de cookies de Chrome™",
+            "firefoxLink": "Configuración de cookies de Firefox®",
+            "safariLink": "Configuración de cookies de Safari®",
+            "edgeLink": "Configuración de cookies de Edge®"
+        },
+        "section7": {
+            "title": "7. Enmiendas a la política de privacidad",
+            "content1": "La política de privacidad de este sitio web puede actualizarse en cualquier momento según las necesidades. Los términos actualizados se publicarán en el sitio web."
+        }
+    }
+}

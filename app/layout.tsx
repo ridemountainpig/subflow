@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { ClerkProvider } from "@clerk/nextjs";
-import { zhTW, enUS, jaJP } from "@clerk/localizations";
+import { zhTW, enUS, jaJP, esES } from "@clerk/localizations";
 import { NextIntlClientProvider, useLocale } from "next-intl";
 import { getLocale } from "next-intl/server";
 import "./globals.css";
@@ -37,6 +37,15 @@ export async function generateMetadata(): Promise<Metadata> {
                 "サブスク管理, サブスクリプション管理, サブスク管理ツール, サブスク管理アプリ, 定期支払い管理, サブスク追跡, サブスク支出追跡, 月額サブスク整理, 個人サブスク追跡, サブスク可視化ツール, デジタルサブスク管理, 定期課金管理";
             ogImageUrl = "https://subflow.ing/og-images/subflow-ja-og.png";
             ogImageAlt = "Subflow OG画像";
+            break;
+        case "es":
+            title = "Subflow Gestión de Suscripciones";
+            description =
+                "Gestiona fácilmente tus suscripciones con Subflow. Rastrea gastos, organiza pagos recurrentes y toma el control de tu gestión de suscripciones.";
+            keywords =
+                "Gestión de Suscripciones, Herramienta de Gestión de Suscripciones, Software de Gestión de Suscripciones, Aplicación de Gestión de Suscripciones, Servicio de Gestión de Suscripciones, Plataforma de Gestión de Suscripciones, Sistema de Gestión de Suscripciones, Solución de Gestión de Suscripciones, Rastrear Gastos de Suscripción, Gestionar Pagos Recurrentes, Organizar Suscripciones Mensuales, Rastreador de Suscripciones para Individuos, Visualizar Flujo de Suscripciones, Monitorear Suscripciones Digitales";
+            ogImageUrl = "https://subflow.ing/og-images/subflow-en-og.png";
+            ogImageAlt = "Subflow OG Image";
             break;
         default:
             title = "Subflow";
@@ -133,10 +142,23 @@ const customJaJP = {
     },
 };
 
+const customEsES = {
+    ...esES,
+    signIn: {
+        ...esES.signIn,
+        start: {
+            ...esES.signIn?.start,
+            titleCombined: "Inicia sesión para continuar usando Subflow",
+            subtitleCombined: "Gestiona suscripciones con Subflow",
+        },
+    },
+};
+
 const localizationMap = {
     en: customEnUS,
     zh: customZhTW,
     ja: customJaJP,
+    es: customEsES,
 } as const;
 
 export default function RootLayout({

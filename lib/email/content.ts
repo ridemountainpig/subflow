@@ -1,4 +1,4 @@
-export type Language = "en" | "zh" | "ja";
+export type Language = "en" | "zh" | "ja" | "es";
 
 export type EmailContent = {
     subject: string;
@@ -356,6 +356,111 @@ export function getContent(language: Language): EmailContent {
                     regards: "ご利用ありがとうございます。",
                     team: "Subflow チーム",
                     copyright: `© ${year} Subflow. All Rights Reserved.`,
+                },
+            };
+        case "es":
+            return {
+                subject: "¡Bienvenido a Subflow!",
+                preview: "Tu gestor de suscripciones está listo.",
+                heroImage: "https://subflow.ing/og-images/subflow-en-og.png",
+                intro: "¡Bienvenido a Subflow! Tu gestor de suscripciones está listo.<br/><br/>Ahora puedes rastrear tus gastos, organizar pagos recurrentes y tomar el control de tu vida de suscripciones completamente gratis.",
+                sections: {
+                    highlights: {
+                        title: "Características principales y uso:",
+                        items: [
+                            {
+                                title: "Añadir inteligente",
+                                icon: "sparkles",
+                                image: "https://subflow.ing/welcome-email/smart-add-en.png",
+                                description:
+                                    "Analiza inteligentemente el contenido de la suscripción que subes o pegas, y rellena automáticamente los detalles.",
+                                usage: {
+                                    label: "Uso:",
+                                    text: `Haz clic en "Añadir suscripción" ${getIcon(
+                                        "circle-plus",
+                                    )} → Selecciona "Añadir inteligente" → Pega la información de la suscripción, recibo por email o descripción.`,
+                                },
+                            },
+                            {
+                                title: "Notificaciones por email",
+                                icon: "mail",
+                                image: "https://subflow.ing/welcome-email/email-notification-en.png",
+                                description:
+                                    "Te recuerda antes de los pagos de suscripción y te notifica qué elementos vienen próximamente.",
+                                usage: {
+                                    label: "Uso:",
+                                    text: `Haz clic en "Más ajustes" ${getIcon(
+                                        "more",
+                                    )} → "Notificación por email" → Introduce email e idioma → Guardar.`,
+                                },
+                            },
+                            {
+                                title: "Análisis de suscripciones",
+                                icon: "pie-chart",
+                                image: "https://subflow.ing/welcome-email/subscription-analyze-en.png",
+                                description:
+                                    "Visualiza las proporciones de gasto en suscripciones con gráficos para entender rápidamente la estructura de gastos.",
+                                usage: {
+                                    label: "Uso:",
+                                    text: "Haz clic en el botón de gráficos para ver el análisis de suscripciones.",
+                                },
+                            },
+                            {
+                                title: "Co-suscriptor",
+                                icon: "users",
+                                image: "https://subflow.ing/welcome-email/co-subscriber-en.png",
+                                description:
+                                    "Comparte suscripciones con familia y amigos para gestionar gastos juntos.",
+                                usage: {
+                                    label: "Uso:",
+                                    text: 'Selecciona una suscripción → Ve a "Co-suscriptores" → Introduce email para invitar.',
+                                },
+                            },
+                        ],
+                    },
+                    basic: {
+                        title: "Guía de uso básico:",
+                        image: "https://subflow.ing/welcome-email/subscription-page-en.png",
+                        items: [
+                            {
+                                label: "Cambio de mes",
+                                text: `Haz clic en las flechas izquierda/derecha ${getIcon(
+                                    "arrows-h",
+                                )} para cambiar de mes.`,
+                            },
+                            {
+                                label: "Añadir suscripción",
+                                text: `Haz clic en ${getIcon(
+                                    "plus",
+                                )} para añadir una suscripción. Puedes buscar o añadir nuevos servicios.`,
+                            },
+                            {
+                                label: "Gestionar suscripciones",
+                                text: "Pasa el ratón sobre una fecha del calendario con suscripciones para ver detalles, editar o eliminar.",
+                            },
+                            {
+                                label: "Ver análisis",
+                                text: `Haz clic en ${getIcon(
+                                    "pie-chart-sm",
+                                )} para ver el análisis de suscripciones.`,
+                            },
+                            {
+                                label: "Más ajustes",
+                                text: `Haz clic en ${getIcon(
+                                    "more",
+                                )} para ver ajustes como notificaciones por email.`,
+                            },
+                        ],
+                    },
+                },
+                cta: {
+                    text: "Ir a Gestión de Suscripciones",
+                    url: "https://subflow.ing/subscription",
+                },
+                footer: {
+                    regards: "Gracias por unirte,",
+                    team: "El equipo de Subflow",
+                    copyright: `© ${year} Subflow. Todos los derechos reservados.`,
                 },
             };
         default:
