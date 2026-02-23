@@ -1,6 +1,6 @@
 {
     "Header": {
-        "login": "Iniciar sesión",
+        "login": "Entrar",
         "back": "Volver"
     },
     "Footer": {
@@ -14,8 +14,8 @@
     },
     "HomePage": {
         "title": "Fluye a través de tus suscripciones con claridad.",
-        "titleSplitOne": "Fluye a través de tus",
-        "titleSplitTwo": "suscripciones con claridad",
+        "titleSplitOne": "Fluye a través de",
+        "titleSplitTwo": "tus suscripciones con claridad",
         "subtitle": "Rastrea, organiza y simplifica tu flujo de suscripciones",
         "free": "Sin precio. Totalmente gratis.",
         "start": "Comenzar",
