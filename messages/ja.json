@@ -5,7 +5,12 @@
     },
     "Footer": {
         "subtitle": "サブスクを簡単に管理・把握",
-        "freeForeverAndSupport": "Subflow は無料でご利用いただけます。コーヒーで応援していただけると嬉しいです。"
+        "freeForeverAndSupport": "Subflow は無料でご利用いただけます。コーヒーで応援していただけると嬉しいです。",
+        "allRightsReserved": "全著作権所有。",
+        "createdBy": "作成者",
+        "deployedOn": "デプロイ先",
+        "subscriptionsTracked": "追跡したサブスク数",
+        "manageSubscriptionsWith": "Subflow でサブスクを管理"
     },
     "HomePage": {
         "title": "サブスクを簡単に管理・把握",

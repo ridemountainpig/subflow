@@ -38,9 +38,9 @@ export default function EmailNotifyDialog({
 
     const [notify, setNotify] = useState(false);
     const [email, setEmail] = useState("");
-    const [emailLanguage, setEmailLanguage] = useState<"en" | "zh" | "ja">(
-        "en",
-    );
+    const [emailLanguage, setEmailLanguage] = useState<
+        "en" | "zh" | "ja" | "es"
+    >("en");
 
     const [emailError, setEmailError] = useState(false);
     const [savingEmail, setSavingEmail] = useState(false);
@@ -53,7 +53,7 @@ export default function EmailNotifyDialog({
                 setNotify(email[0].notify);
                 setEmailLanguage(email[0].language);
             } else {
-                setEmailLanguage(currentLocale as "en" | "zh" | "ja");
+                setEmailLanguage(currentLocale as "en" | "zh" | "ja" | "es");
             }
         };
         fetchEmail();
@@ -144,7 +144,7 @@ export default function EmailNotifyDialog({
                     <Select
                         value={emailLanguage}
                         onValueChange={(value) =>
-                            setEmailLanguage(value as "en" | "zh" | "ja")
+                            setEmailLanguage(value as "en" | "zh" | "ja" | "es")
                         }
                     >
                         <SelectTrigger className="text-subflow-800 bg-subflow-100 h-10 w-full cursor-pointer text-xs tracking-widest sm:text-base">
@@ -168,6 +168,12 @@ export default function EmailNotifyDialog({
                                 className="text-xs sm:text-base"
                             >
                                 日本語
+                            </SelectItem>
+                            <SelectItem
+                                value="es"
+                                className="text-xs sm:text-base"
+                            >
+                                Español
                             </SelectItem>
                         </SelectContent>
                     </Select>

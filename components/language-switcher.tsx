@@ -32,6 +32,10 @@ export default function LanguageSwitcher() {
             locale: "ja",
             label: "日本語",
         },
+        {
+            locale: "es",
+            label: "Español",
+        },
     ];
 
     return (

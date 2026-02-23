@@ -17,7 +17,7 @@ import MoreMenu from "@/components/more-menu/more-menu";
 
 export default function Header() {
     const pathname = usePathname();
-    const isLoginPage = /^\/(?:en|zh|ja)\/login/.test(pathname);
+    const isLoginPage = /^\/(?:en|zh|ja|es)\/login/.test(pathname);
     const { userId } = useAuth();
     const t = useTranslations("Header");
     const buttonStyle =

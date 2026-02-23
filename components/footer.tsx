@@ -44,14 +44,14 @@ export default function Footer() {
                 <div className="text-subflow-900 mt-10 flex w-full flex-col items-center gap-y-4 text-xs font-bold tracking-widest md:flex-row md:justify-between lg:text-sm">
                     <div className="flex items-center">
                         <span>
-                            Copyright © {new Date().getFullYear()} Subflow. All
-                            rights reserved.
+                            Copyright © {new Date().getFullYear()} Subflow.{" "}
+                            {t("allRightsReserved")}
                         </span>
                     </div>
                     <div className="flex flex-col items-center gap-x-1 gap-y-4 sm:flex-row lg:gap-x-2">
                         <div className="flex items-center gap-x-1 lg:gap-x-2">
                             <span>
-                                Created by{" "}
+                                {t("createdBy")}{" "}
                                 <a
                                     href="https://github.com/ridemountainpig"
                                     target="_blank"
@@ -80,7 +80,9 @@ export default function Footer() {
                             strokeWidth={1.5}
                         />
                         <div className="flex items-center gap-x-1 lg:gap-x-2">
-                            <span className="-ml-2">Deployed on Zeabur</span>
+                            <span className="-ml-2">
+                                {t("deployedOn")} Zeabur
+                            </span>
                             <a
                                 href="https://zeabur.com/referral?referralCode=ridemountainpig"
                                 target="_blank"

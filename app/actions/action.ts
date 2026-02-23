@@ -326,7 +326,7 @@ export async function getUserInfoById(userId: string) {
 // Email related functions
 export async function upsertEmail(
     email: string,
-    language: "en" | "zh" | "ja",
+    language: "en" | "zh" | "ja" | "es",
     notify: boolean,
 ) {
     const userId = await requireAuth();

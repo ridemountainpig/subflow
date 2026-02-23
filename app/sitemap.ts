@@ -19,5 +19,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
             lastModified,
             priority: 1,
         },
+        {
+            url: "https://subflow.ing/es",
+            lastModified,
+            priority: 1,
+        },
     ];
 }

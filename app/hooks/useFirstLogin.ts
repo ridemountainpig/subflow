@@ -22,13 +22,13 @@ export function useFirstLogin() {
                     if (user?.primaryEmailAddress?.emailAddress) {
                         const result = await upsertEmail(
                             user.primaryEmailAddress.emailAddress,
-                            currentLocale as "en" | "zh" | "ja",
+                            currentLocale as "en" | "zh" | "ja" | "es",
                             true,
                         );
 
                         if (result.message === "Email added") {
                             await sendWelcomeEmail(
-                                currentLocale as "en" | "zh" | "ja",
+                                currentLocale as "en" | "zh" | "ja" | "es",
                             );
                         }
                     }
