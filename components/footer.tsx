@@ -43,7 +43,7 @@ export default function Footer() {
                 </div>
                 <div className="text-subflow-900 mt-10 flex w-full flex-col items-center gap-y-4 text-xs font-bold tracking-widest md:flex-row md:justify-between lg:text-sm">
                     <div className="flex items-center">
-                        <span>
+                        <span className="text-center lg:text-left">
                             Copyright © {new Date().getFullYear()} Subflow.{" "}
                             {t("allRightsReserved")}
                         </span>

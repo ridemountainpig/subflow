@@ -33,7 +33,7 @@ export default function CardSwapDescription() {
             }}
         >
             <div className="col-span-1 flex flex-col items-center justify-center gap-y-12 py-12 lg:py-0">
-                <div className="flex flex-col gap-y-12">
+                <div className="flex flex-col gap-y-12 text-center lg:text-left">
                     <CardDescription
                         icon={
                             <CalendarDays

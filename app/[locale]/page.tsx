@@ -66,7 +66,7 @@ export default function Home() {
                     splitType={isZhOrJa ? "chars" : "words"}
                     className="text-subflow-50 px-6 text-center text-3xl leading-tight font-bold tracking-widest lg:text-5xl"
                 />
-                <div className="mt-10 grid w-[95%] grid-cols-9 gap-4 2xl:w-[85%]">
+                <div className="mt-10 grid w-[95%] grid-cols-9 gap-4 text-center lg:text-left 2xl:w-[85%]">
                     <SpotlightCard
                         className="custom-spotlight-card col-span-9 w-full rounded-xl"
                         spotlightColor="rgba(250, 240, 230, 0.2)"

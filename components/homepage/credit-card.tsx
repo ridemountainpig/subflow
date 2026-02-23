@@ -57,7 +57,7 @@ export default function CreditCard() {
                         <img
                             src="/subflow-dark.svg"
                             alt="Subflow"
-                            className="h-10 w-10"
+                            className="min-h-10 min-w-10"
                         />
                     </div>
                 </div>
