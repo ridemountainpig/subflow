@@ -44,7 +44,7 @@ export async function generateMetadata(): Promise<Metadata> {
                 "Gestiona fácilmente tus suscripciones con Subflow. Rastrea gastos, organiza pagos recurrentes y toma el control de tu gestión de suscripciones.";
             keywords =
                 "Gestión de Suscripciones, Herramienta de Gestión de Suscripciones, Software de Gestión de Suscripciones, Aplicación de Gestión de Suscripciones, Servicio de Gestión de Suscripciones, Plataforma de Gestión de Suscripciones, Sistema de Gestión de Suscripciones, Solución de Gestión de Suscripciones, Rastrear Gastos de Suscripción, Gestionar Pagos Recurrentes, Organizar Suscripciones Mensuales, Rastreador de Suscripciones para Individuos, Visualizar Flujo de Suscripciones, Monitorear Suscripciones Digitales";
-            ogImageUrl = "https://subflow.ing/og-images/subflow-en-og.png";
+            ogImageUrl = "https://subflow.ing/og-images/subflow-es-og.png";
             ogImageAlt = "Subflow OG Image";
             break;
         default:

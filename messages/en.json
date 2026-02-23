@@ -15,8 +15,8 @@
     "HomePage": {
         "title": "Flow Through Your Subscriptions with Clarity.",
         "titleSplitOne": "Flow Through Your",
-        "titleSplitTwo": "Subscriptions with Clarity.",
-        "subtitle": "Track, organize, and simplify your subscription flow.",
+        "titleSplitTwo": "Subscriptions with Clarity",
+        "subtitle": "Track, organize, and simplify your subscription flow",
         "free": "No Pricing. Just Free.",
         "start": "Get Started",
         "manageSubscriptions": "Manage Subscriptions",
@@ -58,8 +58,8 @@
             "title": "Co-Subscriptions",
             "description": "Co‑subscriptions let you share your subscriptions with family and friends so you can manage expenses together"
         },
-        "bottomTitle": "Never lose track of your subscriptions again.",
-        "bottomSubtitle": "Use Subflow for free, forever and stay fully in control.",
+        "bottomTitle": "Never lose track of your subscriptions again",
+        "bottomSubtitle": "Use Subflow for free, forever and stay fully in control",
         "spotlightCardSmartAdd": {
             "title": "Smart Add Subscription",
             "description": "Smartly analyze the subscription content you upload or paste, and automatically fill in the subscription details for you."

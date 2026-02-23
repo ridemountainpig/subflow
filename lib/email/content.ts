@@ -362,7 +362,7 @@ export function getContent(language: Language): EmailContent {
             return {
                 subject: "¡Bienvenido a Subflow!",
                 preview: "Tu gestor de suscripciones está listo.",
-                heroImage: "https://subflow.ing/og-images/subflow-en-og.png",
+                heroImage: "https://subflow.ing/og-images/subflow-es-og.png",
                 intro: "¡Bienvenido a Subflow! Tu gestor de suscripciones está listo.<br/><br/>Ahora puedes rastrear tus gastos, organizar pagos recurrentes y tomar el control de tu vida de suscripciones completamente gratis.",
                 sections: {
                     highlights: {
@@ -371,7 +371,7 @@ export function getContent(language: Language): EmailContent {
                             {
                                 title: "Añadir inteligente",
                                 icon: "sparkles",
-                                image: "https://subflow.ing/welcome-email/smart-add-en.png",
+                                image: "https://subflow.ing/welcome-email/smart-add-es.png",
                                 description:
                                     "Analiza inteligentemente el contenido de la suscripción que subes o pegas, y rellena automáticamente los detalles.",
                                 usage: {
@@ -384,7 +384,7 @@ export function getContent(language: Language): EmailContent {
                             {
                                 title: "Notificaciones por email",
                                 icon: "mail",
-                                image: "https://subflow.ing/welcome-email/email-notification-en.png",
+                                image: "https://subflow.ing/welcome-email/email-notification-es.png",
                                 description:
                                     "Te recuerda antes de los pagos de suscripción y te notifica qué elementos vienen próximamente.",
                                 usage: {
@@ -397,7 +397,7 @@ export function getContent(language: Language): EmailContent {
                             {
                                 title: "Análisis de suscripciones",
                                 icon: "pie-chart",
-                                image: "https://subflow.ing/welcome-email/subscription-analyze-en.png",
+                                image: "https://subflow.ing/welcome-email/subscription-analyze-es.png",
                                 description:
                                     "Visualiza las proporciones de gasto en suscripciones con gráficos para entender rápidamente la estructura de gastos.",
                                 usage: {
@@ -408,7 +408,7 @@ export function getContent(language: Language): EmailContent {
                             {
                                 title: "Co-suscriptor",
                                 icon: "users",
-                                image: "https://subflow.ing/welcome-email/co-subscriber-en.png",
+                                image: "https://subflow.ing/welcome-email/co-subscriber-es.png",
                                 description:
                                     "Comparte suscripciones con familia y amigos para gestionar gastos juntos.",
                                 usage: {
@@ -420,7 +420,7 @@ export function getContent(language: Language): EmailContent {
                     },
                     basic: {
                         title: "Guía de uso básico:",
-                        image: "https://subflow.ing/welcome-email/subscription-page-en.png",
+                        image: "https://subflow.ing/welcome-email/subscription-page-es.png",
                         items: [
                             {
                                 label: "Cambio de mes",

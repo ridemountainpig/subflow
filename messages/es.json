@@ -15,8 +15,8 @@
     "HomePage": {
         "title": "Fluye a través de tus suscripciones con claridad.",
         "titleSplitOne": "Fluye a través de tus",
-        "titleSplitTwo": "suscripciones con claridad.",
-        "subtitle": "Rastrea, organiza y simplifica tu flujo de suscripciones.",
+        "titleSplitTwo": "suscripciones con claridad",
+        "subtitle": "Rastrea, organiza y simplifica tu flujo de suscripciones",
         "free": "Sin precio. Totalmente gratis.",
         "start": "Comenzar",
         "manageSubscriptions": "Gestionar suscripciones",
@@ -58,8 +58,8 @@
             "title": "Co-suscripciones",
             "description": "Las co-suscripciones te permiten compartir tus suscripciones con familiares y amigos para que puedas gestionar gastos juntos"
         },
-        "bottomTitle": "Nunca pierdas el control de tus suscripciones.",
-        "bottomSubtitle": "Usa Subflow gratis, para siempre, y mantén el control total.",
+        "bottomTitle": "Nunca pierdas el control de tus suscripciones",
+        "bottomSubtitle": "Usa Subflow gratis, para siempre, y mantén el control total",
         "spotlightCardSmartAdd": {
             "title": "Añadir suscripción inteligente",
             "description": "Analiza inteligentemente el contenido de la suscripción que subes o pegas, y rellena automáticamente los detalles de la suscripción por ti."

@@ -3,7 +3,7 @@ import { Connection, Schema, Document } from "mongoose";
 interface IEmail extends Document {
     userId: string;
     email: string;
-    language: "en" | "zh" | "ja";
+    language: "en" | "zh" | "ja" | "es";
     notify: boolean;
 }
 
@@ -11,7 +11,11 @@ export const EmailSchema = new Schema<IEmail>(
     {
         userId: { type: String, required: true },
         email: { type: String, required: false },
-        language: { type: String, required: true, enum: ["en", "zh", "ja"] },
+        language: {
+            type: String,
+            required: true,
+            enum: ["en", "zh", "ja", "es"],
+        },
         notify: { type: Boolean, required: true },
     },
     {
