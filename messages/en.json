@@ -17,7 +17,7 @@
         "titleSplitOne": "Flow Through Your",
         "titleSplitTwo": "Subscriptions with Clarity",
         "subtitle": "Track, organize, and simplify your subscription flow",
-        "free": "No Pricing. Just Free.",
+        "whatsNew": "Look What's New",
         "start": "Get Started",
         "manageSubscriptions": "Manage Subscriptions",
         "cardOne": {
@@ -287,5 +287,10 @@
             "title": "7. Amendments to the Privacy Policy",
             "content1": "This website’s privacy policy may be updated at any time in response to needs. The updated terms will be published on the website."
         }
+    },
+    "ChangelogPage": {
+        "title": "Changelog",
+        "subtitle": "Subflow's changelog",
+        "back": "Back to Home"
     }
 }

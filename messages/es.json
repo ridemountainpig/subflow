@@ -17,7 +17,7 @@
         "titleSplitOne": "Fluye a través de",
         "titleSplitTwo": "tus suscripciones con claridad",
         "subtitle": "Rastrea, organiza y simplifica tu flujo de suscripciones",
-        "free": "Sin precio. Totalmente gratis.",
+        "whatsNew": "Mira qué hay de nuevo",
         "start": "Comenzar",
         "manageSubscriptions": "Gestionar suscripciones",
         "cardOne": {
@@ -287,5 +287,10 @@
             "title": "7. Enmiendas a la política de privacidad",
             "content1": "La política de privacidad de este sitio web puede actualizarse en cualquier momento según las necesidades. Los términos actualizados se publicarán en el sitio web."
         }
+    },
+    "ChangelogPage": {
+        "title": "Registro de cambios",
+        "subtitle": "Registro de cambios de Subflow",
+        "back": "Volver al inicio"
     }
 }
