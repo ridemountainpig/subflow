@@ -52,7 +52,7 @@ export default function Home() {
                 <div className="flex items-center justify-center gap-x-2">
                     <a
                         href={`/${locale}/changelog`}
-                        className="bg-subflow-800 border-subflow-700 hover:bg-subflow-700 flex h-full items-center justify-center gap-x-1.5 rounded-lg border-2 p-2 px-3 transition-colors sm:rounded-xl"
+                        className="group bg-subflow-800 border-subflow-700 hover:bg-subflow-700 flex h-full items-center justify-center gap-x-1.5 rounded-lg border-2 p-2 px-3 transition-colors sm:rounded-xl"
                     >
                         <span className="text-subflow-50 text-xs font-bold tracking-widest select-none md:text-sm lg:text-base">
                             {t("whatsNew")}
