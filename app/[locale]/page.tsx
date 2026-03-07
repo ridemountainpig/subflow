@@ -7,6 +7,7 @@ import {
     MailCheck,
     Users,
     Sparkles,
+    ArrowUpRightIcon,
 } from "lucide-react";
 import GetStartBtn from "@/components/homepage/get-start-btn";
 import GoSubscriptionBtn from "@/components/homepage/go-subscription-btn";
@@ -49,11 +50,17 @@ export default function Home() {
                     {t("subtitle")}
                 </span>
                 <div className="flex items-center justify-center gap-x-2">
-                    <div className="bg-subflow-800 border-subflow-800 flex h-full items-center justify-center rounded-lg border-2 p-2 px-1.5 sm:rounded-xl sm:px-3">
+                    <a
+                        href={`/${locale}/changelog`}
+                        className="group bg-subflow-800 border-subflow-700 hover:bg-subflow-700 flex h-full items-center justify-center gap-x-1.5 rounded-lg border-2 p-2 px-3 transition-colors sm:rounded-xl"
+                    >
                         <span className="text-subflow-50 text-xs font-bold tracking-widest select-none md:text-sm lg:text-base">
-                            {t("free")}
+                            {t("whatsNew")}
                         </span>
-                    </div>
+                        <div className="bg-subflow-50/40 text-subflow-50 group-hover:bg-subflow-400 flex items-center justify-center rounded-full p-0.5 sm:p-1">
+                            <ArrowUpRightIcon strokeWidth={3.5} size={18} />
+                        </div>
+                    </a>
                     <GetStartBtn />
                 </div>
             </div>

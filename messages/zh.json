@@ -17,7 +17,7 @@
         "titleSplitOne": "輕鬆管理你的",
         "titleSplitTwo": "所有訂閱",
         "subtitle": "追蹤、整理、掌握每一筆訂閱開銷",
-        "free": "完全免費，無需付費",
+        "whatsNew": "查看最新功能",
         "start": "馬上開始",
         "manageSubscriptions": "前往管理訂閱",
         "cardOne": {
@@ -287,5 +287,10 @@
             "title": "七、隱私權保護政策之修正",
             "content1": "本網站隱私權保護政策將因應需求隨時進行修正，修正後的條款將刊登於網站上。"
         }
+    },
+    "ChangelogPage": {
+        "title": "更新日誌",
+        "subtitle": "Subflow 的更新日誌",
+        "back": "返回首頁"
     }
 }

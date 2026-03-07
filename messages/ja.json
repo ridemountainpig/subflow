@@ -17,7 +17,7 @@
         "titleSplitOne": "簡単に管理できる",
         "titleSplitTwo": "すべてのサブスク",
         "subtitle": "支出を追跡・整理・把握",
-        "free": "完全無料",
+        "whatsNew": "新機能を見る",
         "start": "今すぐ開始",
         "manageSubscriptions": "サブスク管理へ",
         "cardOne": {
@@ -287,5 +287,10 @@
             "title": "7. プライバシーポリシーの改訂",
             "content1": "本ポリシーは必要に応じて随時改訂され、改訂後は本サイトに掲載されます。"
         }
+    },
+    "ChangelogPage": {
+        "title": "更新履歴",
+        "subtitle": "Subflow の更新履歴",
+        "back": "ホームへ戻る"
     }
 }

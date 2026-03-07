@@ -24,5 +24,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
             lastModified,
             priority: 1,
         },
+        {
+            url: "https://subflow.ing/en/changelog",
+            lastModified,
+            priority: 0.8,
+        },
+        {
+            url: "https://subflow.ing/zh/changelog",
+            lastModified,
+            priority: 0.8,
+        },
+        {
+            url: "https://subflow.ing/ja/changelog",
+            lastModified,
+            priority: 0.8,
+        },
+        {
+            url: "https://subflow.ing/es/changelog",
+            lastModified,
+            priority: 0.8,
+        },
     ];
 }
