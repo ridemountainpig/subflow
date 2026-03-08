@@ -4,6 +4,7 @@ import { useState, useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { motion } from "framer-motion";
+import posthog from "posthog-js";
 import { useRouter } from "@/i18n/navigation";
 
 import SmartAddInput from "@/components/smart-add/smart-add-input";
@@ -34,6 +35,9 @@ export default function SmartAddPage() {
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleAnalyze = async (file: File | null, text: string | null) => {
+        posthog.capture("smart_add_analyze_clicked", {
+            input_type: file ? "upload" : "text",
+        });
         setIsAnalyzing(true);
         setAnalyzedData(null);
         try {
