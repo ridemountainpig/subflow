@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { motion } from "framer-motion";
 import posthog from "posthog-js";
-import { useRouter } from "@/i18n/navigation";
+import { useRouter, Link } from "@/i18n/navigation";
 
 import SmartAddInput from "@/components/smart-add/smart-add-input";
 import { analyzeContentWithGateway } from "@/app/actions/smart-add";
@@ -201,6 +201,15 @@ export default function SmartAddPage() {
                         </div>
                     </motion.div>
                 )}
+            </div>
+
+            <div className="-mt-3 flex w-full justify-center">
+                <Link
+                    href="/subscription"
+                    className="bg-subflow-800 text-subflow-50 hover:bg-subflow-700 cursor-pointer rounded-full px-4 py-2 tracking-widest select-none"
+                >
+                    {t("back")}
+                </Link>
             </div>
         </div>
     );

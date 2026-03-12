@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { useTranslations, useLocale } from "next-intl";
 import { changelogs } from "@/data/changelogs";
 import Footer from "@/components/footer";
@@ -64,7 +64,7 @@ export default function Changelog() {
         <div className="bg-subflow-900 flex min-h-screen w-full flex-col items-center">
             <div className="w-full max-w-2xl px-6 pt-8">
                 <Link
-                    href={`/${locale}`}
+                    href="/"
                     className="text-subflow-500 hover:text-subflow-300 inline-flex items-center gap-1 text-sm font-medium tracking-widest transition-colors"
                 >
                     <ChevronLeft size={16} />

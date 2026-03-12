@@ -1,7 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 
 import { useTranslations } from "next-intl";
-import { Minus } from "lucide-react";
+import { Link } from "@/i18n/navigation";
+import { Minus, ArrowUpRight } from "lucide-react";
 import { GitHubLight, XLight, ZeaburLight } from "@ridemountainpig/svgl-react";
 import CreditCard from "@/components/homepage/credit-card";
 
@@ -48,7 +49,7 @@ export default function Footer() {
                             {t("allRightsReserved")}
                         </span>
                     </div>
-                    <div className="flex flex-col items-center gap-x-1 gap-y-4 sm:flex-row lg:gap-x-2">
+                    <div className="flex flex-col items-center gap-y-4 sm:flex-row">
                         <div className="flex items-center gap-x-1 lg:gap-x-2">
                             <span>
                                 {t("createdBy")}{" "}
@@ -76,21 +77,32 @@ export default function Footer() {
                             </a>
                         </div>
                         <Minus
-                            className="-ml-2 hidden h-6 w-6 rotate-90 sm:block"
+                            className="hidden h-6 w-6 rotate-90 sm:block"
                             strokeWidth={1.5}
                         />
-                        <div className="flex items-center gap-x-1 lg:gap-x-2">
+                        <div className="flex items-center gap-x-1">
+                            <Link href="/changelog">{t("changelog")}</Link>
+                            <ArrowUpRight
+                                size={16}
+                                strokeWidth={3}
+                                className="mt-0.5"
+                            />
+                        </div>
+                        <Minus
+                            className="hidden h-6 w-6 rotate-90 sm:block"
+                            strokeWidth={1.5}
+                        />
+                        <a
+                            href="https://zeabur.com/referral?referralCode=ridemountainpig"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-x-1 pl-2 lg:gap-x-2"
+                        >
                             <span className="-ml-2">
                                 {t("deployedOn")} Zeabur
                             </span>
-                            <a
-                                href="https://zeabur.com/referral?referralCode=ridemountainpig"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                <ZeaburLight className="h-4 w-4" />
-                            </a>
-                        </div>
+                            <ZeaburLight className="h-4 w-4" />
+                        </a>
                     </div>
                 </div>
             </div>

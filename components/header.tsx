@@ -12,6 +12,7 @@ import {
     RedirectToSignIn,
 } from "@clerk/nextjs";
 import { useState, useEffect, useMemo } from "react";
+import { LogIn, Undo2 } from "lucide-react";
 import LanguageSwitcher from "@/components/language-switcher";
 import MoreMenu from "@/components/more-menu/more-menu";
 
@@ -73,13 +74,25 @@ export default function Header() {
                             </>
                         ) : isLoginPage ? (
                             <Link href="/">
-                                <button className={buttonStyle}>
+                                <Undo2
+                                    className="text-subflow-50 mr-1 block h-5 w-5 md:hidden"
+                                    strokeWidth={2.5}
+                                />
+                                <button
+                                    className={`${buttonStyle} hidden md:block`}
+                                >
                                     {t("back")}
                                 </button>
                             </Link>
                         ) : (
                             <Link href="/login">
-                                <button className={buttonStyle}>
+                                <LogIn
+                                    className="text-subflow-50 mr-1 block h-5 w-5 md:hidden"
+                                    strokeWidth={2.5}
+                                />
+                                <button
+                                    className={`${buttonStyle} hidden md:block`}
+                                >
                                     {t("login")}
                                 </button>
                             </Link>

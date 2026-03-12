@@ -10,7 +10,8 @@
         "createdBy": "創建者",
         "deployedOn": "部署於",
         "subscriptionsTracked": "已追蹤訂閱數",
-        "manageSubscriptionsWith": "使用 Subflow 管理訂閱"
+        "manageSubscriptionsWith": "使用 Subflow 管理訂閱",
+        "changelog": "更新日誌"
     },
     "HomePage": {
         "title": "輕鬆管理你的所有訂閱",
@@ -207,7 +208,8 @@
         "notSubscriptionError": "上傳的內容看起來不像是訂閱收據或價格資訊。",
         "analysisComplete": "分析訂閱完成！",
         "analysisFailed": "分析訂閱失敗，請重試。",
-        "fileSizeLimitExceeded": "檔案大小超過 10MB 限制。"
+        "fileSizeLimitExceeded": "檔案大小超過 10MB 限制。",
+        "back": "返回訂閱管理"
     },
     "MoreMenu": {
         "emailNotifyDialog": {

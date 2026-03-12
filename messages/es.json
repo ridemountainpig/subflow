@@ -10,7 +10,8 @@
         "createdBy": "Creado por",
         "deployedOn": "Desplegado en",
         "subscriptionsTracked": "SUSCRIPCIONES RASTREADAS",
-        "manageSubscriptionsWith": "Gestiona suscripciones con"
+        "manageSubscriptionsWith": "Gestiona suscripciones con",
+        "changelog": "Registro de cambios"
     },
     "HomePage": {
         "title": "Fluye a través de tus suscripciones con claridad.",
@@ -207,7 +208,8 @@
         "notSubscriptionError": "El contenido subido no parece ser un recibo de suscripción o detalles de precios.",
         "analysisComplete": "¡Análisis de suscripción completado!",
         "analysisFailed": "Error al analizar la suscripción. Por favor inténtalo de nuevo.",
-        "fileSizeLimitExceeded": "El tamaño del archivo excede el límite de 10MB."
+        "fileSizeLimitExceeded": "El tamaño del archivo excede el límite de 10MB.",
+        "back": "Volver a Gestión de Suscripciones"
     },
     "MoreMenu": {
         "emailNotifyDialog": {

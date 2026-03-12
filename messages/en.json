@@ -10,7 +10,8 @@
         "createdBy": "Created by",
         "deployedOn": "Deployed on",
         "subscriptionsTracked": "SUBSCRIPTIONS TRACKED",
-        "manageSubscriptionsWith": "Manage Subscriptions with"
+        "manageSubscriptionsWith": "Manage Subscriptions with",
+        "changelog": "Changelog"
     },
     "HomePage": {
         "title": "Flow Through Your Subscriptions with Clarity.",
@@ -207,7 +208,8 @@
         "notSubscriptionError": "The uploaded content does not look like a subscription receipt or pricing details.",
         "analysisComplete": "Analysis Subscription complete!",
         "analysisFailed": "Failed to analyze the subscription. Please try again.",
-        "fileSizeLimitExceeded": "File size exceeds 10MB limit."
+        "fileSizeLimitExceeded": "File size exceeds 10MB limit.",
+        "back": "Back to Subscription Management"
     },
     "MoreMenu": {
         "emailNotifyDialog": {

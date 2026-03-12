@@ -10,7 +10,8 @@
         "createdBy": "作成者",
         "deployedOn": "デプロイ先",
         "subscriptionsTracked": "追跡したサブスク数",
-        "manageSubscriptionsWith": "Subflow でサブスクを管理"
+        "manageSubscriptionsWith": "Subflow でサブスクを管理",
+        "changelog": "更新履歴"
     },
     "HomePage": {
         "title": "サブスクを簡単に管理・把握",
@@ -207,7 +208,8 @@
         "notSubscriptionError": "アップロードされた内容はサブスクリプションの領収書または価格情報ではないようです。",
         "analysisComplete": "サブスク分析完了！",
         "analysisFailed": "サブスク分析に失敗しました。もう一度お試しください。",
-        "fileSizeLimitExceeded": "ファイルサイズが10MBの制限を超えています。"
+        "fileSizeLimitExceeded": "ファイルサイズが10MBの制限を超えています。",
+        "back": "サブスク管理へ戻る"
     },
     "MoreMenu": {
         "emailNotifyDialog": {
