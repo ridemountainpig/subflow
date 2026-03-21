@@ -853,4 +853,49 @@ export const subscriptionServices: SubscriptionServices[] = [
         name: "Google Antigravity",
         icon: Svgl.GoogleAntigravity,
     },
+    {
+        uuid: "8debe044-0a68-44a2-b32a-95ff0e4d8d2b",
+        name: "Firecrawl",
+        icon: Svgl.FirecrawlDark,
+    },
+    {
+        uuid: "1dd4a3b8-0c54-4afb-be9f-1dcae8e65fb3",
+        name: "Glide",
+        icon: Svgl.GlideDark,
+    },
+    {
+        uuid: "757ccb9b-96d0-4a33-8536-d5818aa05314",
+        name: "Manus",
+        icon: Svgl.ManusDark,
+    },
+    {
+        uuid: "61ea0ac2-d417-4be3-9f13-9c84e657f971",
+        name: "OpenClaw",
+        icon: Svgl.OpenClaw,
+    },
+    {
+        uuid: "eaec964e-4db9-47f7-8735-6806559c9a44",
+        name: "OpenCode",
+        icon: Svgl.OpenCodeDark,
+    },
+    {
+        uuid: "faacd5d5-255f-4833-9443-cd1416e30041",
+        name: "Orshot",
+        icon: Svgl.Orshot,
+    },
+    {
+        uuid: "a6144993-6cf1-4a6e-9a88-9863fd3cad16",
+        name: "Render",
+        icon: Svgl.RenderDark,
+    },
+    {
+        uuid: "2ca302a7-c456-4e43-9985-90d378f3f87c",
+        name: "Tembo",
+        icon: Svgl.TemboDark,
+    },
+    {
+        uuid: "75da448d-8c87-4e9a-8103-f0ad8fa28125",
+        name: "Xata",
+        icon: Svgl.Xata,
+    },
 ];

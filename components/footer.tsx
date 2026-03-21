@@ -80,14 +80,17 @@ export default function Footer() {
                             className="hidden h-6 w-6 rotate-90 sm:block"
                             strokeWidth={1.5}
                         />
-                        <div className="flex items-center gap-x-1">
-                            <Link href="/changelog">{t("changelog")}</Link>
+                        <Link
+                            href="/changelog"
+                            className="flex items-center gap-x-1"
+                        >
+                            <span>{t("changelog")}</span>
                             <ArrowUpRight
                                 size={16}
                                 strokeWidth={3}
                                 className="mt-0.5"
                             />
-                        </div>
+                        </Link>
                         <Minus
                             className="hidden h-6 w-6 rotate-90 sm:block"
                             strokeWidth={1.5}

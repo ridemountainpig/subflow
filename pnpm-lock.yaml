@@ -54,8 +54,8 @@ importers:
         specifier: 2.0.4
         version: 2.0.4(@react-email/body@0.2.1(react@19.2.4))(@react-email/button@0.2.1(react@19.2.4))(@react-email/code-block@0.2.1(react@19.2.4))(@react-email/code-inline@0.0.6(react@19.2.4))(@react-email/container@0.0.16(react@19.2.4))(@react-email/heading@0.0.16(react@19.2.4))(@react-email/hr@0.0.12(react@19.2.4))(@react-email/img@0.0.12(react@19.2.4))(@react-email/link@0.0.13(react@19.2.4))(@react-email/preview@0.0.14(react@19.2.4))(@react-email/text@0.1.6(react@19.2.4))(react@19.2.4)
       '@ridemountainpig/svgl-react':
-        specifier: ^1.0.15
-        version: 1.0.15(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+        specifier: ^1.0.16
+        version: 1.0.16(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       ai:
         specifier: ^6.0.49
         version: 6.0.49(zod@4.3.6)
@@ -1381,8 +1381,8 @@ packages:
       react-redux:
         optional: true
 
-  '@ridemountainpig/svgl-react@1.0.15':
-    resolution: {integrity: sha512-SeJ2TbDUvcWXA31UyKXOsaMohC7gY6VHiiB/+yColFO0aZG1v08kbUyYSQIOvIZhVukfV0cmz+HwlhNCZ1oQPA==}
+  '@ridemountainpig/svgl-react@1.0.16':
+    resolution: {integrity: sha512-3vKZ3EejjrltqBW+po8dj2bz0qZcb11CaTTTWtp6zFozQwiDDWTXbVSlBl5W/ER41rt04mW23GYlV+g5Zd2r5w==}
     peerDependencies:
       react: ^16.8 || ^17.0 || ^18.0 || ^19.0
       react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0
@@ -4650,7 +4650,7 @@ snapshots:
       react: 19.2.4
       react-redux: 9.2.0(@types/react@19.0.8)(react@19.2.4)(redux@5.0.1)
 
-  '@ridemountainpig/svgl-react@1.0.15(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
+  '@ridemountainpig/svgl-react@1.0.16(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
     dependencies:
       react: 19.2.4
       react-dom: 19.2.4(react@19.2.4)
