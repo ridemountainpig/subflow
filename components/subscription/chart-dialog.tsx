@@ -23,7 +23,10 @@ import { usePreferences } from "@/app/contexts/PreferencesContext";
 import { SubscriptionWithPrice } from "@/types/subscription";
 import { subscriptionServices } from "@/data/subscriptionServices";
 import FormattedNumber from "@/components/subscription/formatted-number";
-import { toDisplayMonthlyAmount } from "@/utils/subscriptionCycle";
+import {
+    toDisplayMonthlyAmount,
+    totalSpendSinceStart,
+} from "@/utils/subscriptionCycle";
 
 interface ChartDialogProps {
     subscription: SubscriptionWithPrice[];
@@ -197,7 +200,12 @@ export default function ChartDialog({
                     percentage: ((monthlyPrice / monthSpend) * 100).toFixed(1),
                     paymentCycle: item.paymentCycle,
                     startDate: item.startDate,
-                    totalSpend: monthlyPrice * monthsFromStart,
+                    totalSpend: totalSpendSinceStart(
+                        monthlyPrice,
+                        item.paymentCycle,
+                        notAmortizeYearlySubscriptions,
+                        monthsFromStart,
+                    ),
                 };
             }),
         [subscription, monthSpend, currency, notAmortizeYearlySubscriptions],

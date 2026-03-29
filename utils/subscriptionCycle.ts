@@ -36,6 +36,26 @@ export function toDisplayMonthlyAmount(
     return price / amortizedMonthsPerCycle(cycle);
 }
 
+export function totalSpendSinceStart(
+    displayAmount: number,
+    cycle: Subscription["paymentCycle"],
+    notAmortizeLongCycles: boolean,
+    monthsFromStart: number,
+): number {
+    if (!notAmortizeLongCycles) {
+        return displayAmount * monthsFromStart;
+    }
+    if (cycle === "yearly") {
+        const billingCycles = Math.floor(monthsFromStart / 12) + 1;
+        return displayAmount * billingCycles;
+    }
+    if (cycle === "quarterly") {
+        const billingCycles = Math.floor(monthsFromStart / 3) + 1;
+        return displayAmount * billingCycles;
+    }
+    return displayAmount * monthsFromStart;
+}
+
 export function subscriptionVisibleInMonth(
     sub: Pick<Subscription, "paymentCycle" | "startDate">,
     year: number,
