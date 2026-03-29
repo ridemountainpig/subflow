@@ -1,13 +1,4 @@
-import type { Subscription, SubscriptionPaymentCycle } from "@/types/subscription";
-
-export function normalizePaymentCycle(
-    value: unknown,
-): SubscriptionPaymentCycle {
-    if (value === "monthly" || value === "quarterly" || value === "yearly") {
-        return value;
-    }
-    return "monthly";
-}
+import type { Subscription } from "@/types/subscription";
 
 export function amortizedMonthsPerCycle(
     cycle: Subscription["paymentCycle"],

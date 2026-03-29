@@ -6,7 +6,6 @@ import { getSubscriptionModel } from "@/models/Subscription";
 import { getEmailModel } from "@/models/Email";
 import { getPreferencesModel } from "@/models/Preferences";
 import { Subscription } from "@/types/subscription";
-import { normalizePaymentCycle } from "@/utils/subscriptionCycle";
 
 export async function requireAuth(): Promise<string> {
     const { userId } = await auth();
@@ -24,7 +23,6 @@ export async function addSubscription(subscriptionData: Subscription) {
 
     const subscription = new Subscription({
         ...subscriptionData,
-        paymentCycle: normalizePaymentCycle(subscriptionData.paymentCycle),
         userId: userId,
         coSubscribers: subscriptionData.coSubscribers || [],
     });
@@ -99,9 +97,6 @@ export async function updateSubscription(
             {
                 $set: {
                     ...subscriptionData,
-                    paymentCycle: normalizePaymentCycle(
-                        subscriptionData.paymentCycle,
-                    ),
                     userId: userId,
                     coSubscribers: subscriptionData.coSubscribers || [],
                 },

@@ -27,7 +27,6 @@ import {
     Subscription,
     type SubscriptionPaymentCycle,
 } from "@/types/subscription";
-import { normalizePaymentCycle } from "@/utils/subscriptionCycle";
 import { CoSubscriber } from "@/types/co-subscribers";
 import ServicesCombobox from "@/components/subscription/services-combobox";
 import DatePicker from "@/components/subscription/date-picker";
@@ -62,7 +61,7 @@ export default function UpdateSubscriptionDialog({
         ),
     );
     const [paymentCycle, setPaymentCycle] = useState<SubscriptionPaymentCycle>(
-        () => normalizePaymentCycle(subscription.paymentCycle),
+        subscription.paymentCycle,
     );
     const [coSubscribers, setCoSubscribers] = useState<CoSubscriber[]>(
         subscription.coSubscribers || [],
@@ -88,7 +87,7 @@ export default function UpdateSubscriptionDialog({
                 subscription.startDate.date,
             ),
         );
-        setPaymentCycle(normalizePaymentCycle(subscription.paymentCycle));
+        setPaymentCycle(subscription.paymentCycle);
         setCoSubscribers(subscription.coSubscribers || []);
         setViewMode("basic");
         setServiceNameError(false);
