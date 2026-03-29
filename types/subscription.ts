@@ -1,5 +1,7 @@
 import { CoSubscriber } from "./co-subscribers";
 
+export type SubscriptionPaymentCycle = "monthly" | "quarterly" | "yearly";
+
 export type Subscription = {
     _id?: string;
     userId: string;
@@ -11,7 +13,7 @@ export type Subscription = {
         month: number;
         date: number;
     };
-    paymentCycle: "monthly" | "yearly";
+    paymentCycle: SubscriptionPaymentCycle;
     serviceId?: string;
     coSubscribers?: CoSubscriber[];
     isCoSubscription?: boolean;

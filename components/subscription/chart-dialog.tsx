@@ -23,6 +23,7 @@ import { usePreferences } from "@/app/contexts/PreferencesContext";
 import { SubscriptionWithPrice } from "@/types/subscription";
 import { subscriptionServices } from "@/data/subscriptionServices";
 import FormattedNumber from "@/components/subscription/formatted-number";
+import { toDisplayMonthlyAmount } from "@/utils/subscriptionCycle";
 
 interface ChartDialogProps {
     subscription: SubscriptionWithPrice[];
@@ -177,14 +178,11 @@ export default function ChartDialog({
     const data = useMemo(
         () =>
             subscription.map((item) => {
-                let displayPrice = item.convertedPrice;
-
-                if (
-                    item.paymentCycle === "yearly" &&
-                    !notAmortizeYearlySubscriptions
-                ) {
-                    displayPrice = displayPrice / 12;
-                }
+                const displayPrice = toDisplayMonthlyAmount(
+                    item.convertedPrice,
+                    item.paymentCycle,
+                    notAmortizeYearlySubscriptions,
+                );
 
                 const monthlyPrice = Math.round(displayPrice);
                 const monthsFromStart = calculateMonthsFromStart(

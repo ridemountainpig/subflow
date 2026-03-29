@@ -9,6 +9,7 @@ import UpdateSubscriptionDialog from "@/components/subscription/update-subscript
 import DeleteSubscriptionDialog from "@/components/subscription/delete-subscription-dialog";
 import LeaveCoSubscriptionDialog from "@/components/subscription/leave-co-subscription-dialog";
 import { usePreferences } from "@/app/contexts/PreferencesContext";
+import { toDisplayMonthlyAmount } from "@/utils/subscriptionCycle";
 
 interface SubscriptionListItemProps {
     subscription: Subscription;
@@ -61,10 +62,11 @@ export default function SubscriptionListItem({
                 <div className="flex items-center gap-x-2 tracking-widest">
                     <FormattedNumber
                         value={Math.round(
-                            subscription.paymentCycle === "yearly" &&
-                                !notAmortizeYearlySubscriptions
-                                ? displayPrice / 12
-                                : displayPrice,
+                            toDisplayMonthlyAmount(
+                                displayPrice,
+                                subscription.paymentCycle,
+                                notAmortizeYearlySubscriptions,
+                            ),
                         )}
                         className="text-base"
                     />
@@ -74,7 +76,8 @@ export default function SubscriptionListItem({
             <div className="text-subflow-400 flex items-center justify-between gap-x-2 tracking-widest">
                 <span className="text-[13px]">
                     {t(subscription.paymentCycle)}
-                    {subscription.paymentCycle === "yearly" &&
+                    {(subscription.paymentCycle === "yearly" ||
+                        subscription.paymentCycle === "quarterly") &&
                         !notAmortizeYearlySubscriptions &&
                         t("yearlyDescription")}
                     {subscription.isCoSubscription
