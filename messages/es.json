@@ -226,7 +226,7 @@
         },
         "preferencesDialog": {
             "title": "Preferencias",
-            "notAmortizeYearlySubscriptions": "No amortizar suscripciones anuales",
+            "notAmortizeYearlySubscriptions": "No amortizar suscripciones anuales ni trimestrales",
             "notAmortizeYearlySubscriptionsDescription": "Subflow por defecto amortiza las tarifas de suscripción anuales y trimestrales a tarifas mensuales. Si no quieres amortizar, puedes habilitar esta opción. Tras habilitarla, las suscripciones anuales solo aparecen en su mes de facturación cada año y las trimestrales cada tres meses desde la fecha de inicio, en el calendario y el análisis.",
             "saveSettings": "Guardar ajustes",
             "savingSettings": "Guardando ajustes",

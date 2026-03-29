@@ -226,7 +226,7 @@
         },
         "preferencesDialog": {
             "title": "プリファレンス",
-            "notAmortizeYearlySubscriptions": "年間サブスクリプション費用を按分しない",
+            "notAmortizeYearlySubscriptions": "年間・四半期サブスクリプション費用を按分しない",
             "notAmortizeYearlySubscriptionsDescription": "Subflow はデフォルトで年間・四半期サブスクリプション費用を月額に按分します。このオプションを有効にすると、年間サブスクリプションは請求月のみ、四半期サブスクリプションは開始日から3か月ごとの請求月のみ、カレンダーとサブスクリプション分析に表示されます。",
             "saveSettings": "設定を保存",
             "savingSettings": "設定を保存中",

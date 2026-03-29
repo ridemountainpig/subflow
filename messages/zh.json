@@ -226,7 +226,7 @@
         },
         "preferencesDialog": {
             "title": "偏好設定",
-            "notAmortizeYearlySubscriptions": "不攤提年訂閱費用",
+            "notAmortizeYearlySubscriptions": "不攤提年訂閱與季訂閱費用",
             "notAmortizeYearlySubscriptionsDescription": "Subflow 預設會將年訂閱與季訂閱費用攤提為月費用。如果不想攤提，可以開啟此選項。開啟後，年訂閱僅在每年扣款月顯示，季訂閱僅在每三個月的扣款月顯示於日曆和訂閱分析中。",
             "saveSettings": "儲存設定",
             "savingSettings": "儲存設定中",
