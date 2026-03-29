@@ -21,7 +21,7 @@ interface AnalyzedData {
     price?: number;
     currency?: string;
     date?: string;
-    paymentCycle?: "monthly" | "yearly";
+    paymentCycle?: "monthly" | "quarterly" | "yearly";
     matchedServiceUuid?: string | null;
 }
 
@@ -142,7 +142,9 @@ export default function SmartAddPage() {
             paymentCycle:
                 analyzedData.paymentCycle === "yearly"
                     ? ("yearly" as const)
-                    : ("monthly" as const),
+                    : analyzedData.paymentCycle === "quarterly"
+                      ? ("quarterly" as const)
+                      : ("monthly" as const),
         };
     }, [analyzedData]);
 

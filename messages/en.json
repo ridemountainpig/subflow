@@ -128,6 +128,7 @@
         "startDate": "Start Date",
         "paymentCycle": "Payment Cycle",
         "monthly": "Monthly",
+        "quarterly": "Quarterly",
         "yearly": "Yearly",
         "yearlyDescription": "-avg.",
         "add": "Add Subscription",
@@ -142,7 +143,7 @@
         "updateSuccess": "Update Subscription Successfully",
         "deleteSuccess": "Delete Subscription Successfully",
         "subscriptionList": "Subscription List",
-        "subscriptionListDescription": "Yearly subscriptions have been converted to monthly average price",
+        "subscriptionListDescription": "Yearly and quarterly subscriptions have been converted to monthly average price",
         "noSubscription": "No subscription yet",
         "totalSpend": "Total Spend",
         "since": "Since",
@@ -226,7 +227,7 @@
         "preferencesDialog": {
             "title": "Preferences",
             "notAmortizeYearlySubscriptions": "Do Not Amortize Yearly Subscriptions",
-            "notAmortizeYearlySubscriptionsDescription": "Subflow defaults to amortizing yearly subscription fees to monthly fees. If you don't want to amortize, you can enable this option. After enabling, yearly subscriptions will only be displayed in the calendar and subscription analysis for the current month.",
+            "notAmortizeYearlySubscriptionsDescription": "Subflow defaults to amortizing yearly and quarterly subscription fees to monthly fees. If you don't want to amortize, you can enable this option. After enabling, yearly subscriptions appear only in their billing month each year, and quarterly subscriptions every third month from the start date, in the calendar and subscription analysis.",
             "saveSettings": "Save Settings",
             "savingSettings": "Saving Settings",
             "preferencesSaved": "Preferences Saved Successfully"

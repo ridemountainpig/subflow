@@ -23,7 +23,7 @@ function buildPrompt(currencyCodes: string[]) {
     2. Price (numeric value)
     3. Currency (must be one of the supported currency codes listed below, default to USD if unrecognized)
     4. Start Date (YYYY-MM-DD format). If a billing period is shown (e.g., "Jan 6 – Feb 6"), use the start of that period.
-    5. Payment Cycle (monthly or yearly). Determine this by analyzing the billing period (e.g., "Jan 6 – Feb 6" implies monthly, "Oct 13, 2025 – Oct 13, 2026" implies yearly).
+    5. Payment Cycle (monthly, quarterly, or yearly). Determine this by analyzing the billing period (e.g., "Jan 6 – Feb 6" implies monthly, "Jan 1 – Apr 1" implies quarterly, "Oct 13, 2025 – Oct 13, 2026" implies yearly).
 
     Supported currency codes:
     ${currencyCodes.join(", ")}
@@ -94,6 +94,7 @@ function parseAndProcessResult(generatedText: string, currencyCodes: string[]) {
 
     const validPaymentCycle =
         parsedData.paymentCycle === "monthly" ||
+        parsedData.paymentCycle === "quarterly" ||
         parsedData.paymentCycle === "yearly"
             ? parsedData.paymentCycle
             : "monthly";

@@ -128,6 +128,7 @@
         "startDate": "開始日期",
         "paymentCycle": "付款週期",
         "monthly": "每月付款",
+        "quarterly": "每季付款",
         "yearly": "每年付款",
         "yearlyDescription": "（每月平均）",
         "add": "新增訂閱",
@@ -142,7 +143,7 @@
         "updateSuccess": "成功更新訂閱",
         "deleteSuccess": "成功刪除訂閱",
         "subscriptionList": "訂閱清單",
-        "subscriptionListDescription": "年付款費用已換算為每月平均價格",
+        "subscriptionListDescription": "年付與季付費用已換算為每月平均價格",
         "noSubscription": "尚無訂閱項目",
         "totalSpend": "總花費",
         "since": "起始於",
@@ -226,7 +227,7 @@
         "preferencesDialog": {
             "title": "偏好設定",
             "notAmortizeYearlySubscriptions": "不攤提年訂閱費用",
-            "notAmortizeYearlySubscriptionsDescription": "Subflow 預設會將年訂閱費用攤提為月費用。如果不想攤提，可以開啟此選項。開啟後，年訂閱服務將僅在當月顯示於日曆和訂閱分析中。",
+            "notAmortizeYearlySubscriptionsDescription": "Subflow 預設會將年訂閱與季訂閱費用攤提為月費用。如果不想攤提，可以開啟此選項。開啟後，年訂閱僅在每年扣款月顯示，季訂閱僅在每三個月的扣款月顯示於日曆和訂閱分析中。",
             "saveSettings": "儲存設定",
             "savingSettings": "儲存設定中",
             "preferencesSaved": "成功儲存偏好設定"

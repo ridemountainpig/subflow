@@ -128,6 +128,7 @@
         "startDate": "開始日",
         "paymentCycle": "支払い周期",
         "monthly": "毎月払い",
+        "quarterly": "四半期払い",
         "yearly": "年払い",
         "yearlyDescription": "（月平均）",
         "add": "追加",
@@ -142,7 +143,7 @@
         "updateSuccess": "更新しました",
         "deleteSuccess": "削除しました",
         "subscriptionList": "サブスク一覧",
-        "subscriptionListDescription": "年額は月平均に換算済み",
+        "subscriptionListDescription": "年額・四半期額は月平均に換算済み",
         "noSubscription": "サブスクなし",
         "totalSpend": "総支出",
         "since": "開始日",
@@ -226,7 +227,7 @@
         "preferencesDialog": {
             "title": "プリファレンス",
             "notAmortizeYearlySubscriptions": "年間サブスクリプション費用を按分しない",
-            "notAmortizeYearlySubscriptionsDescription": "Subflow はデフォルトで年間サブスクリプション費用を月額に按分します。このオプションを有効にすると、年間サブスクリプションはその月のみカレンダーとサブスクリプション分析に表示されます。",
+            "notAmortizeYearlySubscriptionsDescription": "Subflow はデフォルトで年間・四半期サブスクリプション費用を月額に按分します。このオプションを有効にすると、年間サブスクリプションは請求月のみ、四半期サブスクリプションは開始日から3か月ごとの請求月のみ、カレンダーとサブスクリプション分析に表示されます。",
             "saveSettings": "設定を保存",
             "savingSettings": "設定を保存中",
             "preferencesSaved": "プリファレンスを保存しました"
