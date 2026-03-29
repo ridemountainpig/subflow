@@ -6,7 +6,10 @@ import {
 import { getSubscription } from "@/app/actions/action";
 import { convertCurrency } from "@/utils/currency";
 import { usePreferences } from "@/app/contexts/PreferencesContext";
-import { subscriptionVisibleInMonth, toDisplayMonthlyAmount } from "@/utils/subscriptionCycle";
+import {
+    subscriptionVisibleInMonth,
+    toDisplayMonthlyAmount,
+} from "@/utils/subscriptionCycle";
 
 export const useSubscription = (
     year: number,
