@@ -6,6 +6,10 @@ import {
 import { getSubscription } from "@/app/actions/action";
 import { convertCurrency } from "@/utils/currency";
 import { usePreferences } from "@/app/contexts/PreferencesContext";
+import {
+    subscriptionVisibleInMonth,
+    toDisplayMonthlyAmount,
+} from "@/utils/subscriptionCycle";
 
 export const useSubscription = (
     year: number,
@@ -39,28 +43,14 @@ export const useSubscription = (
     }, [updatedSubscription]);
 
     const dateFilteredSubscriptions = useMemo(() => {
-        return rawSubscriptions.filter((subscription: SubscriptionType) => {
-            if (subscription.paymentCycle === "yearly") {
-                if (notAmortizeYearlySubscriptions) {
-                    const yearsSinceStart = year - subscription.startDate.year;
-                    const isCurrentMonth =
-                        month === subscription.startDate.month;
-
-                    return yearsSinceStart >= 0 && isCurrentMonth;
-                } else {
-                    return (
-                        subscription.startDate.year < year ||
-                        (subscription.startDate.year === year &&
-                            subscription.startDate.month <= month)
-                    );
-                }
-            }
-            return (
-                (subscription.startDate.year === year &&
-                    subscription.startDate.month <= month) ||
-                subscription.startDate.year < year
-            );
-        });
+        return rawSubscriptions.filter((subscription: SubscriptionType) =>
+            subscriptionVisibleInMonth(
+                subscription,
+                year,
+                month,
+                notAmortizeYearlySubscriptions,
+            ),
+        );
     }, [rawSubscriptions, year, month, notAmortizeYearlySubscriptions]);
 
     const subscriptionsToConvert = useMemo(() => {
@@ -158,12 +148,11 @@ export const useSubscription = (
                 }
             }
 
-            if (
-                subscription.paymentCycle === "yearly" &&
-                !notAmortizeYearlySubscriptions
-            ) {
-                price = price / 12;
-            }
+            price = toDisplayMonthlyAmount(
+                price,
+                subscription.paymentCycle,
+                notAmortizeYearlySubscriptions,
+            );
             return sum + price;
         }, 0);
     }, [

@@ -128,6 +128,7 @@
         "startDate": "Fecha de inicio",
         "paymentCycle": "Ciclo de pago",
         "monthly": "Mensual",
+        "quarterly": "Trimestral",
         "yearly": "Anual",
         "yearlyDescription": "-prom.",
         "add": "Añadir suscripción",
@@ -142,7 +143,7 @@
         "updateSuccess": "Suscripción actualizada correctamente",
         "deleteSuccess": "Suscripción eliminada correctamente",
         "subscriptionList": "Lista de suscripciones",
-        "subscriptionListDescription": "Las suscripciones anuales se han convertido a precio mensual promedio",
+        "subscriptionListDescription": "Las suscripciones anuales y trimestrales se han convertido a precio mensual promedio",
         "noSubscription": "Aún no hay suscripciones",
         "totalSpend": "Gasto total",
         "since": "Desde",
@@ -225,8 +226,8 @@
         },
         "preferencesDialog": {
             "title": "Preferencias",
-            "notAmortizeYearlySubscriptions": "No amortizar suscripciones anuales",
-            "notAmortizeYearlySubscriptionsDescription": "Subflow por defecto amortiza las tarifas de suscripción anuales a tarifas mensuales. Si no quieres amortizar, puedes habilitar esta opción. Después de habilitar, las suscripciones anuales solo se mostrarán en el calendario y análisis de suscripciones para el mes actual.",
+            "notAmortizeYearlySubscriptions": "No amortizar suscripciones anuales ni trimestrales",
+            "notAmortizeYearlySubscriptionsDescription": "Subflow por defecto amortiza las tarifas de suscripción anuales y trimestrales a tarifas mensuales. Si no quieres amortizar, puedes habilitar esta opción. Tras habilitarla, las suscripciones anuales solo aparecen en su mes de facturación cada año y las trimestrales cada tres meses desde la fecha de inicio, en el calendario y el análisis.",
             "saveSettings": "Guardar ajustes",
             "savingSettings": "Guardando ajustes",
             "preferencesSaved": "Preferencias guardadas correctamente"

@@ -14,6 +14,7 @@ import { Input } from "@/components/ui/input";
 
 import { useCurrency } from "@/app/contexts/CurrencyContext";
 import { CoSubscriber } from "@/types/co-subscribers";
+import type { SubscriptionPaymentCycle } from "@/types/subscription";
 import ServicesCombobox from "@/components/subscription/services-combobox";
 import DatePicker from "@/components/subscription/date-picker";
 import CoSubscribersManager from "@/components/subscription/co-subscribers-manager";
@@ -24,7 +25,7 @@ export interface AddSubscriptionFormData {
     servicePrice: number;
     serviceCurrency: string;
     startDate: Date;
-    paymentCycle: "monthly" | "yearly";
+    paymentCycle: SubscriptionPaymentCycle;
     coSubscribers: CoSubscriber[];
 }
 
@@ -35,7 +36,7 @@ interface AddSubscriptionFormProps {
         servicePrice?: number;
         serviceCurrency?: string;
         startDate?: Date;
-        paymentCycle?: "monthly" | "yearly";
+        paymentCycle?: SubscriptionPaymentCycle;
     };
     onSubmit: (data: AddSubscriptionFormData) => Promise<void>;
     showCoSubscribers?: boolean;
@@ -74,7 +75,7 @@ export default function AddSubscriptionForm({
     const [startDate, setStartDate] = useState(
         initialValues?.startDate || new Date(),
     );
-    const [paymentCycle, setPaymentCycle] = useState<"monthly" | "yearly">(
+    const [paymentCycle, setPaymentCycle] = useState<SubscriptionPaymentCycle>(
         initialValues?.paymentCycle || "monthly",
     );
     const [coSubscribers, setCoSubscribers] = useState<CoSubscriber[]>([]);
@@ -217,7 +218,7 @@ export default function AddSubscriptionForm({
             <Select
                 value={paymentCycle}
                 onValueChange={(value) =>
-                    setPaymentCycle(value as "monthly" | "yearly")
+                    setPaymentCycle(value as SubscriptionPaymentCycle)
                 }
             >
                 <SelectTrigger className="text-subflow-800 bg-subflow-100 h-10 w-full cursor-pointer text-xs tracking-widest sm:text-base">
@@ -229,6 +230,12 @@ export default function AddSubscriptionForm({
                         className="text-xs sm:text-base"
                     >
                         {t("monthly")}
+                    </SelectItem>
+                    <SelectItem
+                        value="quarterly"
+                        className="text-xs sm:text-base"
+                    >
+                        {t("quarterly")}
                     </SelectItem>
                     <SelectItem value="yearly" className="text-xs sm:text-base">
                         {t("yearly")}

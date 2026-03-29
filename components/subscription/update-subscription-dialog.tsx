@@ -23,7 +23,10 @@ import { toast } from "sonner";
 
 import { useCurrency } from "@/app/contexts/CurrencyContext";
 import { updateSubscription } from "@/app/actions/action";
-import { Subscription } from "@/types/subscription";
+import {
+    Subscription,
+    type SubscriptionPaymentCycle,
+} from "@/types/subscription";
 import { CoSubscriber } from "@/types/co-subscribers";
 import ServicesCombobox from "@/components/subscription/services-combobox";
 import DatePicker from "@/components/subscription/date-picker";
@@ -57,7 +60,7 @@ export default function UpdateSubscriptionDialog({
             subscription.startDate.date,
         ),
     );
-    const [paymentCycle, setPaymentCycle] = useState<"monthly" | "yearly">(
+    const [paymentCycle, setPaymentCycle] = useState<SubscriptionPaymentCycle>(
         subscription.paymentCycle,
     );
     const [coSubscribers, setCoSubscribers] = useState<CoSubscriber[]>(
@@ -269,7 +272,7 @@ export default function UpdateSubscriptionDialog({
                                 value={paymentCycle}
                                 onValueChange={(value) =>
                                     setPaymentCycle(
-                                        value as "monthly" | "yearly",
+                                        value as SubscriptionPaymentCycle,
                                     )
                                 }
                             >
@@ -282,6 +285,12 @@ export default function UpdateSubscriptionDialog({
                                         className="text-xs sm:text-base"
                                     >
                                         {t("monthly")}
+                                    </SelectItem>
+                                    <SelectItem
+                                        value="quarterly"
+                                        className="text-xs sm:text-base"
+                                    >
+                                        {t("quarterly")}
                                     </SelectItem>
                                     <SelectItem
                                         value="yearly"
