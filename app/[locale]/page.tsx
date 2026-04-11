@@ -1,5 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { useTranslations, useLocale } from "next-intl";
+import { getLocale } from "next-intl/server";
+import type { Metadata } from "next";
 import {
     Coins,
     CalendarSync,
@@ -18,18 +20,36 @@ import SpotlightCard from "@/components/homepage/spotlight-card";
 import SpotlightCardContent from "@/components/homepage/spotlight-card-content";
 import FloatingIcons from "@/components/homepage/floating-icons";
 import Footer from "@/components/footer";
+import {
+    type AppLocale,
+    getHomeMetadata,
+    getHomeStructuredData,
+} from "@/lib/seo";
+
+export async function generateMetadata(): Promise<Metadata> {
+    const locale = (await getLocale()) as AppLocale;
+
+    return getHomeMetadata(locale);
+}
 
 export default function Home() {
     const t = useTranslations("HomePage");
     const locale = useLocale();
     const isZhOrJa = locale === "zh" || locale === "ja";
+    const homeStructuredData = getHomeStructuredData(locale as AppLocale);
 
     return (
         <div className="bg-subflow-900 flex h-fit w-full flex-col items-center justify-center">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify(homeStructuredData),
+                }}
+            />
             <div className="relative flex h-[calc(100vh-120px)] min-h-[600px] flex-col items-center justify-center gap-y-10">
                 <GoSubscriptionBtn />
                 <div className="flex flex-col items-center px-4">
-                    <h2 className="hidden">{t("title")}</h2>
+                    <h1 className="sr-only">{t("title")}</h1>
                     <SubscriptionStackAnimation />
                     <SplitText
                         text={t("titleSplitOne")}

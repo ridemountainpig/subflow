@@ -72,6 +72,7 @@ export default function Changelog() {
                 </Link>
             </div>
             <div className="flex w-full flex-col items-center justify-center gap-y-4 py-10">
+                <h1 className="sr-only">{t("title")}</h1>
                 <SplitText
                     text={t("title")}
                     delay={isZhOrJa ? 100 : 150}

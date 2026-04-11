@@ -46,9 +46,9 @@ export default function Header() {
                     </Link>
                 </div>
                 <div className="col-span-2 flex items-center justify-center sm:col-span-1">
-                    <h1 className="font-exile text-subflow-50 w-fit text-[26px] tracking-[0.15em] sm:text-[32px] md:text-[44px]">
+                    <span className="font-exile text-subflow-50 w-fit text-[26px] tracking-[0.15em] sm:text-[32px] md:text-[44px]">
                         Subflow
-                    </h1>
+                    </span>
                 </div>
                 {isLoading ? (
                     <div />

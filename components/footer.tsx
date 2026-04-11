@@ -95,6 +95,21 @@ export default function Footer() {
                             className="hidden h-6 w-6 rotate-90 sm:block"
                             strokeWidth={1.5}
                         />
+                        <Link
+                            href="/privacy"
+                            className="flex items-center gap-x-1"
+                        >
+                            <span>{t("privacyPolicy")}</span>
+                            <ArrowUpRight
+                                size={16}
+                                strokeWidth={3}
+                                className="mt-0.5"
+                            />
+                        </Link>
+                        <Minus
+                            className="hidden h-6 w-6 rotate-90 sm:block"
+                            strokeWidth={1.5}
+                        />
                         <a
                             href="https://zeabur.com/referral?referralCode=ridemountainpig"
                             target="_blank"
