@@ -7,9 +7,9 @@ export default function Login() {
     return (
         <>
             <div className="bg-subflow-900 flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center gap-y-8 sm:min-h-[calc(100vh-7.25rem)]">
-                <span className="text-subflow-50 text-xl font-bold tracking-widest sm:text-2xl md:text-3xl">
+                <h1 className="text-subflow-50 text-xl font-bold tracking-widest sm:text-2xl md:text-3xl">
                     {t("title")}
-                </span>
+                </h1>
                 <div className="bg-subflow-50/50 border-subflow-50/70 rounded-2xl border-[1.5px] p-1">
                     <SignIn />
                 </div>

@@ -9,6 +9,9 @@
         "allRightsReserved": "全著作権所有。",
         "createdBy": "作成者",
         "deployedOn": "デプロイ先",
+        "privacyPolicy": "プライバシーポリシー",
+        "featureGuides": "機能ガイド",
+        "resources": "リソース",
         "subscriptionsTracked": "追跡したサブスク数",
         "manageSubscriptionsWith": "Subflow でサブスクを管理",
         "changelog": "更新履歴"
@@ -35,8 +38,8 @@
         },
         "spotlightTitle": "Subflow を選ぶ理由",
         "spotlightCardOne": {
-            "title": "永遠に無料",
-            "description": "有料プランなし、機能制限なしで利用可能"
+            "title": "サブスク追跡",
+            "description": "すべてのサブスクを1つの見やすいカレンダーで管理し、次の請求を先回りして把握できます。"
         },
         "spotlightCardTwo": {
             "title": "SVGL 内蔵",
@@ -44,8 +47,8 @@
             "descriptionTwo": "提供"
         },
         "spotlightCardThree": {
-            "title": "常に最新",
-            "description": "どこからでも最新状態を維持"
+            "title": "定期支払い管理",
+            "description": "月額・四半期・年額の更新を1か所で確認し、想定外の請求を防げます。"
         },
         "spotlightCardFour": {
             "title": "多通貨に対応",
@@ -64,7 +67,8 @@
         "spotlightCardSmartAdd": {
             "title": "スマート追加サブスク",
             "description": "アップロードまたは貼り付けたサブスクリプションの内容をスマートに分析し、詳細を自動的に入力します。"
-        }
+        },
+        "featureGuide": "機能ガイド"
     },
     "LoginPage": {
         "title": "Subflow へようこそ",

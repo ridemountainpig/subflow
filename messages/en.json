@@ -9,6 +9,9 @@
         "allRightsReserved": "All rights reserved.",
         "createdBy": "Created by",
         "deployedOn": "Deployed on",
+        "privacyPolicy": "Privacy Policy",
+        "featureGuides": "Feature Guides",
+        "resources": "Resources",
         "subscriptionsTracked": "SUBSCRIPTIONS TRACKED",
         "manageSubscriptionsWith": "Manage Subscriptions with",
         "changelog": "Changelog"
@@ -35,8 +38,8 @@
         },
         "spotlightTitle": "What Makes Subflow Stand Out",
         "spotlightCardOne": {
-            "title": "Free Forever",
-            "description": "No pricing tiers. No paywalls. Subflow is completely free to use."
+            "title": "Subscription Tracker",
+            "description": "Keep all your subscriptions in one clear calendar and stay ahead of upcoming charges."
         },
         "spotlightCardTwo": {
             "title": "SVGL",
@@ -44,8 +47,8 @@
             "descriptionTwo": "icons."
         },
         "spotlightCardThree": {
-            "title": "Always in Sync",
-            "description": "Your subscription data is always up to date wherever you log in."
+            "title": "Recurring Payments",
+            "description": "See monthly, quarterly, and yearly renewals in one place before they turn into surprise charges."
         },
         "spotlightCardFour": {
             "title": "Multi-Currency Support",
@@ -64,7 +67,8 @@
         "spotlightCardSmartAdd": {
             "title": "Smart Add Subscription",
             "description": "Smartly analyze the subscription content you upload or paste, and automatically fill in the subscription details for you."
-        }
+        },
+        "featureGuide": "Feature Guide"
     },
     "LoginPage": {
         "title": "Welcome Back",

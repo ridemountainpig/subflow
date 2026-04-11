@@ -9,6 +9,9 @@
         "allRightsReserved": "Todos los derechos reservados.",
         "createdBy": "Creado por",
         "deployedOn": "Desplegado en",
+        "privacyPolicy": "Política de privacidad",
+        "featureGuides": "Guías de funciones",
+        "resources": "Recursos",
         "subscriptionsTracked": "SUSCRIPCIONES RASTREADAS",
         "manageSubscriptionsWith": "Gestiona suscripciones con",
         "changelog": "Registro de cambios"
@@ -35,8 +38,8 @@
         },
         "spotlightTitle": "Lo que hace destacar a Subflow",
         "spotlightCardOne": {
-            "title": "Gratis para siempre",
-            "description": "Sin niveles de precios. Sin barreras de pago. Subflow es completamente gratuito."
+            "title": "Seguimiento de suscripciones",
+            "description": "Mantén todas tus suscripciones en un calendario claro y adelántate a los próximos cargos."
         },
         "spotlightCardTwo": {
             "title": "SVGL",
@@ -44,8 +47,8 @@
             "descriptionTwo": "iconos."
         },
         "spotlightCardThree": {
-            "title": "Siempre sincronizado",
-            "description": "Tus datos de suscripción siempre están actualizados dondequiera que inicies sesión."
+            "title": "Pagos recurrentes",
+            "description": "Consulta renovaciones mensuales, trimestrales y anuales en un solo lugar antes de que se conviertan en cargos sorpresa."
         },
         "spotlightCardFour": {
             "title": "Soporte multi-moneda",
@@ -64,7 +67,8 @@
         "spotlightCardSmartAdd": {
             "title": "Añadir suscripción inteligente",
             "description": "Analiza inteligentemente el contenido de la suscripción que subes o pegas, y rellena automáticamente los detalles de la suscripción por ti."
-        }
+        },
+        "featureGuide": "Guía de función"
     },
     "LoginPage": {
         "title": "Bienvenido de nuevo",

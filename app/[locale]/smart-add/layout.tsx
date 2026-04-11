@@ -4,20 +4,18 @@ import { createLocalizedMetadata, type AppLocale } from "@/lib/seo";
 
 export async function generateMetadata(): Promise<Metadata> {
     const locale = (await getLocale()) as AppLocale;
-    const t = await getTranslations("ChangelogPage");
-
-    const title = `${t("title")} | Subflow`;
-    const description = t("subtitle");
+    const t = await getTranslations("SmartAddPage");
 
     return createLocalizedMetadata({
         locale,
-        pathname: "/changelog",
-        title,
-        description,
+        pathname: "/smart-add",
+        title: `${t("title")} | Subflow`,
+        description: t("subtitle"),
+        noIndex: true,
     });
 }
 
-export default function ChangelogLayout({
+export default function SmartAddLayout({
     children,
 }: {
     children: React.ReactNode;

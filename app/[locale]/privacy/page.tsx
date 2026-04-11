@@ -1,5 +1,14 @@
+import type { Metadata } from "next";
 import { useTranslations } from "next-intl";
+import { getLocale } from "next-intl/server";
 import Footer from "@/components/footer";
+import { getPrivacyMetadata, type AppLocale } from "@/lib/seo";
+
+export async function generateMetadata(): Promise<Metadata> {
+    const locale = (await getLocale()) as AppLocale;
+
+    return getPrivacyMetadata(locale);
+}
 
 export default function Privacy() {
     const t = useTranslations("PrivacyPage");
