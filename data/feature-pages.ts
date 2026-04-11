@@ -1055,7 +1055,8 @@ export function getFeaturePage(locale: AppLocale, slug: FeaturePageSlug) {
 }
 
 export function getFeaturePages(locale: AppLocale) {
-    return featurePageSlugs.map((slug) => getFeaturePage(locale, slug));
+    const pages = buildFeaturePages(locale);
+    return featurePageSlugs.map((slug) => pages[slug]);
 }
 
 export function getFeaturePageMetadata(

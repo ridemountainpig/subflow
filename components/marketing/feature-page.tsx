@@ -2,6 +2,7 @@
 
 import type { ComponentType } from "react";
 import { motion } from "framer-motion";
+import { useLocale } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import SplitText from "@/components/homepage/split-text";
 import type {
@@ -41,6 +42,9 @@ export default function FeaturePage({
     backLabel,
     structuredData,
 }: FeaturePageViewProps) {
+    const locale = useLocale();
+    const isZhOrJa = locale === "zh" || locale === "ja";
+
     return (
         <div className="bg-subflow-900 flex min-h-screen w-full flex-col items-center">
             <script
@@ -69,7 +73,7 @@ export default function FeaturePage({
                     text={feature.title}
                     delay={80}
                     duration={1}
-                    splitType="words"
+                    splitType={isZhOrJa ? "chars" : "words"}
                     className="text-subflow-50 text-center text-2xl leading-tight font-bold tracking-widest sm:text-3xl lg:text-4xl"
                 />
                 <p className="text-subflow-300 text-sm leading-relaxed tracking-wide sm:text-base">
