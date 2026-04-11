@@ -68,8 +68,7 @@
             "title": "スマート追加サブスク",
             "description": "アップロードまたは貼り付けたサブスクリプションの内容をスマートに分析し、詳細を自動的に入力します。"
         },
-        "featureGuide": "機能ガイド",
-        "featureGuidesCta": "機能ガイドを見る"
+        "featureGuide": "機能ガイド"
     },
     "LoginPage": {
         "title": "Subflow へようこそ",

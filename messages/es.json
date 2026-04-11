@@ -68,8 +68,7 @@
             "title": "Añadir suscripción inteligente",
             "description": "Analiza inteligentemente el contenido de la suscripción que subes o pegas, y rellena automáticamente los detalles de la suscripción por ti."
         },
-        "featureGuide": "Guía de función",
-        "featureGuidesCta": "Ver guías de funciones"
+        "featureGuide": "Guía de función"
     },
     "LoginPage": {
         "title": "Bienvenido de nuevo",
