@@ -1,5 +1,6 @@
 import { MetadataRoute } from "next";
 import { changelogs } from "@/data/changelogs";
+import { featurePageSlugs, featurePageUpdatedAt } from "@/data/feature-pages";
 
 export default function sitemap(): MetadataRoute.Sitemap {
     const latestChangelogDate =
@@ -10,6 +11,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
         ) || new Date().toISOString().slice(0, 10);
     const productLastModified = new Date(
         `${latestChangelogDate}T00:00:00.000Z`,
+    );
+
+    const featureUrls = featurePageSlugs.flatMap((slug) =>
+        ["en", "zh", "ja", "es"].map((locale) => ({
+            url: `https://subflow.ing/${locale}/${slug}`,
+            lastModified: new Date(
+                `${featurePageUpdatedAt[slug]}T00:00:00.000Z`,
+            ),
+            priority: 0.7,
+        })),
     );
 
     return [
@@ -69,5 +80,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
             lastModified: productLastModified,
             priority: 0.8,
         },
+        ...featureUrls,
     ];
 }

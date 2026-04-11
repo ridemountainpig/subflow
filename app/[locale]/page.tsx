@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import GetStartBtn from "@/components/homepage/get-start-btn";
 import GoSubscriptionBtn from "@/components/homepage/go-subscription-btn";
+import CreditCard from "@/components/homepage/credit-card";
 import SubscriptionStackAnimation from "@/components/homepage/subscription-stack-animation";
 import SplitText from "@/components/homepage/split-text";
 import CardSwapDescription from "@/components/homepage/card-swap-description";
@@ -93,7 +94,7 @@ export default function Home() {
                     splitType={isZhOrJa ? "chars" : "words"}
                     className="text-subflow-50 px-6 text-center text-3xl leading-tight font-bold tracking-widest lg:text-5xl"
                 />
-                <div className="mt-10 grid w-[95%] grid-cols-9 gap-4 text-center lg:text-left 2xl:w-[85%]">
+                <div className="mt-8 grid w-[95%] grid-cols-9 gap-4 text-center lg:text-left 2xl:w-[85%]">
                     <SpotlightCard
                         className="custom-spotlight-card col-span-9 w-full rounded-xl"
                         spotlightColor="rgba(250, 240, 230, 0.2)"
@@ -112,6 +113,8 @@ export default function Home() {
                                     description={t(
                                         "spotlightCardSmartAdd.description",
                                     )}
+                                    ctaLabel={t("featureGuide")}
+                                    ctaHref="/smart-add-subscription"
                                 />
                             </div>
                             <div className="flex-1">
@@ -149,6 +152,8 @@ export default function Home() {
                             }
                             title={t("spotlightCardOne.title")}
                             description={t("spotlightCardOne.description")}
+                            ctaLabel={t("featureGuide")}
+                            ctaHref="/subscription-tracker"
                         />
                     </SpotlightCard>
                     <SpotlightCard
@@ -195,6 +200,8 @@ export default function Home() {
                             }
                             title={t("spotlightCardThree.title")}
                             description={t("spotlightCardThree.description")}
+                            ctaLabel={t("featureGuide")}
+                            ctaHref="/recurring-payments"
                         />
                     </SpotlightCard>
                     <SpotlightCard
@@ -227,6 +234,8 @@ export default function Home() {
                             }
                             title={t("spotlightCardFive.title")}
                             description={t("spotlightCardFive.description")}
+                            ctaLabel={t("featureGuide")}
+                            ctaHref="/subscription-reminders"
                         />
                     </SpotlightCard>
                     <SpotlightCard
@@ -243,6 +252,8 @@ export default function Home() {
                             }
                             title={t("spotlightCardSix.title")}
                             description={t("spotlightCardSix.description")}
+                            ctaLabel={t("featureGuide")}
+                            ctaHref="/shared-subscriptions"
                         />
                     </SpotlightCard>
                 </div>
@@ -263,6 +274,9 @@ export default function Home() {
                         splitType={isZhOrJa ? "chars" : "words"}
                         className="text-subflow-700 z-20 text-center text-sm font-bold tracking-widest sm:text-base lg:text-lg"
                     />
+                    <div className="flex items-center justify-center">
+                        <CreditCard />
+                    </div>
                     <GetStartBtn />
                     <FloatingIcons />
                 </div>

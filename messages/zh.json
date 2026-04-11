@@ -10,6 +10,8 @@
         "createdBy": "創建者",
         "deployedOn": "部署於",
         "privacyPolicy": "隱私權政策",
+        "featureGuides": "功能指南",
+        "resources": "資源",
         "subscriptionsTracked": "已追蹤訂閱數",
         "manageSubscriptionsWith": "使用 Subflow 管理訂閱",
         "changelog": "更新日誌"
@@ -36,8 +38,8 @@
         },
         "spotlightTitle": "為什麼選擇 Subflow",
         "spotlightCardOne": {
-            "title": "永遠免費",
-            "description": "沒有收費方案，沒有功能限制，Subflow 完全免費使用"
+            "title": "訂閱追蹤",
+            "description": "把所有訂閱集中在同一個清楚的月曆與清單裡，提前掌握每一筆即將扣款。"
         },
         "spotlightCardTwo": {
             "title": "內建 SVGL 支援",
@@ -45,8 +47,8 @@
             "descriptionTwo": "提供"
         },
         "spotlightCardThree": {
-            "title": "隨時保持同步",
-            "description": "不論從哪裡登入，訂閱資料永遠是最新狀態"
+            "title": "定期付款管理",
+            "description": "把月付、季付、年付訂閱放在同一個地方，在扣款前就看見每個續訂週期。"
         },
         "spotlightCardFour": {
             "title": "支援多種貨幣",
@@ -65,7 +67,9 @@
         "spotlightCardSmartAdd": {
             "title": "智能新增訂閱",
             "description": "智能分析您上傳或貼上的訂閱內容，並為您自動填入訂閱詳細資訊。"
-        }
+        },
+        "featureGuide": "功能指南",
+        "featureGuidesCta": "查看功能指南"
     },
     "LoginPage": {
         "title": "歡迎回到 Subflow",
