@@ -66,7 +66,9 @@ export default function Subscription() {
 
     const editSubscription =
         action === "edit" && editId
-            ? rawSubscriptions.find((s) => s._id?.toString() === editId)
+            ? rawSubscriptions.find(
+                  (s) => s._id?.toString() === editId && !s.isCoSubscription,
+              )
             : undefined;
 
     const errorShownRef = useRef(false);
@@ -82,9 +84,9 @@ export default function Subscription() {
             const found = rawSubscriptions.find(
                 (s) => s._id?.toString() === editId,
             );
+            errorShownRef.current = true;
             if (!found) {
                 toast.error(t("subscriptionNotFound"));
-                errorShownRef.current = true;
             }
         }
     }, [
