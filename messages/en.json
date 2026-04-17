@@ -144,6 +144,7 @@
         "cancel": "Cancel",
         "addSuccess": "Add Subscription Successfully",
         "addFailed": "Failed to Add Subscription",
+        "subscriptionNotFound": "Subscription not found",
         "updateSuccess": "Update Subscription Successfully",
         "deleteSuccess": "Delete Subscription Successfully",
         "subscriptionList": "Subscription List",

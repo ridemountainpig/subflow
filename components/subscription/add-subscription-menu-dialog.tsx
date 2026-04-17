@@ -15,14 +15,16 @@ import AddSubscriptionDialog from "@/components/subscription/add-subscription-di
 interface AddSubscriptionMenuDialogProps {
     userId: string;
     onSuccess?: () => void;
+    autoOpen?: boolean;
 }
 
 export default function AddSubscriptionMenuDialog({
     userId,
     onSuccess,
+    autoOpen = false,
 }: AddSubscriptionMenuDialogProps) {
     const t = useTranslations("SubscriptionPage");
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(autoOpen);
 
     const handleSuccess = () => {
         setOpen(false);

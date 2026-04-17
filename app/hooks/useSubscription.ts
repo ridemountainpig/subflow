@@ -27,6 +27,7 @@ export const useSubscription = (
     const [rawSubscriptions, setRawSubscriptions] = useState<
         SubscriptionType[]
     >([]);
+    const [subscriptionsLoaded, setSubscriptionsLoaded] = useState(false);
 
     useEffect(() => {
         const fetchSubscriptions = async () => {
@@ -36,6 +37,8 @@ export const useSubscription = (
             } catch (error) {
                 console.error("Error fetching subscriptions:", error);
                 setRawSubscriptions([]);
+            } finally {
+                setSubscriptionsLoaded(true);
             }
         };
 
@@ -171,6 +174,8 @@ export const useSubscription = (
 
     return {
         subscriptions,
+        rawSubscriptions,
+        subscriptionsLoaded,
         monthlySpend,
         updatedSubscription,
         setUpdatedSubscription,

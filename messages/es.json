@@ -144,6 +144,7 @@
         "cancel": "Cancelar",
         "addSuccess": "Suscripción añadida correctamente",
         "addFailed": "Error al añadir suscripción",
+        "subscriptionNotFound": "Suscripción no encontrada",
         "updateSuccess": "Suscripción actualizada correctamente",
         "deleteSuccess": "Suscripción eliminada correctamente",
         "subscriptionList": "Lista de suscripciones",

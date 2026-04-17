@@ -35,13 +35,15 @@ import CoSubscribersManager from "@/components/subscription/co-subscribers-manag
 interface UpdateSubscriptionDialogProps {
     subscription: Subscription;
     onSuccess?: () => void;
+    autoOpen?: boolean;
 }
 
 export default function UpdateSubscriptionDialog({
     subscription,
     onSuccess,
+    autoOpen = false,
 }: UpdateSubscriptionDialogProps) {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(autoOpen);
     const t = useTranslations("SubscriptionPage");
     const { currenciesList } = useCurrency();
 
