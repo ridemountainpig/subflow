@@ -82,7 +82,7 @@ export default function Subscription() {
             !errorShownRef.current
         ) {
             const found = rawSubscriptions.find(
-                (s) => s._id?.toString() === editId,
+                (s) => s._id?.toString() === editId && !s.isCoSubscription,
             );
             errorShownRef.current = true;
             if (!found) {
