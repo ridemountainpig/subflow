@@ -57,6 +57,7 @@ export default function Subscription() {
         subscriptions,
         rawSubscriptions,
         subscriptionsLoaded,
+        subscriptionFetchError,
         monthlySpend,
         updatedSubscription,
         setUpdatedSubscription,
@@ -75,6 +76,7 @@ export default function Subscription() {
             action === "edit" &&
             editId &&
             subscriptionsLoaded &&
+            !subscriptionFetchError &&
             !errorShownRef.current
         ) {
             const found = rawSubscriptions.find(
@@ -85,7 +87,14 @@ export default function Subscription() {
                 errorShownRef.current = true;
             }
         }
-    }, [action, editId, subscriptionsLoaded, rawSubscriptions, t]);
+    }, [
+        action,
+        editId,
+        subscriptionsLoaded,
+        subscriptionFetchError,
+        rawSubscriptions,
+        t,
+    ]);
     const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
     return (

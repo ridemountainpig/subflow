@@ -177,11 +177,13 @@ export default function UpdateSubscriptionDialog({
                 }
             }}
         >
-            <DialogTrigger title={t("updateSubscriptionDialog.title")}>
-                <div className="hover:bg-subflow-800 flex h-6 w-6 cursor-pointer items-center justify-center rounded-sm">
-                    <Pencil size={16} strokeWidth={2} />
-                </div>
-            </DialogTrigger>
+            {!autoOpen && (
+                <DialogTrigger title={t("updateSubscriptionDialog.title")}>
+                    <div className="hover:bg-subflow-800 flex h-6 w-6 cursor-pointer items-center justify-center rounded-sm">
+                        <Pencil size={16} strokeWidth={2} />
+                    </div>
+                </DialogTrigger>
+            )}
             <DialogContent className="bg-subflow-900 border-subflow-100 rounded-2xl border-[3px] p-3 sm:p-6">
                 <DialogHeader className="text-left">
                     <div className="flex items-center justify-between">
