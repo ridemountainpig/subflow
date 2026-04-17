@@ -1,10 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { useAuth, useUser } from "@clerk/nextjs";
 import { useTranslations } from "next-intl";
 import { CircleArrowLeft, CircleArrowRight, LoaderCircle } from "lucide-react";
+import { toast } from "sonner";
 
 import {
     Select,
@@ -22,6 +24,7 @@ import { useFirstLogin } from "@/app/hooks/useFirstLogin";
 import FormattedNumber from "@/components/subscription/formatted-number";
 import CalendarCell from "@/components/subscription/calendar-cell";
 import AddSubscriptionMenuDialog from "@/components/subscription/add-subscription-menu-dialog";
+import UpdateSubscriptionDialog from "@/components/subscription/update-subscription-dialog";
 import ChartDialog from "@/components/subscription/chart-dialog";
 import CoSubscriberInvite from "@/components/subscription/co-subscriber-invite";
 import DescriptionDialog from "@/components/subscription/description-dialog";
@@ -31,6 +34,15 @@ export default function Subscription() {
     const { userId } = useAuth();
     const { user } = useUser();
     const t = useTranslations("SubscriptionPage");
+    const searchParams = useSearchParams();
+    const [action] = useState(() => searchParams.get("action"));
+    const [editId] = useState(() => searchParams.get("id"));
+
+    useEffect(() => {
+        if (action) {
+            window.history.replaceState(null, "", window.location.pathname);
+        }
+    }, [action]);
     const { year, month, calendar, handlePreviousMonth, handleNextMonth } =
         useCalendar();
     const { currenciesList, currency, setCurrency, currencyListLoading } =
@@ -43,17 +55,63 @@ export default function Subscription() {
 
     const {
         subscriptions,
+        rawSubscriptions,
+        subscriptionsLoaded,
+        subscriptionFetchError,
         monthlySpend,
         updatedSubscription,
         setUpdatedSubscription,
     } = useSubscription(year, month, currency, currencyListLoading, userEmail);
     useFirstLogin();
+
+    const editSubscription =
+        action === "edit" && editId
+            ? rawSubscriptions.find(
+                  (s) => s._id?.toString() === editId && !s.isCoSubscription,
+              )
+            : undefined;
+
+    const errorShownRef = useRef(false);
+
+    useEffect(() => {
+        if (
+            action === "edit" &&
+            editId &&
+            subscriptionsLoaded &&
+            !subscriptionFetchError &&
+            !errorShownRef.current
+        ) {
+            const found = rawSubscriptions.find(
+                (s) => s._id?.toString() === editId && !s.isCoSubscription,
+            );
+            errorShownRef.current = true;
+            if (!found) {
+                toast.error(t("subscriptionNotFound"));
+            }
+        }
+    }, [
+        action,
+        editId,
+        subscriptionsLoaded,
+        subscriptionFetchError,
+        rawSubscriptions,
+        t,
+    ]);
     const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
     return (
         <div className="bg-subflow-900 relative flex h-full min-h-[calc(100vh-3.5rem)] w-full flex-col items-center justify-center overflow-y-auto select-none sm:min-h-[calc(100vh-7.25rem)]">
             <NewFeatureNotify />
             <DescriptionDialog />
+            {editSubscription && (
+                <UpdateSubscriptionDialog
+                    subscription={editSubscription}
+                    autoOpen={true}
+                    onSuccess={() =>
+                        setUpdatedSubscription(!updatedSubscription)
+                    }
+                />
+            )}
             {calendar.length > 0 && (
                 <div className="w-fit">
                     <div className="flex items-end justify-between pt-10 pb-2 sm:pb-4">
@@ -79,6 +137,7 @@ export default function Subscription() {
                             </span>
                             <AddSubscriptionMenuDialog
                                 userId={userId || ""}
+                                autoOpen={action === "create"}
                                 onSuccess={() =>
                                     setUpdatedSubscription(!updatedSubscription)
                                 }

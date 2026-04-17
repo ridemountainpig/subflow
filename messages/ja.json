@@ -144,6 +144,7 @@
         "cancel": "キャンセル",
         "addSuccess": "追加しました",
         "addFailed": "追加に失敗しました",
+        "subscriptionNotFound": "サブスクリプションが見つかりません",
         "updateSuccess": "更新しました",
         "deleteSuccess": "削除しました",
         "subscriptionList": "サブスク一覧",

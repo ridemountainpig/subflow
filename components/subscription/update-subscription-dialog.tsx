@@ -35,13 +35,15 @@ import CoSubscribersManager from "@/components/subscription/co-subscribers-manag
 interface UpdateSubscriptionDialogProps {
     subscription: Subscription;
     onSuccess?: () => void;
+    autoOpen?: boolean;
 }
 
 export default function UpdateSubscriptionDialog({
     subscription,
     onSuccess,
+    autoOpen = false,
 }: UpdateSubscriptionDialogProps) {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(autoOpen);
     const t = useTranslations("SubscriptionPage");
     const { currenciesList } = useCurrency();
 
@@ -175,11 +177,13 @@ export default function UpdateSubscriptionDialog({
                 }
             }}
         >
-            <DialogTrigger title={t("updateSubscriptionDialog.title")}>
-                <div className="hover:bg-subflow-800 flex h-6 w-6 cursor-pointer items-center justify-center rounded-sm">
-                    <Pencil size={16} strokeWidth={2} />
-                </div>
-            </DialogTrigger>
+            {!autoOpen && (
+                <DialogTrigger title={t("updateSubscriptionDialog.title")}>
+                    <div className="hover:bg-subflow-800 flex h-6 w-6 cursor-pointer items-center justify-center rounded-sm">
+                        <Pencil size={16} strokeWidth={2} />
+                    </div>
+                </DialogTrigger>
+            )}
             <DialogContent className="bg-subflow-900 border-subflow-100 rounded-2xl border-[3px] p-3 sm:p-6">
                 <DialogHeader className="text-left">
                     <div className="flex items-center justify-between">

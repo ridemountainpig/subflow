@@ -144,6 +144,7 @@
         "cancel": "取消",
         "addSuccess": "成功新增訂閱",
         "addFailed": "新增訂閱失敗",
+        "subscriptionNotFound": "找不到此訂閱",
         "updateSuccess": "成功更新訂閱",
         "deleteSuccess": "成功刪除訂閱",
         "subscriptionList": "訂閱清單",
