@@ -236,6 +236,21 @@
             "saveSettings": "設定を保存",
             "savingSettings": "設定を保存中",
             "preferencesSaved": "プリファレンスを保存しました"
+        },
+        "apiKeyDialog": {
+            "title": "API Keys",
+            "description": "他のサービスから Subflow にアクセスするための API キーを生成します。",
+            "namePlaceholder": "API キー名を入力",
+            "create": "作成",
+            "createdKeyWarning": "API キーを今すぐコピーしてください。再度表示することはできません！",
+            "copied": "クリップボードにコピーしました",
+            "createSuccess": "API キーを作成しました",
+            "createFailed": "API キーの作成に失敗しました",
+            "revokeSuccess": "API キーを取り消しました",
+            "revokeFailed": "API キーの取り消しに失敗しました",
+            "fetchFailed": "API キーの取得に失敗しました",
+            "noKeys": "まだ API キーがありません",
+            "limitReached": "API キーの上限（最大5個）に達しました"
         }
     },
     "NotFoundPage": {
