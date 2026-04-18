@@ -19,11 +19,6 @@ export async function createApiKey(name: string) {
     const db = await connectToDatabase();
     const ApiKey = getApiKeyModel(db);
 
-    const existingCount = await ApiKey.countDocuments({ userId });
-    if (existingCount >= MAX_API_KEYS_PER_USER) {
-        return { error: "LIMIT_REACHED" as const };
-    }
-
     const plainKey = generateApiKey();
     const keyHash = hashApiKey(plainKey);
     const keyPrefix = getKeyPrefix(plainKey);
@@ -34,8 +29,13 @@ export async function createApiKey(name: string) {
         keyHash,
         userId,
     });
-
     await apiKey.save();
+
+    const currentCount = await ApiKey.countDocuments({ userId });
+    if (currentCount > MAX_API_KEYS_PER_USER) {
+        await ApiKey.deleteOne({ _id: apiKey._id });
+        return { error: "LIMIT_REACHED" as const };
+    }
 
     return {
         id: apiKey._id.toString(),
