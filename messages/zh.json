@@ -236,6 +236,21 @@
             "saveSettings": "儲存設定",
             "savingSettings": "儲存設定中",
             "preferencesSaved": "成功儲存偏好設定"
+        },
+        "apiKeyDialog": {
+            "title": "API Keys",
+            "description": "生成 API Key 以便從其他服務存取 Subflow。",
+            "namePlaceholder": "請輸入 API Key 名稱",
+            "create": "建立",
+            "createdKeyWarning": "請立即複製您的 API Key，之後將無法再次查看！",
+            "copied": "已複製到剪貼簿",
+            "createSuccess": "成功建立 API Key",
+            "createFailed": "建立 API Key 失敗",
+            "revokeSuccess": "成功刪除 API Key",
+            "revokeFailed": "刪除 API Key 失敗",
+            "fetchFailed": "取得 API Key 列表失敗",
+            "noKeys": "尚未建立 API Key",
+            "limitReached": "已達 API Key 上限（最多 5 組）"
         }
     },
     "NotFoundPage": {

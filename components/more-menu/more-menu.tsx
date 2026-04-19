@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import EmailNotifyDialog from "@/components/more-menu/email-notify-dialog";
 import PreferencesDialog from "@/components/more-menu/preferences-dialog";
+import ApiKeyDialog from "@/components/more-menu/api-key-dialog";
 
 export default function MoreMenu() {
     const [open, setOpen] = useState(false);
@@ -29,6 +30,7 @@ export default function MoreMenu() {
             >
                 <EmailNotifyDialog setDropdownMenuOpen={setOpen} />
                 <PreferencesDialog setDropdownMenuOpen={setOpen} />
+                <ApiKeyDialog setDropdownMenuOpen={setOpen} />
             </DropdownMenuContent>
         </DropdownMenu>
     );

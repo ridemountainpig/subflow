@@ -236,6 +236,21 @@
             "saveSettings": "Save Settings",
             "savingSettings": "Saving Settings",
             "preferencesSaved": "Preferences Saved Successfully"
+        },
+        "apiKeyDialog": {
+            "title": "API Keys",
+            "description": "Generate API keys to access Subflow from other services.",
+            "namePlaceholder": "Enter API key name",
+            "create": "Create",
+            "createdKeyWarning": "Make sure to copy your API key now. You won't be able to see it again!",
+            "copied": "Copied to clipboard",
+            "createSuccess": "API Key created successfully",
+            "createFailed": "Failed to create API Key",
+            "revokeSuccess": "API Key revoked successfully",
+            "revokeFailed": "Failed to revoke API Key",
+            "fetchFailed": "Failed to fetch API Keys",
+            "noKeys": "No API keys yet",
+            "limitReached": "Maximum of 5 API keys reached"
         }
     },
     "NotFoundPage": {

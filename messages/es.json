@@ -236,6 +236,21 @@
             "saveSettings": "Guardar ajustes",
             "savingSettings": "Guardando ajustes",
             "preferencesSaved": "Preferencias guardadas correctamente"
+        },
+        "apiKeyDialog": {
+            "title": "Claves API",
+            "description": "Genera claves API para acceder a Subflow desde otros servicios.",
+            "namePlaceholder": "Introduce el nombre de la clave API",
+            "create": "Crear",
+            "createdKeyWarning": "¡Asegúrate de copiar tu clave API ahora. No podrás verla de nuevo!",
+            "copied": "Copiado al portapapeles",
+            "createSuccess": "Clave API creada correctamente",
+            "createFailed": "Error al crear la clave API",
+            "revokeSuccess": "Clave API revocada correctamente",
+            "revokeFailed": "Error al revocar la clave API",
+            "fetchFailed": "Error al obtener las claves API",
+            "noKeys": "Aún no hay claves API",
+            "limitReached": "Máximo de 5 claves API alcanzado"
         }
     },
     "NotFoundPage": {
