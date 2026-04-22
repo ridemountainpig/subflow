@@ -14,16 +14,10 @@ import ApiKeyDialog from "@/components/more-menu/api-key-dialog";
 
 export default function MoreMenu() {
     const searchParams = useSearchParams();
-    const menuAction = searchParams.get("menu");
+    const [menuAction] = useState(() => searchParams.get("menu"));
     const autoOpenApiKey = menuAction === "api-key";
 
     const [open, setOpen] = useState(autoOpenApiKey);
-
-    useEffect(() => {
-        if (autoOpenApiKey) {
-            setOpen(true);
-        }
-    }, [autoOpenApiKey]);
 
     useEffect(() => {
         if (menuAction) {
@@ -49,7 +43,7 @@ export default function MoreMenu() {
                 <PreferencesDialog setDropdownMenuOpen={setOpen} />
                 <ApiKeyDialog
                     setDropdownMenuOpen={setOpen}
-                    autoOpen={menuAction === "api-key"}
+                    autoOpen={autoOpenApiKey}
                 />
             </DropdownMenuContent>
         </DropdownMenu>
