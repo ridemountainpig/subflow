@@ -19,13 +19,15 @@ import { Subscription } from "@/types/subscription";
 interface DeleteSubscriptionDialogProps {
     subscription: Subscription;
     onSuccess?: () => void;
+    autoOpen?: boolean;
 }
 
 export default function DeleteSubscriptionDialog({
     subscription,
     onSuccess,
+    autoOpen = false,
 }: DeleteSubscriptionDialogProps) {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(autoOpen);
     const t = useTranslations("SubscriptionPage");
     const [deletingSubscription, setDeletingSubscription] = useState(false);
 

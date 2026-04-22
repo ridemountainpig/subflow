@@ -25,6 +25,7 @@ import FormattedNumber from "@/components/subscription/formatted-number";
 import CalendarCell from "@/components/subscription/calendar-cell";
 import AddSubscriptionMenuDialog from "@/components/subscription/add-subscription-menu-dialog";
 import UpdateSubscriptionDialog from "@/components/subscription/update-subscription-dialog";
+import DeleteSubscriptionDialog from "@/components/subscription/delete-subscription-dialog";
 import ChartDialog from "@/components/subscription/chart-dialog";
 import CoSubscriberInvite from "@/components/subscription/co-subscriber-invite";
 import DescriptionDialog from "@/components/subscription/description-dialog";
@@ -71,11 +72,43 @@ export default function Subscription() {
               )
             : undefined;
 
+    const deleteSubscription =
+        action === "delete" && editId
+            ? rawSubscriptions.find(
+                  (s) => s._id?.toString() === editId && !s.isCoSubscription,
+              )
+            : undefined;
+
     const errorShownRef = useRef(false);
 
     useEffect(() => {
         if (
             action === "edit" &&
+            editId &&
+            subscriptionsLoaded &&
+            !subscriptionFetchError &&
+            !errorShownRef.current
+        ) {
+            const found = rawSubscriptions.find(
+                (s) => s._id?.toString() === editId && !s.isCoSubscription,
+            );
+            errorShownRef.current = true;
+            if (!found) {
+                toast.error(t("subscriptionNotFound"));
+            }
+        }
+    }, [
+        action,
+        editId,
+        subscriptionsLoaded,
+        subscriptionFetchError,
+        rawSubscriptions,
+        t,
+    ]);
+
+    useEffect(() => {
+        if (
+            action === "delete" &&
             editId &&
             subscriptionsLoaded &&
             !subscriptionFetchError &&
@@ -106,6 +139,15 @@ export default function Subscription() {
             {editSubscription && (
                 <UpdateSubscriptionDialog
                     subscription={editSubscription}
+                    autoOpen={true}
+                    onSuccess={() =>
+                        setUpdatedSubscription(!updatedSubscription)
+                    }
+                />
+            )}
+            {deleteSubscription && (
+                <DeleteSubscriptionDialog
+                    subscription={deleteSubscription}
                     autoOpen={true}
                     onSuccess={() =>
                         setUpdatedSubscription(!updatedSubscription)

@@ -19,6 +19,7 @@ import { createApiKey, listApiKeys, revokeApiKey } from "@/app/actions/api-key";
 
 export interface ApiKeyDialogProps {
     setDropdownMenuOpen: (open: boolean) => void;
+    autoOpen?: boolean;
 }
 
 interface ApiKeyItem {
@@ -31,9 +32,16 @@ interface ApiKeyItem {
 
 export default function ApiKeyDialog({
     setDropdownMenuOpen,
+    autoOpen = false,
 }: ApiKeyDialogProps) {
     const t = useTranslations("MoreMenu.apiKeyDialog");
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(autoOpen);
+
+    useEffect(() => {
+        if (autoOpen) {
+            setOpen(true);
+        }
+    }, [autoOpen]);
 
     const [keyName, setKeyName] = useState("");
     const [apiKeys, setApiKeys] = useState<ApiKeyItem[]>([]);

@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { CircleEllipsis } from "lucide-react";
 import {
     DropdownMenu,
@@ -12,7 +13,23 @@ import PreferencesDialog from "@/components/more-menu/preferences-dialog";
 import ApiKeyDialog from "@/components/more-menu/api-key-dialog";
 
 export default function MoreMenu() {
-    const [open, setOpen] = useState(false);
+    const searchParams = useSearchParams();
+    const menuAction = searchParams.get("menu");
+    const autoOpenApiKey = menuAction === "api-key";
+
+    const [open, setOpen] = useState(autoOpenApiKey);
+
+    useEffect(() => {
+        if (autoOpenApiKey) {
+            setOpen(true);
+        }
+    }, [autoOpenApiKey]);
+
+    useEffect(() => {
+        if (menuAction) {
+            window.history.replaceState(null, "", window.location.pathname);
+        }
+    }, [menuAction]);
 
     return (
         <DropdownMenu open={open} onOpenChange={setOpen}>
@@ -30,7 +47,10 @@ export default function MoreMenu() {
             >
                 <EmailNotifyDialog setDropdownMenuOpen={setOpen} />
                 <PreferencesDialog setDropdownMenuOpen={setOpen} />
-                <ApiKeyDialog setDropdownMenuOpen={setOpen} />
+                <ApiKeyDialog
+                    setDropdownMenuOpen={setOpen}
+                    autoOpen={menuAction === "api-key"}
+                />
             </DropdownMenuContent>
         </DropdownMenu>
     );
