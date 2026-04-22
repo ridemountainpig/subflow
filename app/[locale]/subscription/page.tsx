@@ -82,45 +82,23 @@ export default function Subscription() {
     const errorShownRef = useRef(false);
 
     useEffect(() => {
-        if (
-            action === "edit" &&
+        const shouldCheckNotFound =
+            (action === "edit" || action === "delete") &&
             editId &&
             subscriptionsLoaded &&
             !subscriptionFetchError &&
-            !errorShownRef.current
-        ) {
-            const found = rawSubscriptions.find(
-                (s) => s._id?.toString() === editId && !s.isCoSubscription,
-            );
-            errorShownRef.current = true;
-            if (!found) {
-                toast.error(t("subscriptionNotFound"));
-            }
-        }
-    }, [
-        action,
-        editId,
-        subscriptionsLoaded,
-        subscriptionFetchError,
-        rawSubscriptions,
-        t,
-    ]);
+            !errorShownRef.current;
 
-    useEffect(() => {
-        if (
-            action === "delete" &&
-            editId &&
-            subscriptionsLoaded &&
-            !subscriptionFetchError &&
-            !errorShownRef.current
-        ) {
-            const found = rawSubscriptions.find(
-                (s) => s._id?.toString() === editId && !s.isCoSubscription,
-            );
-            errorShownRef.current = true;
-            if (!found) {
-                toast.error(t("subscriptionNotFound"));
-            }
+        if (!shouldCheckNotFound) {
+            return;
+        }
+
+        const found = rawSubscriptions.find(
+            (s) => s._id?.toString() === editId && !s.isCoSubscription,
+        );
+        errorShownRef.current = true;
+        if (!found) {
+            toast.error(t("subscriptionNotFound"));
         }
     }, [
         action,
