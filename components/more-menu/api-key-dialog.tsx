@@ -37,12 +37,6 @@ export default function ApiKeyDialog({
     const t = useTranslations("MoreMenu.apiKeyDialog");
     const [open, setOpen] = useState(autoOpen);
 
-    useEffect(() => {
-        if (autoOpen) {
-            setOpen(true);
-        }
-    }, [autoOpen]);
-
     const [keyName, setKeyName] = useState("");
     const [apiKeys, setApiKeys] = useState<ApiKeyItem[]>([]);
     const [createdKey, setCreatedKey] = useState<string | null>(null);
