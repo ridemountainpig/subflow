@@ -19,13 +19,15 @@ import { Subscription } from "@/types/subscription";
 interface DeleteSubscriptionDialogProps {
     subscription: Subscription;
     onSuccess?: () => void;
+    autoOpen?: boolean;
 }
 
 export default function DeleteSubscriptionDialog({
     subscription,
     onSuccess,
+    autoOpen = false,
 }: DeleteSubscriptionDialogProps) {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(autoOpen);
     const t = useTranslations("SubscriptionPage");
     const [deletingSubscription, setDeletingSubscription] = useState(false);
 
@@ -42,11 +44,13 @@ export default function DeleteSubscriptionDialog({
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger title={t("deleteSubscriptionDialog.title")}>
-                <div className="hover:bg-subflow-800 flex h-6 w-6 cursor-pointer items-center justify-center rounded-sm">
-                    <Trash2 size={16} strokeWidth={2} />
-                </div>
-            </DialogTrigger>
+            {!autoOpen && (
+                <DialogTrigger title={t("deleteSubscriptionDialog.title")}>
+                    <div className="hover:bg-subflow-800 flex h-6 w-6 cursor-pointer items-center justify-center rounded-sm">
+                        <Trash2 size={16} strokeWidth={2} />
+                    </div>
+                </DialogTrigger>
+            )}
             <DialogContent className="bg-subflow-900 border-subflow-100 w-120 rounded-2xl border-[3px] p-3 select-none sm:p-4">
                 <DialogHeader className="text-left">
                     <DialogTitle className="text-subflow-50 text-lg tracking-widest">
