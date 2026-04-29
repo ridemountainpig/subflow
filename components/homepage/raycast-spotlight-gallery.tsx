@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface RaycastSpotlightGalleryProps {
@@ -13,8 +14,11 @@ interface RaycastSpotlightGalleryProps {
 export default function RaycastSpotlightGallery({
     images,
 }: RaycastSpotlightGalleryProps) {
+    const t = useTranslations("HomePage.raycastGallery");
     const [activeIndex, setActiveIndex] = useState(0);
     const total = images.length;
+
+    if (total === 0) return null;
 
     const showPrevious = () => {
         setActiveIndex((current) => (current - 1 + total) % total);
@@ -39,7 +43,7 @@ export default function RaycastSpotlightGallery({
                     <button
                         type="button"
                         onClick={showPrevious}
-                        aria-label="Previous screenshot"
+                        aria-label={t("previousScreenshot")}
                         className="bg-subflow-900/60 border-subflow-700 text-subflow-50 hover:bg-subflow-900 inline-flex h-10 w-10 items-center justify-center rounded-full border transition-colors"
                     >
                         <ChevronLeft size={18} strokeWidth={2.8} />
@@ -50,7 +54,9 @@ export default function RaycastSpotlightGallery({
                                 key={image.src}
                                 type="button"
                                 onClick={() => setActiveIndex(index)}
-                                aria-label={`Show screenshot ${index + 1}`}
+                                aria-label={t("showScreenshot", {
+                                    index: index + 1,
+                                })}
                                 className={`h-2.5 rounded-full transition-all ${
                                     index === activeIndex
                                         ? "bg-subflow-50 w-6"
@@ -62,7 +68,7 @@ export default function RaycastSpotlightGallery({
                     <button
                         type="button"
                         onClick={showNext}
-                        aria-label="Next screenshot"
+                        aria-label={t("nextScreenshot")}
                         className="bg-subflow-900/60 border-subflow-700 text-subflow-50 hover:bg-subflow-900 inline-flex h-10 w-10 items-center justify-center rounded-full border transition-colors"
                     >
                         <ChevronRight size={18} strokeWidth={2.8} />

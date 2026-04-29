@@ -72,7 +72,12 @@
             "title": "Raycast 拡張機能",
             "description": "Raycast と macOS メニューバーから直接サブスク一覧を確認し、次の更新日をチェック — ブラウザ不要。"
         },
-        "featureGuide": "機能ガイド"
+        "featureGuide": "機能ガイド",
+        "raycastGallery": {
+            "previousScreenshot": "前の画像",
+            "nextScreenshot": "次の画像",
+            "showScreenshot": "画像 {index} を表示"
+        }
     },
     "LoginPage": {
         "title": "Subflow へようこそ",

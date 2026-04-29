@@ -468,7 +468,7 @@ function buildFeaturePages(locale: AppLocale): LocaleFeatureDictionary {
                         },
                     ],
                     steps: [
-                        `Install: Search for Subflow in the Raycast Extension Store and click <a href="${RAYCAST_EXTENSION_STORE_URL}" target="_blank" rel="noreferrer">Install</a>.`,
+                        `Install: Search for Subflow in the Raycast Extension Store and click <a href="${RAYCAST_EXTENSION_STORE_URL}" target="_blank" rel="noopener noreferrer">Install</a>.`,
                         "Set the API key first: Sign in to Subflow, open the More menu → API Keys, enter a name such as Raycast, click Create, and copy the new API key immediately. Then open the Subflow extension preferences in Raycast and paste it there.",
                         "Browse: Use the Subflow command to view and search through all your tracked subscriptions.",
                         "Menu bar: Enable the Subflow Menu Bar extra in Raycast preferences to see upcoming renewals at a glance.",
@@ -479,12 +479,12 @@ function buildFeaturePages(locale: AppLocale): LocaleFeatureDictionary {
                         "subscription-reminders",
                     ],
                     ctaLabel: "Get the Extension",
-                    ctaHref: "https://www.raycast.com/ridemountainpig/subflow",
+                    ctaHref: RAYCAST_EXTENSION_STORE_URL,
                     faqs: [
                         {
                             question:
                                 "How do I install the Subflow Raycast extension?",
-                            answer: `Open Raycast, search for Subflow in the Extension Store, and click <a href="${RAYCAST_EXTENSION_STORE_URL}" target="_blank" rel="noreferrer">Install</a>. Once installed, create an API key in Subflow first, then paste it into the extension preferences.`,
+                            answer: `Open Raycast, search for Subflow in the Extension Store, and click <a href="${RAYCAST_EXTENSION_STORE_URL}" target="_blank" rel="noopener noreferrer">Install</a>. Once installed, create an API key in Subflow first, then paste it into the extension preferences.`,
                         },
                         {
                             question: "Where do I find my Subflow API key?",
@@ -823,7 +823,7 @@ function buildFeaturePages(locale: AppLocale): LocaleFeatureDictionary {
                         },
                     ],
                     steps: [
-                        `安裝：在 Raycast Extension Store 搜尋 Subflow 並點擊 <a href="${RAYCAST_EXTENSION_STORE_URL}" target="_blank" rel="noreferrer">安裝</a>。`,
+                        `安裝：在 Raycast Extension Store 搜尋 Subflow 並點擊 <a href="${RAYCAST_EXTENSION_STORE_URL}" target="_blank" rel="noopener noreferrer">安裝</a>。`,
                         "建立 API 金鑰：登入 Subflow，打開右上角更多選單 → API Keys，輸入名稱（例如 Raycast）後點擊建立。這組 API Key 用來讓 Raycast 讀取你的訂閱資料。",
                         "貼上 API 金鑰：在 Raycast 中開啟 Subflow 擴充功能設定，貼上剛建立的 API Key。API Key 只會顯示一次，建立後請立刻複製。",
                         "開始使用：在 Raycast 搜尋 Subflow 查看完整訂閱清單；如果要固定顯示在 Menu Bar，搜尋 Subflow 的 Menu Bar 指令並按下 Enter。",
@@ -834,11 +834,11 @@ function buildFeaturePages(locale: AppLocale): LocaleFeatureDictionary {
                         "subscription-reminders",
                     ],
                     ctaLabel: "取得擴充功能",
-                    ctaHref: "https://www.raycast.com/ridemountainpig/subflow",
+                    ctaHref: RAYCAST_EXTENSION_STORE_URL,
                     faqs: [
                         {
                             question: "如何安裝 Subflow Raycast 擴充功能？",
-                            answer: `打開 Raycast，在 Extension Store 搜尋 Subflow 並點擊 <a href="${RAYCAST_EXTENSION_STORE_URL}" target="_blank" rel="noreferrer">安裝</a>。安裝完成後，在 Subflow 建立 API Key，接著貼到 Raycast 的擴充功能設定中，就可以開始查看訂閱資料。`,
+                            answer: `打開 Raycast，在 Extension Store 搜尋 Subflow 並點擊 <a href="${RAYCAST_EXTENSION_STORE_URL}" target="_blank" rel="noopener noreferrer">安裝</a>。安裝完成後，在 Subflow 建立 API Key，接著貼到 Raycast 的擴充功能設定中，就可以開始查看訂閱資料。`,
                         },
                         {
                             question: "API Key 沒有先複製到怎麼辦？",
@@ -1186,7 +1186,7 @@ function buildFeaturePages(locale: AppLocale): LocaleFeatureDictionary {
                         },
                     ],
                     steps: [
-                        `インストール：Raycast Extension Store で Subflow を検索して <a href="${RAYCAST_EXTENSION_STORE_URL}" target="_blank" rel="noreferrer">インストール</a> をクリックします。`,
+                        `インストール：Raycast Extension Store で Subflow を検索して <a href="${RAYCAST_EXTENSION_STORE_URL}" target="_blank" rel="noopener noreferrer">インストール</a> をクリックします。`,
                         "先に API キーを設定：Subflow にログインし、右上の More メニュー → API Keys を開き、Raycast などの名前を入力して Create をクリックします。発行された API Key はすぐコピーし、Raycast の Subflow 拡張機能設定に貼り付けてください。",
                         "一覧確認：Subflow コマンドを使って、追跡中のすべてのサブスクを確認・検索します。",
                         "メニューバー：Raycast の設定で Subflow Menu Bar Extra を有効にすると、次の更新日がいつでも確認できます。",
@@ -1197,12 +1197,12 @@ function buildFeaturePages(locale: AppLocale): LocaleFeatureDictionary {
                         "subscription-reminders",
                     ],
                     ctaLabel: "拡張機能を入手する",
-                    ctaHref: "https://www.raycast.com/ridemountainpig/subflow",
+                    ctaHref: RAYCAST_EXTENSION_STORE_URL,
                     faqs: [
                         {
                             question:
                                 "Subflow Raycast 拡張機能のインストール方法は？",
-                            answer: `Raycast を開いて Extension Store で Subflow を検索し、<a href="${RAYCAST_EXTENSION_STORE_URL}" target="_blank" rel="noreferrer">インストール</a> をクリックします。インストール後は、先に Subflow で API キーを発行して拡張機能設定に貼り付けてください。`,
+                            answer: `Raycast を開いて Extension Store で Subflow を検索し、<a href="${RAYCAST_EXTENSION_STORE_URL}" target="_blank" rel="noopener noreferrer">インストール</a> をクリックします。インストール後は、先に Subflow で API キーを発行して拡張機能設定に貼り付けてください。`,
                         },
                         {
                             question:
@@ -1566,7 +1566,7 @@ function buildFeaturePages(locale: AppLocale): LocaleFeatureDictionary {
                         },
                     ],
                     steps: [
-                        `Instala: Busca Subflow en Raycast Extension Store y haz clic en <a href="${RAYCAST_EXTENSION_STORE_URL}" target="_blank" rel="noreferrer">Instalar</a>.`,
+                        `Instala: Busca Subflow en Raycast Extension Store y haz clic en <a href="${RAYCAST_EXTENSION_STORE_URL}" target="_blank" rel="noopener noreferrer">Instalar</a>.`,
                         "Configura primero la API key: Inicia sesión en Subflow, abre el menú More → API Keys, escribe un nombre como Raycast, haz clic en Create y copia la API Key de inmediato. Luego pégala en las preferencias de la extensión Subflow en Raycast.",
                         "Navega: Usa el comando Subflow para ver y buscar todas tus suscripciones registradas.",
                         "Barra de menú: Activa el extra de barra de menú de Subflow en las preferencias de Raycast para ver las próximas renovaciones de un vistazo.",
@@ -1577,12 +1577,12 @@ function buildFeaturePages(locale: AppLocale): LocaleFeatureDictionary {
                         "subscription-reminders",
                     ],
                     ctaLabel: "Obtener la extensión",
-                    ctaHref: "https://www.raycast.com/ridemountainpig/subflow",
+                    ctaHref: RAYCAST_EXTENSION_STORE_URL,
                     faqs: [
                         {
                             question:
                                 "¿Cómo instalo la extensión Subflow para Raycast?",
-                            answer: `Abre Raycast, busca Subflow en Extension Store y haz clic en <a href="${RAYCAST_EXTENSION_STORE_URL}" target="_blank" rel="noreferrer">Instalar</a>. Una vez instalada, crea primero una API Key en Subflow y pégala en las preferencias de la extensión.`,
+                            answer: `Abre Raycast, busca Subflow en Extension Store y haz clic en <a href="${RAYCAST_EXTENSION_STORE_URL}" target="_blank" rel="noopener noreferrer">Instalar</a>. Una vez instalada, crea primero una API Key en Subflow y pégala en las preferencias de la extensión.`,
                         },
                         {
                             question: "¿Dónde encuentro mi API Key de Subflow?",

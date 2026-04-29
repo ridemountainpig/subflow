@@ -72,7 +72,12 @@
             "title": "Raycast 擴充功能",
             "description": "直接在 Raycast 查看訂閱清單、下一筆續訂日期與即將到期的項目，不必再切回瀏覽器。"
         },
-        "featureGuide": "功能指南"
+        "featureGuide": "功能指南",
+        "raycastGallery": {
+            "previousScreenshot": "上一張圖片",
+            "nextScreenshot": "下一張圖片",
+            "showScreenshot": "顯示圖片 {index}"
+        }
     },
     "LoginPage": {
         "title": "歡迎回到 Subflow",

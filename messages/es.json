@@ -72,7 +72,12 @@
             "title": "Extensión de Raycast",
             "description": "Consulta tus suscripciones y próximas renovaciones directamente desde Raycast y la barra de menú de macOS — sin abrir el navegador."
         },
-        "featureGuide": "Guía de función"
+        "featureGuide": "Guía de función",
+        "raycastGallery": {
+            "previousScreenshot": "Imagen anterior",
+            "nextScreenshot": "Imagen siguiente",
+            "showScreenshot": "Mostrar imagen {index}"
+        }
     },
     "LoginPage": {
         "title": "Bienvenido de nuevo",

@@ -72,7 +72,12 @@
             "title": "Raycast Extension",
             "description": "Browse your subscriptions and check upcoming renewals directly from Raycast and the macOS menu bar — no browser needed."
         },
-        "featureGuide": "Feature Guide"
+        "featureGuide": "Feature Guide",
+        "raycastGallery": {
+            "previousScreenshot": "Previous image",
+            "nextScreenshot": "Next image",
+            "showScreenshot": "Show image {index}"
+        }
     },
     "LoginPage": {
         "title": "Welcome Back",

@@ -266,7 +266,7 @@ export default function Home() {
                             <div className="flex-1">
                                 <SpotlightCardContent
                                     icon={
-                                        <span className="[&_path]:fill-[#faf0e6]">
+                                        <span className="[&_path]:fill-subflow-50">
                                             <Raycast width={28} height={28} />
                                         </span>
                                     }
@@ -286,7 +286,7 @@ export default function Home() {
                                     },
                                     {
                                         src: "/raycast/subflow-raycast-subscriptions.png",
-                                        alt: "Subflow menu bar",
+                                        alt: "Subflow subscriptions in Raycast",
                                     },
                                 ]}
                             />
