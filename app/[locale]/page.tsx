@@ -282,11 +282,11 @@ export default function Home() {
                                 images={[
                                     {
                                         src: "/raycast/subflow-raycast.png",
-                                        alt: "Subflow subscriptions in Raycast",
+                                        alt: t("raycastGallery.imageAlt1"),
                                     },
                                     {
                                         src: "/raycast/subflow-raycast-subscriptions.png",
-                                        alt: "Subflow subscriptions in Raycast",
+                                        alt: t("raycastGallery.imageAlt2"),
                                     },
                                 ]}
                             />

@@ -76,7 +76,9 @@
         "raycastGallery": {
             "previousScreenshot": "上一張圖片",
             "nextScreenshot": "下一張圖片",
-            "showScreenshot": "顯示圖片 {index}"
+            "showScreenshot": "顯示圖片 {index}",
+            "imageAlt1": "Raycast 擴充功能主畫面，顯示 Subflow 總覽",
+            "imageAlt2": "Raycast 擴充功能畫面，顯示 Subflow 訂閱清單"
         }
     },
     "LoginPage": {

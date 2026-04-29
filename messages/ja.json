@@ -76,7 +76,9 @@
         "raycastGallery": {
             "previousScreenshot": "前の画像",
             "nextScreenshot": "次の画像",
-            "showScreenshot": "画像 {index} を表示"
+            "showScreenshot": "画像 {index} を表示",
+            "imageAlt1": "Subflow の概要を表示した Raycast 拡張機能のホーム画面",
+            "imageAlt2": "Subflow のサブスク一覧を表示した Raycast 拡張機能の画面"
         }
     },
     "LoginPage": {

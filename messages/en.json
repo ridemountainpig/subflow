@@ -76,7 +76,9 @@
         "raycastGallery": {
             "previousScreenshot": "Previous image",
             "nextScreenshot": "Next image",
-            "showScreenshot": "Show image {index}"
+            "showScreenshot": "Show image {index}",
+            "imageAlt1": "Raycast extension home screen showing Subflow overview",
+            "imageAlt2": "Raycast extension screen showing Subflow subscriptions list"
         }
     },
     "LoginPage": {

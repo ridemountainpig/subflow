@@ -76,7 +76,9 @@
         "raycastGallery": {
             "previousScreenshot": "Imagen anterior",
             "nextScreenshot": "Imagen siguiente",
-            "showScreenshot": "Mostrar imagen {index}"
+            "showScreenshot": "Mostrar imagen {index}",
+            "imageAlt1": "Pantalla principal de la extensión de Raycast con el resumen de Subflow",
+            "imageAlt2": "Pantalla de la extensión de Raycast con la lista de suscripciones de Subflow"
         }
     },
     "LoginPage": {
