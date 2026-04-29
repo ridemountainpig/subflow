@@ -68,6 +68,10 @@
             "title": "智能新增訂閱",
             "description": "智能分析您上傳或貼上的訂閱內容，並為您自動填入訂閱詳細資訊。"
         },
+        "spotlightCardRaycast": {
+            "title": "Raycast 擴充功能",
+            "description": "直接在 Raycast 查看訂閱清單、下一筆續訂日期與即將到期的項目，不必再切回瀏覽器。"
+        },
         "featureGuide": "功能指南"
     },
     "LoginPage": {

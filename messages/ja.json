@@ -68,6 +68,10 @@
             "title": "スマート追加サブスク",
             "description": "アップロードまたは貼り付けたサブスクリプションの内容をスマートに分析し、詳細を自動的に入力します。"
         },
+        "spotlightCardRaycast": {
+            "title": "Raycast 拡張機能",
+            "description": "Raycast と macOS メニューバーから直接サブスク一覧を確認し、次の更新日をチェック — ブラウザ不要。"
+        },
         "featureGuide": "機能ガイド"
     },
     "LoginPage": {

@@ -19,6 +19,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
             lastModified: new Date(
                 `${featurePageUpdatedAt[slug]}T00:00:00.000Z`,
             ),
+            changeFrequency: "monthly" as const,
             priority: 0.7,
         })),
     );

@@ -1,6 +1,6 @@
 "use client";
 
-import type { ComponentType } from "react";
+import type { ComponentType, ReactNode } from "react";
 import { motion } from "framer-motion";
 import { useLocale } from "next-intl";
 import { Link } from "@/i18n/navigation";
@@ -10,7 +10,9 @@ import type {
     LocalizedFeaturePage,
 } from "@/data/feature-pages";
 import {
+    ArrowUpRightIcon,
     CalendarSync,
+    ChevronDown,
     ChevronLeft,
     Coins,
     Mail,
@@ -23,6 +25,7 @@ type FeaturePageViewProps = {
     feature: LocalizedFeaturePage;
     backLabel: string;
     structuredData: object;
+    relatedPages: LocalizedFeaturePage[];
 };
 
 const iconMap: Record<
@@ -37,10 +40,53 @@ const iconMap: Record<
     coins: Coins,
 };
 
+const richTextClassName =
+    "text-subflow-300 text-sm leading-relaxed tracking-wide sm:text-base";
+
+const anchorPattern =
+    /<a\s+href="([^"]+)"(?:\s+target="([^"]+)")?(?:\s+rel="([^"]+)")?>(.*?)<\/a>/g;
+
+function renderRichText(text: string): ReactNode[] {
+    const parts: ReactNode[] = [];
+    let cursor = 0;
+
+    for (const match of text.matchAll(anchorPattern)) {
+        const [fullMatch, href, target, rel, label] = match;
+        const index = match.index ?? 0;
+
+        if (index > cursor) {
+            parts.push(text.slice(cursor, index));
+        }
+
+        parts.push(
+            <a
+                key={`${href}-${index}`}
+                href={href}
+                target={target}
+                rel={rel}
+                aria-label={label}
+                title={label}
+                className="text-subflow-100 hover:text-subflow-50 underline underline-offset-4 transition-colors"
+            >
+                {label}
+            </a>,
+        );
+
+        cursor = index + fullMatch.length;
+    }
+
+    if (cursor < text.length) {
+        parts.push(text.slice(cursor));
+    }
+
+    return parts;
+}
+
 export default function FeaturePage({
     feature,
     backLabel,
     structuredData,
+    relatedPages,
 }: FeaturePageViewProps) {
     const locale = useLocale();
     const isZhOrJa = locale === "zh" || locale === "ja";
@@ -141,18 +187,40 @@ export default function FeaturePage({
                                     </div>
                                 )}
 
-                                {section.image && (
-                                    <div className="bg-subflow-800 border-subflow-700 overflow-hidden rounded-2xl border shadow-xl">
-                                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                                        <img
-                                            src={section.image}
-                                            alt={
-                                                section.imageAlt ||
-                                                section.title
-                                            }
-                                            className="block h-auto w-full"
-                                        />
+                                {section.images && section.images.length > 0 ? (
+                                    <div className="grid grid-cols-1 gap-4">
+                                        {section.images.map((img, i) => (
+                                            <div
+                                                key={img}
+                                                className="bg-subflow-800 border-subflow-700 overflow-hidden rounded-2xl border shadow-xl"
+                                            >
+                                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                                <img
+                                                    src={img}
+                                                    alt={
+                                                        section.imageAlts?.[
+                                                            i
+                                                        ] || section.title
+                                                    }
+                                                    className="block h-auto w-full"
+                                                />
+                                            </div>
+                                        ))}
                                     </div>
+                                ) : (
+                                    section.image && (
+                                        <div className="bg-subflow-800 border-subflow-700 overflow-hidden rounded-2xl border shadow-xl">
+                                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                                            <img
+                                                src={section.image}
+                                                alt={
+                                                    section.imageAlt ||
+                                                    section.title
+                                                }
+                                                className="block h-auto w-full"
+                                            />
+                                        </div>
+                                    )
                                 )}
                             </div>
                         </motion.section>
@@ -165,15 +233,9 @@ export default function FeaturePage({
                         whileInView={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.5, ease: "easeOut" }}
                         viewport={{ once: true, margin: "-60px" }}
-                        className="relative mb-10 flex gap-5"
+                        className="mb-10"
                     >
-                        <div className="flex flex-col items-center">
-                            <div className="bg-subflow-800 border-subflow-700 z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border">
-                                <Sparkles className="text-subflow-200 h-[18px] w-[18px]" />
-                            </div>
-                        </div>
-
-                        <div className="min-w-0 flex-1 pt-1">
+                        <div className="pt-1">
                             <h2 className="text-subflow-50 mb-4 text-xl font-bold tracking-wide sm:text-2xl">
                                 {feature.stepsTitle}
                             </h2>
@@ -188,12 +250,48 @@ export default function FeaturePage({
                                             <span className="bg-subflow-900 border-subflow-700 text-subflow-200 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full border text-xs font-semibold tracking-wide">
                                                 {index + 1}
                                             </span>
-                                            <p className="text-subflow-300 pt-1 text-sm leading-relaxed tracking-wide sm:text-base">
-                                                {step}
+                                            <p
+                                                className={`${richTextClassName} pt-1`}
+                                            >
+                                                {renderRichText(step)}
                                             </p>
                                         </li>
                                     ))}
                                 </ol>
+                            </div>
+                        </div>
+                    </motion.section>
+                )}
+
+                {feature.faqs.length > 0 && (
+                    <motion.section
+                        initial={{ opacity: 0, x: -20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.5, ease: "easeOut" }}
+                        viewport={{ once: true, margin: "-60px" }}
+                        className="mb-10"
+                    >
+                        <div className="pt-1">
+                            <h2 className="text-subflow-50 mb-4 text-xl font-bold tracking-wide sm:text-2xl">
+                                FAQ
+                            </h2>
+                            <div className="space-y-3">
+                                {feature.faqs.map((faq) => (
+                                    <details
+                                        key={faq.question}
+                                        className="bg-subflow-800 border-subflow-700 group rounded-2xl border"
+                                    >
+                                        <summary className="text-subflow-50 flex cursor-pointer list-none items-center justify-between px-4 py-3 text-sm font-semibold tracking-wide select-none">
+                                            {faq.question}
+                                            <ChevronDown className="text-subflow-500 ml-3 h-4 w-4 shrink-0 transition-transform group-open:rotate-180" />
+                                        </summary>
+                                        <p
+                                            className={`${richTextClassName} border-subflow-700 border-t px-4 py-3`}
+                                        >
+                                            {renderRichText(faq.answer)}
+                                        </p>
+                                    </details>
+                                ))}
                             </div>
                         </div>
                     </motion.section>
@@ -207,6 +305,39 @@ export default function FeaturePage({
                         {feature.ctaLabel}
                     </Link>
                 </div>
+
+                {relatedPages.length > 0 && (
+                    <motion.section
+                        initial={{ opacity: 0, x: -20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.5, ease: "easeOut" }}
+                        viewport={{ once: true, margin: "-60px" }}
+                        className="mt-10"
+                    >
+                        <h2 className="text-subflow-500 mb-4 text-xs font-semibold tracking-[0.24em] uppercase">
+                            {feature.relatedTitle}
+                        </h2>
+                        <div className="flex flex-col gap-3">
+                            {relatedPages.map((related) => (
+                                <Link
+                                    key={related.slug}
+                                    href={`/${related.slug}`}
+                                    className="bg-subflow-800 border-subflow-700 hover:border-subflow-500 group flex items-center justify-between rounded-2xl border px-4 py-3 transition-colors"
+                                >
+                                    <div>
+                                        <p className="text-subflow-50 text-sm font-semibold tracking-wide">
+                                            {related.navTitle}
+                                        </p>
+                                        <p className="text-subflow-500 mt-0.5 line-clamp-1 text-xs leading-relaxed tracking-wide">
+                                            {related.description}
+                                        </p>
+                                    </div>
+                                    <ArrowUpRightIcon className="text-subflow-500 group-hover:text-subflow-300 ml-3 h-4 w-4 shrink-0 transition-colors" />
+                                </Link>
+                            ))}
+                        </div>
+                    </motion.section>
+                )}
             </div>
         </div>
     );

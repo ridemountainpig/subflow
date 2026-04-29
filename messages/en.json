@@ -68,6 +68,10 @@
             "title": "Smart Add Subscription",
             "description": "Smartly analyze the subscription content you upload or paste, and automatically fill in the subscription details for you."
         },
+        "spotlightCardRaycast": {
+            "title": "Raycast Extension",
+            "description": "Browse your subscriptions and check upcoming renewals directly from Raycast and the macOS menu bar — no browser needed."
+        },
         "featureGuide": "Feature Guide"
     },
     "LoginPage": {
