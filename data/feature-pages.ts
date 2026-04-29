@@ -1,3 +1,4 @@
+import { cache } from "react";
 import type { Metadata } from "next";
 import { getContent, type Language } from "@/lib/email/content";
 import {
@@ -106,7 +107,9 @@ function toLanguage(locale: AppLocale): Language {
     return locale;
 }
 
-function buildFeaturePages(locale: AppLocale): LocaleFeatureDictionary {
+const buildFeaturePages = cache(function buildFeaturePages(
+    locale: AppLocale,
+): LocaleFeatureDictionary {
     const email = getContent(toLanguage(locale));
     const [smartAdd, emailNotifications, analytics, coSubscriber] =
         email.sections.highlights.items;
@@ -1630,7 +1633,7 @@ function buildFeaturePages(locale: AppLocale): LocaleFeatureDictionary {
             },
         ]),
     ) as LocaleFeatureDictionary;
-}
+});
 
 export function getFeaturePage(locale: AppLocale, slug: FeaturePageSlug) {
     return buildFeaturePages(locale)[slug];
