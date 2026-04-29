@@ -85,9 +85,6 @@ function stripHtml(input: string) {
         .trim();
 }
 
-function stripInlineHtml(input: string) {
-    return stripHtml(input);
-}
 
 function cleanUsageText(locale: AppLocale, input: string) {
     const plain = stripHtml(input);
@@ -1712,7 +1709,7 @@ export function getFeaturePageStructuredData(
                     name: faq.question,
                     acceptedAnswer: {
                         "@type": "Answer",
-                        text: stripInlineHtml(faq.answer),
+                        text: stripHtml(faq.answer),
                     },
                 })),
             },
