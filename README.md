@@ -62,6 +62,12 @@ If you enjoy this service, consider supporting us:
 - Track who's splitting costs on shared services
 - Manage group subscriptions effortlessly
 
+### 🚀 Raycast Extension
+
+- Browse your subscriptions directly from Raycast
+- Check upcoming renewals from the macOS menu bar
+- Quick access without opening a browser — available on the [Raycast Extension Store](https://www.raycast.com/ridemountainpig/subflow)
+
 ### 🤖 Smart Add Subscription
 
 - Quickly add subscriptions with intelligent auto-detection

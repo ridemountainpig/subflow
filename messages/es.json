@@ -68,7 +68,18 @@
             "title": "Añadir suscripción inteligente",
             "description": "Analiza inteligentemente el contenido de la suscripción que subes o pegas, y rellena automáticamente los detalles de la suscripción por ti."
         },
-        "featureGuide": "Guía de función"
+        "spotlightCardRaycast": {
+            "title": "Extensión de Raycast",
+            "description": "Consulta tus suscripciones y próximas renovaciones directamente desde Raycast y la barra de menú de macOS — sin abrir el navegador."
+        },
+        "featureGuide": "Guía de función",
+        "raycastGallery": {
+            "previousScreenshot": "Imagen anterior",
+            "nextScreenshot": "Imagen siguiente",
+            "showScreenshot": "Mostrar imagen {index}",
+            "imageAlt1": "Pantalla principal de la extensión de Raycast con el resumen de Subflow",
+            "imageAlt2": "Pantalla de la extensión de Raycast con la lista de suscripciones de Subflow"
+        }
     },
     "LoginPage": {
         "title": "Bienvenido de nuevo",

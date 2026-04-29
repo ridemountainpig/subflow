@@ -11,6 +11,7 @@ import {
     Sparkles,
     ArrowUpRightIcon,
 } from "lucide-react";
+import { Raycast } from "@ridemountainpig/svgl-react";
 import GetStartBtn from "@/components/homepage/get-start-btn";
 import GoSubscriptionBtn from "@/components/homepage/go-subscription-btn";
 import CreditCard from "@/components/homepage/credit-card";
@@ -20,6 +21,7 @@ import CardSwapDescription from "@/components/homepage/card-swap-description";
 import SpotlightCard from "@/components/homepage/spotlight-card";
 import SpotlightCardContent from "@/components/homepage/spotlight-card-content";
 import FloatingIcons from "@/components/homepage/floating-icons";
+import RaycastSpotlightGallery from "@/components/homepage/raycast-spotlight-gallery";
 import Footer from "@/components/footer";
 import {
     type AppLocale,
@@ -255,6 +257,40 @@ export default function Home() {
                             ctaLabel={t("featureGuide")}
                             ctaHref="/shared-subscriptions"
                         />
+                    </SpotlightCard>
+                    <SpotlightCard
+                        className="custom-spotlight-card col-span-9 w-full rounded-xl"
+                        spotlightColor="rgba(250, 240, 230, 0.2)"
+                    >
+                        <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:gap-16">
+                            <div className="flex-1">
+                                <SpotlightCardContent
+                                    icon={
+                                        <span className="[&_path]:fill-subflow-50">
+                                            <Raycast width={28} height={28} />
+                                        </span>
+                                    }
+                                    title={t("spotlightCardRaycast.title")}
+                                    description={t(
+                                        "spotlightCardRaycast.description",
+                                    )}
+                                    ctaLabel={t("featureGuide")}
+                                    ctaHref="/raycast-extension"
+                                />
+                            </div>
+                            <RaycastSpotlightGallery
+                                images={[
+                                    {
+                                        src: "/raycast/subflow-raycast.png",
+                                        alt: t("raycastGallery.imageAlt1"),
+                                    },
+                                    {
+                                        src: "/raycast/subflow-raycast-subscriptions.png",
+                                        alt: t("raycastGallery.imageAlt2"),
+                                    },
+                                ]}
+                            />
+                        </div>
                     </SpotlightCard>
                 </div>
             </div>

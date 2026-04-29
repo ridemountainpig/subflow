@@ -18,6 +18,22 @@ export interface ChangelogItem {
 
 export const changelogs: ChangelogItem[] = [
     {
+        date: "2026-04-28",
+        icon: "Sparkles",
+        title: {
+            en: "Raycast Extension",
+            zh: "Raycast 擴充功能",
+            ja: "Raycast 拡張機能",
+            es: "Extensión de Raycast",
+        },
+        content: {
+            en: "Use the new Subflow Raycast extension to browse your subscription list, check the next renewal date, and keep upcoming charges visible from the macOS menu bar without switching back to the browser.",
+            zh: "現在可以透過全新的 Subflow Raycast 擴充功能，直接在 Raycast 查看訂閱清單、下一筆續訂日期，並把即將到期的項目固定顯示在 macOS Menu Bar，不必再切回瀏覽器。",
+            ja: "新しい Subflow Raycast 拡張機能を使うと、Raycast からサブスク一覧や次回更新日を確認でき、macOS メニューバーにも次に近い更新を表示できます。ブラウザへ戻る必要はありません。",
+            es: "La nueva extensión de Subflow para Raycast te permite consultar tu lista de suscripciones, revisar la próxima fecha de renovación y mantener visibles los próximos cargos desde la barra de menú de macOS sin volver al navegador.",
+        },
+    },
+    {
         date: "2026-02-10",
         icon: "Mail",
         title: {

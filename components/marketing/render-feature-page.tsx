@@ -3,6 +3,7 @@ import Footer from "@/components/footer";
 import FeaturePage from "@/components/marketing/feature-page";
 import {
     getFeaturePage,
+    getFeaturePages,
     getFeaturePageStructuredData,
     type FeaturePageSlug,
 } from "@/data/feature-pages";
@@ -19,6 +20,10 @@ export default function RenderFeaturePage({ slug }: { slug: FeaturePageSlug }) {
     const locale = useLocale() as AppLocale;
     const feature = getFeaturePage(locale, slug);
     const structuredData = getFeaturePageStructuredData(locale, slug);
+    const allPages = getFeaturePages(locale);
+    const relatedPages = feature.related.map(
+        (s) => allPages.find((p) => p.slug === s)!,
+    );
 
     return (
         <>
@@ -26,6 +31,7 @@ export default function RenderFeaturePage({ slug }: { slug: FeaturePageSlug }) {
                 feature={feature}
                 backLabel={backLabelByLocale[locale]}
                 structuredData={structuredData}
+                relatedPages={relatedPages}
             />
             <Footer />
         </>
