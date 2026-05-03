@@ -9,7 +9,10 @@ import { Button } from "@/components/ui/button";
 import {
     Select,
     SelectContent,
+    SelectGroup,
     SelectItem,
+    SelectLabel,
+    SelectSeparator,
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
@@ -26,7 +29,7 @@ export default function CoSubscribersManager({
 }: CoSubscribersManagerProps) {
     const t = useTranslations("SubscriptionPage");
     const { user } = useUser();
-    const { currenciesList } = useCurrency();
+    const { currenciesList, topCurrencies } = useCurrency();
     const [emailInput, setEmailInput] = useState("");
     const [amountInput, setAmountInput] = useState<number | "">("");
     const [currencyInput, setCurrencyInput] = useState(subscriptionCurrency);
@@ -160,8 +163,28 @@ export default function CoSubscribersManager({
                             <SelectValue />
                         </SelectTrigger>
                         <SelectContent className="min-w-[--trigger-width] tracking-widest">
-                            {Object.keys(currenciesList.currencies).map(
-                                (key) => (
+                            {topCurrencies.length > 0 && (
+                                <>
+                                    <SelectGroup>
+                                        <SelectLabel className="text-xs sm:text-sm">
+                                            {t("frequentCurrencies")}
+                                        </SelectLabel>
+                                        {topCurrencies.map((key) => (
+                                            <SelectItem
+                                                key={`top-${key}`}
+                                                value={key}
+                                                className="cursor-pointer text-xs sm:text-base"
+                                            >
+                                                {key}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectGroup>
+                                    <SelectSeparator />
+                                </>
+                            )}
+                            {Object.keys(currenciesList.currencies)
+                                .filter((key) => !topCurrencies.includes(key))
+                                .map((key) => (
                                     <SelectItem
                                         key={key}
                                         value={key}
@@ -169,8 +192,7 @@ export default function CoSubscribersManager({
                                     >
                                         {key}
                                     </SelectItem>
-                                ),
-                            )}
+                                ))}
                         </SelectContent>
                     </Select>
                 </div>

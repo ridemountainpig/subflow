@@ -65,6 +65,26 @@ export async function getSubscription() {
     return JSON.parse(JSON.stringify(subscriptionsWithIdentifier));
 }
 
+export async function getTopCurrencies(limit = 5): Promise<string[]> {
+    const userId = await requireAuth();
+
+    const db = await connectToDatabase();
+    const Subscription = getSubscriptionModel(db);
+
+    const subscriptions = await Subscription.find({ userId }, { currency: 1 });
+
+    const counts: Record<string, number> = {};
+    for (const sub of subscriptions) {
+        if (!sub.currency) continue;
+        counts[sub.currency] = (counts[sub.currency] || 0) + 1;
+    }
+
+    return Object.entries(counts)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, limit)
+        .map(([currency]) => currency);
+}
+
 export async function getSubscriptionCount() {
     try {
         const db = await connectToDatabase();

@@ -8,6 +8,7 @@ import React, {
     ReactNode,
 } from "react";
 import { getCurrenciesList } from "@/app/actions/currency";
+import { getTopCurrencies } from "@/app/actions/action";
 import { CurrenciesList } from "@/types/currency";
 
 interface CurrencyContextType {
@@ -15,6 +16,7 @@ interface CurrencyContextType {
     currency: string;
     setCurrency: (currency: string) => void;
     currencyListLoading: boolean;
+    topCurrencies: string[];
 }
 
 const CurrencyContext = createContext<CurrencyContextType | undefined>(
@@ -31,6 +33,7 @@ export function CurrencyProvider({ children }: CurrencyProviderProps) {
     });
     const [currencyListLoading, setCurrencyListLoading] = useState(true);
     const [currency, setCurrency] = useState("USD");
+    const [topCurrencies, setTopCurrencies] = useState<string[]>([]);
 
     useEffect(() => {
         const fetchCurrenciesList = async () => {
@@ -46,6 +49,15 @@ export function CurrencyProvider({ children }: CurrencyProviderProps) {
             }
         };
 
+        const fetchTopCurrencies = async () => {
+            try {
+                const top = await getTopCurrencies();
+                setTopCurrencies(top);
+            } catch {
+                // not authenticated yet or no subscriptions
+            }
+        };
+
         const fetchLocalStorage = () => {
             if (typeof window !== "undefined") {
                 const savedCurrency = localStorage.getItem("currency");
@@ -56,6 +68,7 @@ export function CurrencyProvider({ children }: CurrencyProviderProps) {
         };
 
         fetchCurrenciesList();
+        fetchTopCurrencies();
         fetchLocalStorage();
     }, []);
 
@@ -70,6 +83,7 @@ export function CurrencyProvider({ children }: CurrencyProviderProps) {
         currency,
         setCurrency,
         currencyListLoading,
+        topCurrencies,
     };
 
     return (

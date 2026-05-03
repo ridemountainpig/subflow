@@ -14,7 +14,10 @@ import {
 import {
     Select,
     SelectContent,
+    SelectGroup,
     SelectItem,
+    SelectLabel,
+    SelectSeparator,
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
@@ -45,7 +48,7 @@ export default function UpdateSubscriptionDialog({
 }: UpdateSubscriptionDialogProps) {
     const [open, setOpen] = useState(autoOpen);
     const t = useTranslations("SubscriptionPage");
-    const { currenciesList } = useCurrency();
+    const { currenciesList, topCurrencies } = useCurrency();
 
     const [serviceName, setServiceName] = useState(subscription.name);
     const [serviceUuid, setServiceUuid] = useState(subscription.serviceId);
@@ -248,17 +251,45 @@ export default function UpdateSubscriptionDialog({
                                         <SelectValue placeholder="Select Currency" />
                                     </SelectTrigger>
                                     <SelectContent className="min-w-[--trigger-width] tracking-widest">
-                                        {Object.keys(
-                                            currenciesList.currencies,
-                                        ).map((key) => (
-                                            <SelectItem
-                                                key={key}
-                                                value={key}
-                                                className="cursor-pointer text-xs sm:text-base"
-                                            >
-                                                {key}
-                                            </SelectItem>
-                                        ))}
+                                        {topCurrencies.length > 0 && (
+                                            <>
+                                                <SelectGroup>
+                                                    <SelectLabel className="text-xs sm:text-sm">
+                                                        {t(
+                                                            "frequentCurrencies",
+                                                        )}
+                                                    </SelectLabel>
+                                                    {topCurrencies.map(
+                                                        (key) => (
+                                                            <SelectItem
+                                                                key={`top-${key}`}
+                                                                value={key}
+                                                                className="cursor-pointer text-xs sm:text-base"
+                                                            >
+                                                                {key}
+                                                            </SelectItem>
+                                                        ),
+                                                    )}
+                                                </SelectGroup>
+                                                <SelectSeparator />
+                                            </>
+                                        )}
+                                        {Object.keys(currenciesList.currencies)
+                                            .filter(
+                                                (key) =>
+                                                    !topCurrencies.includes(
+                                                        key,
+                                                    ),
+                                            )
+                                            .map((key) => (
+                                                <SelectItem
+                                                    key={key}
+                                                    value={key}
+                                                    className="cursor-pointer text-xs sm:text-base"
+                                                >
+                                                    {key}
+                                                </SelectItem>
+                                            ))}
                                     </SelectContent>
                                 </Select>
                             </div>

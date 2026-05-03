@@ -11,7 +11,10 @@ import { toast } from "sonner";
 import {
     Select,
     SelectContent,
+    SelectGroup,
     SelectItem,
+    SelectLabel,
+    SelectSeparator,
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
@@ -46,8 +49,13 @@ export default function Subscription() {
     }, [action]);
     const { year, month, calendar, handlePreviousMonth, handleNextMonth } =
         useCalendar();
-    const { currenciesList, currency, setCurrency, currencyListLoading } =
-        useCurrency();
+    const {
+        currenciesList,
+        currency,
+        setCurrency,
+        currencyListLoading,
+        topCurrencies,
+    } = useCurrency();
     const [isSelectOpen, setIsSelectOpen] = useState(false);
 
     const userEmail = user?.primaryEmailAddress?.emailAddress
@@ -216,10 +224,43 @@ export default function Subscription() {
                                                 }}
                                             >
                                                 <SelectValue placeholder="Select Currency" />
-                                                <SelectContent className="min-w-[--trigger-width] tracking-widest">
-                                                    {Object.keys(
-                                                        currenciesList.currencies,
-                                                    ).map((key) => (
+                                            </SelectTrigger>
+                                            <SelectContent className="min-w-[--trigger-width] tracking-widest">
+                                                {topCurrencies.length > 0 && (
+                                                    <>
+                                                        <SelectGroup>
+                                                            <SelectLabel className="text-xs sm:text-sm">
+                                                                {t(
+                                                                    "frequentCurrencies",
+                                                                )}
+                                                            </SelectLabel>
+                                                            {topCurrencies.map(
+                                                                (key) => (
+                                                                    <SelectItem
+                                                                        key={`top-${key}`}
+                                                                        value={
+                                                                            key
+                                                                        }
+                                                                        className="cursor-pointer"
+                                                                    >
+                                                                        {key}
+                                                                    </SelectItem>
+                                                                ),
+                                                            )}
+                                                        </SelectGroup>
+                                                        <SelectSeparator />
+                                                    </>
+                                                )}
+                                                {Object.keys(
+                                                    currenciesList.currencies,
+                                                )
+                                                    .filter(
+                                                        (key) =>
+                                                            !topCurrencies.includes(
+                                                                key,
+                                                            ),
+                                                    )
+                                                    .map((key) => (
                                                         <SelectItem
                                                             key={key}
                                                             value={key}
@@ -228,8 +269,7 @@ export default function Subscription() {
                                                             {key}
                                                         </SelectItem>
                                                     ))}
-                                                </SelectContent>
-                                            </SelectTrigger>
+                                            </SelectContent>
                                         </Select>
                                     </motion.div>
                                 ) : (
