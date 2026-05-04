@@ -74,7 +74,8 @@ export function CurrencyProvider({ children }: CurrencyProviderProps) {
             try {
                 const top = await getTopCurrencies();
                 setTopCurrencies(top);
-            } catch {
+            } catch (error) {
+                console.error("Failed to fetch top currencies:", error);
                 setTopCurrencies([]);
             }
         };

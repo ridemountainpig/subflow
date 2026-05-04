@@ -6,10 +6,7 @@ import { LoaderCircle, Users, ArrowLeft } from "lucide-react";
 import {
     Select,
     SelectContent,
-    SelectGroup,
     SelectItem,
-    SelectLabel,
-    SelectSeparator,
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
@@ -21,6 +18,7 @@ import type { SubscriptionPaymentCycle } from "@/types/subscription";
 import ServicesCombobox from "@/components/subscription/services-combobox";
 import DatePicker from "@/components/subscription/date-picker";
 import CoSubscribersManager from "@/components/subscription/co-subscribers-manager";
+import CurrencySelectItems from "@/components/subscription/currency-select-items";
 
 export interface AddSubscriptionFormData {
     serviceName: string;
@@ -199,36 +197,11 @@ export default function AddSubscriptionForm({
                         <SelectValue placeholder="Select Currency" />
                     </SelectTrigger>
                     <SelectContent className="min-w-[--trigger-width] tracking-widest">
-                        {topCurrencies.length > 0 && (
-                            <>
-                                <SelectGroup>
-                                    <SelectLabel className="text-xs sm:text-sm">
-                                        {t("frequentCurrencies")}
-                                    </SelectLabel>
-                                    {topCurrencies.map((key) => (
-                                        <SelectItem
-                                            key={`top-${key}`}
-                                            value={key}
-                                            className="cursor-pointer text-xs sm:text-base"
-                                        >
-                                            {key}
-                                        </SelectItem>
-                                    ))}
-                                </SelectGroup>
-                                <SelectSeparator />
-                            </>
-                        )}
-                        {Object.keys(currenciesList.currencies)
-                            .filter((key) => !topCurrencies.includes(key))
-                            .map((key) => (
-                                <SelectItem
-                                    key={key}
-                                    value={key}
-                                    className="cursor-pointer text-xs sm:text-base"
-                                >
-                                    {key}
-                                </SelectItem>
-                            ))}
+                        <CurrencySelectItems
+                            currenciesList={currenciesList}
+                            topCurrencies={topCurrencies}
+                            frequentCurrenciesLabel={t("frequentCurrencies")}
+                        />
                     </SelectContent>
                 </Select>
             </div>

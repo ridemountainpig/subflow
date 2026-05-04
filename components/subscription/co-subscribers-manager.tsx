@@ -9,10 +9,6 @@ import { Button } from "@/components/ui/button";
 import {
     Select,
     SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectLabel,
-    SelectSeparator,
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
@@ -21,6 +17,7 @@ import { useCurrency } from "@/app/contexts/CurrencyContext";
 import { checkEmailRegistered } from "@/app/actions/action";
 import { CoSubscribersManagerProps } from "@/types/co-subscribers";
 import CoSubscriberList from "@/components/subscription/co-subscriber-list";
+import CurrencySelectItems from "@/components/subscription/currency-select-items";
 
 export default function CoSubscribersManager({
     coSubscribers,
@@ -163,36 +160,13 @@ export default function CoSubscribersManager({
                             <SelectValue />
                         </SelectTrigger>
                         <SelectContent className="min-w-[--trigger-width] tracking-widest">
-                            {topCurrencies.length > 0 && (
-                                <>
-                                    <SelectGroup>
-                                        <SelectLabel className="text-xs sm:text-sm">
-                                            {t("frequentCurrencies")}
-                                        </SelectLabel>
-                                        {topCurrencies.map((key) => (
-                                            <SelectItem
-                                                key={`top-${key}`}
-                                                value={key}
-                                                className="cursor-pointer text-xs sm:text-base"
-                                            >
-                                                {key}
-                                            </SelectItem>
-                                        ))}
-                                    </SelectGroup>
-                                    <SelectSeparator />
-                                </>
-                            )}
-                            {Object.keys(currenciesList.currencies)
-                                .filter((key) => !topCurrencies.includes(key))
-                                .map((key) => (
-                                    <SelectItem
-                                        key={key}
-                                        value={key}
-                                        className="cursor-pointer text-xs sm:text-base"
-                                    >
-                                        {key}
-                                    </SelectItem>
-                                ))}
+                            <CurrencySelectItems
+                                currenciesList={currenciesList}
+                                topCurrencies={topCurrencies}
+                                frequentCurrenciesLabel={t(
+                                    "frequentCurrencies",
+                                )}
+                            />
                         </SelectContent>
                     </Select>
                 </div>

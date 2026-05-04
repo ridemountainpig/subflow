@@ -11,10 +11,6 @@ import { toast } from "sonner";
 import {
     Select,
     SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectLabel,
-    SelectSeparator,
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
@@ -33,6 +29,7 @@ import ChartDialog from "@/components/subscription/chart-dialog";
 import CoSubscriberInvite from "@/components/subscription/co-subscriber-invite";
 import DescriptionDialog from "@/components/subscription/description-dialog";
 import NewFeatureNotify from "@/components/new-feature-notify";
+import CurrencySelectItems from "@/components/subscription/currency-select-items";
 
 export default function Subscription() {
     const { userId } = useAuth();
@@ -226,49 +223,18 @@ export default function Subscription() {
                                                 <SelectValue placeholder="Select Currency" />
                                             </SelectTrigger>
                                             <SelectContent className="min-w-[--trigger-width] tracking-widest">
-                                                {topCurrencies.length > 0 && (
-                                                    <>
-                                                        <SelectGroup>
-                                                            <SelectLabel className="text-xs sm:text-sm">
-                                                                {t(
-                                                                    "frequentCurrencies",
-                                                                )}
-                                                            </SelectLabel>
-                                                            {topCurrencies.map(
-                                                                (key) => (
-                                                                    <SelectItem
-                                                                        key={`top-${key}`}
-                                                                        value={
-                                                                            key
-                                                                        }
-                                                                        className="cursor-pointer"
-                                                                    >
-                                                                        {key}
-                                                                    </SelectItem>
-                                                                ),
-                                                            )}
-                                                        </SelectGroup>
-                                                        <SelectSeparator />
-                                                    </>
-                                                )}
-                                                {Object.keys(
-                                                    currenciesList.currencies,
-                                                )
-                                                    .filter(
-                                                        (key) =>
-                                                            !topCurrencies.includes(
-                                                                key,
-                                                            ),
-                                                    )
-                                                    .map((key) => (
-                                                        <SelectItem
-                                                            key={key}
-                                                            value={key}
-                                                            className="cursor-pointer"
-                                                        >
-                                                            {key}
-                                                        </SelectItem>
-                                                    ))}
+                                                <CurrencySelectItems
+                                                    currenciesList={
+                                                        currenciesList
+                                                    }
+                                                    topCurrencies={
+                                                        topCurrencies
+                                                    }
+                                                    frequentCurrenciesLabel={t(
+                                                        "frequentCurrencies",
+                                                    )}
+                                                    itemClassName="cursor-pointer"
+                                                />
                                             </SelectContent>
                                         </Select>
                                     </motion.div>

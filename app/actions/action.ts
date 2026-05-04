@@ -67,26 +67,35 @@ export async function getSubscription() {
 
 export async function getTopCurrencies(limit = 5): Promise<string[]> {
     const userId = await requireAuth();
+    const maxTopCurrenciesLimit = 20;
+    const safeLimit = Number.isFinite(limit)
+        ? Math.min(Math.max(Math.trunc(limit), 1), maxTopCurrenciesLimit)
+        : 5;
 
     const db = await connectToDatabase();
     const Subscription = getSubscriptionModel(db);
     const userInfo = await getUserInfoById(userId);
     const userEmail = userInfo?.emailAddress || "";
+    const subscriptionAccessConditions = [
+        { userId },
+        ...(userEmail
+            ? [
+                  {
+                      coSubscribers: {
+                          $elemMatch: {
+                              email: userEmail,
+                              confirm: true,
+                          },
+                      },
+                  },
+              ]
+            : []),
+    ];
 
     const topCurrencies = await Subscription.aggregate<{ _id: string }>([
         {
             $match: {
-                $or: [
-                    { userId },
-                    {
-                        coSubscribers: {
-                            $elemMatch: {
-                                email: userEmail,
-                                confirm: true,
-                            },
-                        },
-                    },
-                ],
+                $or: subscriptionAccessConditions,
                 currency: { $exists: true, $nin: [null, ""] },
             },
         },
@@ -100,7 +109,7 @@ export async function getTopCurrencies(limit = 5): Promise<string[]> {
             $sort: { count: -1 },
         },
         {
-            $limit: limit,
+            $limit: safeLimit,
         },
     ]);
 
