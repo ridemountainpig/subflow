@@ -70,19 +70,41 @@ export async function getTopCurrencies(limit = 5): Promise<string[]> {
 
     const db = await connectToDatabase();
     const Subscription = getSubscriptionModel(db);
+    const userInfo = await getUserInfoById(userId);
+    const userEmail = userInfo?.emailAddress || "";
 
-    const subscriptions = await Subscription.find({ userId }, { currency: 1 });
+    const topCurrencies = await Subscription.aggregate<{ _id: string }>([
+        {
+            $match: {
+                $or: [
+                    { userId },
+                    {
+                        coSubscribers: {
+                            $elemMatch: {
+                                email: userEmail,
+                                confirm: true,
+                            },
+                        },
+                    },
+                ],
+                currency: { $exists: true, $nin: [null, ""] },
+            },
+        },
+        {
+            $group: {
+                _id: "$currency",
+                count: { $sum: 1 },
+            },
+        },
+        {
+            $sort: { count: -1 },
+        },
+        {
+            $limit: limit,
+        },
+    ]);
 
-    const counts: Record<string, number> = {};
-    for (const sub of subscriptions) {
-        if (!sub.currency) continue;
-        counts[sub.currency] = (counts[sub.currency] || 0) + 1;
-    }
-
-    return Object.entries(counts)
-        .sort((a, b) => b[1] - a[1])
-        .slice(0, limit)
-        .map(([currency]) => currency);
+    return topCurrencies.map(({ _id }) => _id);
 }
 
 export async function getSubscriptionCount() {

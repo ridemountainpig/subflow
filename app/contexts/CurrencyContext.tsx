@@ -10,6 +10,7 @@ import React, {
 import { getCurrenciesList } from "@/app/actions/currency";
 import { getTopCurrencies } from "@/app/actions/action";
 import { CurrenciesList } from "@/types/currency";
+import { useAuth } from "@clerk/nextjs";
 
 interface CurrencyContextType {
     currenciesList: CurrenciesList;
@@ -28,6 +29,7 @@ interface CurrencyProviderProps {
 }
 
 export function CurrencyProvider({ children }: CurrencyProviderProps) {
+    const { userId } = useAuth();
     const [currenciesList, setCurrenciesList] = useState<CurrenciesList>({
         currencies: {},
     });
@@ -49,15 +51,6 @@ export function CurrencyProvider({ children }: CurrencyProviderProps) {
             }
         };
 
-        const fetchTopCurrencies = async () => {
-            try {
-                const top = await getTopCurrencies();
-                setTopCurrencies(top);
-            } catch {
-                // not authenticated yet or no subscriptions
-            }
-        };
-
         const fetchLocalStorage = () => {
             if (typeof window !== "undefined") {
                 const savedCurrency = localStorage.getItem("currency");
@@ -68,9 +61,26 @@ export function CurrencyProvider({ children }: CurrencyProviderProps) {
         };
 
         fetchCurrenciesList();
-        fetchTopCurrencies();
         fetchLocalStorage();
     }, []);
+
+    useEffect(() => {
+        const fetchTopCurrencies = async () => {
+            if (!userId) {
+                setTopCurrencies([]);
+                return;
+            }
+
+            try {
+                const top = await getTopCurrencies();
+                setTopCurrencies(top);
+            } catch {
+                setTopCurrencies([]);
+            }
+        };
+
+        fetchTopCurrencies();
+    }, [userId]);
 
     useEffect(() => {
         if (typeof window !== "undefined") {
