@@ -9,7 +9,6 @@ import { Button } from "@/components/ui/button";
 import {
     Select,
     SelectContent,
-    SelectItem,
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
@@ -18,6 +17,7 @@ import { useCurrency } from "@/app/contexts/CurrencyContext";
 import { checkEmailRegistered } from "@/app/actions/action";
 import { CoSubscribersManagerProps } from "@/types/co-subscribers";
 import CoSubscriberList from "@/components/subscription/co-subscriber-list";
+import CurrencySelectItems from "@/components/subscription/currency-select-items";
 
 export default function CoSubscribersManager({
     coSubscribers,
@@ -26,7 +26,7 @@ export default function CoSubscribersManager({
 }: CoSubscribersManagerProps) {
     const t = useTranslations("SubscriptionPage");
     const { user } = useUser();
-    const { currenciesList } = useCurrency();
+    const { currenciesList, topCurrencies } = useCurrency();
     const [emailInput, setEmailInput] = useState("");
     const [amountInput, setAmountInput] = useState<number | "">("");
     const [currencyInput, setCurrencyInput] = useState(subscriptionCurrency);
@@ -160,17 +160,13 @@ export default function CoSubscribersManager({
                             <SelectValue />
                         </SelectTrigger>
                         <SelectContent className="min-w-[--trigger-width] tracking-widest">
-                            {Object.keys(currenciesList.currencies).map(
-                                (key) => (
-                                    <SelectItem
-                                        key={key}
-                                        value={key}
-                                        className="cursor-pointer text-xs sm:text-base"
-                                    >
-                                        {key}
-                                    </SelectItem>
-                                ),
-                            )}
+                            <CurrencySelectItems
+                                currenciesList={currenciesList}
+                                topCurrencies={topCurrencies}
+                                frequentCurrenciesLabel={t(
+                                    "frequentCurrencies",
+                                )}
+                            />
                         </SelectContent>
                     </Select>
                 </div>

@@ -31,6 +31,7 @@ import { CoSubscriber } from "@/types/co-subscribers";
 import ServicesCombobox from "@/components/subscription/services-combobox";
 import DatePicker from "@/components/subscription/date-picker";
 import CoSubscribersManager from "@/components/subscription/co-subscribers-manager";
+import CurrencySelectItems from "@/components/subscription/currency-select-items";
 
 interface UpdateSubscriptionDialogProps {
     subscription: Subscription;
@@ -45,7 +46,7 @@ export default function UpdateSubscriptionDialog({
 }: UpdateSubscriptionDialogProps) {
     const [open, setOpen] = useState(autoOpen);
     const t = useTranslations("SubscriptionPage");
-    const { currenciesList } = useCurrency();
+    const { currenciesList, topCurrencies } = useCurrency();
 
     const [serviceName, setServiceName] = useState(subscription.name);
     const [serviceUuid, setServiceUuid] = useState(subscription.serviceId);
@@ -248,17 +249,13 @@ export default function UpdateSubscriptionDialog({
                                         <SelectValue placeholder="Select Currency" />
                                     </SelectTrigger>
                                     <SelectContent className="min-w-[--trigger-width] tracking-widest">
-                                        {Object.keys(
-                                            currenciesList.currencies,
-                                        ).map((key) => (
-                                            <SelectItem
-                                                key={key}
-                                                value={key}
-                                                className="cursor-pointer text-xs sm:text-base"
-                                            >
-                                                {key}
-                                            </SelectItem>
-                                        ))}
+                                        <CurrencySelectItems
+                                            currenciesList={currenciesList}
+                                            topCurrencies={topCurrencies}
+                                            frequentCurrenciesLabel={t(
+                                                "frequentCurrencies",
+                                            )}
+                                        />
                                     </SelectContent>
                                 </Select>
                             </div>

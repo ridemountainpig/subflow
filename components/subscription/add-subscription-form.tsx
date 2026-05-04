@@ -18,6 +18,7 @@ import type { SubscriptionPaymentCycle } from "@/types/subscription";
 import ServicesCombobox from "@/components/subscription/services-combobox";
 import DatePicker from "@/components/subscription/date-picker";
 import CoSubscribersManager from "@/components/subscription/co-subscribers-manager";
+import CurrencySelectItems from "@/components/subscription/currency-select-items";
 
 export interface AddSubscriptionFormData {
     serviceName: string;
@@ -56,7 +57,7 @@ export default function AddSubscriptionForm({
     onViewModeChange,
 }: AddSubscriptionFormProps) {
     const t = useTranslations("SubscriptionPage");
-    const { currenciesList } = useCurrency();
+    const { currenciesList, topCurrencies } = useCurrency();
 
     const [serviceName, setServiceName] = useState(
         initialValues?.serviceName || "",
@@ -196,15 +197,11 @@ export default function AddSubscriptionForm({
                         <SelectValue placeholder="Select Currency" />
                     </SelectTrigger>
                     <SelectContent className="min-w-[--trigger-width] tracking-widest">
-                        {Object.keys(currenciesList.currencies).map((key) => (
-                            <SelectItem
-                                key={key}
-                                value={key}
-                                className="cursor-pointer text-xs sm:text-base"
-                            >
-                                {key}
-                            </SelectItem>
-                        ))}
+                        <CurrencySelectItems
+                            currenciesList={currenciesList}
+                            topCurrencies={topCurrencies}
+                            frequentCurrenciesLabel={t("frequentCurrencies")}
+                        />
                     </SelectContent>
                 </Select>
             </div>

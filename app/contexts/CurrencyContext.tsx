@@ -8,13 +8,16 @@ import React, {
     ReactNode,
 } from "react";
 import { getCurrenciesList } from "@/app/actions/currency";
+import { getTopCurrencies } from "@/app/actions/action";
 import { CurrenciesList } from "@/types/currency";
+import { useAuth } from "@clerk/nextjs";
 
 interface CurrencyContextType {
     currenciesList: CurrenciesList;
     currency: string;
     setCurrency: (currency: string) => void;
     currencyListLoading: boolean;
+    topCurrencies: string[];
 }
 
 const CurrencyContext = createContext<CurrencyContextType | undefined>(
@@ -26,11 +29,13 @@ interface CurrencyProviderProps {
 }
 
 export function CurrencyProvider({ children }: CurrencyProviderProps) {
+    const { userId } = useAuth();
     const [currenciesList, setCurrenciesList] = useState<CurrenciesList>({
         currencies: {},
     });
     const [currencyListLoading, setCurrencyListLoading] = useState(true);
     const [currency, setCurrency] = useState("USD");
+    const [topCurrencies, setTopCurrencies] = useState<string[]>([]);
 
     useEffect(() => {
         const fetchCurrenciesList = async () => {
@@ -60,6 +65,25 @@ export function CurrencyProvider({ children }: CurrencyProviderProps) {
     }, []);
 
     useEffect(() => {
+        const fetchTopCurrencies = async () => {
+            if (!userId) {
+                setTopCurrencies([]);
+                return;
+            }
+
+            try {
+                const top = await getTopCurrencies();
+                setTopCurrencies(top);
+            } catch (error) {
+                console.error("Failed to fetch top currencies:", error);
+                setTopCurrencies([]);
+            }
+        };
+
+        fetchTopCurrencies();
+    }, [userId]);
+
+    useEffect(() => {
         if (typeof window !== "undefined") {
             localStorage.setItem("currency", currency);
         }
@@ -70,6 +94,7 @@ export function CurrencyProvider({ children }: CurrencyProviderProps) {
         currency,
         setCurrency,
         currencyListLoading,
+        topCurrencies,
     };
 
     return (

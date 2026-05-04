@@ -161,6 +161,7 @@
         "subscriptionList": "サブスク一覧",
         "subscriptionListDescription": "年額・四半期額は月平均に換算済み",
         "noSubscription": "サブスクなし",
+        "frequentCurrencies": "よく使う通貨",
         "totalSpend": "総支出",
         "since": "開始日",
         "close": "閉じる",

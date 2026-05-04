@@ -85,7 +85,6 @@ function stripHtml(input: string) {
         .trim();
 }
 
-
 function cleanUsageText(locale: AppLocale, input: string) {
     const plain = stripHtml(input);
     return locale === "zh" ? plain.replace(/\s+/g, "") : plain;

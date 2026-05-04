@@ -65,6 +65,57 @@ export async function getSubscription() {
     return JSON.parse(JSON.stringify(subscriptionsWithIdentifier));
 }
 
+export async function getTopCurrencies(limit = 5): Promise<string[]> {
+    const userId = await requireAuth();
+    const maxTopCurrenciesLimit = 20;
+    const safeLimit = Number.isFinite(limit)
+        ? Math.min(Math.max(Math.trunc(limit), 1), maxTopCurrenciesLimit)
+        : 5;
+
+    const db = await connectToDatabase();
+    const Subscription = getSubscriptionModel(db);
+    const userInfo = await getUserInfoById(userId);
+    const userEmail = userInfo?.emailAddress || "";
+    const subscriptionAccessConditions = [
+        { userId },
+        ...(userEmail
+            ? [
+                  {
+                      coSubscribers: {
+                          $elemMatch: {
+                              email: userEmail,
+                              confirm: true,
+                          },
+                      },
+                  },
+              ]
+            : []),
+    ];
+
+    const topCurrencies = await Subscription.aggregate<{ _id: string }>([
+        {
+            $match: {
+                $or: subscriptionAccessConditions,
+                currency: { $exists: true, $nin: [null, ""] },
+            },
+        },
+        {
+            $group: {
+                _id: "$currency",
+                count: { $sum: 1 },
+            },
+        },
+        {
+            $sort: { count: -1 },
+        },
+        {
+            $limit: safeLimit,
+        },
+    ]);
+
+    return topCurrencies.map(({ _id }) => _id);
+}
+
 export async function getSubscriptionCount() {
     try {
         const db = await connectToDatabase();

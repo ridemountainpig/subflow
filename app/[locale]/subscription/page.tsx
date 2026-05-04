@@ -11,7 +11,6 @@ import { toast } from "sonner";
 import {
     Select,
     SelectContent,
-    SelectItem,
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
@@ -30,6 +29,7 @@ import ChartDialog from "@/components/subscription/chart-dialog";
 import CoSubscriberInvite from "@/components/subscription/co-subscriber-invite";
 import DescriptionDialog from "@/components/subscription/description-dialog";
 import NewFeatureNotify from "@/components/new-feature-notify";
+import CurrencySelectItems from "@/components/subscription/currency-select-items";
 
 export default function Subscription() {
     const { userId } = useAuth();
@@ -46,8 +46,13 @@ export default function Subscription() {
     }, [action]);
     const { year, month, calendar, handlePreviousMonth, handleNextMonth } =
         useCalendar();
-    const { currenciesList, currency, setCurrency, currencyListLoading } =
-        useCurrency();
+    const {
+        currenciesList,
+        currency,
+        setCurrency,
+        currencyListLoading,
+        topCurrencies,
+    } = useCurrency();
     const [isSelectOpen, setIsSelectOpen] = useState(false);
 
     const userEmail = user?.primaryEmailAddress?.emailAddress
@@ -216,20 +221,21 @@ export default function Subscription() {
                                                 }}
                                             >
                                                 <SelectValue placeholder="Select Currency" />
-                                                <SelectContent className="min-w-[--trigger-width] tracking-widest">
-                                                    {Object.keys(
-                                                        currenciesList.currencies,
-                                                    ).map((key) => (
-                                                        <SelectItem
-                                                            key={key}
-                                                            value={key}
-                                                            className="cursor-pointer"
-                                                        >
-                                                            {key}
-                                                        </SelectItem>
-                                                    ))}
-                                                </SelectContent>
                                             </SelectTrigger>
+                                            <SelectContent className="min-w-[--trigger-width] tracking-widest">
+                                                <CurrencySelectItems
+                                                    currenciesList={
+                                                        currenciesList
+                                                    }
+                                                    topCurrencies={
+                                                        topCurrencies
+                                                    }
+                                                    frequentCurrenciesLabel={t(
+                                                        "frequentCurrencies",
+                                                    )}
+                                                    itemClassName="cursor-pointer"
+                                                />
+                                            </SelectContent>
                                         </Select>
                                     </motion.div>
                                 ) : (
