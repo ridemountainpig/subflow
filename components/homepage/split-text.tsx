@@ -131,13 +131,10 @@ const SplitText: React.FC<SplitTextProps> = ({
         onLetterAnimationComplete,
     ]);
 
+    const Component = Tag as React.ElementType;
     return (
-        <Tag
-            ref={
-                ref as React.RefObject<
-                    HTMLHeadingElement & HTMLParagraphElement
-                >
-            }
+        <Component
+            ref={ref}
             className={`split-parent inline-block overflow-hidden whitespace-normal ${className}`}
             style={{
                 textAlign,
@@ -145,7 +142,7 @@ const SplitText: React.FC<SplitTextProps> = ({
             }}
         >
             {text}
-        </Tag>
+        </Component>
     );
 };
 

@@ -28,6 +28,7 @@ import {
     DialogTitle,
     DialogDescription,
 } from "@/components/ui/dialog";
+import { useUser } from "@clerk/nextjs";
 
 import { useIsMobile } from "@/app/hooks/useIsMobile";
 import { usePreferences } from "@/app/contexts/PreferencesContext";
@@ -43,6 +44,7 @@ import {
     getNextRenewalDate,
     daysBetween,
     formatTrendMonthLabel,
+    getEffectiveConvertedPrice,
 } from "./chart-dialog-utils";
 import {
     CustomLabel,
@@ -78,6 +80,25 @@ export default function ChartDialog({
     const locale = useLocale();
     const isMobile = useIsMobile();
     const { notAmortizeYearlySubscriptions } = usePreferences();
+    const { user } = useUser();
+    const userEmail = user?.primaryEmailAddress?.emailAddress
+        ?.toLowerCase()
+        .trim();
+
+    const effectiveSubscriptions = useMemo(() => {
+        return subscription
+            .map((sub) => {
+                const effective = getEffectiveConvertedPrice(
+                    sub,
+                    currency,
+                    userEmail,
+                );
+                return effective == null
+                    ? null
+                    : { ...sub, convertedPrice: effective };
+            })
+            .filter((sub): sub is SubscriptionWithPrice => sub !== null);
+    }, [subscription, currency, userEmail]);
 
     useEffect(() => {
         const updateScreenWidth = () => {
@@ -95,7 +116,7 @@ export default function ChartDialog({
 
     const data = useMemo(
         () =>
-            subscription.map((item) => {
+            effectiveSubscriptions.map((item) => {
                 const displayPrice = toDisplayMonthlyAmount(
                     item.convertedPrice,
                     item.paymentCycle,
@@ -126,7 +147,12 @@ export default function ChartDialog({
                     ),
                 };
             }),
-        [subscription, monthSpend, currency, notAmortizeYearlySubscriptions],
+        [
+            effectiveSubscriptions,
+            monthSpend,
+            currency,
+            notAmortizeYearlySubscriptions,
+        ],
     );
 
     const sortedData = useMemo(
@@ -146,7 +172,7 @@ export default function ChartDialog({
             const y = d.getFullYear();
             const m = d.getMonth() + 1;
             const label = formatTrendMonthLabel(d, locale);
-            const amount = subscription
+            const rawAmount = effectiveSubscriptions
                 .filter((sub) =>
                     subscriptionVisibleInMonth(sub, y, m, isCashFlow),
                 )
@@ -158,25 +184,26 @@ export default function ChartDialog({
                               sub.paymentCycle,
                               false,
                           );
-                    return sum + Math.round(val);
+                    return sum + val;
                 }, 0);
             const isCurrentMonth =
                 y === now.getFullYear() && m === now.getMonth() + 1;
-            return { label, amount, isCurrentMonth };
+            return { label, amount: Math.round(rawAmount), isCurrentMonth };
         });
-    }, [subscription, trendMode, locale]);
+    }, [effectiveSubscriptions, trendMode, locale]);
 
     const statsData = useMemo(() => {
         const currentYear = new Date().getFullYear();
         let totalSpentEver = 0;
         let newThisYear = 0;
+        let amortizedMonthly = 0;
         const cycles = {
             monthly: { count: 0, spend: 0 },
             quarterly: { count: 0, spend: 0 },
             yearly: { count: 0, spend: 0 },
         };
 
-        for (const sub of subscription) {
+        for (const sub of effectiveSubscriptions) {
             if (sub.startDate.year === currentYear) newThisYear++;
 
             const displayPrice = toDisplayMonthlyAmount(
@@ -184,6 +211,12 @@ export default function ChartDialog({
                 sub.paymentCycle,
                 notAmortizeYearlySubscriptions,
             );
+            const amortizedPrice = toDisplayMonthlyAmount(
+                sub.convertedPrice,
+                sub.paymentCycle,
+                false,
+            );
+            amortizedMonthly += amortizedPrice;
             const months = calculateMonthsFromStart(sub.startDate);
             totalSpentEver += totalSpendSinceStart(
                 displayPrice,
@@ -195,11 +228,7 @@ export default function ChartDialog({
             const cycleKey = sub.paymentCycle as keyof typeof cycles;
             if (cycleKey in cycles) {
                 cycles[cycleKey].count++;
-                cycles[cycleKey].spend += toDisplayMonthlyAmount(
-                    sub.convertedPrice,
-                    sub.paymentCycle,
-                    false,
-                );
+                cycles[cycleKey].spend += amortizedPrice;
             }
         }
 
@@ -228,13 +257,15 @@ export default function ChartDialog({
                 : 0;
 
         return {
-            annualSpend: Math.round(monthSpend * 12),
-            dailyRate: Math.round((monthSpend / 30) * 10) / 10,
-            totalCount: subscription.length,
+            annualSpend: Math.round(amortizedMonthly * 12),
+            dailyRate: Math.round((amortizedMonthly / 30) * 10) / 10,
+            totalCount: effectiveSubscriptions.length,
             totalSpentEver: Math.round(totalSpentEver),
             avgPerSub:
-                subscription.length > 0
-                    ? Math.round(monthSpend / subscription.length)
+                effectiveSubscriptions.length > 0
+                    ? Math.round(
+                          amortizedMonthly / effectiveSubscriptions.length,
+                      )
                     : 0,
             newThisYear,
             cycles: {
@@ -252,7 +283,7 @@ export default function ChartDialog({
                 },
             },
         };
-    }, [subscription, monthSpend, notAmortizeYearlySubscriptions]);
+    }, [effectiveSubscriptions, notAmortizeYearlySubscriptions]);
 
     const analyticsInsights = useMemo(() => {
         const now = new Date();
@@ -260,7 +291,7 @@ export default function ChartDialog({
             month: "short",
             day: "numeric",
         });
-        const upcoming = subscription
+        const upcoming = effectiveSubscriptions
             .map((sub) => {
                 const renewalDate = getNextRenewalDate(sub, now);
                 return {
@@ -288,7 +319,7 @@ export default function ChartDialog({
                   ? 100
                   : 0;
 
-        const annualCandidates = subscription
+        const annualCandidates = effectiveSubscriptions
             .filter(
                 (sub) =>
                     sub.paymentCycle !== "yearly" &&
@@ -313,7 +344,7 @@ export default function ChartDialog({
             annualCandidates,
             annualCandidateCount: annualCandidates.length,
         };
-    }, [subscription, sortedData, trendData, locale, t]);
+    }, [effectiveSubscriptions, sortedData, trendData, locale, t]);
 
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>

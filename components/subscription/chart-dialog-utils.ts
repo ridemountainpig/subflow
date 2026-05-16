@@ -1,5 +1,37 @@
 import { SubscriptionWithPrice } from "@/types/subscription";
 
+/**
+ * Returns the price actually attributable to the current user in the target
+ * display currency, accounting for co-subscription splits. Returns null when
+ * the subscription should be excluded (no co-subscriber amount, or an
+ * unrecognised currency pair). Mirrors the logic in
+ * `useSubscription.totalSpend` so charts stay in sync with the page header.
+ */
+export const getEffectiveConvertedPrice = (
+    sub: SubscriptionWithPrice,
+    currency: string,
+    userEmail?: string,
+): number | null => {
+    if (!sub.isCoSubscription || !userEmail) {
+        return sub.convertedPrice;
+    }
+    const coSubscriber = sub.coSubscribers?.find((c) => c.email === userEmail);
+    if (!coSubscriber) {
+        return sub.convertedPrice;
+    }
+    if (coSubscriber.amount === undefined) {
+        return null;
+    }
+    if (coSubscriber.currency === currency) {
+        return coSubscriber.amount;
+    }
+    if (coSubscriber.currency === sub.currency) {
+        const ratio = sub.convertedPrice / sub.price;
+        return coSubscriber.amount * ratio;
+    }
+    return null;
+};
+
 export const calculateMonthsFromStart = (startDate: {
     year: number;
     month: number;
