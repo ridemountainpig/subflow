@@ -36,6 +36,10 @@ export default function RaycastSpotlightGallery({
                     <img
                         src={images[activeIndex].src}
                         alt={images[activeIndex].alt}
+                        width={1600}
+                        height={1000}
+                        loading="lazy"
+                        decoding="async"
                         className="h-auto w-full"
                     />
                 </div>
@@ -86,6 +90,10 @@ export default function RaycastSpotlightGallery({
                         <img
                             src={image.src}
                             alt={image.alt}
+                            width={1600}
+                            height={1000}
+                            loading="lazy"
+                            decoding="async"
                             className="h-auto w-full"
                         />
                     </div>

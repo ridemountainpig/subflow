@@ -11,7 +11,8 @@ export type EmailContent = {
             items: {
                 title: string;
                 icon: string;
-                image: string;
+                image?: string;
+                images?: string[];
                 description: string;
                 usage: {
                     label: string;
@@ -82,7 +83,10 @@ export function getContent(language: Language): EmailContent {
                             {
                                 title: "Subscription Analytics",
                                 icon: "pie-chart",
-                                image: "https://subflow.ing/welcome-email/subscription-analyze-en.png",
+                                images: [
+                                    "https://subflow.ing/welcome-email/subscription-analyze-one-en.png",
+                                    "https://subflow.ing/welcome-email/subscription-analyze-two-en.png",
+                                ],
                                 description:
                                     "Visualize subscription spending ratios with charts to quickly grasp expenditure structure.",
                                 usage: {
@@ -187,7 +191,10 @@ export function getContent(language: Language): EmailContent {
                             {
                                 title: "訂閱分析",
                                 icon: "pie-chart",
-                                image: "https://subflow.ing/welcome-email/subscription-analyze-zh.png",
+                                images: [
+                                    "https://subflow.ing/welcome-email/subscription-analyze-one-zh.png",
+                                    "https://subflow.ing/welcome-email/subscription-analyze-two-zh.png",
+                                ],
                                 description:
                                     "用圖表呈現訂閱花費比例，快速掌握支出結構。",
                                 usage: {
@@ -292,7 +299,10 @@ export function getContent(language: Language): EmailContent {
                             {
                                 title: "サブスク分析",
                                 icon: "pie-chart",
-                                image: "https://subflow.ing/welcome-email/subscription-analyze-ja.png",
+                                images: [
+                                    "https://subflow.ing/welcome-email/subscription-analyze-one-ja.png",
+                                    "https://subflow.ing/welcome-email/subscription-analyze-two-ja.png",
+                                ],
                                 description:
                                     "チャートでサブスクリプションの支出比率を可視化し、支出構造を素早く把握できます。",
                                 usage: {
@@ -397,7 +407,10 @@ export function getContent(language: Language): EmailContent {
                             {
                                 title: "Análisis de suscripciones",
                                 icon: "pie-chart",
-                                image: "https://subflow.ing/welcome-email/subscription-analyze-es.png",
+                                images: [
+                                    "https://subflow.ing/welcome-email/subscription-analyze-one-es.png",
+                                    "https://subflow.ing/welcome-email/subscription-analyze-two-es.png",
+                                ],
                                 description:
                                     "Visualiza las proporciones de gasto en suscripciones con gráficos para entender rápidamente la estructura de gastos.",
                                 usage: {

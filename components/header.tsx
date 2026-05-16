@@ -41,6 +41,10 @@ export default function Header() {
                         <img
                             src="/subflow-dark.svg"
                             alt="subflow-logo"
+                            width={76}
+                            height={76}
+                            decoding="async"
+                            fetchPriority="high"
                             className="h-10 w-10 sm:h-19 sm:w-19"
                         />
                     </Link>

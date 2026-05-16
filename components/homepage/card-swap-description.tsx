@@ -86,15 +86,36 @@ export default function CardSwapDescription() {
                     pauseOnHover={false}
                 >
                     <Card>
-                        <img src="homepage-images/card-one.png" alt="Card 1" />
-                    </Card>
-                    <Card>
-                        <img src="homepage-images/card-two.png" alt="Card 2" />
+                        <img
+                            src="/homepage-images/card-one.png"
+                            alt="Card 1"
+                            width={1620}
+                            height={1050}
+                            loading="lazy"
+                            decoding="async"
+                            className="h-full w-full object-cover"
+                        />
                     </Card>
                     <Card>
                         <img
-                            src="homepage-images/card-three.png"
+                            src="/homepage-images/card-two.png"
+                            alt="Card 2"
+                            width={1620}
+                            height={1050}
+                            loading="lazy"
+                            decoding="async"
+                            className="h-full w-full object-cover"
+                        />
+                    </Card>
+                    <Card>
+                        <img
+                            src="/homepage-images/card-three.png"
                             alt="Card 3"
+                            width={1620}
+                            height={1050}
+                            loading="lazy"
+                            decoding="async"
+                            className="h-full w-full object-cover"
                         />
                     </Card>
                 </CardSwap>

@@ -11,17 +11,21 @@ import {
     Sparkles,
     Users,
     MailCheck,
+    PieChart,
     Rocket,
     ChevronLeft,
+    ArrowUpRightIcon,
     LucideProps,
     type LucideIcon,
 } from "lucide-react";
+import { BCP47_LOCALES, SITE_ORIGIN, type AppLocale } from "@/lib/seo";
 
 const iconMap: Record<string, LucideIcon> = {
     Mail,
     Sparkles,
     Users,
     MailCheck,
+    PieChart,
     Rocket,
 };
 
@@ -34,6 +38,8 @@ function TimelineIcon({ name, ...props }: { name: string } & LucideProps) {
                 alt="icon"
                 width={props.size ?? 18}
                 height={props.size ?? 18}
+                loading="lazy"
+                decoding="async"
             />
         );
     }
@@ -60,8 +66,85 @@ export default function Changelog() {
     const isZhOrJa = locale === "zh" || locale === "ja";
     const groups = groupByYear(changelogs);
 
+    const pageUrl = `${SITE_ORIGIN}/${locale}/changelog`;
+    const structuredData = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "CollectionPage",
+                "@id": `${pageUrl}#webpage`,
+                name: `${t("title")} | Subflow`,
+                description: t("subtitle"),
+                url: pageUrl,
+                inLanguage: BCP47_LOCALES[locale as AppLocale],
+                isPartOf: {
+                    "@type": "WebSite",
+                    name: "Subflow",
+                    url: SITE_ORIGIN,
+                },
+            },
+            {
+                "@type": "BreadcrumbList",
+                itemListElement: [
+                    {
+                        "@type": "ListItem",
+                        position: 1,
+                        name: "Subflow",
+                        item: `${SITE_ORIGIN}/${locale}`,
+                    },
+                    {
+                        "@type": "ListItem",
+                        position: 2,
+                        name: t("title"),
+                        item: pageUrl,
+                    },
+                ],
+            },
+            {
+                "@type": "ItemList",
+                itemListOrder: "https://schema.org/ItemListOrderDescending",
+                numberOfItems: changelogs.length,
+                itemListElement: changelogs.map((item, index) => {
+                    const langKey = locale as AppLocale;
+                    const title = item.title[langKey] || item.title.en;
+                    const content = item.content[langKey] || item.content.en;
+                    const fragment = `#${item.date}`;
+                    return {
+                        "@type": "ListItem",
+                        position: index + 1,
+                        item: {
+                            "@type": "TechArticle",
+                            headline: title,
+                            datePublished: item.date,
+                            dateModified: item.date,
+                            inLanguage: BCP47_LOCALES[langKey],
+                            description: content,
+                            url: `${pageUrl}${fragment}`,
+                            author: {
+                                "@type": "Organization",
+                                name: "Subflow",
+                                url: SITE_ORIGIN,
+                            },
+                            publisher: {
+                                "@type": "Organization",
+                                name: "Subflow",
+                                url: SITE_ORIGIN,
+                            },
+                        },
+                    };
+                }),
+            },
+        ],
+    };
+
     return (
         <div className="bg-subflow-900 flex min-h-screen w-full flex-col items-center">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify(structuredData),
+                }}
+            />
             <div className="w-full max-w-2xl px-6 pt-8">
                 <Link
                     href="/"
@@ -72,8 +155,8 @@ export default function Changelog() {
                 </Link>
             </div>
             <div className="flex w-full flex-col items-center justify-center gap-y-4 py-10">
-                <h1 className="sr-only">{t("title")}</h1>
                 <SplitText
+                    as="h1"
                     text={t("title")}
                     delay={isZhOrJa ? 100 : 150}
                     duration={1}
@@ -105,8 +188,14 @@ export default function Changelog() {
                                 ] || item.content.en;
                             const isLastItem = i === items.length - 1;
 
+                            const linkLabel =
+                                item.link?.label[
+                                    locale as keyof typeof item.link.label
+                                ] || item.link?.label.en;
+
                             return (
-                                <motion.div
+                                <motion.article
+                                    id={item.date}
                                     key={item.date}
                                     initial={{ opacity: 0, x: -20 }}
                                     whileInView={{ opacity: 1, x: 0 }}
@@ -116,7 +205,7 @@ export default function Changelog() {
                                         delay: i * 0.07,
                                     }}
                                     viewport={{ once: true, margin: "-60px" }}
-                                    className="relative mb-10 flex gap-5"
+                                    className="relative mb-10 flex scroll-mt-24 gap-5"
                                 >
                                     <div className="flex flex-col items-center">
                                         <div className="bg-subflow-800 border-subflow-700 z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border">
@@ -132,7 +221,10 @@ export default function Changelog() {
                                     </div>
 
                                     <div className="pt-1 pb-2">
-                                        <time className="text-subflow-500 mb-1 block text-xs font-semibold tracking-widest">
+                                        <time
+                                            dateTime={item.date}
+                                            className="text-subflow-500 mb-1 block text-xs font-semibold tracking-widest"
+                                        >
                                             {new Date(
                                                 item.date,
                                             ).toLocaleDateString(locale, {
@@ -142,14 +234,23 @@ export default function Changelog() {
                                                 timeZone: "UTC",
                                             })}
                                         </time>
-                                        <h4 className="text-subflow-50 mb-2 text-lg font-bold tracking-wide">
+                                        <h2 className="text-subflow-50 mb-2 text-lg font-bold tracking-wide">
                                             {title}
-                                        </h4>
+                                        </h2>
                                         <p className="text-subflow-400 text-sm leading-relaxed tracking-wide">
                                             {content}
                                         </p>
+                                        {item.link && linkLabel && (
+                                            <Link
+                                                href={item.link.href}
+                                                className="text-subflow-200 hover:text-subflow-50 mt-3 inline-flex items-center gap-1 text-xs font-semibold tracking-widest uppercase transition-colors"
+                                            >
+                                                {linkLabel}
+                                                <ArrowUpRightIcon className="h-3.5 w-3.5" />
+                                            </Link>
+                                        )}
                                     </div>
-                                </motion.div>
+                                </motion.article>
                             );
                         })}
                     </div>

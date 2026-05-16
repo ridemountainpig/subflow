@@ -104,7 +104,41 @@
             "confirmTextTwo": "這個訂閱項目嗎？"
         },
         "chartDialog": {
-            "title": "訂閱分析"
+            "title": "訂閱分析",
+            "tabs": {
+                "breakdown": "支出分布",
+                "analytics": "分析"
+            },
+            "monthlyAvg": "月均攤",
+            "cashFlow": "實際現金流",
+            "annualSpend": "年度花費",
+            "dailyRate": "每日費率",
+            "totalSubscriptions": "訂閱數",
+            "totalSpentEver": "歷史總花費",
+            "avgPerSub": "平均每筆",
+            "newThisYear": "今年新增",
+            "cycleBreakdown": "付款週期分布",
+            "overviewEyebrow": "總覽",
+            "overviewTitle": "訂閱花費儀表板",
+            "overviewDescription": "快速查看趨勢、集中度與近期續訂，找出最值得檢查的訂閱。",
+            "trendTitle": "12 個月花費趨勢",
+            "trendDescriptionAvg": "以月均攤方式呈現，適合檢查長期訂閱負擔。",
+            "trendDescriptionCashFlow": "以實際扣款月份呈現，適合預估現金流尖峰。",
+            "largestShare": "最大支出占比",
+            "largestShareDescription": "占比越高，越值得優先檢查是否仍需要。",
+            "renewalsNext30Days": "30 天內續訂",
+            "renewalsNext30DaysDescription": "{count} 筆即將續訂，合計約 {amount} {currency}。",
+            "noUpcomingRenewals": "近期無續訂",
+            "noUpcomingRenewalsDescription": "未來 30 天沒有可見續訂。",
+            "previousMonthDelta": "較上月變化",
+            "deltaIncreaseDescription": "本月預估花費高於上月。",
+            "deltaDecreaseDescription": "本月預估花費低於上月。",
+            "deltaFlatDescription": "本月預估花費與上月相近。",
+            "cycleBreakdownDescription": "金額以每月等效成本呈現，方便比較付款週期。",
+            "subs": "筆",
+            "annualUpgradeHint": "考慮切換年訂閱",
+            "annualUpgradeHintDescription": "{count} 個訂閱已以月付或季付超過一年，切換年訂閱可能降低總花費。",
+            "annualUpgradeHintNoneDescription": "目前沒有月付或季付訂閱超過 12 個月。"
         },
         "descriptionDialog": {
             "title": "使用說明",

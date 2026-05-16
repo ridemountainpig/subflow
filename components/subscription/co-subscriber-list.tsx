@@ -38,6 +38,10 @@ function CoSubscriberListItem({
                         <img
                             src={userInfo.imageUrl}
                             alt={displayName}
+                            width={20}
+                            height={20}
+                            loading="lazy"
+                            decoding="async"
                             className="h-5 w-5 rounded-full object-cover"
                         />
                     ) : (

@@ -104,7 +104,41 @@
             "confirmTextTwo": "suscripción?"
         },
         "chartDialog": {
-            "title": "Análisis de suscripciones"
+            "title": "Análisis de suscripciones",
+            "tabs": {
+                "breakdown": "Desglose",
+                "analytics": "Análisis"
+            },
+            "monthlyAvg": "Prom. mensual",
+            "cashFlow": "Flujo real",
+            "annualSpend": "Gasto anual",
+            "dailyRate": "Tarifa diaria",
+            "totalSubscriptions": "Suscripciones",
+            "totalSpentEver": "Total gastado",
+            "avgPerSub": "Prom. por sub.",
+            "newThisYear": "Nuevas este año",
+            "cycleBreakdown": "Ciclos de pago",
+            "overviewEyebrow": "Resumen",
+            "overviewTitle": "Panel de gasto en suscripciones",
+            "overviewDescription": "Revisa tendencias, concentración y próximas renovaciones para encontrar qué suscripciones conviene revisar primero.",
+            "trendTitle": "Tendencia de 12 meses",
+            "trendDescriptionAvg": "Muestra el costo mensual equivalente para leer la carga recurrente a largo plazo.",
+            "trendDescriptionCashFlow": "Muestra los meses de cobro para detectar picos de flujo de caja.",
+            "largestShare": "Mayor proporción",
+            "largestShareDescription": "Cuanto mayor sea la proporción, más conviene revisar su valor.",
+            "renewalsNext30Days": "Próximos 30 días",
+            "renewalsNext30DaysDescription": "{count} renovaciones próximas, cerca de {amount} {currency} en total.",
+            "noUpcomingRenewals": "Sin renovaciones pronto",
+            "noUpcomingRenewalsDescription": "No hay renovaciones visibles en los próximos 30 días.",
+            "previousMonthDelta": "Vs. mes anterior",
+            "deltaIncreaseDescription": "El gasto estimado es mayor que el mes anterior.",
+            "deltaDecreaseDescription": "El gasto estimado es menor que el mes anterior.",
+            "deltaFlatDescription": "El gasto estimado está cerca del mes anterior.",
+            "cycleBreakdownDescription": "Los importes usan costo mensual equivalente para comparar ciclos de pago.",
+            "subs": "subs",
+            "annualUpgradeHint": "Considerar plan anual",
+            "annualUpgradeHintDescription": "{count} suscripción(es) llevan más de un año en ciclo mensual o trimestral — cambiar a anual podría reducir el gasto total.",
+            "annualUpgradeHintNoneDescription": "No hay suscripciones mensuales o trimestrales con más de 12 meses de antigüedad."
         },
         "descriptionDialog": {
             "title": "Cómo usar",

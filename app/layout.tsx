@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { zhTW, enUS, jaJP, esES } from "@clerk/localizations";
@@ -36,6 +36,12 @@ export const metadata: Metadata = {
         statusBarStyle: "default",
         title: "Subflow",
     },
+};
+
+export const viewport: Viewport = {
+    themeColor: "#27272a",
+    width: "device-width",
+    initialScale: 1,
 };
 
 const customEnUS = {

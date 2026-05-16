@@ -22,6 +22,10 @@ export default function Footer() {
                             <img
                                 src="/subflow-light.svg"
                                 alt="Subflow"
+                                width={56}
+                                height={56}
+                                loading="lazy"
+                                decoding="async"
                                 className="h-14 w-14"
                             />
                             <span className="text-subflow-900 text-3xl font-bold tracking-widest">
@@ -40,6 +44,10 @@ export default function Footer() {
                                 <img
                                     src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png"
                                     alt="Buy Me A Coffee"
+                                    width={200}
+                                    height={45}
+                                    loading="lazy"
+                                    decoding="async"
                                     className="w-40 md:w-50"
                                 />
                             </a>

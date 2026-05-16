@@ -55,6 +55,7 @@ export default function Home() {
                     <h1 className="sr-only">{t("title")}</h1>
                     <SubscriptionStackAnimation />
                     <SplitText
+                        as="h2"
                         text={t("titleSplitOne")}
                         delay={isZhOrJa ? 150 : 200}
                         duration={1}
@@ -62,6 +63,7 @@ export default function Home() {
                         className="text-subflow-50 text-center text-3xl leading-tight font-bold tracking-widest lg:text-5xl xl:text-[55px]"
                     />
                     <SplitText
+                        as="h2"
                         text={t("titleSplitTwo")}
                         delay={isZhOrJa ? 150 : 200}
                         duration={1}
@@ -126,6 +128,7 @@ export default function Home() {
                                         loop
                                         muted
                                         playsInline
+                                        preload="metadata"
                                         className="h-full w-full object-contain"
                                         src={
                                             locale === "zh"
@@ -165,10 +168,12 @@ export default function Home() {
                         <SpotlightCardContent
                             icon={
                                 <img
-                                    src="homepage-images/svgl.svg"
+                                    src="/homepage-images/svgl.svg"
                                     alt="SVGL"
                                     width={30}
                                     height={30}
+                                    loading="lazy"
+                                    decoding="async"
                                     className="text-subflow-50 scale-170"
                                 />
                             }

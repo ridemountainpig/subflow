@@ -114,8 +114,8 @@ export default function FeaturePage({
                 <span className="text-subflow-500 text-xs font-semibold tracking-[0.32em] uppercase">
                     {feature.navTitle}
                 </span>
-                <h1 className="sr-only">{feature.title}</h1>
                 <SplitText
+                    as="h1"
                     text={feature.title}
                     delay={80}
                     duration={1}
@@ -136,6 +136,10 @@ export default function FeaturePage({
                     <img
                         src={feature.heroImage}
                         alt={feature.heroImageAlt}
+                        width={1600}
+                        height={1000}
+                        decoding="async"
+                        fetchPriority="high"
                         className="block h-auto w-full"
                     />
                 </div>
@@ -202,6 +206,10 @@ export default function FeaturePage({
                                                             i
                                                         ] || section.title
                                                     }
+                                                    width={1600}
+                                                    height={1000}
+                                                    loading="lazy"
+                                                    decoding="async"
                                                     className="block h-auto w-full"
                                                 />
                                             </div>
@@ -217,6 +225,10 @@ export default function FeaturePage({
                                                     section.imageAlt ||
                                                     section.title
                                                 }
+                                                width={1600}
+                                                height={1000}
+                                                loading="lazy"
+                                                decoding="async"
                                                 className="block h-auto w-full"
                                             />
                                         </div>

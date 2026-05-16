@@ -104,11 +104,19 @@ export const EmailTemplate = ({ language = "en" }: EmailTemplateProps) => {
                                                 </Column>
                                             </Row>
                                             <div className="mb-1.5">
-                                                <Img
-                                                    src={item.image}
-                                                    alt={item.title}
-                                                    className="my-3 block h-auto w-full max-w-full rounded-lg bg-gray-100"
-                                                />
+                                                {(
+                                                    item.images ??
+                                                    (item.image
+                                                        ? [item.image]
+                                                        : [])
+                                                ).map((src) => (
+                                                    <Img
+                                                        key={src}
+                                                        src={src}
+                                                        alt={item.title}
+                                                        className="my-3 block h-auto w-full max-w-full rounded-lg bg-gray-100"
+                                                    />
+                                                ))}
                                             </div>
                                             <div className="mb-1.5 text-base leading-normal font-bold tracking-wider text-gray-800">
                                                 {item.description}
