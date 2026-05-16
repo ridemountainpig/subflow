@@ -20,9 +20,9 @@ export const useSubscription = (
 ) => {
     const { notAmortizeYearlySubscriptions, preferencesLoading } =
         usePreferences();
-    const [subscriptions, setSubscriptions] = useState<SubscriptionWithPrice[]>(
-        [],
-    );
+    const [allSubscriptions, setAllSubscriptions] = useState<
+        SubscriptionWithPrice[]
+    >([]);
     const [updatedSubscription, setUpdatedSubscription] = useState(false);
     const [rawSubscriptions, setRawSubscriptions] = useState<
         SubscriptionType[]
@@ -48,22 +48,9 @@ export const useSubscription = (
         fetchSubscriptions();
     }, [updatedSubscription]);
 
-    const dateFilteredSubscriptions = useMemo(() => {
-        return rawSubscriptions.filter((subscription: SubscriptionType) =>
-            subscriptionVisibleInMonth(
-                subscription,
-                year,
-                month,
-                notAmortizeYearlySubscriptions,
-            ),
-        );
-    }, [rawSubscriptions, year, month, notAmortizeYearlySubscriptions]);
-
     const subscriptionsToConvert = useMemo(() => {
-        return dateFilteredSubscriptions.filter(
-            (sub) => sub.currency !== currency,
-        );
-    }, [dateFilteredSubscriptions, currency]);
+        return rawSubscriptions.filter((sub) => sub.currency !== currency);
+    }, [rawSubscriptions, currency]);
 
     useEffect(() => {
         const processSubscriptions = async () => {
@@ -72,11 +59,11 @@ export const useSubscription = (
             }
 
             if (!rawSubscriptions.length) {
-                setSubscriptions([]);
+                setAllSubscriptions([]);
                 return;
             }
 
-            setSubscriptions([]);
+            setAllSubscriptions([]);
 
             try {
                 const conversionPromises = subscriptionsToConvert.map((sub) =>
@@ -85,37 +72,44 @@ export const useSubscription = (
 
                 const conversionResults = await Promise.all(conversionPromises);
 
-                const convertedSubscriptions = dateFilteredSubscriptions.map(
-                    (sub) => {
-                        if (sub.currency === currency) {
-                            return { ...sub, convertedPrice: sub.price };
-                        }
-                        const conversionIndex =
-                            subscriptionsToConvert.findIndex(
-                                (conv) => conv._id === sub._id,
-                            );
-                        return {
-                            ...sub,
-                            convertedPrice: conversionResults[conversionIndex],
-                        };
-                    },
-                ) as SubscriptionWithPrice[];
+                const convertedSubscriptions = rawSubscriptions.map((sub) => {
+                    if (sub.currency === currency) {
+                        return { ...sub, convertedPrice: sub.price };
+                    }
+                    const conversionIndex = subscriptionsToConvert.findIndex(
+                        (conv) => conv._id === sub._id,
+                    );
+                    return {
+                        ...sub,
+                        convertedPrice: conversionResults[conversionIndex],
+                    };
+                }) as SubscriptionWithPrice[];
 
-                setSubscriptions(convertedSubscriptions);
+                setAllSubscriptions(convertedSubscriptions);
             } catch (error) {
                 console.error("Error processing subscriptions:", error);
-                setSubscriptions([]);
+                setAllSubscriptions([]);
             }
         };
 
         processSubscriptions();
     }, [
-        dateFilteredSubscriptions,
+        rawSubscriptions,
         subscriptionsToConvert,
         currency,
         currencyListLoading,
-        rawSubscriptions,
     ]);
+
+    const subscriptions = useMemo(() => {
+        return allSubscriptions.filter((subscription) =>
+            subscriptionVisibleInMonth(
+                subscription,
+                year,
+                month,
+                notAmortizeYearlySubscriptions,
+            ),
+        );
+    }, [allSubscriptions, year, month, notAmortizeYearlySubscriptions]);
 
     const totalSpend = useMemo(() => {
         if (
@@ -177,6 +171,7 @@ export const useSubscription = (
 
     return {
         subscriptions,
+        allSubscriptions,
         rawSubscriptions,
         subscriptionsLoaded,
         subscriptionFetchError,

@@ -62,12 +62,14 @@ type TrendMode = "avg" | "cashflow";
 
 interface ChartDialogProps {
     subscription: SubscriptionWithPrice[];
+    allSubscription: SubscriptionWithPrice[];
     monthSpend: number;
     currency: string;
 }
 
 export default function ChartDialog({
     subscription,
+    allSubscription,
     monthSpend,
     currency,
 }: ChartDialogProps) {
@@ -99,6 +101,24 @@ export default function ChartDialog({
             })
             .filter((sub): sub is SubscriptionWithPrice => sub !== null);
     }, [subscription, currency, userEmail]);
+
+    // Analytics needs the full dataset (independent of the active month and
+    // the notAmortizeYearlySubscriptions toggle) so trends/totals/renewals
+    // don't shift when the user browses months.
+    const effectiveAllSubscriptions = useMemo(() => {
+        return allSubscription
+            .map((sub) => {
+                const effective = getEffectiveConvertedPrice(
+                    sub,
+                    currency,
+                    userEmail,
+                );
+                return effective == null
+                    ? null
+                    : { ...sub, convertedPrice: effective };
+            })
+            .filter((sub): sub is SubscriptionWithPrice => sub !== null);
+    }, [allSubscription, currency, userEmail]);
 
     useEffect(() => {
         const updateScreenWidth = () => {
@@ -172,7 +192,7 @@ export default function ChartDialog({
             const y = d.getFullYear();
             const m = d.getMonth() + 1;
             const label = formatTrendMonthLabel(d, locale);
-            const rawAmount = effectiveSubscriptions
+            const rawAmount = effectiveAllSubscriptions
                 .filter((sub) =>
                     subscriptionVisibleInMonth(sub, y, m, isCashFlow),
                 )
@@ -190,7 +210,7 @@ export default function ChartDialog({
                 y === now.getFullYear() && m === now.getMonth() + 1;
             return { label, amount: Math.round(rawAmount), isCurrentMonth };
         });
-    }, [effectiveSubscriptions, trendMode, locale]);
+    }, [effectiveAllSubscriptions, trendMode, locale]);
 
     const statsData = useMemo(() => {
         const currentYear = new Date().getFullYear();
@@ -203,7 +223,7 @@ export default function ChartDialog({
             yearly: { count: 0, spend: 0 },
         };
 
-        for (const sub of effectiveSubscriptions) {
+        for (const sub of effectiveAllSubscriptions) {
             if (sub.startDate.year === currentYear) newThisYear++;
 
             const displayPrice = toDisplayMonthlyAmount(
@@ -259,12 +279,12 @@ export default function ChartDialog({
         return {
             annualSpend: Math.round(amortizedMonthly * 12),
             dailyRate: Math.round((amortizedMonthly / 30) * 10) / 10,
-            totalCount: effectiveSubscriptions.length,
+            totalCount: effectiveAllSubscriptions.length,
             totalSpentEver: Math.round(totalSpentEver),
             avgPerSub:
-                effectiveSubscriptions.length > 0
+                effectiveAllSubscriptions.length > 0
                     ? Math.round(
-                          amortizedMonthly / effectiveSubscriptions.length,
+                          amortizedMonthly / effectiveAllSubscriptions.length,
                       )
                     : 0,
             newThisYear,
@@ -283,7 +303,7 @@ export default function ChartDialog({
                 },
             },
         };
-    }, [effectiveSubscriptions, notAmortizeYearlySubscriptions]);
+    }, [effectiveAllSubscriptions, notAmortizeYearlySubscriptions]);
 
     const analyticsInsights = useMemo(() => {
         const now = new Date();
@@ -291,7 +311,7 @@ export default function ChartDialog({
             month: "short",
             day: "numeric",
         });
-        const upcoming = effectiveSubscriptions
+        const upcoming = effectiveAllSubscriptions
             .map((sub) => {
                 const renewalDate = getNextRenewalDate(sub, now);
                 return {
@@ -319,7 +339,7 @@ export default function ChartDialog({
                   ? 100
                   : 0;
 
-        const annualCandidates = effectiveSubscriptions
+        const annualCandidates = effectiveAllSubscriptions
             .filter(
                 (sub) =>
                     sub.paymentCycle !== "yearly" &&
@@ -344,7 +364,7 @@ export default function ChartDialog({
             annualCandidates,
             annualCandidateCount: annualCandidates.length,
         };
-    }, [effectiveSubscriptions, sortedData, trendData, locale, t]);
+    }, [effectiveAllSubscriptions, sortedData, trendData, locale, t]);
 
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>

@@ -188,10 +188,11 @@ export default function Changelog() {
                                 ] || item.content.en;
                             const isLastItem = i === items.length - 1;
 
-                            const linkLabel =
-                                item.link?.label[
-                                    locale as keyof typeof item.link.label
-                                ] || item.link?.label.en;
+                            const linkLabel = item.link
+                                ? item.link.label[
+                                      locale as keyof typeof item.link.label
+                                  ] || item.link.label.en
+                                : undefined;
 
                             return (
                                 <motion.article
