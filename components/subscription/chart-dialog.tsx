@@ -62,14 +62,14 @@ type TrendMode = "avg" | "cashflow";
 
 interface ChartDialogProps {
     subscription: SubscriptionWithPrice[];
-    allSubscription: SubscriptionWithPrice[];
+    allSubscriptions: SubscriptionWithPrice[];
     monthSpend: number;
     currency: string;
 }
 
 export default function ChartDialog({
     subscription,
-    allSubscription,
+    allSubscriptions,
     monthSpend,
     currency,
 }: ChartDialogProps) {
@@ -106,7 +106,7 @@ export default function ChartDialog({
     // the notAmortizeYearlySubscriptions toggle) so trends/totals/renewals
     // don't shift when the user browses months.
     const effectiveAllSubscriptions = useMemo(() => {
-        return allSubscription
+        return allSubscriptions
             .map((sub) => {
                 const effective = getEffectiveConvertedPrice(
                     sub,
@@ -118,7 +118,7 @@ export default function ChartDialog({
                     : { ...sub, convertedPrice: effective };
             })
             .filter((sub): sub is SubscriptionWithPrice => sub !== null);
-    }, [allSubscription, currency, userEmail]);
+    }, [allSubscriptions, currency, userEmail]);
 
     useEffect(() => {
         const updateScreenWidth = () => {
@@ -186,6 +186,10 @@ export default function ChartDialog({
     const trendData = useMemo(() => {
         const now = new Date();
         const isCashFlow = trendMode === "cashflow";
+        // Cash-flow mode wants only the months where charges actually land,
+        // so it requires the same "do not amortize" filter behaviour. Use a
+        // dedicated alias so the intent doesn't piggyback on `isCashFlow`.
+        const showOnlyBillingMonths = isCashFlow;
         return Array.from({ length: 12 }, (_, i) => {
             const offset = 11 - i;
             const d = new Date(now.getFullYear(), now.getMonth() - offset, 1);
@@ -194,7 +198,12 @@ export default function ChartDialog({
             const label = formatTrendMonthLabel(d, locale);
             const rawAmount = effectiveAllSubscriptions
                 .filter((sub) =>
-                    subscriptionVisibleInMonth(sub, y, m, isCashFlow),
+                    subscriptionVisibleInMonth(
+                        sub,
+                        y,
+                        m,
+                        showOnlyBillingMonths,
+                    ),
                 )
                 .reduce((sum, sub) => {
                     const val = isCashFlow

@@ -256,8 +256,9 @@ export default function FeaturePage({
                                 <ol className="space-y-4">
                                     {feature.steps.map((step, index) => (
                                         <li
+                                            id={`step-${index + 1}`}
                                             key={step}
-                                            className="flex items-start gap-4"
+                                            className="flex scroll-mt-24 items-start gap-4"
                                         >
                                             <span className="bg-subflow-900 border-subflow-700 text-subflow-200 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full border text-xs font-semibold tracking-wide">
                                                 {index + 1}

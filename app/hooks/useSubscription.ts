@@ -4,7 +4,7 @@ import {
     SubscriptionWithPrice,
 } from "@/types/subscription";
 import { getSubscription } from "@/app/actions/action";
-import { convertCurrency } from "@/utils/currency";
+import { getCurrenciesLive } from "@/app/actions/currency";
 import { usePreferences } from "@/app/contexts/PreferencesContext";
 import {
     subscriptionVisibleInMonth,
@@ -48,10 +48,6 @@ export const useSubscription = (
         fetchSubscriptions();
     }, [updatedSubscription]);
 
-    const subscriptionsToConvert = useMemo(() => {
-        return rawSubscriptions.filter((sub) => sub.currency !== currency);
-    }, [rawSubscriptions, currency]);
-
     useEffect(() => {
         const processSubscriptions = async () => {
             if (currencyListLoading) {
@@ -66,22 +62,27 @@ export const useSubscription = (
             setAllSubscriptions([]);
 
             try {
-                const conversionPromises = subscriptionsToConvert.map((sub) =>
-                    convertCurrency(sub.price, sub.currency, currency),
+                const needsRates = rawSubscriptions.some(
+                    (sub) => sub.currency !== currency,
                 );
-
-                const conversionResults = await Promise.all(conversionPromises);
+                // Fetch the live quote set once and compute every conversion
+                // from it, rather than calling convertCurrency per subscription
+                // (which would hit the server action for each entry).
+                const quotes = needsRates
+                    ? (await getCurrenciesLive()).quotes
+                    : null;
 
                 const convertedSubscriptions = rawSubscriptions.map((sub) => {
                     if (sub.currency === currency) {
                         return { ...sub, convertedPrice: sub.price };
                     }
-                    const conversionIndex = subscriptionsToConvert.findIndex(
-                        (conv) => conv._id === sub._id,
-                    );
+                    const fromRate = quotes?.[`USD${sub.currency}`] || 1;
+                    const toRate = quotes?.[`USD${currency}`] || 1;
                     return {
                         ...sub,
-                        convertedPrice: conversionResults[conversionIndex],
+                        convertedPrice: Math.floor(
+                            (sub.price / fromRate) * toRate,
+                        ),
                     };
                 }) as SubscriptionWithPrice[];
 
@@ -93,12 +94,7 @@ export const useSubscription = (
         };
 
         processSubscriptions();
-    }, [
-        rawSubscriptions,
-        subscriptionsToConvert,
-        currency,
-        currencyListLoading,
-    ]);
+    }, [rawSubscriptions, currency, currencyListLoading]);
 
     const subscriptions = useMemo(() => {
         return allSubscriptions.filter((subscription) =>
@@ -111,11 +107,18 @@ export const useSubscription = (
         );
     }, [allSubscriptions, year, month, notAmortizeYearlySubscriptions]);
 
+    const conversionPending = useMemo(() => {
+        return (
+            rawSubscriptions.some((sub) => sub.currency !== currency) &&
+            allSubscriptions.length === 0
+        );
+    }, [rawSubscriptions, allSubscriptions, currency]);
+
     const totalSpend = useMemo(() => {
         if (
             currencyListLoading ||
             preferencesLoading ||
-            (subscriptionsToConvert.length > 0 && subscriptions.length === 0)
+            (conversionPending && subscriptions.length === 0)
         ) {
             return null;
         }
@@ -159,7 +162,7 @@ export const useSubscription = (
         currencyListLoading,
         preferencesLoading,
         subscriptions,
-        subscriptionsToConvert,
+        conversionPending,
         notAmortizeYearlySubscriptions,
         userEmail,
         currency,

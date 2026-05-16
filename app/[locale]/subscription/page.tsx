@@ -170,7 +170,7 @@ export default function Subscription() {
                             />
                             <ChartDialog
                                 subscription={subscriptions}
-                                allSubscription={allSubscriptions}
+                                allSubscriptions={allSubscriptions}
                                 monthSpend={monthlySpend || 0}
                                 currency={currency}
                             />
