@@ -222,7 +222,13 @@ export default function ChartDialog({
     }, [effectiveAllSubscriptions, trendMode, locale]);
 
     const statsData = useMemo(() => {
-        const currentYear = new Date().getFullYear();
+        const now = new Date();
+        const currentYear = now.getFullYear();
+        const todayMidnight = new Date(
+            now.getFullYear(),
+            now.getMonth(),
+            now.getDate(),
+        );
         let totalSpentEver = 0;
         let newThisYear = 0;
         let amortizedMonthly = 0;
@@ -246,13 +252,24 @@ export default function ChartDialog({
                 false,
             );
             amortizedMonthly += amortizedPrice;
-            const months = calculateMonthsFromStart(sub.startDate);
-            totalSpentEver += totalSpendSinceStart(
-                displayPrice,
-                sub.paymentCycle,
-                notAmortizeYearlySubscriptions,
-                months,
+
+            // Skip future-start subscriptions for totalSpentEver — they
+            // haven't billed yet. calculateMonthsFromStart clamps to 1, which
+            // would otherwise count a full billing cycle of phantom spend.
+            const startDate = new Date(
+                sub.startDate.year,
+                sub.startDate.month - 1,
+                sub.startDate.date,
             );
+            if (startDate <= todayMidnight) {
+                const months = calculateMonthsFromStart(sub.startDate);
+                totalSpentEver += totalSpendSinceStart(
+                    displayPrice,
+                    sub.paymentCycle,
+                    notAmortizeYearlySubscriptions,
+                    months,
+                );
+            }
 
             const cycleKey = sub.paymentCycle as keyof typeof cycles;
             if (cycleKey in cycles) {
@@ -336,7 +353,43 @@ export default function ChartDialog({
             (sum, item) => sum + item.amount,
             0,
         );
-        const topSubscription = sortedData[0];
+
+        // Compute the largest share from the full dataset using an amortized
+        // monthly equivalent, so the insight stays meaningful in months where
+        // the breakdown's filtered sortedData happens to be empty (e.g. a user
+        // with only yearly subs and notAmortizeYearlySubscriptions enabled).
+        const topSubscription = (() => {
+            if (effectiveAllSubscriptions.length === 0) return undefined;
+            const totalAmortized = effectiveAllSubscriptions.reduce(
+                (sum, sub) =>
+                    sum +
+                    toDisplayMonthlyAmount(
+                        sub.convertedPrice,
+                        sub.paymentCycle,
+                        false,
+                    ),
+                0,
+            );
+            if (totalAmortized <= 0) return undefined;
+            const top = effectiveAllSubscriptions
+                .map((sub) => {
+                    const amortized = toDisplayMonthlyAmount(
+                        sub.convertedPrice,
+                        sub.paymentCycle,
+                        false,
+                    );
+                    return {
+                        name: sub.name,
+                        percentage: (
+                            (amortized / totalAmortized) *
+                            100
+                        ).toFixed(1),
+                        share: amortized,
+                    };
+                })
+                .sort((a, b) => b.share - a.share)[0];
+            return top;
+        })();
         const previousMonthAmount =
             trendData[trendData.length - 2]?.amount ?? 0;
         const currentMonthAmount = trendData[trendData.length - 1]?.amount ?? 0;
@@ -373,7 +426,7 @@ export default function ChartDialog({
             annualCandidates,
             annualCandidateCount: annualCandidates.length,
         };
-    }, [effectiveAllSubscriptions, sortedData, trendData, locale, t]);
+    }, [effectiveAllSubscriptions, trendData, locale, t]);
 
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
