@@ -100,8 +100,8 @@ export const changelogs: ChangelogItem[] = [
         content: {
             en: "Paste any subscription details or upload a receipt and Subflow will automatically fill in everything for you.",
             zh: "貼上訂閱資訊或上傳收據，Subflow 會自動解析並填入所有訂閱內容。",
-            ja: "サブスクリプションの情報を貼り付けるか収納をアップロードするだけで、Subflow が自動的に内容を解析して入力します。",
-            es: "Pegue los detalles de su suscripción o suba una recibo y Subflow completará automáticamente toda la información.",
+            ja: "サブスクリプションの情報を貼り付けるか領収書をアップロードするだけで、Subflow が自動的に内容を解析して入力します。",
+            es: "Pegue los detalles de su suscripción o suba un recibo y Subflow completará automáticamente toda la información.",
         },
         link: {
             href: "/smart-add-subscription",
