@@ -380,137 +380,158 @@ export default function ChartDialog({
                     </button>
                 </div>
 
-                {tab === "breakdown" && (
-                    <div
-                        className={`flex items-center ${isMobile ? "flex-col" : ""}`}
-                        ref={chartRef}
-                    >
-                        <div
-                            className="pointer-events-none select-none"
-                            style={
-                                isMobile && screenWidth > 0
-                                    ? {
-                                          height: `${screenWidth}px`,
-                                          width: `${screenWidth}px`,
-                                      }
-                                    : !isMobile
-                                      ? { height: "600px", width: "600px" }
-                                      : {}
-                            }
-                        >
-                            {(!isMobile || screenWidth > 0) && (
-                                <ResponsiveContainer width="100%" height="100%">
-                                    <PieChart>
-                                        <Pie
-                                            data={
-                                                data.length > 0
-                                                    ? data
-                                                    : [
-                                                          {
-                                                              name: "",
-                                                              value: 1,
-                                                              percentage:
-                                                                  "100.0",
-                                                          },
-                                                      ]
-                                            }
-                                            cx="50%"
-                                            cy="50%"
-                                            innerRadius={
-                                                isMobile
-                                                    ? screenWidth / 3 - 10
-                                                    : 190
-                                            }
-                                            outerRadius={
-                                                isMobile
-                                                    ? screenWidth / 3 + 20
-                                                    : 220
-                                            }
-                                            paddingAngle={2.5}
-                                            dataKey="value"
-                                            cornerRadius={6}
-                                            stroke="#514f50"
-                                            label={CustomLabel}
-                                            labelLine={false}
-                                            animationBegin={0}
-                                            animationDuration={1000}
-                                            animationEasing="ease-out"
+                {tab === "breakdown" &&
+                    (() => {
+                        // Dialog uses p-5 on mobile (20px padding each side); reserve
+                        // that space so the chart never overflows the content area.
+                        const mobileChartSize = Math.max(screenWidth - 40, 0);
+                        return (
+                            <div
+                                className={`flex items-center ${isMobile ? "flex-col" : ""}`}
+                                ref={chartRef}
+                            >
+                                <div
+                                    className="pointer-events-none select-none"
+                                    style={
+                                        isMobile && mobileChartSize > 0
+                                            ? {
+                                                  height: `${mobileChartSize}px`,
+                                                  width: `${mobileChartSize}px`,
+                                              }
+                                            : !isMobile
+                                              ? {
+                                                    height: "600px",
+                                                    width: "600px",
+                                                }
+                                              : {}
+                                    }
+                                >
+                                    {(!isMobile || mobileChartSize > 0) && (
+                                        <ResponsiveContainer
+                                            width="100%"
+                                            height="100%"
                                         >
-                                            {data.map((item, index) => (
-                                                <Cell
-                                                    key={`cell-${index}`}
-                                                    fill="#514f50"
+                                            <PieChart>
+                                                <Pie
+                                                    data={
+                                                        data.length > 0
+                                                            ? data
+                                                            : [
+                                                                  {
+                                                                      name: "",
+                                                                      value: 1,
+                                                                      percentage:
+                                                                          "100.0",
+                                                                  },
+                                                              ]
+                                                    }
+                                                    cx="50%"
+                                                    cy="50%"
+                                                    innerRadius={
+                                                        isMobile
+                                                            ? mobileChartSize /
+                                                                  3 -
+                                                              10
+                                                            : 190
+                                                    }
+                                                    outerRadius={
+                                                        isMobile
+                                                            ? mobileChartSize /
+                                                                  3 +
+                                                              20
+                                                            : 220
+                                                    }
+                                                    paddingAngle={2.5}
+                                                    dataKey="value"
+                                                    cornerRadius={6}
+                                                    stroke="#514f50"
+                                                    label={CustomLabel}
+                                                    labelLine={false}
+                                                    animationBegin={0}
+                                                    animationDuration={1000}
+                                                    animationEasing="ease-out"
+                                                >
+                                                    {data.map((item, index) => (
+                                                        <Cell
+                                                            key={`cell-${index}`}
+                                                            fill="#514f50"
+                                                        />
+                                                    ))}
+                                                    <text
+                                                        x="50%"
+                                                        y="46%"
+                                                        textAnchor="middle"
+                                                        dominantBaseline="middle"
+                                                        className="fill-subflow-50 text-xl tracking-widest"
+                                                    >
+                                                        {t("monthlySpend")}
+                                                    </text>
+                                                    <text
+                                                        x="50%"
+                                                        y="54%"
+                                                        textAnchor="middle"
+                                                        dominantBaseline="middle"
+                                                        className="fill-subflow-50 text-4xl tracking-widest"
+                                                    >
+                                                        {monthSpend}
+                                                        <tspan
+                                                            className="text-lg"
+                                                            dy="4"
+                                                            dx="4"
+                                                        >
+                                                            {currency}
+                                                        </tspan>
+                                                    </text>
+                                                    {sortedData.length ===
+                                                        0 && (
+                                                        <text
+                                                            x="50%"
+                                                            y="62%"
+                                                            textAnchor="middle"
+                                                            dominantBaseline="middle"
+                                                            className="fill-subflow-50 text-xl tracking-widest"
+                                                        >
+                                                            {t(
+                                                                "noSubscription",
+                                                            )}
+                                                        </text>
+                                                    )}
+                                                </Pie>
+                                            </PieChart>
+                                        </ResponsiveContainer>
+                                    )}
+                                </div>
+                                {sortedData.length > 0 && (
+                                    <div
+                                        className={`flex flex-col gap-4 select-none ${isMobile ? "w-full" : ""}`}
+                                    >
+                                        <span className="text-subflow-50 text-xl tracking-wider">
+                                            {t("subscriptionList")}
+                                        </span>
+                                        {!notAmortizeYearlySubscriptions && (
+                                            <span
+                                                className={`text-subflow-300 -mt-2 text-xs tracking-wider ${isMobile ? "w-full" : "w-[300px]"}`}
+                                            >
+                                                {t(
+                                                    "subscriptionListDescription",
+                                                )}
+                                            </span>
+                                        )}
+                                        <div
+                                            className={`custom-scrollbar flex flex-col gap-3 overflow-y-auto ${isMobile ? "h-full w-full" : "h-[600px] w-[300px] pr-2"}`}
+                                        >
+                                            {sortedData.map((item, index) => (
+                                                <SubscriptionListItem
+                                                    key={index}
+                                                    item={item}
                                                 />
                                             ))}
-                                            <text
-                                                x="50%"
-                                                y="46%"
-                                                textAnchor="middle"
-                                                dominantBaseline="middle"
-                                                className="fill-subflow-50 text-xl tracking-widest"
-                                            >
-                                                {t("monthlySpend")}
-                                            </text>
-                                            <text
-                                                x="50%"
-                                                y="54%"
-                                                textAnchor="middle"
-                                                dominantBaseline="middle"
-                                                className="fill-subflow-50 text-4xl tracking-widest"
-                                            >
-                                                {monthSpend}
-                                                <tspan
-                                                    className="text-lg"
-                                                    dy="4"
-                                                    dx="4"
-                                                >
-                                                    {currency}
-                                                </tspan>
-                                            </text>
-                                            {sortedData.length === 0 && (
-                                                <text
-                                                    x="50%"
-                                                    y="62%"
-                                                    textAnchor="middle"
-                                                    dominantBaseline="middle"
-                                                    className="fill-subflow-50 text-xl tracking-widest"
-                                                >
-                                                    {t("noSubscription")}
-                                                </text>
-                                            )}
-                                        </Pie>
-                                    </PieChart>
-                                </ResponsiveContainer>
-                            )}
-                        </div>
-                        {sortedData.length > 0 && (
-                            <div
-                                className={`flex flex-col gap-4 select-none ${isMobile ? "w-full" : ""}`}
-                            >
-                                <span className="text-subflow-50 text-xl tracking-wider">
-                                    {t("subscriptionList")}
-                                </span>
-                                {!notAmortizeYearlySubscriptions && (
-                                    <span
-                                        className={`text-subflow-300 -mt-2 text-xs tracking-wider ${isMobile ? "w-full" : "w-[300px]"}`}
-                                    >
-                                        {t("subscriptionListDescription")}
-                                    </span>
+                                        </div>
+                                    </div>
                                 )}
-                                <div
-                                    className={`custom-scrollbar flex flex-col gap-3 overflow-y-auto ${isMobile ? "h-full w-full" : "h-[600px] w-[300px] pr-2"}`}
-                                >
-                                    {sortedData.map((item, index) => (
-                                        <SubscriptionListItem
-                                            key={index}
-                                            item={item}
-                                        />
-                                    ))}
-                                </div>
                             </div>
-                        )}
-                    </div>
-                )}
+                        );
+                    })()}
 
                 {tab === "analytics" && (
                     <div

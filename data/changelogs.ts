@@ -3,8 +3,9 @@ export interface ChangelogItem {
     icon: string;
     size?: number;
     /**
-     * Optional internal slug to link this entry to a feature page.
-     * Used to strengthen sitewide internal linking for SEO.
+     * Optional internal href/path linking this entry to a feature page
+     * (e.g. "/raycast-extension"). Used to strengthen sitewide internal
+     * linking for SEO.
      */
     link?: {
         href: string;
