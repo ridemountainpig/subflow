@@ -4,7 +4,7 @@ import {
     SubscriptionWithPrice,
 } from "@/types/subscription";
 import { getSubscription } from "@/app/actions/action";
-import { convertCurrency } from "@/utils/currency";
+import { getCurrenciesLive } from "@/app/actions/currency";
 import { usePreferences } from "@/app/contexts/PreferencesContext";
 import {
     subscriptionVisibleInMonth,
@@ -20,9 +20,9 @@ export const useSubscription = (
 ) => {
     const { notAmortizeYearlySubscriptions, preferencesLoading } =
         usePreferences();
-    const [subscriptions, setSubscriptions] = useState<SubscriptionWithPrice[]>(
-        [],
-    );
+    const [allSubscriptions, setAllSubscriptions] = useState<
+        SubscriptionWithPrice[]
+    >([]);
     const [updatedSubscription, setUpdatedSubscription] = useState(false);
     const [rawSubscriptions, setRawSubscriptions] = useState<
         SubscriptionType[]
@@ -48,23 +48,6 @@ export const useSubscription = (
         fetchSubscriptions();
     }, [updatedSubscription]);
 
-    const dateFilteredSubscriptions = useMemo(() => {
-        return rawSubscriptions.filter((subscription: SubscriptionType) =>
-            subscriptionVisibleInMonth(
-                subscription,
-                year,
-                month,
-                notAmortizeYearlySubscriptions,
-            ),
-        );
-    }, [rawSubscriptions, year, month, notAmortizeYearlySubscriptions]);
-
-    const subscriptionsToConvert = useMemo(() => {
-        return dateFilteredSubscriptions.filter(
-            (sub) => sub.currency !== currency,
-        );
-    }, [dateFilteredSubscriptions, currency]);
-
     useEffect(() => {
         const processSubscriptions = async () => {
             if (currencyListLoading) {
@@ -72,56 +55,70 @@ export const useSubscription = (
             }
 
             if (!rawSubscriptions.length) {
-                setSubscriptions([]);
+                setAllSubscriptions([]);
                 return;
             }
 
-            setSubscriptions([]);
+            setAllSubscriptions([]);
 
             try {
-                const conversionPromises = subscriptionsToConvert.map((sub) =>
-                    convertCurrency(sub.price, sub.currency, currency),
+                const needsRates = rawSubscriptions.some(
+                    (sub) => sub.currency !== currency,
                 );
+                // Fetch the live quote set once and compute every conversion
+                // from it, rather than calling convertCurrency per subscription
+                // (which would hit the server action for each entry).
+                const quotes = needsRates
+                    ? (await getCurrenciesLive()).quotes
+                    : null;
 
-                const conversionResults = await Promise.all(conversionPromises);
+                const convertedSubscriptions = rawSubscriptions.map((sub) => {
+                    if (sub.currency === currency) {
+                        return { ...sub, convertedPrice: sub.price };
+                    }
+                    const fromRate = quotes?.[`USD${sub.currency}`] || 1;
+                    const toRate = quotes?.[`USD${currency}`] || 1;
+                    return {
+                        ...sub,
+                        convertedPrice: Math.floor(
+                            (sub.price / fromRate) * toRate,
+                        ),
+                    };
+                }) as SubscriptionWithPrice[];
 
-                const convertedSubscriptions = dateFilteredSubscriptions.map(
-                    (sub) => {
-                        if (sub.currency === currency) {
-                            return { ...sub, convertedPrice: sub.price };
-                        }
-                        const conversionIndex =
-                            subscriptionsToConvert.findIndex(
-                                (conv) => conv._id === sub._id,
-                            );
-                        return {
-                            ...sub,
-                            convertedPrice: conversionResults[conversionIndex],
-                        };
-                    },
-                ) as SubscriptionWithPrice[];
-
-                setSubscriptions(convertedSubscriptions);
+                setAllSubscriptions(convertedSubscriptions);
             } catch (error) {
                 console.error("Error processing subscriptions:", error);
-                setSubscriptions([]);
+                setAllSubscriptions([]);
             }
         };
 
         processSubscriptions();
-    }, [
-        dateFilteredSubscriptions,
-        subscriptionsToConvert,
-        currency,
-        currencyListLoading,
-        rawSubscriptions,
-    ]);
+    }, [rawSubscriptions, currency, currencyListLoading]);
+
+    const subscriptions = useMemo(() => {
+        return allSubscriptions.filter((subscription) =>
+            subscriptionVisibleInMonth(
+                subscription,
+                year,
+                month,
+                notAmortizeYearlySubscriptions,
+            ),
+        );
+    }, [allSubscriptions, year, month, notAmortizeYearlySubscriptions]);
+
+    const conversionPending = useMemo(() => {
+        return (
+            rawSubscriptions.some((sub) => sub.currency !== currency) &&
+            allSubscriptions.length === 0
+        );
+    }, [rawSubscriptions, allSubscriptions, currency]);
 
     const totalSpend = useMemo(() => {
         if (
             currencyListLoading ||
             preferencesLoading ||
-            (subscriptionsToConvert.length > 0 && subscriptions.length === 0)
+            (conversionPending && subscriptions.length === 0)
         ) {
             return null;
         }
@@ -165,7 +162,7 @@ export const useSubscription = (
         currencyListLoading,
         preferencesLoading,
         subscriptions,
-        subscriptionsToConvert,
+        conversionPending,
         notAmortizeYearlySubscriptions,
         userEmail,
         currency,
@@ -177,6 +174,7 @@ export const useSubscription = (
 
     return {
         subscriptions,
+        allSubscriptions,
         rawSubscriptions,
         subscriptionsLoaded,
         subscriptionFetchError,

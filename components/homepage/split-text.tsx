@@ -20,6 +20,7 @@ export interface SplitTextProps {
     rootMargin?: string;
     textAlign?: React.CSSProperties["textAlign"];
     onLetterAnimationComplete?: () => void;
+    as?: "p" | "h1" | "h2" | "h3" | "span" | "div";
 }
 
 const SplitText: React.FC<SplitTextProps> = ({
@@ -35,8 +36,9 @@ const SplitText: React.FC<SplitTextProps> = ({
     rootMargin = "-100px",
     textAlign = "center",
     onLetterAnimationComplete,
+    as: Tag = "p",
 }) => {
-    const ref = useRef<HTMLParagraphElement>(null);
+    const ref = useRef<HTMLElement>(null);
     const animationCompletedRef = useRef(false);
 
     useEffect(() => {
@@ -129,8 +131,9 @@ const SplitText: React.FC<SplitTextProps> = ({
         onLetterAnimationComplete,
     ]);
 
+    const Component = Tag as React.ElementType;
     return (
-        <p
+        <Component
             ref={ref}
             className={`split-parent inline-block overflow-hidden whitespace-normal ${className}`}
             style={{
@@ -139,7 +142,7 @@ const SplitText: React.FC<SplitTextProps> = ({
             }}
         >
             {text}
-        </p>
+        </Component>
     );
 };
 

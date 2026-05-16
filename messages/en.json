@@ -104,7 +104,41 @@
             "confirmTextTwo": "subscription?"
         },
         "chartDialog": {
-            "title": "Subscription Analysis"
+            "title": "Subscription Analysis",
+            "tabs": {
+                "breakdown": "Breakdown",
+                "analytics": "Analytics"
+            },
+            "monthlyAvg": "Monthly Avg",
+            "cashFlow": "Cash Flow",
+            "annualSpend": "Annual Spend",
+            "dailyRate": "Daily Rate",
+            "totalSubscriptions": "Subscriptions",
+            "totalSpentEver": "Total Spent",
+            "avgPerSub": "Avg per Sub",
+            "newThisYear": "New This Year",
+            "cycleBreakdown": "Cycle Breakdown",
+            "overviewEyebrow": "Overview",
+            "overviewTitle": "Subscription Spend Dashboard",
+            "overviewDescription": "Review trends, concentration, and upcoming renewals to find the subscriptions worth checking first.",
+            "trendTitle": "12-Month Spend Trend",
+            "trendDescriptionAvg": "Shows monthly equivalent cost, useful for reading the long-term subscription load.",
+            "trendDescriptionCashFlow": "Shows payment months, useful for spotting cash-flow spikes.",
+            "largestShare": "Largest Share",
+            "largestShareDescription": "The higher the share, the more it deserves a quick value check.",
+            "renewalsNext30Days": "Next 30 Days",
+            "renewalsNext30DaysDescription": "{count} renewals coming up, about {amount} {currency} total.",
+            "noUpcomingRenewals": "No renewals soon",
+            "noUpcomingRenewalsDescription": "No visible renewals in the next 30 days.",
+            "previousMonthDelta": "Vs Last Month",
+            "deltaIncreaseDescription": "Estimated spend is higher than last month.",
+            "deltaDecreaseDescription": "Estimated spend is lower than last month.",
+            "deltaFlatDescription": "Estimated spend is close to last month.",
+            "cycleBreakdownDescription": "Amounts use monthly equivalent cost so billing cycles stay comparable.",
+            "subs": "subs",
+            "annualUpgradeHint": "Consider Annual Plan",
+            "annualUpgradeHintDescription": "{count} subscription(s) have been on monthly or quarterly billing for over a year — switching to annual may reduce your total spend.",
+            "annualUpgradeHintNoneDescription": "No monthly or quarterly subscriptions have been running for more than 12 months."
         },
         "descriptionDialog": {
             "title": "How to Use",

@@ -61,6 +61,7 @@ export default function Subscription() {
 
     const {
         subscriptions,
+        allSubscriptions,
         rawSubscriptions,
         subscriptionsLoaded,
         subscriptionFetchError,
@@ -169,6 +170,7 @@ export default function Subscription() {
                             />
                             <ChartDialog
                                 subscription={subscriptions}
+                                allSubscriptions={allSubscriptions}
                                 monthSpend={monthlySpend || 0}
                                 currency={currency}
                             />

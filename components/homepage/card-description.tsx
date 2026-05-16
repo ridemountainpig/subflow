@@ -39,6 +39,10 @@ export default function CardDescription({
                 <img
                     src={img}
                     alt={title}
+                    width={1200}
+                    height={750}
+                    loading="lazy"
+                    decoding="async"
                     className="border-subflow-50 w-[90%] rounded-xl border-4 sm:w-[80%]"
                 />
             </div>

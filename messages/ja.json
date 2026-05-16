@@ -104,7 +104,41 @@
             "confirmTextTwo": "このサブスク？"
         },
         "chartDialog": {
-            "title": "サブスク分析"
+            "title": "サブスク分析",
+            "tabs": {
+                "breakdown": "内訳",
+                "analytics": "分析"
+            },
+            "monthlyAvg": "月額平均",
+            "cashFlow": "実際の支払い",
+            "annualSpend": "年間支出",
+            "dailyRate": "1日あたり",
+            "totalSubscriptions": "サブスク数",
+            "totalSpentEver": "累計支出",
+            "avgPerSub": "平均単価",
+            "newThisYear": "今年の新規",
+            "cycleBreakdown": "支払いサイクル",
+            "overviewEyebrow": "概要",
+            "overviewTitle": "サブスク支出ダッシュボード",
+            "overviewDescription": "推移、集中度、近日更新を確認し、優先して見直すべきサブスクを見つけます。",
+            "trendTitle": "12か月の支出推移",
+            "trendDescriptionAvg": "月額換算で表示し、長期的な負担を確認しやすくします。",
+            "trendDescriptionCashFlow": "実際の支払い月で表示し、支出の山を見つけやすくします。",
+            "largestShare": "最大支出比率",
+            "largestShareDescription": "比率が高いほど、継続価値を優先して確認する対象です。",
+            "renewalsNext30Days": "30日以内の更新",
+            "renewalsNext30DaysDescription": "{count}件の更新予定、合計約 {amount} {currency}。",
+            "noUpcomingRenewals": "近日更新なし",
+            "noUpcomingRenewalsDescription": "今後30日以内に表示できる更新はありません。",
+            "previousMonthDelta": "前月比",
+            "deltaIncreaseDescription": "今月の見込み支出は前月より高くなっています。",
+            "deltaDecreaseDescription": "今月の見込み支出は前月より低くなっています。",
+            "deltaFlatDescription": "今月の見込み支出は前月とほぼ同じです。",
+            "cycleBreakdownDescription": "金額は月額換算で表示し、支払いサイクルを比較しやすくしています。",
+            "subs": "件",
+            "annualUpgradeHint": "年払いへの切り替えを検討",
+            "annualUpgradeHintDescription": "{count}件のサブスクが月払い・四半期払いで1年以上継続中。年払いに切り替えると費用を抑えられる場合があります。",
+            "annualUpgradeHintNoneDescription": "月払いまたは四半期払いで12か月以上のサブスクはありません。"
         },
         "descriptionDialog": {
             "title": "使い方",

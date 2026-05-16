@@ -57,6 +57,10 @@ export default function CreditCard() {
                         <img
                             src="/subflow-dark.svg"
                             alt="Subflow"
+                            width={40}
+                            height={40}
+                            loading="lazy"
+                            decoding="async"
                             className="min-h-10 min-w-10"
                         />
                     </div>

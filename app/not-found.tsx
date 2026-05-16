@@ -23,6 +23,9 @@ export default function NotFound() {
                     <img
                         src="/subflow-dark.svg"
                         alt="Subflow"
+                        width={80}
+                        height={80}
+                        decoding="async"
                         className="h-16 w-16 md:h-20 md:w-20"
                     />
                 </motion.div>

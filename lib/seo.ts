@@ -15,6 +15,13 @@ const OPEN_GRAPH_LOCALES: Record<AppLocale, string> = {
     es: "es_ES",
 };
 
+export const BCP47_LOCALES: Record<AppLocale, string> = {
+    en: "en-US",
+    zh: "zh-TW",
+    ja: "ja-JP",
+    es: "es-ES",
+};
+
 const DEFAULT_OG_IMAGE_ALT: Record<AppLocale, string> = {
     en: "Subflow Open Graph image",
     zh: "Subflow 開放圖像",
@@ -169,6 +176,7 @@ export function createLocalizedMetadata({
         },
         twitter: {
             card: "summary_large_image",
+            site: "@ridemountainpig",
             creator: "@ridemountainpig",
             title,
             description,
@@ -237,7 +245,7 @@ export function getHomeStructuredData(locale: AppLocale) {
                 "@id": `${SITE_ORIGIN}#website`,
                 name: "Subflow",
                 url: SITE_ORIGIN,
-                inLanguage: locale,
+                inLanguage: BCP47_LOCALES[locale],
             },
             {
                 "@type": "SoftwareApplication",
@@ -255,7 +263,7 @@ export function getHomeStructuredData(locale: AppLocale) {
                 publisher: {
                     "@id": `${SITE_ORIGIN}#organization`,
                 },
-                inLanguage: locale,
+                inLanguage: BCP47_LOCALES[locale],
                 alternateName: title,
             },
         ],

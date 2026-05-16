@@ -1,6 +1,13 @@
 import { MetadataRoute } from "next";
 import { changelogs } from "@/data/changelogs";
 import { featurePageSlugs, featurePageUpdatedAt } from "@/data/feature-pages";
+import {
+    SUPPORTED_LOCALES,
+    getLanguageAlternates,
+    getLocalizedUrl,
+} from "@/lib/seo";
+
+type SitemapEntry = MetadataRoute.Sitemap[number];
 
 export default function sitemap(): MetadataRoute.Sitemap {
     const latestChangelogDate =
@@ -12,75 +19,50 @@ export default function sitemap(): MetadataRoute.Sitemap {
     const productLastModified = new Date(
         `${latestChangelogDate}T00:00:00.000Z`,
     );
+    const privacyLastModified = new Date("2026-01-01T00:00:00.000Z");
 
-    const featureUrls = featurePageSlugs.flatMap((slug) =>
-        ["en", "zh", "ja", "es"].map((locale) => ({
-            url: `https://subflow.ing/${locale}/${slug}`,
+    const homeEntries: SitemapEntry[] = SUPPORTED_LOCALES.map((locale) => ({
+        url: getLocalizedUrl(locale),
+        lastModified: productLastModified,
+        changeFrequency: "weekly",
+        priority: 1,
+        alternates: { languages: getLanguageAlternates() },
+    }));
+
+    const privacyEntries: SitemapEntry[] = SUPPORTED_LOCALES.map((locale) => ({
+        url: getLocalizedUrl(locale, "/privacy"),
+        lastModified: privacyLastModified,
+        changeFrequency: "yearly",
+        priority: 0.4,
+        alternates: { languages: getLanguageAlternates("/privacy") },
+    }));
+
+    const changelogEntries: SitemapEntry[] = SUPPORTED_LOCALES.map(
+        (locale) => ({
+            url: getLocalizedUrl(locale, "/changelog"),
+            lastModified: productLastModified,
+            changeFrequency: "weekly",
+            priority: 0.8,
+            alternates: { languages: getLanguageAlternates("/changelog") },
+        }),
+    );
+
+    const featureEntries: SitemapEntry[] = featurePageSlugs.flatMap((slug) =>
+        SUPPORTED_LOCALES.map((locale) => ({
+            url: getLocalizedUrl(locale, `/${slug}`),
             lastModified: new Date(
                 `${featurePageUpdatedAt[slug]}T00:00:00.000Z`,
             ),
             changeFrequency: "monthly" as const,
             priority: 0.7,
+            alternates: { languages: getLanguageAlternates(`/${slug}`) },
         })),
     );
 
     return [
-        {
-            url: "https://subflow.ing/en",
-            lastModified: productLastModified,
-            priority: 1,
-        },
-        {
-            url: "https://subflow.ing/zh",
-            lastModified: productLastModified,
-            priority: 1,
-        },
-        {
-            url: "https://subflow.ing/ja",
-            lastModified: productLastModified,
-            priority: 1,
-        },
-        {
-            url: "https://subflow.ing/es",
-            lastModified: productLastModified,
-            priority: 1,
-        },
-        {
-            url: "https://subflow.ing/en/privacy",
-            priority: 0.4,
-        },
-        {
-            url: "https://subflow.ing/zh/privacy",
-            priority: 0.4,
-        },
-        {
-            url: "https://subflow.ing/ja/privacy",
-            priority: 0.4,
-        },
-        {
-            url: "https://subflow.ing/es/privacy",
-            priority: 0.4,
-        },
-        {
-            url: "https://subflow.ing/en/changelog",
-            lastModified: productLastModified,
-            priority: 0.8,
-        },
-        {
-            url: "https://subflow.ing/zh/changelog",
-            lastModified: productLastModified,
-            priority: 0.8,
-        },
-        {
-            url: "https://subflow.ing/ja/changelog",
-            lastModified: productLastModified,
-            priority: 0.8,
-        },
-        {
-            url: "https://subflow.ing/es/changelog",
-            lastModified: productLastModified,
-            priority: 0.8,
-        },
-        ...featureUrls,
+        ...homeEntries,
+        ...changelogEntries,
+        ...featureEntries,
+        ...privacyEntries,
     ];
 }
