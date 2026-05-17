@@ -232,10 +232,15 @@ export default function ChartDialog({
         let totalSpentEver = 0;
         let newThisYear = 0;
         let amortizedMonthly = 0;
+        type CycleItem = {
+            name: string;
+            serviceId: string;
+            amount: number;
+        };
         const cycles = {
-            monthly: { count: 0, spend: 0 },
-            quarterly: { count: 0, spend: 0 },
-            yearly: { count: 0, spend: 0 },
+            monthly: { count: 0, spend: 0, items: [] as CycleItem[] },
+            quarterly: { count: 0, spend: 0, items: [] as CycleItem[] },
+            yearly: { count: 0, spend: 0, items: [] as CycleItem[] },
         };
 
         for (const sub of effectiveAllSubscriptions) {
@@ -275,21 +280,32 @@ export default function ChartDialog({
             if (cycleKey in cycles) {
                 cycles[cycleKey].count++;
                 cycles[cycleKey].spend += amortizedPrice;
+                cycles[cycleKey].items.push({
+                    name: sub.name,
+                    serviceId: sub.serviceId || "",
+                    amount: Math.round(amortizedPrice),
+                });
             }
         }
+
+        const sortByAmountDesc = (items: CycleItem[]) =>
+            [...items].sort((a, b) => b.amount - a.amount);
 
         const roundedCycles = {
             monthly: {
                 count: cycles.monthly.count,
                 spend: Math.round(cycles.monthly.spend),
+                items: sortByAmountDesc(cycles.monthly.items),
             },
             quarterly: {
                 count: cycles.quarterly.count,
                 spend: Math.round(cycles.quarterly.spend),
+                items: sortByAmountDesc(cycles.quarterly.items),
             },
             yearly: {
                 count: cycles.yearly.count,
                 spend: Math.round(cycles.yearly.spend),
+                items: sortByAmountDesc(cycles.yearly.items),
             },
         };
 
@@ -920,6 +936,7 @@ export default function ChartDialog({
                                     share={statsData.cycles.monthly.share}
                                     currency={currency}
                                     subsLabel={t("chartDialog.subs")}
+                                    items={statsData.cycles.monthly.items}
                                 />
                                 <CycleCard
                                     label={t("quarterly")}
@@ -928,6 +945,7 @@ export default function ChartDialog({
                                     share={statsData.cycles.quarterly.share}
                                     currency={currency}
                                     subsLabel={t("chartDialog.subs")}
+                                    items={statsData.cycles.quarterly.items}
                                 />
                                 <CycleCard
                                     label={t("yearly")}
@@ -936,6 +954,7 @@ export default function ChartDialog({
                                     share={statsData.cycles.yearly.share}
                                     currency={currency}
                                     subsLabel={t("chartDialog.subs")}
+                                    items={statsData.cycles.yearly.items}
                                 />
                             </div>
                         </div>
