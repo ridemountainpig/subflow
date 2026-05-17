@@ -136,6 +136,8 @@
             "deltaFlatDescription": "本月預估花費與上月相近。",
             "cycleBreakdownDescription": "金額以每月等效成本呈現，方便比較付款週期。",
             "subs": "筆",
+            "cycleItemsExpand": "展開{label}的訂閱清單",
+            "cycleItemsCollapse": "收合{label}的訂閱清單",
             "annualUpgradeHint": "考慮切換年訂閱",
             "annualUpgradeHintDescription": "{count} 個訂閱已以月付或季付超過一年，切換年訂閱可能降低總花費。",
             "annualUpgradeHintNoneDescription": "目前沒有月付或季付訂閱超過 12 個月。"

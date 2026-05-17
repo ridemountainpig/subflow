@@ -136,6 +136,8 @@
             "deltaFlatDescription": "El gasto estimado está cerca del mes anterior.",
             "cycleBreakdownDescription": "Los importes usan costo mensual equivalente para comparar ciclos de pago.",
             "subs": "subs",
+            "cycleItemsExpand": "Expandir lista de suscripciones de {label}",
+            "cycleItemsCollapse": "Contraer lista de suscripciones de {label}",
             "annualUpgradeHint": "Considerar plan anual",
             "annualUpgradeHintDescription": "{count} suscripción(es) llevan más de un año en ciclo mensual o trimestral — cambiar a anual podría reducir el gasto total.",
             "annualUpgradeHintNoneDescription": "No hay suscripciones mensuales o trimestrales con más de 12 meses de antigüedad."
