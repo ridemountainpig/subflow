@@ -136,6 +136,8 @@
             "deltaFlatDescription": "今月の見込み支出は前月とほぼ同じです。",
             "cycleBreakdownDescription": "金額は月額換算で表示し、支払いサイクルを比較しやすくしています。",
             "subs": "件",
+            "cycleItemsExpand": "{label}のサブスク一覧を展開",
+            "cycleItemsCollapse": "{label}のサブスク一覧を折りたたむ",
             "annualUpgradeHint": "年払いへの切り替えを検討",
             "annualUpgradeHintDescription": "{count}件のサブスクが月払い・四半期払いで1年以上継続中。年払いに切り替えると費用を抑えられる場合があります。",
             "annualUpgradeHintNoneDescription": "月払いまたは四半期払いで12か月以上のサブスクはありません。"

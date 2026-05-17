@@ -136,6 +136,8 @@
             "deltaFlatDescription": "Estimated spend is close to last month.",
             "cycleBreakdownDescription": "Amounts use monthly equivalent cost so billing cycles stay comparable.",
             "subs": "subs",
+            "cycleItemsExpand": "Expand {label} subscriptions list",
+            "cycleItemsCollapse": "Collapse {label} subscriptions list",
             "annualUpgradeHint": "Consider Annual Plan",
             "annualUpgradeHintDescription": "{count} subscription(s) have been on monthly or quarterly billing for over a year — switching to annual may reduce your total spend.",
             "annualUpgradeHintNoneDescription": "No monthly or quarterly subscriptions have been running for more than 12 months."

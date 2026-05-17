@@ -55,6 +55,7 @@ import {
     InsightCard,
     tabBtnClass,
     modeBtnClass,
+    type CycleItem,
 } from "./chart-dialog-ui";
 
 type Tab = "breakdown" | "analytics";
@@ -232,11 +233,6 @@ export default function ChartDialog({
         let totalSpentEver = 0;
         let newThisYear = 0;
         let amortizedMonthly = 0;
-        type CycleItem = {
-            name: string;
-            serviceId: string;
-            amount: number;
-        };
         const cycles = {
             monthly: { count: 0, spend: 0, items: [] as CycleItem[] },
             quarterly: { count: 0, spend: 0, items: [] as CycleItem[] },
@@ -278,12 +274,17 @@ export default function ChartDialog({
 
             const cycleKey = sub.paymentCycle as keyof typeof cycles;
             if (cycleKey in cycles) {
+                // Round once per item and reuse for both the cycle total and
+                // the expanded list so the card spend always equals the sum of
+                // visible item amounts (avoids "sum of rounded != rounded sum"
+                // drift between the card and the expansion).
+                const itemAmount = Math.round(amortizedPrice);
                 cycles[cycleKey].count++;
-                cycles[cycleKey].spend += amortizedPrice;
+                cycles[cycleKey].spend += itemAmount;
                 cycles[cycleKey].items.push({
                     name: sub.name,
                     serviceId: sub.serviceId || "",
-                    amount: Math.round(amortizedPrice),
+                    amount: itemAmount,
                 });
             }
         }

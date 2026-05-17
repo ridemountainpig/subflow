@@ -1,6 +1,13 @@
 "use client";
 
-import { ComponentType, ReactNode, useEffect, useRef, useState } from "react";
+import {
+    ComponentType,
+    ReactNode,
+    useCallback,
+    useEffect,
+    useId,
+    useState,
+} from "react";
 import { useTranslations } from "next-intl";
 import { PieLabelRenderProps } from "recharts";
 import { ChevronDown, Repeat } from "lucide-react";
@@ -164,7 +171,7 @@ export const StatCard = ({
     </div>
 );
 
-type CycleItem = {
+export type CycleItem = {
     name: string;
     serviceId: string;
     amount: number;
@@ -214,14 +221,20 @@ export const CycleCard = ({
     subsLabel: string;
     items: CycleItem[];
 }) => {
+    const t = useTranslations("SubscriptionPage");
+    const reactId = useId();
+    const panelId = `cycle-items-${reactId}`;
     const [expanded, setExpanded] = useState(false);
-    const stackRef = useRef<HTMLDivElement>(null);
     const [stackWidth, setStackWidth] = useState(0);
     const [isSmUp, setIsSmUp] = useState(false);
 
-    useEffect(() => {
-        const el = stackRef.current;
-        if (!el) return;
+    // Callback ref so the observer attaches whenever the stack node mounts
+    // (e.g., when items transition from empty to non-empty later on).
+    const stackRef = useCallback((el: HTMLDivElement | null) => {
+        if (!el) {
+            setStackWidth(0);
+            return;
+        }
         setStackWidth(el.clientWidth);
         if (typeof ResizeObserver === "undefined") return;
         const observer = new ResizeObserver((entries) => {
@@ -237,8 +250,13 @@ export const CycleCard = ({
         const mq = window.matchMedia("(min-width: 640px)");
         const update = () => setIsSmUp(mq.matches);
         update();
-        mq.addEventListener("change", update);
-        return () => mq.removeEventListener("change", update);
+        // Safari <14 only supports the legacy addListener/removeListener API.
+        if (typeof mq.addEventListener === "function") {
+            mq.addEventListener("change", update);
+            return () => mq.removeEventListener("change", update);
+        }
+        mq.addListener(update);
+        return () => mq.removeListener(update);
     }, []);
 
     // Match calendar-cell sizes: h-5/w-5 (mobile) → h-7/w-7 (sm+).
@@ -288,7 +306,13 @@ export const CycleCard = ({
                     type="button"
                     onClick={() => setExpanded((v) => !v)}
                     aria-expanded={expanded}
-                    aria-label={label}
+                    aria-controls={panelId}
+                    aria-label={t(
+                        expanded
+                            ? "chartDialog.cycleItemsCollapse"
+                            : "chartDialog.cycleItemsExpand",
+                        { label },
+                    )}
                     className="focus-visible:ring-subflow-300/80 -m-1 flex cursor-pointer items-center gap-2 rounded-md p-1 focus-visible:ring-2 focus-visible:outline-none"
                 >
                     <div
@@ -318,7 +342,10 @@ export const CycleCard = ({
                 </button>
             )}
             {interactive && expanded && (
-                <div className="border-subflow-700/70 flex flex-col gap-2 border-t pt-3">
+                <div
+                    id={panelId}
+                    className="border-subflow-700/70 flex flex-col gap-2 border-t pt-3"
+                >
                     {items.map((it, i) => (
                         <div
                             key={`${it.serviceId}-${it.name}-${i}-row`}
