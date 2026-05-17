@@ -3,7 +3,6 @@
 import {
     ComponentType,
     ReactNode,
-    useCallback,
     useEffect,
     useId,
     useState,
@@ -226,24 +225,23 @@ export const CycleCard = ({
     const panelId = `cycle-items-${reactId}`;
     const [expanded, setExpanded] = useState(false);
     const [stackWidth, setStackWidth] = useState(0);
+    const [stackEl, setStackEl] = useState<HTMLDivElement | null>(null);
     const [isSmUp, setIsSmUp] = useState(false);
 
-    // Callback ref so the observer attaches whenever the stack node mounts
-    // (e.g., when items transition from empty to non-empty later on).
-    const stackRef = useCallback((el: HTMLDivElement | null) => {
-        if (!el) {
-            setStackWidth(0);
-            return;
-        }
-        setStackWidth(el.clientWidth);
-        if (typeof ResizeObserver === "undefined") return;
+    // Track the node via state so the observer effect re-attaches whenever the
+    // stack node mounts (e.g., items transitioning from empty to non-empty)
+    // and cleans up deterministically on unmount via useEffect. The observer
+    // fires once after observe() with the initial size, so we don't need to
+    // call setStackWidth synchronously here.
+    useEffect(() => {
+        if (!stackEl || typeof ResizeObserver === "undefined") return;
         const observer = new ResizeObserver((entries) => {
             const entry = entries[0];
             if (entry) setStackWidth(entry.contentRect.width);
         });
-        observer.observe(el);
+        observer.observe(stackEl);
         return () => observer.disconnect();
-    }, []);
+    }, [stackEl]);
 
     useEffect(() => {
         if (typeof window === "undefined" || !window.matchMedia) return;
@@ -316,7 +314,7 @@ export const CycleCard = ({
                     className="focus-visible:ring-subflow-300/80 -m-1 flex cursor-pointer items-center gap-2 rounded-md p-1 focus-visible:ring-2 focus-visible:outline-none"
                 >
                     <div
-                        ref={stackRef}
+                        ref={setStackEl}
                         className="flex min-w-0 flex-1 items-center -space-x-1.5 overflow-hidden"
                     >
                         {items.slice(0, visibleCount).map((it, i) => (
