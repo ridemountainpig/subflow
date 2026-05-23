@@ -308,14 +308,13 @@ export default function ReceiptDialog({
             });
             if (!blob) throw new Error("toBlob returned null");
             const url = URL.createObjectURL(blob);
-            try {
-                const link = document.createElement("a");
-                link.download = `subflow-receipt-${period}.png`;
-                link.href = url;
-                link.click();
-            } finally {
-                URL.revokeObjectURL(url);
-            }
+            const link = document.createElement("a");
+            link.download = `subflow-receipt-${period}.png`;
+            link.href = url;
+            link.click();
+            // Defer revocation — revoking synchronously after click() can
+            // cancel the download in Safari/WebKit.
+            setTimeout(() => URL.revokeObjectURL(url), 1000);
         } catch {
             toast.error(t("receipt.downloadFailed"));
         } finally {
@@ -607,12 +606,23 @@ export default function ReceiptDialog({
                                                                         )
                                                                     </span>
                                                                 )}
+                                                                {item.currency !==
+                                                                    currency && (
+                                                                    <span className="ml-1.5 text-[10px] text-neutral-500">
+                                                                        {formatAmount(
+                                                                            item.amount,
+                                                                        )}{" "}
+                                                                        {
+                                                                            item.currency
+                                                                        }
+                                                                    </span>
+                                                                )}
                                                             </span>
                                                             <span className="whitespace-nowrap">
                                                                 {formatAmount(
-                                                                    item.amount,
+                                                                    item.convertedAmount,
                                                                 )}{" "}
-                                                                {item.currency}
+                                                                {currency}
                                                             </span>
                                                         </div>
                                                     ))}
