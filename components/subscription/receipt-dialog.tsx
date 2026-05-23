@@ -417,7 +417,10 @@ export default function ReceiptDialog({
             if (!mouseDragging || mouseStartY === null) return;
             const delta = mouseStartY - e.clientY; // positive when cursor up
             if (delta <= 0) {
+                // Re-baseline so a subsequent upward motion starts tearing
+                // immediately from the current cursor — matches the touch path.
                 pullY.set(0);
+                mouseStartY = e.clientY;
                 return;
             }
             pullY.set(rubberBand(delta));
@@ -629,7 +632,8 @@ export default function ReceiptDialog({
                                                     {t("receipt.subtotal")}
                                                 </span>
                                                 <span>
-                                                    {formatAmount(total)}
+                                                    {formatAmount(total)}{" "}
+                                                    {currency}
                                                 </span>
                                             </div>
                                             <div className="mt-2 flex items-baseline justify-between text-sm font-bold tracking-wider tabular-nums">
