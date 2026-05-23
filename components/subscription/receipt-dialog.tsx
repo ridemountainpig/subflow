@@ -100,6 +100,7 @@ export default function ReceiptDialog({
     // listeners every time React state churns.
     const stageRef = useRef<Stage>("ready");
     const downloadingRef = useRef(false);
+    const pastThresholdRef = useRef(false);
 
     const pullY = useMotionValue(0);
     const paperY = useTransform(pullY, (v) => -v);
@@ -115,7 +116,13 @@ export default function ReceiptDialog({
     });
 
     useMotionValueEvent(pullY, "change", (latest) => {
-        setPastThreshold(latest >= PULL_THRESHOLD);
+        // Fires on every motion frame — gate the setState so React only
+        // re-renders on actual threshold crossings, not at pointer-move rate.
+        const next = latest >= PULL_THRESHOLD;
+        if (next !== pastThresholdRef.current) {
+            pastThresholdRef.current = next;
+            setPastThreshold(next);
+        }
     });
 
     useEffect(() => {
@@ -208,6 +215,7 @@ export default function ReceiptDialog({
     useEffect(() => {
         if (stage === "ready") {
             pullY.set(0);
+            pastThresholdRef.current = false;
             setPastThreshold(false);
             setIsTorn(false);
         }
