@@ -26,6 +26,7 @@ import AddSubscriptionMenuDialog from "@/components/subscription/add-subscriptio
 import UpdateSubscriptionDialog from "@/components/subscription/update-subscription-dialog";
 import DeleteSubscriptionDialog from "@/components/subscription/delete-subscription-dialog";
 import ChartDialog from "@/components/subscription/chart-dialog";
+import ReceiptDialog from "@/components/subscription/receipt-dialog";
 import CoSubscriberInvite from "@/components/subscription/co-subscriber-invite";
 import DescriptionDialog from "@/components/subscription/description-dialog";
 import NewFeatureNotify from "@/components/new-feature-notify";
@@ -141,9 +142,9 @@ export default function Subscription() {
             {calendar.length > 0 && (
                 <div className="w-fit">
                     <div className="flex items-end justify-between pt-10 pb-2 sm:pb-4">
-                        <div className="flex items-center gap-x-1 sm:gap-x-3">
+                        <div className="flex items-center gap-x-0.75 sm:gap-x-3">
                             <CircleArrowLeft
-                                className="text-subflow-50 size-6 cursor-pointer rounded-full sm:size-[34px]"
+                                className="text-subflow-50 size-6 cursor-pointer rounded-full sm:size-8.5"
                                 onClick={handlePreviousMonth}
                             />
                             <CircleArrowRight
@@ -174,6 +175,13 @@ export default function Subscription() {
                                 monthSpend={monthlySpend || 0}
                                 currency={currency}
                             />
+                            <ReceiptDialog
+                                subscriptions={subscriptions}
+                                year={year}
+                                month={month}
+                                currency={currency}
+                                userEmail={userEmail}
+                            />
                             <CoSubscriberInvite
                                 updatedSubscription={updatedSubscription}
                                 setUpdatedSubscription={setUpdatedSubscription}
@@ -183,7 +191,7 @@ export default function Subscription() {
                             <span className="text-subflow-50 text-xs tracking-widest sm:text-base">
                                 {t("monthlySpend")}
                             </span>
-                            <div className="text-subflow-50 flex items-center gap-x-1 text-xl tracking-widest sm:text-3xl">
+                            <div className="text-subflow-50 flex items-center gap-x-0.75 text-xl tracking-widest sm:text-3xl">
                                 {monthlySpend !== null ? (
                                     <motion.div
                                         initial={{ opacity: 0, y: 10 }}

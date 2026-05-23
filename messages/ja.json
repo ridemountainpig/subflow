@@ -142,6 +142,21 @@
             "annualUpgradeHintDescription": "{count}件のサブスクが月払い・四半期払いで1年以上継続中。年払いに切り替えると費用を抑えられる場合があります。",
             "annualUpgradeHintNoneDescription": "月払いまたは四半期払いで12か月以上のサブスクはありません。"
         },
+        "receipt": {
+            "trigger": "レシート",
+            "title": "レシート",
+            "description": "今月の実際の引き落としをレシート形式でまとめたもの。",
+            "header": "サブスクリプションレシート",
+            "printing": "印刷中",
+            "download": "ダウンロード",
+            "releaseToTear": "離してダウンロード",
+            "dragToTearOff": "レシートを上にドラッグして切り取る",
+            "items": "支払い件数",
+            "subtotal": "小計",
+            "total": "合計",
+            "downloadFailed": "レシートの保存に失敗しました",
+            "empty": "今月のサブスクはありません"
+        },
         "descriptionDialog": {
             "title": "使い方",
             "monthSwitch": {

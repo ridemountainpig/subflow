@@ -142,6 +142,21 @@
             "annualUpgradeHintDescription": "{count} suscripción(es) llevan más de un año en ciclo mensual o trimestral — cambiar a anual podría reducir el gasto total.",
             "annualUpgradeHintNoneDescription": "No hay suscripciones mensuales o trimestrales con más de 12 meses de antigüedad."
         },
+        "receipt": {
+            "trigger": "Recibo",
+            "title": "Recibo",
+            "description": "Un resumen tipo recibo de los cobros reales de suscripción de este mes.",
+            "header": "Recibo de suscripción",
+            "printing": "Imprimiendo",
+            "download": "Descargar",
+            "releaseToTear": "Suelta para descargar",
+            "dragToTearOff": "Arrastra el recibo hacia arriba para arrancarlo",
+            "items": "Pagos",
+            "subtotal": "Subtotal",
+            "total": "Total",
+            "downloadFailed": "Error al guardar el recibo",
+            "empty": "Sin suscripciones este mes"
+        },
         "descriptionDialog": {
             "title": "Cómo usar",
             "monthSwitch": {

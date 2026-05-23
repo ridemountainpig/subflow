@@ -142,6 +142,21 @@
             "annualUpgradeHintDescription": "{count} subscription(s) have been on monthly or quarterly billing for over a year — switching to annual may reduce your total spend.",
             "annualUpgradeHintNoneDescription": "No monthly or quarterly subscriptions have been running for more than 12 months."
         },
+        "receipt": {
+            "trigger": "Receipt",
+            "title": "Receipt",
+            "description": "A receipt-style summary of this month's actual subscription charges.",
+            "header": "Subscription Receipt",
+            "printing": "Printing",
+            "download": "Download",
+            "releaseToTear": "Release to download",
+            "dragToTearOff": "Drag the receipt upward to tear it off",
+            "items": "Payments",
+            "subtotal": "Subtotal",
+            "total": "Total",
+            "downloadFailed": "Failed to save receipt",
+            "empty": "No subscriptions this month"
+        },
         "descriptionDialog": {
             "title": "How to Use",
             "monthSwitch": {
