@@ -65,12 +65,6 @@ const BARCODE_BARS = [
     1, 3, 5, 2, 1, 4, 2, 1, 3, 1, 5, 2, 4, 1, 3, 1, 2,
 ];
 
-const amountFormatter = new Intl.NumberFormat("en-US", {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-});
-const formatAmount = (value: number) => amountFormatter.format(value);
-
 const ZIGZAG_TOP =
     "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 8' preserveAspectRatio='none'><polygon points='0,8 10,0 20,8' fill='%23ffffff'/></svg>\")";
 const ZIGZAG_BOTTOM =
@@ -98,6 +92,7 @@ export default function ReceiptDialog({
     const [printedCount, setPrintedCount] = useState(0);
     const [pastThreshold, setPastThreshold] = useState(false);
     const [isTorn, setIsTorn] = useState(false);
+    const [generatedAt, setGeneratedAt] = useState<Date>(() => new Date());
     const receiptRef = useRef<HTMLDivElement>(null);
     const paperRef = useRef<HTMLDivElement>(null);
     const scrollRef = useRef<HTMLDivElement>(null);
@@ -169,24 +164,30 @@ export default function ReceiptDialog({
         [items],
     );
 
+    const formatAmount = useMemo(() => {
+        const formatter = new Intl.NumberFormat(locale, {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+        });
+        return (value: number) => formatter.format(value);
+    }, [locale]);
+
     const period = `${year}-${String(month).padStart(2, "0")}`;
 
+    // Always show the actual generation timestamp (refreshed on each open).
+    // The billing period it covers is shown separately as `#YYYY-MM` below.
     const { dateLabel, timeLabel } = useMemo(() => {
-        const now = new Date();
-        const isCurrentMonth =
-            now.getFullYear() === year && now.getMonth() + 1 === month;
-        const base = isCurrentMonth ? now : new Date(year, month - 1, 1);
         const date = new Intl.DateTimeFormat(locale, {
             year: "numeric",
             month: "short",
             day: "numeric",
         })
-            .format(base)
+            .format(generatedAt)
             .toUpperCase();
-        const hh = String(now.getHours()).padStart(2, "0");
-        const mm = String(now.getMinutes()).padStart(2, "0");
+        const hh = String(generatedAt.getHours()).padStart(2, "0");
+        const mm = String(generatedAt.getMinutes()).padStart(2, "0");
         return { dateLabel: date, timeLabel: `${hh}:${mm}` };
-    }, [year, month, locale]);
+    }, [generatedAt, locale]);
 
     useEffect(() => {
         if (stage !== "printing" || items.length === 0) {
@@ -278,6 +279,7 @@ export default function ReceiptDialog({
             resetTimerRef.current = null;
         }
         if (open) {
+            setGeneratedAt(new Date());
             setStage("printing");
         } else {
             resetTimerRef.current = window.setTimeout(() => {
