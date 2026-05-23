@@ -12,7 +12,7 @@ import {
     useTransform,
 } from "framer-motion";
 import { Download, Receipt as ReceiptIcon, X } from "lucide-react";
-import { toPng } from "html-to-image";
+import { toBlob } from "html-to-image";
 import { toast } from "sonner";
 
 import {
@@ -301,19 +301,31 @@ export default function ReceiptDialog({
                 ease: "easeOut",
             });
 
-            const dataUrl = await toPng(receiptRef.current, {
+            const blob = await toBlob(receiptRef.current, {
                 pixelRatio: 2,
             });
-            const link = document.createElement("a");
-            link.download = `subflow-receipt-${period}.png`;
-            link.href = dataUrl;
-            link.click();
+            if (!blob) throw new Error("toBlob returned null");
+            const url = URL.createObjectURL(blob);
+            try {
+                const link = document.createElement("a");
+                link.download = `subflow-receipt-${period}.png`;
+                link.href = url;
+                link.click();
+            } finally {
+                URL.revokeObjectURL(url);
+            }
         } catch {
             toast.error(t("receipt.downloadFailed"));
         } finally {
             setIsDownloading(false);
         }
     };
+    // Keep the gesture effect's `release` handler bound to the latest
+    // downloadReceipt without re-attaching listeners when props change.
+    const downloadReceiptRef = useRef(downloadReceipt);
+    useEffect(() => {
+        downloadReceiptRef.current = downloadReceipt;
+    });
 
     // Drag-to-tear: once printing finishes, the user grabs the receipt and
     // pulls it upward — mouse-drag on desktop, swipe-up on touch — with
@@ -332,7 +344,7 @@ export default function ReceiptDialog({
 
         const release = () => {
             if (pullY.get() >= PULL_THRESHOLD) {
-                void downloadReceipt();
+                void downloadReceiptRef.current();
             } else {
                 void motionAnimate(pullY, 0, {
                     duration: 0.3,
@@ -435,13 +447,13 @@ export default function ReceiptDialog({
             window.removeEventListener("mousemove", onMouseMove);
             window.removeEventListener("mouseup", onMouseUp);
         };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [stage]);
+    }, [stage, pullY]);
 
     return (
         <Dialog open={isOpen} onOpenChange={handleOpenChange}>
             <DialogTrigger
                 title={t("receipt.trigger")}
+                aria-label={t("receipt.trigger")}
                 className="focus-visible:ring-subflow-300/80 rounded-full focus-visible:ring-2 focus-visible:outline-none"
             >
                 <ReceiptIcon className="text-subflow-50 size-6 cursor-pointer rounded-full sm:size-[34px]" />
