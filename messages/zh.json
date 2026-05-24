@@ -142,6 +142,21 @@
             "annualUpgradeHintDescription": "{count} 個訂閱已以月付或季付超過一年，切換年訂閱可能降低總花費。",
             "annualUpgradeHintNoneDescription": "目前沒有月付或季付訂閱超過 12 個月。"
         },
+        "receipt": {
+            "trigger": "收據",
+            "title": "收據",
+            "description": "以收據形式呈現本月實際扣款的訂閱明細。",
+            "header": "訂閱收據",
+            "printing": "列印中",
+            "download": "下載",
+            "releaseToTear": "放開下載收據",
+            "dragToTearOff": "按住收據往上拖曳以撕下",
+            "items": "付款筆數",
+            "subtotal": "小計",
+            "total": "合計",
+            "downloadFailed": "儲存收據失敗",
+            "empty": "本月沒有訂閱"
+        },
         "descriptionDialog": {
             "title": "使用說明",
             "monthSwitch": {
