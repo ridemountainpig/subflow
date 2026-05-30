@@ -40,7 +40,7 @@ export const subscriptionServices: SubscriptionServices[] = [
     },
     {
         uuid: "9bec05cc-3b11-4f2d-a02b-92b846f432c1",
-        name: "Animate",
+        name: "Adobe Animate",
         icon: Svgl.Animate,
     },
     {
@@ -340,7 +340,7 @@ export const subscriptionServices: SubscriptionServices[] = [
     },
     {
         uuid: "3010cc77-0ce1-48b6-ac5c-45312ae1e082",
-        name: "Dreamweaver",
+        name: "Adobe Dreamweaver",
         icon: Svgl.Dreamweaver,
     },
     {
@@ -897,5 +897,125 @@ export const subscriptionServices: SubscriptionServices[] = [
         uuid: "75da448d-8c87-4e9a-8103-f0ad8fa28125",
         name: "Xata",
         icon: Svgl.Xata,
+    },
+    {
+        uuid: "6ec1e0ee-8769-43ed-afce-c9bcec5206dd",
+        name: "Trello",
+        icon: Svgl.Trello,
+    },
+    {
+        uuid: "4b6086d2-58bc-455d-b822-16d7973234d7",
+        name: "ClickUp",
+        icon: Svgl.ClickUp,
+    },
+    {
+        uuid: "68f76aa5-7dd4-46e9-b4f7-819e9babfd9a",
+        name: "Cerebras",
+        icon: Svgl.CerebrasDark,
+    },
+    {
+        uuid: "b7cc3c28-1325-43ab-9297-ec7ae4949664",
+        name: "Codex",
+        icon: Svgl.CodexDark,
+    },
+    {
+        uuid: "b5741188-0ecf-40ac-b83f-986b4097cc6b",
+        name: "Granola",
+        icon: Svgl.GranolaDark,
+    },
+    {
+        uuid: "f732efbb-2da3-42f1-bdb8-3ad3c6212a66",
+        name: "Adobe Fonts",
+        icon: Svgl.AdobeFonts,
+    },
+    {
+        uuid: "a10eee7d-f048-4345-8a9f-1f06f87bb28c",
+        name: "Adobe Sign",
+        icon: Svgl.AdobeSign,
+    },
+    {
+        uuid: "585af6a3-6c1f-450d-a01a-c28e0246830e",
+        name: "Adobe Stock",
+        icon: Svgl.AdobeStock,
+    },
+    {
+        uuid: "dbf60b6c-7f29-4773-bfde-9d138397ca4a",
+        name: "Adobe Audition",
+        icon: Svgl.Audition,
+    },
+    {
+        uuid: "feb9e75c-93fb-4b7b-8463-97814d6c8cb5",
+        name: "Adobe Captivate",
+        icon: Svgl.Captivate,
+    },
+    {
+        uuid: "a23cc53c-a89e-4b03-89b2-b4078a6900d2",
+        name: "Adobe Character Animator",
+        icon: Svgl.CharacterAnimator,
+    },
+    {
+        uuid: "2a5bc3e4-fb74-42e6-b325-2b82f2fc1ff8",
+        name: "Adobe ColdFusion",
+        icon: Svgl.ColdFusion,
+    },
+    {
+        uuid: "d30440d5-6a58-4415-aa06-5d3d6e21778a",
+        name: "Adobe Connect",
+        icon: Svgl.Connect,
+    },
+    {
+        uuid: "594d6138-41a1-4c25-840d-32c5c10b64b0",
+        name: "Adobe FrameMaker",
+        icon: Svgl.FrameMaker,
+    },
+    {
+        uuid: "90e970b4-c524-4b58-8abf-3bab7a19898c",
+        name: "Adobe Fresco",
+        icon: Svgl.Fresco,
+    },
+    {
+        uuid: "89c8b35f-a7c2-431a-9884-0d6291ce3157",
+        name: "Adobe InCopy",
+        icon: Svgl.InCopy,
+    },
+    {
+        uuid: "94be75e6-99f6-4773-9bed-4fdb6c5c6339",
+        name: "Adobe Lightroom Classic",
+        icon: Svgl.LightroomClassic,
+    },
+    {
+        uuid: "ca7184bd-1c49-454b-8ec9-a145285b5e06",
+        name: "Adobe Media Encoder",
+        icon: Svgl.MediaEncoder,
+    },
+    {
+        uuid: "f58aa467-ad5d-449e-9687-7844ec7a107a",
+        name: "Adobe Photoshop Express",
+        icon: Svgl.PhotoshopExpress,
+    },
+    {
+        uuid: "e5e705f4-e883-4bd1-89d6-da5bffd5ab9f",
+        name: "Adobe Premiere Rush",
+        icon: Svgl.PremiereRush,
+    },
+    {
+        uuid: "ee340f86-bce4-45e2-a7c0-a75f80d65f64",
+        name: "Adobe RoboHelp",
+        icon: Svgl.RoboHelp,
+    },
+    {
+        uuid: "95121369-7042-4731-b1ea-59d473371ccf",
+        name: "Adobe Substance 3D Designer",
+        icon: Svgl.Substance3DDesigner,
+    },
+    {
+        uuid: "20309def-edb6-48ff-bb8b-e0e28ab81051",
+        name: "Adobe Substance 3D Painter",
+        icon: Svgl.Substance3DPainter,
+    },
+    {
+        uuid: "57928688-7e76-4353-bce5-d5f89fa3bb65",
+        name: "Adobe Portfolio",
+        icon: Svgl.Portfolio,
     },
 ];
