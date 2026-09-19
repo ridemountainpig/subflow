@@ -1018,4 +1018,49 @@ export const subscriptionServices: SubscriptionServices[] = [
         name: "Adobe Portfolio",
         icon: Svgl.Portfolio,
     },
+    {
+        uuid: "bf1c090f-d6b4-4faa-b79c-fe6bbd8eba72",
+        name: "Conductor",
+        icon: Svgl.ConductorDark,
+    },
+    {
+        uuid: "f6beeafc-2af7-4fdc-a230-44b6c579bbea",
+        name: "Depot",
+        icon: Svgl.DepotDark,
+    },
+    {
+        uuid: "4c64fad5-2ab8-45a5-a49e-99dbbb2b4bd9",
+        name: "Grida",
+        icon: Svgl.GridaDark,
+    },
+    {
+        uuid: "963451c4-ac7d-42ea-aedb-626bae0e0883",
+        name: "Mastra",
+        icon: Svgl.MastraDark,
+    },
+    {
+        uuid: "d73c3899-d1f3-4491-ab12-d876c5f1a642",
+        name: "Ossium",
+        icon: Svgl.Ossium,
+    },
+    {
+        uuid: "914eb905-d9ff-480b-b25e-e30620d469b1",
+        name: "Plausible Analytics",
+        icon: Svgl.PlausibleAnalytics,
+    },
+    {
+        uuid: "38497ab9-d266-40ea-b2e6-66e2dc95c468",
+        name: "Postqued",
+        icon: Svgl.PostquedDark,
+    },
+    {
+        uuid: "6590e86c-6d66-4e2e-9cdf-ba9e8a1c1d26",
+        name: "Proton VPN",
+        icon: Svgl.ProtonVPN,
+    },
+    {
+        uuid: "ba2cae4f-b2f5-48e7-9549-96429e2c50e7",
+        name: "Retain",
+        icon: Svgl.RetainDark,
+    },
 ];
