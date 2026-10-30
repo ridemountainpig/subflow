@@ -61,6 +61,7 @@ async function getFallbackCurrenciesLive(): Promise<CurrenciesLiveType> {
             "https://allratestoday.com/api/open/latest/USD",
             {
                 headers: { Accept: "application/json" },
+                signal: AbortSignal.timeout(10_000),
                 next: {
                     revalidate: 86400, // 24 hours
                 },
@@ -75,7 +76,13 @@ async function getFallbackCurrenciesLive(): Promise<CurrenciesLiveType> {
         if (data.result === "success" && data.rates) {
             const quotes: Record<string, number> = {};
             for (const [code, rate] of Object.entries(data.rates)) {
-                quotes[`USD${code}`] = rate;
+                if (
+                    typeof rate === "number" &&
+                    Number.isFinite(rate) &&
+                    rate > 0
+                ) {
+                    quotes[`USD${code}`] = rate;
+                }
             }
             return {
                 success: true,

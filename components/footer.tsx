@@ -111,7 +111,7 @@ export default function Footer() {
                                     rel="noopener noreferrer"
                                     className="text-subflow-800 hover:text-subflow-950 inline-flex w-fit items-center gap-2 py-1 transition-colors"
                                 >
-                                    <span>Exchange rates by AllRatesToday</span>
+                                    <span>{t("exchangeRatesBy")} AllRatesToday</span>
                                     <ArrowUpRight size={16} strokeWidth={2.4} />
                                 </a>
                                 <a

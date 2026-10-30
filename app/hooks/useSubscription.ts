@@ -68,16 +68,31 @@ export const useSubscription = (
                 // Fetch the live quote set once and compute every conversion
                 // from it, rather than calling convertCurrency per subscription
                 // (which would hit the server action for each entry).
-                const quotes = needsRates
-                    ? (await getCurrenciesLive()).quotes
-                    : null;
+                let quotes: Record<string, number> | null = null;
+                if (needsRates) {
+                    const live = await getCurrenciesLive();
+                    if (!live.success) {
+                        throw new Error("Exchange rates are unavailable");
+                    }
+                    quotes = live.quotes;
+                }
+                // A missing quote must not be treated as rate 1 (that would
+                // read the price as USD), so withhold the totals instead.
+                const rateFor = (code: string) => {
+                    if (code === "USD") return 1;
+                    const rate = quotes?.[`USD${code}`];
+                    if (!rate) {
+                        throw new Error(`No exchange rate for ${code}`);
+                    }
+                    return rate;
+                };
 
                 const convertedSubscriptions = rawSubscriptions.map((sub) => {
                     if (sub.currency === currency) {
                         return { ...sub, convertedPrice: sub.price };
                     }
-                    const fromRate = quotes?.[`USD${sub.currency}`] || 1;
-                    const toRate = quotes?.[`USD${currency}`] || 1;
+                    const fromRate = rateFor(sub.currency);
+                    const toRate = rateFor(currency);
                     return {
                         ...sub,
                         convertedPrice: Math.floor(
