@@ -1063,4 +1063,19 @@ export const subscriptionServices: SubscriptionServices[] = [
         name: "Retain",
         icon: Svgl.RetainDark,
     },
+    {
+        uuid: "ee217339-b491-4f40-9848-f5c5868e1b95",
+        name: "Attio",
+        icon: Svgl.AttioDark,
+    },
+    {
+        uuid: "c601ae3e-69ba-462a-8645-9e68c3e08a4a",
+        name: "Cockroach Labs",
+        icon: Svgl.CockroachLabsDark,
+    },
+    {
+        uuid: "9fd758a3-e91a-481b-ac2f-9430eaa0fd26",
+        name: "LogBrew",
+        icon: Svgl.LogBrew,
+    },
 ];
