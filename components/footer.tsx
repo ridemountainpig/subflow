@@ -106,6 +106,15 @@ export default function Footer() {
                                     <GitHubLight className="h-4 w-4" />
                                 </a>
                                 <a
+                                    href="https://allratestoday.com"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-subflow-800 hover:text-subflow-950 inline-flex w-fit items-center gap-2 py-1 transition-colors"
+                                >
+                                    <span>{t("exchangeRatesBy")} AllRatesToday</span>
+                                    <ArrowUpRight size={16} strokeWidth={2.4} />
+                                </a>
+                                <a
                                     href="https://zeabur.com/referral?referralCode=ridemountainpig"
                                     target="_blank"
                                     rel="noopener noreferrer"
