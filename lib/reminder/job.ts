@@ -133,28 +133,32 @@ export async function runPaymentReminders(
         failed: 0,
     };
 
+    let attempted = 0;
     for (const recipient of recipients) {
-        const email = recipient.email.toLowerCase().trim();
-        const subscriptions = (await SubscriptionModel.find({
-            $or: [
-                { userId: recipient.userId },
-                {
-                    coSubscribers: {
-                        $elemMatch: { email, confirm: true },
-                    },
-                },
-            ],
-        }).lean()) as unknown as StoredSubscription[];
-
-        const due = subscriptions.filter((s) => isChargedTomorrow(s, today));
-        const { own, shared } = toReminderItems(recipient, due);
-        if (own.length + shared.length === 0) continue;
-
-        summary.recipients += 1;
         try {
-            if (summary.sent + summary.failed > 0) {
+            const email = recipient.email.toLowerCase().trim();
+            const subscriptions = (await SubscriptionModel.find({
+                $or: [
+                    { userId: recipient.userId },
+                    {
+                        coSubscribers: {
+                            $elemMatch: { email, confirm: true },
+                        },
+                    },
+                ],
+            }).lean()) as unknown as StoredSubscription[];
+
+            const due = subscriptions.filter((s) =>
+                isChargedTomorrow(s, today),
+            );
+            const { own, shared } = toReminderItems(recipient, due);
+            if (own.length + shared.length === 0) continue;
+
+            summary.recipients += 1;
+            if (attempted > 0) {
                 await new Promise((r) => setTimeout(r, SEND_INTERVAL_MS));
             }
+            attempted += 1;
             await sendReminderToUser(recipient, own, shared);
             summary.sent += 1;
         } catch (error) {

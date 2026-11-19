@@ -80,26 +80,21 @@ export function isChargedTomorrow(
         return false;
     }
 
+    // On the second-to-last day of a short month, tomorrow is the last day:
+    // it is the charge day for subscriptions on that day and for those whose
+    // day doesn't exist this month (e.g. the 31st in April). On the last day,
+    // tomorrow is the 1st of next month.
     if (sub.paymentCycle === "monthly") {
-        if (isPenultimate && lastDay < 31) return subDay > lastDay;
-        if (isLastDay) {
-            if (lastDay < 31) return subDay === 1 || subDay > lastDay;
-            return subDay === 1;
-        }
+        if (isPenultimate && lastDay < 31) return subDay >= lastDay;
+        if (isLastDay) return subDay === 1;
         return subDay === tmrDay;
     }
 
     if (sub.paymentCycle === "quarterly") {
         if (isPenultimate && lastDay < 31) {
-            return msToday >= 0 && msToday % 3 === 0 && subDay > lastDay;
+            return msToday >= 0 && msToday % 3 === 0 && subDay >= lastDay;
         }
         if (isLastDay) {
-            if (lastDay < 31) {
-                return (
-                    (msToday >= 0 && msToday % 3 === 0 && subDay > lastDay) ||
-                    (msNext >= 0 && msNext % 3 === 0 && subDay === 1)
-                );
-            }
             return msNext >= 0 && msNext % 3 === 0 && subDay === 1;
         }
         if (msTmr < 0 || msTmr % 3 !== 0) return false;
@@ -108,17 +103,9 @@ export function isChargedTomorrow(
 
     if (sub.paymentCycle === "yearly") {
         if (isPenultimate && lastDay < 31) {
-            return subMonth === todayMonth && subDay > lastDay;
+            return subMonth === todayMonth && subDay >= lastDay;
         }
-        if (isLastDay) {
-            if (lastDay < 31) {
-                return (
-                    (subMonth === todayMonth && subDay > lastDay) ||
-                    (subMonth === nextMonth && subDay === 1)
-                );
-            }
-            return subMonth === nextMonth && subDay === 1;
-        }
+        if (isLastDay) return subMonth === nextMonth && subDay === 1;
         return subMonth === tmrMonth && subDay === tmrDay;
     }
 
