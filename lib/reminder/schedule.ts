@@ -1,7 +1,8 @@
 /**
- * Decides which subscriptions are charged "tomorrow". All math is done on calendar dates in UTC so the
- * result does not depend on the server's time zone; pass in "today" as the
- * calendar date in the reminder's time zone (see getTodayInTimeZone).
+ * Decides which subscriptions are charged "tomorrow". All math is done on
+ * calendar dates in UTC so the result does not depend on the server's time
+ * zone; pass in "today" as the calendar date in the reminder's time zone
+ * (see getTodayInTimeZone).
  */
 
 export interface CalendarDate {
