@@ -2,7 +2,7 @@ name: Payment reminder
 
 on:
     schedule:
-        # 01:00 UTC = 09:00 Asia/Taipei, same time as the old n8n workflow
+        # 01:00 UTC = 09:00 Asia/Taipei
         - cron: "0 1 * * *"
     workflow_dispatch:
 

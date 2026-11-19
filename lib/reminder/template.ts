@@ -1,5 +1,5 @@
 /**
- * Payment reminder email, ported from the n8n "Send notify email" nodes.
+ * Payment reminder email in en/zh/ja/es.
  */
 
 export type ReminderLanguage = "en" | "zh" | "ja" | "es";

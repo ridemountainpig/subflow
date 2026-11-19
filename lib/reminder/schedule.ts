@@ -1,6 +1,5 @@
 /**
- * Decides which subscriptions are charged "tomorrow", ported from the n8n
- * payment reminder workflow. All math is done on calendar dates in UTC so the
+ * Decides which subscriptions are charged "tomorrow". All math is done on calendar dates in UTC so the
  * result does not depend on the server's time zone; pass in "today" as the
  * calendar date in the reminder's time zone (see getTodayInTimeZone).
  */
