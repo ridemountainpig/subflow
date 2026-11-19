@@ -1,0 +1,21 @@
+name: Payment reminder
+
+on:
+    schedule:
+        # 01:00 UTC = 09:00 Asia/Taipei, same time as the old n8n workflow
+        - cron: "0 1 * * *"
+    workflow_dispatch:
+
+jobs:
+    send:
+        runs-on: ubuntu-latest
+        timeout-minutes: 10
+        steps:
+            - name: Trigger payment reminder job
+              env:
+                  CRON_SECRET: ${{ secrets.CRON_SECRET }}
+              run: |
+                  curl --fail-with-body -sS -X POST \
+                    -H "Authorization: Bearer ${CRON_SECRET}" \
+                    --max-time 300 \
+                    https://subflow.ing/api/cron/payment-reminder
