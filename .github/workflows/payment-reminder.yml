@@ -38,7 +38,8 @@ jobs:
                     --arg onlyEmail "${ONLY_EMAIL:-}" \
                     --arg date "${TEST_DATE:-}" \
                     --arg includeAll "${INCLUDE_ALL:-false}" \
-                    'if $onlyEmail == "" then {} else {onlyEmail: $onlyEmail, date: $date, includeAll: ($includeAll == "true")} end')
+                    '{onlyEmail: $onlyEmail, date: $date, includeAll: ($includeAll == "true")}
+                     | with_entries(select(.value != "" and .value != false))')
                   curl --fail-with-body -sS -X POST \
                     -H "Authorization: Bearer ${CRON_SECRET}" \
                     -H "Content-Type: application/json" \

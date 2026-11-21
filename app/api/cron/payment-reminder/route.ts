@@ -48,11 +48,16 @@ async function parseOptions(req: NextRequest): Promise<ReminderRunOptions> {
             typeof body.date === "string" &&
             /^(\d{4})-(\d{2})-(\d{2})$/.exec(body.date);
         if (!match) throw new Error("date must look like YYYY-MM-DD");
-        options.today = {
-            year: Number(match[1]),
-            month: Number(match[2]),
-            date: Number(match[3]),
-        };
+        const [year, month, date] = match.slice(1).map(Number);
+        const check = new Date(Date.UTC(year, month - 1, date));
+        if (
+            check.getUTCFullYear() !== year ||
+            check.getUTCMonth() !== month - 1 ||
+            check.getUTCDate() !== date
+        ) {
+            throw new Error("date is not a real calendar date");
+        }
+        options.today = { year, month, date };
     }
     if (body.includeAll !== undefined) {
         options.includeAll =
