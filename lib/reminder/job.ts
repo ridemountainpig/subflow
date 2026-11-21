@@ -16,6 +16,9 @@ import {
 // Resend's default rate limit is 2 requests per second.
 const SEND_INTERVAL_MS = 600;
 
+const escapeRegex = (value: string) =>
+    value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
 export interface ReminderRecipient {
     userId: string;
     email: string;
@@ -37,8 +40,19 @@ interface StoredSubscription {
     }[];
 }
 
+export interface ReminderRunOptions {
+    now?: Date;
+    /** Test mode: only consider this one recipient. */
+    onlyEmail?: string;
+    /** Test mode: pretend "today" is this date (in the reminder time zone). */
+    today?: CalendarDate;
+    /** Test mode: include every subscription, not only the ones due tomorrow. */
+    includeAll?: boolean;
+}
+
 export interface ReminderRunSummary {
     date: CalendarDate;
+    test: boolean;
     recipients: number;
     sent: number;
     failed: number;
@@ -112,22 +126,29 @@ export async function sendReminderToUser(
 }
 
 export async function runPaymentReminders(
-    now: Date = new Date(),
+    options: ReminderRunOptions = {},
 ): Promise<ReminderRunSummary> {
-    const today = getTodayInTimeZone(now);
+    const onlyEmail = options.onlyEmail?.toLowerCase().trim();
+    const test = Boolean(onlyEmail);
+    if (!test && (options.today || options.includeAll)) {
+        throw new Error("today and includeAll require onlyEmail");
+    }
+    const today = options.today ?? getTodayInTimeZone(options.now);
     const db = await connectToDatabase();
     const EmailModel = getEmailModel(db);
     const SubscriptionModel = getSubscriptionModel(db);
 
-    const recipients = (await EmailModel.find({
-        notify: true,
-        email: { $nin: [null, ""] },
-    })
+    const recipientFilter = onlyEmail
+        ? // Test mode reaches the one address even if its reminders are off.
+          { email: { $regex: `^${escapeRegex(onlyEmail)}$`, $options: "i" } }
+        : { notify: true, email: { $nin: [null, ""] } };
+    const recipients = (await EmailModel.find(recipientFilter)
         .select("userId email language")
         .lean()) as unknown as ReminderRecipient[];
 
     const summary: ReminderRunSummary = {
         date: today,
+        test,
         recipients: 0,
         sent: 0,
         failed: 0,
@@ -148,9 +169,9 @@ export async function runPaymentReminders(
                 ],
             }).lean()) as unknown as StoredSubscription[];
 
-            const due = subscriptions.filter((s) =>
-                isChargedTomorrow(s, today),
-            );
+            const due = options.includeAll
+                ? subscriptions
+                : subscriptions.filter((s) => isChargedTomorrow(s, today));
             const { own, shared } = toReminderItems(recipient, due);
             if (own.length + shared.length === 0) continue;
 
