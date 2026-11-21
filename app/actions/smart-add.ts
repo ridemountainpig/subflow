@@ -1,14 +1,10 @@
 "use server";
 
-import { GoogleGenerativeAI } from "@google/generative-ai";
 import { generateText, gateway } from "ai";
 import { subscriptionServices } from "@/data/subscriptionServices";
 import { requireAuth } from "@/app/actions/action";
 import { getCurrenciesList } from "@/app/actions/currency";
 
-const AI_API_KEY = process.env.AI_API_KEY;
-const API_ENDPOINT = process.env.AI_API_ENDPOINT;
-const MODEL_NAME = process.env.AI_MODEL_NAME;
 const AI_GATEWAY_MODEL = process.env.AI_GATEWAY_MODEL;
 
 function buildPrompt(currencyCodes: string[]) {
@@ -135,69 +131,6 @@ async function getPromptAndCurrencies() {
     const currencyCodes = Object.keys(currenciesList.currencies);
     const prompt = buildPrompt(currencyCodes);
     return { prompt, currencyCodes };
-}
-
-export async function analyzeContent(formData: FormData) {
-    await requireAuth();
-
-    if (!AI_API_KEY) {
-        throw new Error("AI_API_KEY is not set");
-    }
-    if (!API_ENDPOINT) {
-        throw new Error("AI_API_ENDPOINT is not set");
-    }
-    if (!MODEL_NAME) {
-        throw new Error("AI_MODEL_NAME is not set");
-    }
-
-    const genAI = new GoogleGenerativeAI(AI_API_KEY);
-    const model = genAI.getGenerativeModel(
-        { model: MODEL_NAME },
-        { baseUrl: API_ENDPOINT },
-    );
-
-    const { file, text } = extractFormData(formData);
-    const { prompt, currencyCodes } = await getPromptAndCurrencies();
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const parts: any[] = [];
-
-    if (text) {
-        parts.push({ text: text });
-    }
-
-    if (file) {
-        const base64Data = await getFileBase64(file);
-        parts.push({
-            inlineData: {
-                mimeType: file.type,
-                data: base64Data,
-            },
-        });
-    }
-
-    parts.push({ text: prompt });
-
-    try {
-        const result = await model.generateContent({
-            contents: [{ role: "user", parts: parts }],
-            generationConfig: {
-                responseMimeType: "application/json",
-            },
-        });
-
-        const response = await result.response;
-        const generatedText = response.text();
-
-        if (!generatedText) {
-            throw new Error("No data returned from Gemini");
-        }
-
-        return parseAndProcessResult(generatedText, currencyCodes);
-    } catch (error) {
-        console.error("Analyze Content Error:", error);
-        throw error;
-    }
 }
 
 export async function analyzeContentWithGateway(formData: FormData) {

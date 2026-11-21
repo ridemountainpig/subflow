@@ -3,7 +3,7 @@
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { ArrowUpRight } from "lucide-react";
-import { GitHubLight, XLight, ZeaburLight } from "@ridemountainpig/svgl-react";
+import { GitHubLight, XLight } from "@ridemountainpig/svgl-react";
 import { getFeaturePages } from "@/data/feature-pages";
 import type { AppLocale } from "@/lib/seo";
 
@@ -104,15 +104,6 @@ export default function Footer() {
                                 >
                                     <span>GitHub</span>
                                     <GitHubLight className="h-4 w-4" />
-                                </a>
-                                <a
-                                    href="https://zeabur.com/referral?referralCode=ridemountainpig"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="text-subflow-800 hover:text-subflow-950 inline-flex w-fit items-center gap-2 py-1 transition-colors"
-                                >
-                                    <span>{t("deployedOn")} Zeabur</span>
-                                    <ZeaburLight className="h-4 w-4" />
                                 </a>
                             </div>
                         </div>

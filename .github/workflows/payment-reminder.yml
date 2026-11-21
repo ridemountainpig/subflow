@@ -1,0 +1,48 @@
+name: Payment reminder
+
+on:
+    schedule:
+        # 01:00 UTC = 09:00 Asia/Taipei
+        - cron: "0 1 * * *"
+    workflow_dispatch:
+        inputs:
+            only_email:
+                description: "Test: send only to this address (leave empty to send to everyone)"
+                required: false
+                default: ""
+            date:
+                description: "Test: pretend today is this date, YYYY-MM-DD (needs only_email)"
+                required: false
+                default: ""
+            include_all:
+                description: "Test: include every subscription, not only tomorrow's (needs only_email)"
+                type: boolean
+                required: false
+                default: false
+
+permissions: {}
+
+jobs:
+    send:
+        runs-on: ubuntu-latest
+        timeout-minutes: 10
+        steps:
+            - name: Trigger payment reminder job
+              env:
+                  CRON_SECRET: ${{ secrets.CRON_SECRET }}
+                  ONLY_EMAIL: ${{ inputs.only_email }}
+                  TEST_DATE: ${{ inputs.date }}
+                  INCLUDE_ALL: ${{ inputs.include_all }}
+              run: |
+                  body=$(jq -n \
+                    --arg onlyEmail "${ONLY_EMAIL:-}" \
+                    --arg date "${TEST_DATE:-}" \
+                    --arg includeAll "${INCLUDE_ALL:-false}" \
+                    '{onlyEmail: $onlyEmail, date: $date, includeAll: ($includeAll == "true")}
+                     | with_entries(select(.value != "" and .value != false))')
+                  curl --fail-with-body -sS -X POST \
+                    -H "Authorization: Bearer ${CRON_SECRET}" \
+                    -H "Content-Type: application/json" \
+                    -d "$body" \
+                    --max-time 300 \
+                    https://subflow.ing/api/cron/payment-reminder
