@@ -4,9 +4,7 @@ import { getContent, type Language } from "@/lib/email/content";
 import { EmailTemplate } from "@/components/email/template";
 import { getUserInfoById, requireAuth } from "@/app/actions/action";
 import { render } from "@react-email/render";
-
-const EMAIL_ENDPOINT = "https://api.zeabur.com/api/v1/zsend/emails";
-const EMAIL_REQUEST_TIMEOUT_MS = 10_000;
+import { maskEmail, sendEmail } from "@/lib/email/send";
 
 export async function sendWelcomeEmail(language: Language): Promise<void> {
     const userId = await requireAuth();
@@ -17,83 +15,25 @@ export async function sendWelcomeEmail(language: Language): Promise<void> {
     }
 
     const email = userInfo.emailAddress;
-
-    const apiKey = process.env.EMAIL_API_KEY;
     const fromAddress = process.env.EMAIL_FROM_ADDRESS;
 
-    if (!apiKey || !fromAddress) {
-        throw new Error("Zeabur Email API Key or From Address not configured");
+    if (!fromAddress) {
+        throw new Error("EMAIL_FROM_ADDRESS is not configured");
     }
 
     const content = getContent(language);
-    const subject = content.subject;
     const html = await render(<EmailTemplate language={language} />);
     const text = await render(<EmailTemplate language={language} />, {
         plainText: true,
     });
 
-    const controller = new AbortController();
-    const timeout = setTimeout(
-        () => controller.abort(),
-        EMAIL_REQUEST_TIMEOUT_MS,
-    );
-
-    try {
-        const response = await fetch(EMAIL_ENDPOINT, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${apiKey}`,
-            },
-            body: JSON.stringify({
-                from: `Subflow <${fromAddress}>`,
-                to: [email],
-                subject,
-                html,
-                text,
-            }),
-            signal: controller.signal,
-        });
-
-        if (!response.ok) {
-            const errorPayload = await readResponsePayload(response);
-            throw new Error(
-                `Failed to send welcome email: status=${response.status}, payload=${errorPayload}`,
-            );
-        }
-
-        const successPayload = await readResponsePayload(response);
-        console.log(
-            `Welcome email sent to ${maskEmail(email)}:`,
-            successPayload,
-        );
-    } catch (error) {
-        if (error instanceof Error && error.name === "AbortError") {
-            throw new Error(
-                `Email request timed out after ${EMAIL_REQUEST_TIMEOUT_MS}ms`,
-            );
-        }
-        throw error;
-    } finally {
-        clearTimeout(timeout);
-    }
-}
-
-function readResponsePayload(response: Response): Promise<string> {
-    return response.text().then((payloadText) => {
-        if (!payloadText) return "";
-        try {
-            return JSON.stringify(JSON.parse(payloadText));
-        } catch {
-            return payloadText;
-        }
+    await sendEmail({
+        from: `Subflow <${fromAddress}>`,
+        to: email,
+        subject: content.subject,
+        html,
+        text,
     });
-}
 
-function maskEmail(email: string): string {
-    const [localPart = "", domain = ""] = email.split("@");
-    if (!domain) return "***";
-
-    const visiblePrefix = localPart.slice(0, 2);
-    return `${visiblePrefix}${"*".repeat(Math.max(localPart.length - 2, 1))}@${domain}`;
+    console.log(`Welcome email sent to ${maskEmail(email)}`);
 }

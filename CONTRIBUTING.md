@@ -60,7 +60,6 @@ Choose one of the following options:
 
 - **Local**: `mongodb://localhost:27017`
 - **Cloud**: Create a free cluster at [MongoDB Atlas](https://www.mongodb.com/atlas)
-- **Zeabur** (Recommended): Deploy using [Zeabur MongoDB Template](https://zeabur.com/templates/KXL04P)
 
 Note: Database name will be handled in the application code.
 

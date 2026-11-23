@@ -18,8 +18,11 @@ const isProtectedRoute = createRouteMatcher([
 const intlMiddleware = createMiddleware(routing);
 
 const proxy = clerkMiddleware(async (auth, request) => {
-    // Skip Clerk auth for webhooks
-    if (request.nextUrl.pathname.startsWith("/api/webhooks")) {
+    // Skip Clerk auth for webhooks and cron jobs (they check their own secrets)
+    if (
+        request.nextUrl.pathname.startsWith("/api/webhooks") ||
+        request.nextUrl.pathname.startsWith("/api/cron")
+    ) {
         return;
     }
 
