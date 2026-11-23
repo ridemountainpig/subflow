@@ -40,9 +40,19 @@ jobs:
                     --arg includeAll "${INCLUDE_ALL:-false}" \
                     '{onlyEmail: $onlyEmail, date: $date, includeAll: ($includeAll == "true")}
                      | with_entries(select(.value != "" and .value != false))')
-                  curl --fail-with-body -sS -X POST \
+                  # Follow any domain redirect (e.g. apex -> www) first, so the
+                  # POST and its Authorization header go to the final host.
+                  url=$(curl -sS -o /dev/null -L -w '%{url_effective}' \
+                    https://subflow.ing/api/cron/payment-reminder)
+                  echo "Calling ${url}"
+                  status=$(curl -sS -o response.txt -w '%{http_code}' -X POST \
                     -H "Authorization: Bearer ${CRON_SECRET}" \
                     -H "Content-Type: application/json" \
                     -d "$body" \
                     --max-time 300 \
-                    https://subflow.ing/api/cron/payment-reminder
+                    "$url")
+                  cat response.txt; echo
+                  if [ "$status" != "200" ]; then
+                    echo "::error::Payment reminder returned HTTP ${status}"
+                    exit 1
+                  fi
