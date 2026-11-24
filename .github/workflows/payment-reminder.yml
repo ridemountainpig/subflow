@@ -1,9 +1,8 @@
 name: Payment reminder
 
+# The daily run is scheduled by Vercel Cron (vercel.json). This workflow is
+# for manual runs and tests only.
 on:
-    schedule:
-        # 01:00 UTC = 09:00 Asia/Taipei
-        - cron: "0 1 * * *"
     workflow_dispatch:
         inputs:
             only_email:

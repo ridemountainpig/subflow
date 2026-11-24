@@ -165,7 +165,12 @@ export async function runPaymentReminders(
 
     const recipientFilter = onlyEmail
         ? // Test mode reaches the one address even if its reminders are off.
-          { email: { $regex: `^${escapeRegex(onlyEmail)}$`, $options: "i" } }
+          {
+              email: {
+                  $regex: `^\\s*${escapeRegex(onlyEmail)}\\s*$`,
+                  $options: "i",
+              },
+          }
         : { notify: true, email: { $nin: [null, ""] } };
     const rows = (await EmailModel.find(recipientFilter)
         .select("userId email language")
