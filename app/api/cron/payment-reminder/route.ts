@@ -84,6 +84,22 @@ export async function POST(req: NextRequest) {
         );
     }
 
+    return run(options);
+}
+
+/**
+ * Vercel Cron (see vercel.json) calls this with GET and sends
+ * `Authorization: Bearer $CRON_SECRET` automatically. It always runs the
+ * normal daily job; test options are only accepted on POST.
+ */
+export async function GET(req: NextRequest) {
+    if (!isAuthorized(req)) {
+        return new Response("Unauthorized", { status: 401 });
+    }
+    return run({});
+}
+
+async function run(options: ReminderRunOptions): Promise<Response> {
     try {
         const summary = await runPaymentReminders(options);
         return Response.json(summary, {

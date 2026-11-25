@@ -20,7 +20,8 @@ const escapeRegex = (value: string) =>
     value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
 export interface ReminderRecipient {
-    userId: string;
+    /** Every account that uses this address; their reminders go in one email. */
+    userIds: string[];
     email: string;
     language: ReminderLanguage;
 }
@@ -71,7 +72,7 @@ export function toReminderItems(
     const shared: ReminderItem[] = [];
 
     for (const s of dueSubscriptions) {
-        if (s.userId === recipient.userId) {
+        if (recipient.userIds.includes(s.userId)) {
             own.push({
                 name: s.name,
                 amount: s.price,
@@ -125,6 +126,30 @@ export async function sendReminderToUser(
     });
 }
 
+/**
+ * Several accounts can share one address. Merge them so that inbox gets a
+ * single reminder instead of one per account.
+ */
+function groupByEmail(
+    rows: { userId: string; email: string; language: ReminderLanguage }[],
+): ReminderRecipient[] {
+    const byEmail = new Map<string, ReminderRecipient>();
+    for (const row of rows) {
+        const key = row.email.toLowerCase().trim();
+        const existing = byEmail.get(key);
+        if (existing) {
+            existing.userIds.push(row.userId);
+        } else {
+            byEmail.set(key, {
+                userIds: [row.userId],
+                email: row.email.trim(),
+                language: row.language,
+            });
+        }
+    }
+    return [...byEmail.values()];
+}
+
 export async function runPaymentReminders(
     options: ReminderRunOptions = {},
 ): Promise<ReminderRunSummary> {
@@ -140,11 +165,21 @@ export async function runPaymentReminders(
 
     const recipientFilter = onlyEmail
         ? // Test mode reaches the one address even if its reminders are off.
-          { email: { $regex: `^${escapeRegex(onlyEmail)}$`, $options: "i" } }
+          {
+              email: {
+                  $regex: `^\\s*${escapeRegex(onlyEmail)}\\s*$`,
+                  $options: "i",
+              },
+          }
         : { notify: true, email: { $nin: [null, ""] } };
-    const recipients = (await EmailModel.find(recipientFilter)
+    const rows = (await EmailModel.find(recipientFilter)
         .select("userId email language")
-        .lean()) as unknown as ReminderRecipient[];
+        .lean()) as unknown as {
+        userId: string;
+        email: string;
+        language: ReminderLanguage;
+    }[];
+    const recipients = groupByEmail(rows);
 
     const summary: ReminderRunSummary = {
         date: today,
@@ -160,7 +195,7 @@ export async function runPaymentReminders(
             const email = recipient.email.toLowerCase().trim();
             const subscriptions = (await SubscriptionModel.find({
                 $or: [
-                    { userId: recipient.userId },
+                    { userId: { $in: recipient.userIds } },
                     {
                         coSubscribers: {
                             $elemMatch: { email, confirm: true },
