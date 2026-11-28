@@ -192,8 +192,12 @@ function renderIconTile(s: ReminderItem) {
     return `<div style="width:32px;height:32px;border:2px solid #e5dcd3;border-radius:8px;background:#27272a;color:#faf0e6;font-size:16px;font-weight:700;line-height:32px;text-align:center;">${inner}</div>`;
 }
 
+// Subflow's own fonts (Poetsen One, Huninn for CJK) where the client loads web
+// fonts, such as Apple Mail; everyone else gets the system font.
 const FONT =
-    "-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang TC','Noto Sans TC','Hiragino Sans',Roboto,Helvetica,Arial,sans-serif";
+    "'Poetsen One','Huninn',-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang TC','Noto Sans TC','Hiragino Sans',Roboto,Helvetica,Arial,sans-serif";
+const FONT_LINK =
+    "https://fonts.googleapis.com/css2?family=Huninn&family=Poetsen+One&display=swap";
 
 export function buildReminderEmail(
     language: ReminderLanguage,
@@ -206,25 +210,26 @@ export function buildReminderEmail(
     const all = [...ownItems, ...coItems];
     const count = all.length;
     const total = formatTotal(all);
+    const chargeYear = new Date().getUTCFullYear();
 
     const renderRow = (s: ReminderItem, shared: boolean, last: boolean) => {
         const cycle = t.cycle[s.paymentCycle] ?? escapeHtml(s.paymentCycle);
         const tag = shared
-            ? `<span style="display:inline-block;margin-left:6px;padding:1px 6px;border-radius:4px;background:#eef2ff;color:#4f46e5;font-size:11px;line-height:16px;vertical-align:1px;">${t.shareTag}</span>`
+            ? `<span style="display:inline-block;margin-left:6px;padding:1px 6px;border-radius:4px;background:#faf0e6;color:#514f50;font-size:11px;font-weight:700;line-height:16px;vertical-align:1px;">${t.shareTag}</span>`
             : "";
         return `
             <tr>
-              <td style="padding:14px 0;${last ? "" : "border-bottom:1px solid #f0f0f2;"}">
+              <td style="padding:14px 0;${last ? "" : "border-bottom:1px solid #f0e8df;"}">
                 <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation">
                   <tr>
                     <td width="40" valign="middle" style="width:40px;">
                       ${renderIconTile(s)}
                     </td>
                     <td valign="middle" style="padding-left:12px;">
-                      <div style="font-size:15px;font-weight:600;color:#18181b;line-height:20px;">${escapeHtml(s.name)}${tag}</div>
-                      <div style="font-size:13px;color:#71717a;line-height:18px;margin-top:2px;">${cycle} · ${t.cycleDetail(s)}</div>
+                      <div style="font-size:16px;font-weight:700;letter-spacing:0.02em;color:#27272a;line-height:22px;">${escapeHtml(s.name)}${tag}</div>
+                      <div style="font-size:13px;color:#666362;line-height:18px;margin-top:2px;">${cycle} · ${t.cycleDetail(s)}</div>
                     </td>
-                    <td valign="middle" align="right" style="font-size:15px;font-weight:700;color:#18181b;white-space:nowrap;">${escapeHtml(formatMoney(s.amount, s.currency))}</td>
+                    <td valign="middle" align="right" style="font-size:16px;font-weight:700;letter-spacing:0.02em;color:#27272a;white-space:nowrap;">${escapeHtml(formatMoney(s.amount, s.currency))}</td>
                   </tr>
                 </table>
               </td>
@@ -240,8 +245,8 @@ export function buildReminderEmail(
             ? ""
             : `
         <tr>
-          <td style="padding:20px 32px 0 32px;">
-            <div style="font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#a1a1aa;">${title}</div>
+          <td style="padding:24px 32px 0 32px;">
+            <div style="font-size:15px;font-weight:700;letter-spacing:0.05em;color:#27272a;padding-bottom:2px;">${title}</div>
             <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation">${items
                 .map((s, i) => renderRow(s, shared, i === items.length - 1))
                 .join("")}
@@ -255,35 +260,35 @@ export function buildReminderEmail(
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="light only">
+<link href="${FONT_LINK}" rel="stylesheet">
 <title>${escapeHtml(t.badge)}</title>
 </head>
-<body style="margin:0;padding:0;background:#f4f4f5;font-family:${FONT};">
+<body style="margin:0;padding:0;background:#27272a;font-family:${FONT};">
 <div style="display:none;max-height:0;overflow:hidden;opacity:0;color:transparent;">${escapeHtml(t.preheader(count, total))}</div>
-<table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#f4f4f5;">
+<table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#27272a;">
   <tr>
-    <td align="center" style="padding:32px 12px;">
-      <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="max-width:520px;background:#ffffff;border-radius:16px;border:1px solid #e4e4e7;">
+    <td align="center" style="padding:24px 10px;">
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="max-width:560px;background:#ffffff;border-radius:10px;">
         <tr>
-          <td style="padding:28px 32px 0 32px;">
-            <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation">
-              <tr>
-                <td valign="middle"><img src="${SITE}/subflow-light.png" alt="Subflow" height="36" style="display:block;border:0;outline:none;border-radius:9px;"></td>
-                <td valign="middle" align="right"><span style="display:inline-block;padding:4px 10px;border-radius:999px;background:#fef3c7;color:#92400e;font-size:12px;font-weight:600;">${t.badge}</span></td>
-              </tr>
-            </table>
+          <td align="center" style="padding:32px 32px 0 32px;">
+            <img src="${SITE}/subflow-light.png" alt="Subflow" width="52" height="52" style="display:inline-block;width:52px;height:52px;border:0;outline:none;border-radius:10px;">
           </td>
         </tr>
         <tr>
+          <td style="padding:24px 32px 0 32px;"><div style="height:1px;line-height:1px;font-size:0;background:#e5dcd3;">&nbsp;</div></td>
+        </tr>
+        <tr>
           <td style="padding:24px 32px 0 32px;">
-            <h1 style="margin:0;font-size:22px;line-height:30px;font-weight:700;color:#18181b;">${escapeHtml(t.heading(count, chargeDate))}</h1>
+            <span style="display:inline-block;padding:4px 12px;border-radius:6px;background:#27272a;color:#faf0e6;font-size:12px;font-weight:700;letter-spacing:0.05em;">${t.badge}</span>
+            <h1 style="margin:12px 0 0 0;font-size:22px;line-height:30px;font-weight:700;letter-spacing:0.02em;color:#27272a;">${escapeHtml(t.heading(count, chargeDate))}</h1>
           </td>
         </tr>
         <tr>
           <td style="padding:16px 32px 0 32px;">
-            <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#fafafa;border:1px solid #f0f0f2;border-radius:12px;">
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#faf0e6;border-radius:8px;">
               <tr>
-                <td style="padding:14px 18px;font-size:13px;color:#71717a;">${t.totalLabel}</td>
-                <td align="right" style="padding:14px 18px;font-size:20px;font-weight:700;color:#18181b;">${escapeHtml(total)}</td>
+                <td style="padding:16px 18px;font-size:14px;font-weight:700;letter-spacing:0.05em;color:#666362;">${t.totalLabel}</td>
+                <td align="right" style="padding:16px 18px;font-size:22px;font-weight:700;letter-spacing:0.02em;color:#27272a;">${escapeHtml(total)}</td>
               </tr>
             </table>
           </td>
@@ -291,17 +296,23 @@ export function buildReminderEmail(
         ${renderSection(t.ownTitle, ownItems, false)}
         ${renderSection(t.coTitle, coItems, true)}
         <tr>
-          <td align="center" style="padding:24px 32px 28px 32px;">
-            <a href="${SITE}/subscription" target="_blank" style="display:inline-block;background:#18181b;color:#ffffff;font-size:14px;font-weight:600;text-decoration:none;padding:13px 28px;border-radius:10px;">${t.button}</a>
+          <td align="center" style="padding:28px 32px 0 32px;">
+            <a href="${SITE}/subscription" target="_blank" style="display:inline-block;background:#27272a;color:#faf0e6;font-size:16px;font-weight:700;letter-spacing:0.05em;text-decoration:none;padding:12px 24px;border-radius:6px;">${t.button}</a>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:28px 32px 0 32px;"><div style="height:1px;line-height:1px;font-size:0;background:#e5dcd3;">&nbsp;</div></td>
+        </tr>
+        <tr>
+          <td style="padding:16px 32px 28px 32px;font-size:13px;line-height:20px;color:#7b7775;">
+            ${t.notifyPrefix} <a href="${SITE}/subscription?menu=email-notify" target="_blank" style="color:#514f50;text-decoration:underline;">${t.notifyLink}</a><br>
+            ${t.footer}
           </td>
         </tr>
       </table>
-      <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="max-width:520px;">
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="max-width:560px;">
         <tr>
-          <td align="center" style="padding:20px 24px 0 24px;font-size:12px;line-height:20px;color:#a1a1aa;">
-            ${t.notifyPrefix} <a href="${SITE}/subscription?menu=email-notify" target="_blank" style="color:#71717a;text-decoration:underline;">${t.notifyLink}</a><br>
-            ${t.footer}
-          </td>
+          <td align="center" style="padding:20px;font-size:12px;letter-spacing:0.05em;color:#faf0e6;">&copy; ${chargeYear} Subflow</td>
         </tr>
       </table>
     </td>
