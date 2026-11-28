@@ -17,9 +17,17 @@ import { subscriptionServices } from "@/data/subscriptionServices";
 // Resend's default rate limit is 2 requests per second.
 const SEND_INTERVAL_MS = 600;
 
+// These logos use SVG features the PNG renderer drops, so they come out
+// blank; the email shows the first letter instead.
+const LOGOS_THAT_RENDER_BLANK = new Set(["Google Antigravity"]);
+
 const servicesWithLogo = new Set(
     subscriptionServices
-        .filter((s) => typeof s.icon !== "string")
+        .filter(
+            (s) =>
+                typeof s.icon !== "string" &&
+                !LOGOS_THAT_RENDER_BLANK.has(s.name),
+        )
         .map((s) => s.uuid),
 );
 const hasLogo = (serviceId?: string) =>
