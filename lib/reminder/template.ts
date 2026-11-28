@@ -39,7 +39,8 @@ interface Copy {
     subject: (first: string, count: number) => string;
     preheader: (count: number, total: string) => string;
     badge: string;
-    heading: (count: number, date: ReminderDate) => string;
+    eyebrow: (date: ReminderDate) => string;
+    countLine: (count: number) => string;
     totalLabel: string;
     ownTitle: string;
     coTitle: string;
@@ -61,9 +62,9 @@ const copy: Record<ReminderLanguage, Copy> = {
         preheader: (n, total) =>
             `${n} subscription${n === 1 ? "" : "s"} will be charged tomorrow, ${total} in total.`,
         badge: "Payment reminder",
-        heading: (n, d) =>
-            `${n} subscription${n === 1 ? "" : "s"} renew${n === 1 ? "s" : ""} tomorrow (${d.month}/${d.date})`,
-        totalLabel: "Total due tomorrow",
+        eyebrow: (d) => `Due tomorrow · ${d.month}/${d.date}`,
+        countLine: (n) => `${n} subscription${n === 1 ? "" : "s"}`,
+        totalLabel: "Total",
         ownTitle: "Your subscriptions",
         coTitle: "Shared with you",
         shareTag: "Your share",
@@ -84,8 +85,9 @@ const copy: Record<ReminderLanguage, Copy> = {
                 : `扣款提醒：${first} 等 ${n} 筆訂閱明天扣款`,
         preheader: (n, total) => `明天有 ${n} 筆訂閱會扣款，合計 ${total}。`,
         badge: "付款提醒",
-        heading: (n, d) => `明天（${d.month}/${d.date}）有 ${n} 筆訂閱要扣款`,
-        totalLabel: "明天合計",
+        eyebrow: (d) => `明天扣款 · ${d.month}/${d.date}`,
+        countLine: (n) => `共 ${n} 筆訂閱`,
+        totalLabel: "合計",
         ownTitle: "你的訂閱",
         coTitle: "共享訂閱",
         shareTag: "你的分攤",
@@ -107,9 +109,9 @@ const copy: Record<ReminderLanguage, Copy> = {
         preheader: (n, total) =>
             `明日 ${n} 件のサブスクリプションが請求されます（合計 ${total}）。`,
         badge: "お支払いリマインダー",
-        heading: (n, d) =>
-            `明日（${d.month}/${d.date}）${n} 件のサブスクリプションが請求されます`,
-        totalLabel: "明日の合計",
+        eyebrow: (d) => `明日のお支払い · ${d.month}/${d.date}`,
+        countLine: (n) => `${n} 件のサブスクリプション`,
+        totalLabel: "合計",
         ownTitle: "あなたのサブスクリプション",
         coTitle: "共有サブスクリプション",
         shareTag: "あなたの負担分",
@@ -131,9 +133,9 @@ const copy: Record<ReminderLanguage, Copy> = {
         preheader: (n, total) =>
             `Mañana se cobrarán ${n} suscripcion${n === 1 ? "" : "es"}, ${total} en total.`,
         badge: "Recordatorio de pago",
-        heading: (n, d) =>
-            `Mañana (${d.date}/${d.month}) se cobra${n === 1 ? "" : "n"} ${n} suscripcion${n === 1 ? "" : "es"}`,
-        totalLabel: "Total de mañana",
+        eyebrow: (d) => `Se cobra mañana · ${d.date}/${d.month}`,
+        countLine: (n) => `${n} suscripcion${n === 1 ? "" : "es"}`,
+        totalLabel: "Total",
         ownTitle: "Tus suscripciones",
         coTitle: "Compartidas contigo",
         shareTag: "Tu parte",
@@ -189,15 +191,11 @@ function renderIconTile(s: ReminderItem) {
         s.hasLogo && s.serviceId
             ? `<img src="${SITE}/api/email-icon/${encodeURIComponent(s.serviceId)}" width="20" height="20" alt="${initial}" style="display:block;width:20px;height:20px;margin:6px auto;border:0;outline:none;text-decoration:none;color:#faf0e6;font-size:14px;font-weight:700;line-height:20px;text-align:center;">`
             : initial;
-    return `<div style="width:32px;height:32px;border:2px solid #e5dcd3;border-radius:8px;background:#27272a;color:#faf0e6;font-size:16px;font-weight:700;line-height:32px;text-align:center;">${inner}</div>`;
+    return `<div style="width:32px;height:32px;border:2px solid #e5dcd3;border-radius:10px;background:#27272a;color:#faf0e6;font-size:15px;font-weight:700;line-height:32px;text-align:center;">${inner}</div>`;
 }
 
-// Subflow's own fonts (Poetsen One, Huninn for CJK) where the client loads web
-// fonts, such as Apple Mail; everyone else gets the system font.
 const FONT =
-    "'Poetsen One','Huninn',-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang TC','Noto Sans TC','Hiragino Sans',Roboto,Helvetica,Arial,sans-serif";
-const FONT_LINK =
-    "https://fonts.googleapis.com/css2?family=Huninn&family=Poetsen+One&display=swap";
+    "-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang TC','Noto Sans TC','Hiragino Sans',Roboto,Helvetica,Arial,sans-serif";
 
 export function buildReminderEmail(
     language: ReminderLanguage,
@@ -212,27 +210,17 @@ export function buildReminderEmail(
     const total = formatTotal(all);
     const chargeYear = new Date().getUTCFullYear();
 
-    const renderRow = (s: ReminderItem, shared: boolean, last: boolean) => {
+    const renderRow = (s: ReminderItem, shared: boolean) => {
         const cycle = t.cycle[s.paymentCycle] ?? escapeHtml(s.paymentCycle);
-        const tag = shared
-            ? `<span style="display:inline-block;margin-left:6px;padding:1px 6px;border-radius:4px;background:#faf0e6;color:#514f50;font-size:11px;font-weight:700;line-height:16px;vertical-align:1px;">${t.shareTag}</span>`
-            : "";
+        const meta = [cycle, t.cycleDetail(s), ...(shared ? [t.shareTag] : [])];
         return `
             <tr>
-              <td style="padding:14px 0;${last ? "" : "border-bottom:1px solid #f0e8df;"}">
-                <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation">
-                  <tr>
-                    <td width="40" valign="middle" style="width:40px;">
-                      ${renderIconTile(s)}
-                    </td>
-                    <td valign="middle" style="padding-left:12px;">
-                      <div style="font-size:16px;font-weight:700;letter-spacing:0.02em;color:#27272a;line-height:22px;">${escapeHtml(s.name)}${tag}</div>
-                      <div style="font-size:13px;color:#666362;line-height:18px;margin-top:2px;">${cycle} · ${t.cycleDetail(s)}</div>
-                    </td>
-                    <td valign="middle" align="right" style="font-size:16px;font-weight:700;letter-spacing:0.02em;color:#27272a;white-space:nowrap;">${escapeHtml(formatMoney(s.amount, s.currency))}</td>
-                  </tr>
-                </table>
+              <td width="44" valign="middle" style="width:44px;padding:12px 0;">${renderIconTile(s)}</td>
+              <td valign="middle" style="padding:12px 0 12px 12px;">
+                <div style="font-size:15px;font-weight:600;color:#27272a;line-height:20px;">${escapeHtml(s.name)}</div>
+                <div style="font-size:13px;color:#918c88;line-height:18px;margin-top:2px;">${meta.join(" · ")}</div>
               </td>
+              <td valign="middle" align="right" style="padding:12px 0;font-size:15px;font-weight:600;color:#27272a;white-space:nowrap;">${escapeHtml(formatMoney(s.amount, s.currency))}</td>
             </tr>`;
     };
 
@@ -240,19 +228,16 @@ export function buildReminderEmail(
         title: string,
         items: ReminderItem[],
         shared: boolean,
+        first: boolean,
     ) =>
         items.length === 0
             ? ""
             : `
-        <tr>
-          <td style="padding:24px 32px 0 32px;">
-            <div style="font-size:15px;font-weight:700;letter-spacing:0.05em;color:#27272a;padding-bottom:2px;">${title}</div>
-            <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation">${items
-                .map((s, i) => renderRow(s, shared, i === items.length - 1))
-                .join("")}
-            </table>
-          </td>
-        </tr>`;
+            <tr>
+              <td colspan="3" style="padding:${first ? "0" : "16px"} 0 4px 0;font-size:12px;font-weight:600;letter-spacing:0.04em;color:#918c88;">${title}</td>
+            </tr>${items.map((s) => renderRow(s, shared)).join("")}`;
+
+    const hr = `<tr><td style="padding:0 36px;"><div style="height:1px;line-height:1px;font-size:0;background:#efe7de;">&nbsp;</div></td></tr>`;
 
     const html = `<!doctype html>
 <html lang="${lang}">
@@ -260,59 +245,70 @@ export function buildReminderEmail(
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="light only">
-<link href="${FONT_LINK}" rel="stylesheet">
 <title>${escapeHtml(t.badge)}</title>
 </head>
-<body style="margin:0;padding:0;background:#27272a;font-family:${FONT};">
+<body style="margin:0;padding:0;background:#f5efe8;font-family:${FONT};-webkit-font-smoothing:antialiased;">
 <div style="display:none;max-height:0;overflow:hidden;opacity:0;color:transparent;">${escapeHtml(t.preheader(count, total))}</div>
-<table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#27272a;">
+<table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#f5efe8;">
   <tr>
-    <td align="center" style="padding:24px 10px;">
-      <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="max-width:560px;background:#ffffff;border-radius:10px;">
+    <td align="center" style="padding:40px 12px;">
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="max-width:480px;">
         <tr>
-          <td align="center" style="padding:32px 32px 0 32px;">
-            <img src="${SITE}/subflow-light.png" alt="Subflow" width="52" height="52" style="display:inline-block;width:52px;height:52px;border:0;outline:none;border-radius:10px;">
-          </td>
-        </tr>
-        <tr>
-          <td style="padding:24px 32px 0 32px;"><div style="height:1px;line-height:1px;font-size:0;background:#e5dcd3;">&nbsp;</div></td>
-        </tr>
-        <tr>
-          <td style="padding:24px 32px 0 32px;">
-            <span style="display:inline-block;padding:4px 12px;border-radius:6px;background:#27272a;color:#faf0e6;font-size:12px;font-weight:700;letter-spacing:0.05em;">${t.badge}</span>
-            <h1 style="margin:12px 0 0 0;font-size:22px;line-height:30px;font-weight:700;letter-spacing:0.02em;color:#27272a;">${escapeHtml(t.heading(count, chargeDate))}</h1>
-          </td>
-        </tr>
-        <tr>
-          <td style="padding:16px 32px 0 32px;">
-            <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#faf0e6;border-radius:8px;">
+          <td style="padding:0 4px 20px 4px;">
+            <table border="0" cellpadding="0" cellspacing="0" role="presentation">
               <tr>
-                <td style="padding:16px 18px;font-size:14px;font-weight:700;letter-spacing:0.05em;color:#666362;">${t.totalLabel}</td>
-                <td align="right" style="padding:16px 18px;font-size:22px;font-weight:700;letter-spacing:0.02em;color:#27272a;">${escapeHtml(total)}</td>
+                <td valign="middle"><img src="${SITE}/subflow-light.png" alt="" width="28" height="28" style="display:block;width:28px;height:28px;border:0;outline:none;"></td>
+                <td valign="middle" style="padding-left:8px;font-size:17px;font-weight:700;letter-spacing:0.08em;color:#27272a;">Subflow</td>
               </tr>
             </table>
           </td>
         </tr>
-        ${renderSection(t.ownTitle, ownItems, false)}
-        ${renderSection(t.coTitle, coItems, true)}
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="max-width:480px;background:#ffffff;border:1px solid #ebe2d8;border-radius:16px;">
         <tr>
-          <td align="center" style="padding:28px 32px 0 32px;">
-            <a href="${SITE}/subscription" target="_blank" style="display:inline-block;background:#27272a;color:#faf0e6;font-size:16px;font-weight:700;letter-spacing:0.05em;text-decoration:none;padding:12px 24px;border-radius:6px;">${t.button}</a>
+          <td style="padding:36px 36px 28px 36px;">
+            <div style="font-size:14px;font-weight:600;color:#918c88;">${escapeHtml(t.eyebrow(chargeDate))}</div>
+            <div style="margin-top:8px;font-size:36px;line-height:42px;font-weight:700;letter-spacing:-0.01em;color:#27272a;">${escapeHtml(total)}</div>
+            <div style="margin-top:6px;font-size:15px;color:#666362;">${escapeHtml(t.countLine(count))}</div>
+          </td>
+        </tr>
+        ${hr}
+        <tr>
+          <td style="padding:24px 36px 8px 36px;">
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation">${renderSection(t.ownTitle, ownItems, false, true)}${renderSection(t.coTitle, coItems, true, ownItems.length === 0)}
+            </table>
+          </td>
+        </tr>
+        ${hr}
+        <tr>
+          <td style="padding:16px 36px 0 36px;">
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation">
+              <tr>
+                <td style="font-size:15px;font-weight:600;color:#27272a;">${t.totalLabel}</td>
+                <td align="right" style="font-size:15px;font-weight:700;color:#27272a;white-space:nowrap;">${escapeHtml(total)}</td>
+              </tr>
+            </table>
           </td>
         </tr>
         <tr>
-          <td style="padding:28px 32px 0 32px;"><div style="height:1px;line-height:1px;font-size:0;background:#e5dcd3;">&nbsp;</div></td>
-        </tr>
-        <tr>
-          <td style="padding:16px 32px 28px 32px;font-size:13px;line-height:20px;color:#7b7775;">
-            ${t.notifyPrefix} <a href="${SITE}/subscription?menu=email-notify" target="_blank" style="color:#514f50;text-decoration:underline;">${t.notifyLink}</a><br>
-            ${t.footer}
+          <td style="padding:28px 36px 36px 36px;">
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation">
+              <tr>
+                <td align="center" style="background:#27272a;border-radius:10px;">
+                  <a href="${SITE}/subscription" target="_blank" style="display:block;padding:14px 20px;color:#faf0e6;font-size:15px;font-weight:600;text-decoration:none;">${t.button}</a>
+                </td>
+              </tr>
+            </table>
           </td>
         </tr>
       </table>
-      <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="max-width:560px;">
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="max-width:480px;">
         <tr>
-          <td align="center" style="padding:20px;font-size:12px;letter-spacing:0.05em;color:#faf0e6;">&copy; ${chargeYear} Subflow</td>
+          <td align="center" style="padding:24px 16px 0 16px;font-size:12px;line-height:20px;color:#a6a09b;">
+            ${t.notifyPrefix} <a href="${SITE}/subscription?menu=email-notify" target="_blank" style="color:#7b7775;text-decoration:underline;">${t.notifyLink}</a><br>
+            ${t.footer}<br>
+            &copy; ${chargeYear} Subflow
+          </td>
         </tr>
       </table>
     </td>
