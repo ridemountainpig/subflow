@@ -170,9 +170,7 @@ function formatTotal(items: ReminderItem[]) {
         sums.set(item.currency, (sums.get(item.currency) ?? 0) + item.amount);
     }
     return [...sums]
-        .map(([currency, sum]) =>
-            formatMoney(Math.round(sum * 100) / 100, currency),
-        )
+        .map(([currency, sum]) => formatMoney(sum, currency))
         .join(" + ");
 }
 

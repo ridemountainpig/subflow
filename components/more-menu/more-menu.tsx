@@ -14,18 +14,28 @@ import ApiKeyDialog from "@/components/more-menu/api-key-dialog";
 
 export default function MoreMenu() {
     const searchParams = useSearchParams();
-    const [menuAction] = useState(() => searchParams.get("menu"));
+    // A ?menu= link opens its dialog once. It is cleared when the menu
+    // closes, so reopening the menu later doesn't show the dialog again.
+    const [menuAction, setMenuAction] = useState(() =>
+        searchParams.get("menu"),
+    );
     const autoOpenApiKey = menuAction === "api-key";
     // Linked from the payment reminder email footer.
     const autoOpenEmailNotify = menuAction === "email-notify";
 
-    const [open, setOpen] = useState(autoOpenApiKey || autoOpenEmailNotify);
+    const [open, setOpenState] = useState(
+        autoOpenApiKey || autoOpenEmailNotify,
+    );
+    const setOpen = (next: boolean) => {
+        setOpenState(next);
+        if (!next) setMenuAction(null);
+    };
 
     useEffect(() => {
-        if (menuAction) {
+        if (searchParams.get("menu")) {
             window.history.replaceState(null, "", window.location.pathname);
         }
-    }, [menuAction]);
+    }, [searchParams]);
 
     return (
         <DropdownMenu open={open} onOpenChange={setOpen}>
