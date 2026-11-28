@@ -16,8 +16,10 @@ export default function MoreMenu() {
     const searchParams = useSearchParams();
     const [menuAction] = useState(() => searchParams.get("menu"));
     const autoOpenApiKey = menuAction === "api-key";
+    // Linked from the payment reminder email footer.
+    const autoOpenEmailNotify = menuAction === "email-notify";
 
-    const [open, setOpen] = useState(autoOpenApiKey);
+    const [open, setOpen] = useState(autoOpenApiKey || autoOpenEmailNotify);
 
     useEffect(() => {
         if (menuAction) {
@@ -39,7 +41,10 @@ export default function MoreMenu() {
                 align="center"
                 sideOffset={14}
             >
-                <EmailNotifyDialog setDropdownMenuOpen={setOpen} />
+                <EmailNotifyDialog
+                    setDropdownMenuOpen={setOpen}
+                    autoOpen={autoOpenEmailNotify}
+                />
                 <PreferencesDialog setDropdownMenuOpen={setOpen} />
                 <ApiKeyDialog
                     setDropdownMenuOpen={setOpen}

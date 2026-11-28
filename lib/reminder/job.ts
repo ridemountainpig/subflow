@@ -107,6 +107,7 @@ export async function sendReminderToUser(
     recipient: ReminderRecipient,
     own: ReminderItem[],
     shared: ReminderItem[],
+    chargeDate: CalendarDate,
 ): Promise<void> {
     const from = process.env.REMINDER_EMAIL_FROM_ADDRESS;
     if (!from) {
@@ -117,6 +118,7 @@ export async function sendReminderToUser(
         recipient.language,
         own,
         shared,
+        chargeDate,
     );
     await sendEmail({
         from: `Subflow <${from}>`,
@@ -159,6 +161,14 @@ export async function runPaymentReminders(
         throw new Error("today and includeAll require onlyEmail");
     }
     const today = options.today ?? getTodayInTimeZone(options.now);
+    const tomorrowUtc = new Date(
+        Date.UTC(today.year, today.month - 1, today.date + 1),
+    );
+    const tomorrow: CalendarDate = {
+        year: tomorrowUtc.getUTCFullYear(),
+        month: tomorrowUtc.getUTCMonth() + 1,
+        date: tomorrowUtc.getUTCDate(),
+    };
     const db = await connectToDatabase();
     const EmailModel = getEmailModel(db);
     const SubscriptionModel = getSubscriptionModel(db);
@@ -215,7 +225,7 @@ export async function runPaymentReminders(
                 await new Promise((r) => setTimeout(r, SEND_INTERVAL_MS));
             }
             attempted += 1;
-            await sendReminderToUser(recipient, own, shared);
+            await sendReminderToUser(recipient, own, shared, tomorrow);
             summary.sent += 1;
         } catch (error) {
             summary.failed += 1;

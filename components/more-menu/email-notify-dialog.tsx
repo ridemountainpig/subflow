@@ -27,14 +27,16 @@ import { getEmail, upsertEmail } from "@/app/actions/action";
 
 export interface EmailNotifyDialogProps {
     setDropdownMenuOpen: (open: boolean) => void;
+    autoOpen?: boolean;
 }
 
 export default function EmailNotifyDialog({
     setDropdownMenuOpen,
+    autoOpen = false,
 }: EmailNotifyDialogProps) {
     const t = useTranslations("MoreMenu.emailNotifyDialog");
     const currentLocale = useLocale();
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(autoOpen);
 
     const [notify, setNotify] = useState(false);
     const [email, setEmail] = useState("");
