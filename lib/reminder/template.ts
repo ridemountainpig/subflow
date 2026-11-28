@@ -128,10 +128,10 @@ const copy: Record<ReminderLanguage, Copy> = {
                 ? `Recordatorio: ${first} se renueva mañana`
                 : `Recordatorio: ${first} y ${n - 1} más se renuevan mañana`,
         preheader: (n, total) =>
-            `Mañana se cobrarán ${n} suscripcion${n === 1 ? "" : "es"}, ${total} en total.`,
+            `Mañana se ${n === 1 ? "cobrará" : "cobrarán"} ${n} ${n === 1 ? "suscripción" : "suscripciones"}, ${total} en total.`,
         badge: "Recordatorio de pago",
         eyebrow: (d) => `Se cobra mañana · ${d.date}/${d.month}`,
-        countLine: (n) => `${n} suscripcion${n === 1 ? "" : "es"}`,
+        countLine: (n) => `${n} ${n === 1 ? "suscripción" : "suscripciones"}`,
         totalLabel: "Total",
         ownTitle: "Tus suscripciones",
         coTitle: "Compartidas contigo",
@@ -280,8 +280,8 @@ export function buildReminderEmail(
           <td style="padding:16px 36px 0 36px;">
             <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation">
               <tr>
-                <td style="font-size:15px;font-weight:600;color:#27272a;">${t.totalLabel}</td>
-                <td align="right" style="font-size:15px;font-weight:700;color:#27272a;white-space:nowrap;">${escapeHtml(total)}</td>
+                <td valign="top" style="padding-right:16px;font-size:15px;font-weight:600;color:#27272a;white-space:nowrap;">${t.totalLabel}</td>
+                <td align="right" valign="top" style="font-size:15px;font-weight:700;color:#27272a;">${escapeHtml(total)}</td>
               </tr>
             </table>
           </td>

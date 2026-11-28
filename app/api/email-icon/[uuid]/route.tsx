@@ -19,7 +19,16 @@ export async function GET(
     const Icon = service.icon as ComponentType<SVGProps<SVGSVGElement>>;
 
     return new ImageResponse(
-        <div style={{ display: "flex", width: SIZE, height: SIZE }}>
+        // currentColor logos (such as Suno) would default to black, which is
+        // invisible on the dark tile.
+        <div
+            style={{
+                display: "flex",
+                width: SIZE,
+                height: SIZE,
+                color: "#faf0e6",
+            }}
+        >
             <Icon width={SIZE} height={SIZE} />
         </div>,
         {
