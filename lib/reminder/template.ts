@@ -48,9 +48,9 @@ interface Copy {
     cycle: Record<string, string>;
     cycleDetail: (item: ReminderItem) => string;
     button: string;
-    notifyPrefix: string;
+    /** Why the reader got this email. */
+    reason: string;
     notifyLink: string;
-    footer: string;
 }
 
 const copy: Record<ReminderLanguage, Copy> = {
@@ -74,9 +74,8 @@ const copy: Record<ReminderLanguage, Copy> = {
                 ? `every ${s.startDate.month}/${s.startDate.date}`
                 : `on day ${s.startDate.date}`,
         button: "View my subscriptions",
-        notifyPrefix: "Don't want these reminders?",
-        notifyLink: "Change email notifications",
-        footer: "This email was sent automatically by Subflow. Please don't reply to it.",
+        reason: "You're getting this because payment reminders are turned on in Subflow.",
+        notifyLink: "Manage notifications",
     },
     zh: {
         subject: (first, n) =>
@@ -97,9 +96,8 @@ const copy: Record<ReminderLanguage, Copy> = {
                 ? `${s.startDate.month} 月 ${s.startDate.date} 號`
                 : `${s.startDate.date} 號`,
         button: "查看我的訂閱",
-        notifyPrefix: "不想再收到提醒？",
-        notifyLink: "調整 Email 通知",
-        footer: "此信件由 Subflow 自動發送，請勿直接回覆。",
+        reason: "你收到這封信，是因為你在 Subflow 開啟了付款提醒。",
+        notifyLink: "管理通知設定",
     },
     ja: {
         subject: (first, n) =>
@@ -121,9 +119,8 @@ const copy: Record<ReminderLanguage, Copy> = {
                 ? `${s.startDate.month} 月 ${s.startDate.date} 日`
                 : `${s.startDate.date} 日`,
         button: "サブスクリプションを見る",
-        notifyPrefix: "リマインダーが不要ですか？",
-        notifyLink: "メール通知を変更",
-        footer: "このメールは Subflow により自動送信されています。返信はできません。",
+        reason: "Subflow で支払いリマインダーをオンにしているため、このメールをお送りしています。",
+        notifyLink: "通知設定を管理",
     },
     es: {
         subject: (first, n) =>
@@ -145,9 +142,8 @@ const copy: Record<ReminderLanguage, Copy> = {
                 ? `cada ${s.startDate.date}/${s.startDate.month}`
                 : `el día ${s.startDate.date}`,
         button: "Ver mis suscripciones",
-        notifyPrefix: "¿No quieres estos recordatorios?",
-        notifyLink: "Cambiar notificaciones por email",
-        footer: "Este correo fue enviado automáticamente por Subflow. No respondas a este mensaje.",
+        reason: "Recibes este correo porque activaste los recordatorios de pago en Subflow.",
+        notifyLink: "Gestionar notificaciones",
     },
 };
 
@@ -304,10 +300,14 @@ export function buildReminderEmail(
       </table>
       <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="max-width:480px;">
         <tr>
-          <td align="center" style="padding:24px 16px 0 16px;font-size:12px;line-height:20px;color:#a6a09b;">
-            ${t.notifyPrefix} <a href="${SITE}/subscription?menu=email-notify" target="_blank" style="color:#7b7775;text-decoration:underline;">${t.notifyLink}</a><br>
-            ${t.footer}<br>
-            &copy; ${chargeYear} Subflow
+          <td align="center" style="padding:28px 24px 0 24px;">
+            <div style="font-size:12px;line-height:18px;color:#918c88;">${t.reason}</div>
+            <div style="margin-top:12px;font-size:12px;line-height:18px;">
+              <a href="${SITE}/subscription?menu=email-notify" target="_blank" style="color:#514f50;font-weight:600;text-decoration:none;">${t.notifyLink}</a>
+              <span style="color:#d0c8c0;">&nbsp;&nbsp;·&nbsp;&nbsp;</span>
+              <a href="${SITE}" target="_blank" style="color:#514f50;font-weight:600;text-decoration:none;">subflow.ing</a>
+            </div>
+            <div style="margin-top:12px;font-size:11px;line-height:16px;color:#bbb4ae;">&copy; ${chargeYear} Subflow</div>
           </td>
         </tr>
       </table>
