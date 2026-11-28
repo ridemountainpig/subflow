@@ -1,6 +1,5 @@
 import { ImageResponse } from "next/og";
-import { createElement, type ComponentType, type SVGProps } from "react";
-import { renderToStaticMarkup } from "react-dom/server";
+import type { ComponentType, SVGProps } from "react";
 import { subscriptionServices } from "@/data/subscriptionServices";
 
 // Email clients do not render SVG, so the reminder email loads each service
@@ -18,14 +17,11 @@ export async function GET(
     }
 
     const Icon = service.icon as ComponentType<SVGProps<SVGSVGElement>>;
-    const svg = renderToStaticMarkup(
-        createElement(Icon, { width: SIZE, height: SIZE }),
-    );
-    const src = `data:image/svg+xml;base64,${Buffer.from(svg).toString("base64")}`;
 
     return new ImageResponse(
-        // eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text
-        <img src={src} width={SIZE} height={SIZE} />,
+        <div style={{ display: "flex", width: SIZE, height: SIZE }}>
+            <Icon width={SIZE} height={SIZE} />
+        </div>,
         {
             width: SIZE,
             height: SIZE,
