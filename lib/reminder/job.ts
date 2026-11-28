@@ -12,9 +12,18 @@ import {
     type ReminderItem,
     type ReminderLanguage,
 } from "@/lib/reminder/template";
+import { subscriptionServices } from "@/data/subscriptionServices";
 
 // Resend's default rate limit is 2 requests per second.
 const SEND_INTERVAL_MS = 600;
+
+const servicesWithLogo = new Set(
+    subscriptionServices
+        .filter((s) => typeof s.icon !== "string")
+        .map((s) => s.uuid),
+);
+const hasLogo = (serviceId?: string) =>
+    Boolean(serviceId && servicesWithLogo.has(serviceId));
 
 const escapeRegex = (value: string) =>
     value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -28,6 +37,7 @@ export interface ReminderRecipient {
 
 interface StoredSubscription {
     userId: string;
+    serviceId?: string;
     name: string;
     price: number;
     currency: string;
@@ -74,6 +84,8 @@ export function toReminderItems(
     for (const s of dueSubscriptions) {
         if (recipient.userIds.includes(s.userId)) {
             own.push({
+                serviceId: s.serviceId,
+                hasLogo: hasLogo(s.serviceId),
                 name: s.name,
                 amount: s.price,
                 currency: s.currency,
@@ -87,6 +99,8 @@ export function toReminderItems(
         );
         if (co) {
             shared.push({
+                serviceId: s.serviceId,
+                hasLogo: hasLogo(s.serviceId),
                 name: s.name,
                 amount: co.amount ?? s.price,
                 currency: co.currency ?? s.currency,

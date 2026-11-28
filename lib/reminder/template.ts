@@ -8,6 +8,10 @@
 export type ReminderLanguage = "en" | "zh" | "ja" | "es";
 
 export interface ReminderItem {
+    /** Set when the subscription uses one of the built-in services. */
+    serviceId?: string;
+    /** True when that service has a logo at /api/email-icon/[serviceId]. */
+    hasLogo?: boolean;
     name: string;
     amount: number;
     currency: string;
@@ -20,7 +24,8 @@ export interface ReminderDate {
     date: number;
 }
 
-const SITE = "https://subflow.ing";
+// The apex domain redirects to www; images should not depend on a redirect.
+const SITE = "https://www.subflow.ing";
 
 const escapeHtml = (value: string) =>
     value
@@ -174,21 +179,17 @@ function formatTotal(items: ReminderItem[]) {
         .join(" + ");
 }
 
-const AVATAR_COLORS = [
-    "#6366f1",
-    "#0ea5e9",
-    "#10b981",
-    "#f59e0b",
-    "#ef4444",
-    "#ec4899",
-    "#8b5cf6",
-    "#14b8a6",
-];
-
-function avatarColor(name: string) {
-    let hash = 0;
-    for (const ch of name) hash = (hash * 31 + ch.codePointAt(0)!) >>> 0;
-    return AVATAR_COLORS[hash % AVATAR_COLORS.length];
+// Same tile as the calendar on the subscription page: a dark square with a
+// light border, holding the service logo or the name's first letter.
+function renderIconTile(s: ReminderItem) {
+    const initial = escapeHtml(
+        (Array.from(s.name.trim())[0] ?? "?").toUpperCase(),
+    );
+    const inner =
+        s.hasLogo && s.serviceId
+            ? `<img src="${SITE}/api/email-icon/${encodeURIComponent(s.serviceId)}" width="20" height="20" alt="${initial}" style="display:block;width:20px;height:20px;margin:6px auto;border:0;outline:none;text-decoration:none;color:#faf0e6;font-size:14px;font-weight:700;line-height:20px;text-align:center;">`
+            : initial;
+    return `<div style="width:32px;height:32px;border:2px solid #e5dcd3;border-radius:8px;background:#27272a;color:#faf0e6;font-size:16px;font-weight:700;line-height:32px;text-align:center;">${inner}</div>`;
 }
 
 const FONT =
@@ -207,7 +208,6 @@ export function buildReminderEmail(
     const total = formatTotal(all);
 
     const renderRow = (s: ReminderItem, shared: boolean, last: boolean) => {
-        const initial = escapeHtml(Array.from(s.name.trim())[0] ?? "?");
         const cycle = t.cycle[s.paymentCycle] ?? escapeHtml(s.paymentCycle);
         const tag = shared
             ? `<span style="display:inline-block;margin-left:6px;padding:1px 6px;border-radius:4px;background:#eef2ff;color:#4f46e5;font-size:11px;line-height:16px;vertical-align:1px;">${t.shareTag}</span>`
@@ -218,7 +218,7 @@ export function buildReminderEmail(
                 <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation">
                   <tr>
                     <td width="40" valign="middle" style="width:40px;">
-                      <div style="width:36px;height:36px;border-radius:10px;background:${avatarColor(s.name)};color:#ffffff;font-size:16px;font-weight:700;line-height:36px;text-align:center;">${initial}</div>
+                      ${renderIconTile(s)}
                     </td>
                     <td valign="middle" style="padding-left:12px;">
                       <div style="font-size:15px;font-weight:600;color:#18181b;line-height:20px;">${escapeHtml(s.name)}${tag}</div>
