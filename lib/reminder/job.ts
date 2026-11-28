@@ -12,9 +12,26 @@ import {
     type ReminderItem,
     type ReminderLanguage,
 } from "@/lib/reminder/template";
+import { subscriptionServices } from "@/data/subscriptionServices";
 
 // Resend's default rate limit is 2 requests per second.
 const SEND_INTERVAL_MS = 600;
+
+// These logos use SVG features the PNG renderer drops, so they come out
+// blank; the email shows the first letter instead.
+const LOGOS_THAT_RENDER_BLANK = new Set(["Google Antigravity"]);
+
+const servicesWithLogo = new Set(
+    subscriptionServices
+        .filter(
+            (s) =>
+                typeof s.icon !== "string" &&
+                !LOGOS_THAT_RENDER_BLANK.has(s.name),
+        )
+        .map((s) => s.uuid),
+);
+const hasLogo = (serviceId?: string) =>
+    Boolean(serviceId && servicesWithLogo.has(serviceId));
 
 const escapeRegex = (value: string) =>
     value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -28,6 +45,7 @@ export interface ReminderRecipient {
 
 interface StoredSubscription {
     userId: string;
+    serviceId?: string;
     name: string;
     price: number;
     currency: string;
@@ -74,6 +92,8 @@ export function toReminderItems(
     for (const s of dueSubscriptions) {
         if (recipient.userIds.includes(s.userId)) {
             own.push({
+                serviceId: s.serviceId,
+                hasLogo: hasLogo(s.serviceId),
                 name: s.name,
                 amount: s.price,
                 currency: s.currency,
@@ -87,6 +107,8 @@ export function toReminderItems(
         );
         if (co) {
             shared.push({
+                serviceId: s.serviceId,
+                hasLogo: hasLogo(s.serviceId),
                 name: s.name,
                 amount: co.amount ?? s.price,
                 currency: co.currency ?? s.currency,
@@ -107,6 +129,7 @@ export async function sendReminderToUser(
     recipient: ReminderRecipient,
     own: ReminderItem[],
     shared: ReminderItem[],
+    chargeDate: CalendarDate,
 ): Promise<void> {
     const from = process.env.REMINDER_EMAIL_FROM_ADDRESS;
     if (!from) {
@@ -117,6 +140,7 @@ export async function sendReminderToUser(
         recipient.language,
         own,
         shared,
+        chargeDate,
     );
     await sendEmail({
         from: `Subflow <${from}>`,
@@ -159,6 +183,14 @@ export async function runPaymentReminders(
         throw new Error("today and includeAll require onlyEmail");
     }
     const today = options.today ?? getTodayInTimeZone(options.now);
+    const tomorrowUtc = new Date(
+        Date.UTC(today.year, today.month - 1, today.date + 1),
+    );
+    const tomorrow: CalendarDate = {
+        year: tomorrowUtc.getUTCFullYear(),
+        month: tomorrowUtc.getUTCMonth() + 1,
+        date: tomorrowUtc.getUTCDate(),
+    };
     const db = await connectToDatabase();
     const EmailModel = getEmailModel(db);
     const SubscriptionModel = getSubscriptionModel(db);
@@ -215,7 +247,7 @@ export async function runPaymentReminders(
                 await new Promise((r) => setTimeout(r, SEND_INTERVAL_MS));
             }
             attempted += 1;
-            await sendReminderToUser(recipient, own, shared);
+            await sendReminderToUser(recipient, own, shared, tomorrow);
             summary.sent += 1;
         } catch (error) {
             summary.failed += 1;

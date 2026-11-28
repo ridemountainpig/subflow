@@ -19,9 +19,11 @@ const intlMiddleware = createMiddleware(routing);
 
 const proxy = clerkMiddleware(async (auth, request) => {
     // Skip Clerk auth for webhooks and cron jobs (they check their own secrets)
+    // and for the public logo images used in emails
     if (
         request.nextUrl.pathname.startsWith("/api/webhooks") ||
-        request.nextUrl.pathname.startsWith("/api/cron")
+        request.nextUrl.pathname.startsWith("/api/cron") ||
+        request.nextUrl.pathname.startsWith("/api/email-icon")
     ) {
         return;
     }
